@@ -1,0 +1,19 @@
+{
+  "name": "best-finds",
+  "version": "1.0.0",
+  "description": "Catalogue automatique du canal Telegram lovegobuy_france",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "scrape": "node scripts/scrape.mjs",
+    "test": "node test/parse.test.mjs"
+  },
+  "dependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
+    "cheerio": "^1.0.0",
+    "sharp": "^0.33.5"
+  },
+  "private": true,
+  "type": "module"
+}
