@@ -44,17 +44,77 @@ function looksLikeRuler(c, w, h) {
  * @param {Buffer} input image source (jpg/webp/png)
  * @returns {Promise<Buffer>} webp transparent 900x1200, objet centré
  */
-export async function cutout(input, { width = 900, height = 1200, margin = 0.07 } = {}) {
+export async function cutout(input, { width = 900, height = 1200, margin = 0.07, dropPackaging = false } = {}) {
   const png = await sharp(input).rotate().resize({ width: 1024, height: 1024, fit: 'inside', withoutEnlargement: true }).png().toBuffer();
   const blob = await removeBackground(new Blob([png], { type: 'image/png' }), { model: 'medium', output: { format: 'image/png' } });
   const cutPng = Buffer.from(await blob.arrayBuffer());
-  return cleanCutout(cutPng, { width, height, margin, source: input });
+  return cleanCutout(cutPng, { width, height, margin, source: input, dropPackaging });
+}
+
+/**
+ * Retire un emballage en carton kraft posé contre le produit (ex. la boîte d'une gourde) :
+ * on repère la plus grande zone couleur carton, et si elle forme un bloc rectangulaire, on efface ce rectangle.
+ * Le produit, à côté, reste seul.
+ */
+function removeCardboard(data, w, h) {
+  const s = Math.max(1, Math.round(Math.max(w, h) / 200));
+  const mw = Math.ceil(w / s), mh = Math.ceil(h / s);
+  const kraft = new Uint8Array(mw * mh), opaque = new Uint8Array(mw * mh);
+  for (let y = 0; y < h; y += s) for (let x = 0; x < w; x += s) {
+    const i = (y * w + x) * 4;
+    if (data[i + 3] < 200) continue;
+    const q = ((y / s) | 0) * mw + ((x / s) | 0);
+    opaque[q] = 1;
+    const r = data[i] / 255, g = data[i + 1] / 255, b = data[i + 2] / 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    if (!d) continue;
+    let hue = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    hue *= 60; if (hue < 0) hue += 360;
+    const sat = d / mx;
+    if (hue >= 22 && hue <= 48 && sat >= 0.22 && sat <= 0.65 && mx >= 0.4 && mx <= 0.9) kraft[q] = 1;
+  }
+  const { label, comps } = components(kraft, mw, mh);
+  if (!comps.length) return;
+  const c = comps.reduce((a, b) => (b.area > a.area ? b : a));
+  const totalOpaque = opaque.reduce((a, b) => a + b, 0);
+  const bw = c.x1 - c.x0 + 1, bh = c.y1 - c.y0 + 1;
+  // la zone carton doit être grande, et remplir son rectangle (étiquettes et codes-barres laissent quelques trous)
+  if (c.area < totalOpaque * 0.15 || c.area / (bw * bh) < 0.5) return;
+  // et il doit rester autre chose à côté (sinon c'est l'article lui-même, ex. un sac en carton)
+  let outside = 0;
+  for (let y = 0; y < mh; y++) for (let x = 0; x < mw; x++) if (opaque[y * mw + x] && (x < c.x0 || x > c.x1 || y < c.y0 || y > c.y1)) outside++;
+  if (outside < totalOpaque * 0.15) return;
+  const pad = Math.round(Math.max(bw, bh) * 0.02);
+  const X0 = Math.max(0, (c.x0 - pad) * s), X1 = Math.min(w - 1, (c.x1 + 1 + pad) * s), Y0 = Math.max(0, (c.y0 - pad) * s), Y1 = Math.min(h - 1, (c.y1 + 1 + pad) * s);
+  const isKraft = (i) => {
+    const r = data[i] / 255, g = data[i + 1] / 255, b = data[i + 2] / 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    if (!d) return false;
+    let hue = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    hue *= 60; if (hue < 0) hue += 360;
+    const sat = d / mx;
+    return hue >= 18 && hue <= 52 && sat >= 0.15 && sat <= 0.7 && mx >= 0.3 && mx <= 0.95;
+  };
+  // 1. effacer le carton lui-même
+  for (let y = Y0; y <= Y1; y++) for (let x = X0; x <= X1; x++) { const i = (y * w + x) * 4; if (data[i + 3] && isKraft(i)) data[i + 3] = 0; }
+  // 2. effacer ce qui était imprimé ou collé sur le carton (étiquettes) : les morceaux restés entièrement dans son rectangle
+  const rest = new Uint8Array(mw * mh);
+  for (let y = 0; y < h; y += s) for (let x = 0; x < w; x += s) if (data[(y * w + x) * 4 + 3] > 128) rest[((y / s) | 0) * mw + ((x / s) | 0)] = 1;
+  const parts = components(rest, mw, mh);
+  const inside = new Set(parts.comps.filter((p) => p.x0 * s >= X0 && p.x1 * s <= X1 && p.y0 * s >= Y0 && p.y1 * s <= Y1).map((p) => p.id));
+  if (!inside.size) return;
+  for (let y = Y0; y <= Y1; y++) for (let x = X0; x <= X1; x++) {
+    const l = parts.label[Math.min(mh - 1, (y / s) | 0) * mw + Math.min(mw - 1, (x / s) | 0)];
+    if (inside.has(l)) data[(y * w + x) * 4 + 3] = 0;
+  }
+  void label;
 }
 
 /** Nettoie un PNG déjà détouré (séparé pour pouvoir le tester sans relancer le modèle). */
-export async function cleanCutout(cutPng, { width = 900, height = 1200, margin = 0.07, source = null } = {}) {
+export async function cleanCutout(cutPng, { width = 900, height = 1200, margin = 0.07, source = null, dropPackaging = false } = {}) {
   const { data, info } = await sharp(cutPng).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, h = info.height;
+  if (dropPackaging) removeCardboard(data, w, h);
 
   // Masque réduit (plus rapide) pour analyser les morceaux détourés
   const s = Math.max(1, Math.round(Math.max(w, h) / 256));
@@ -100,6 +160,73 @@ export async function cleanCutout(cutPng, { width = 900, height = 1200, margin =
     stripBands(bx0, bx1, by0, by1, V); // règles verticales (gauche / droite)
   }
 
+
+  // Boîte collée au produit (chaussures, accessoires) : bloc de lignes pleines aux bords bien droits,
+  // à une extrémité de l'objet, suivi d'une partie nettement moins pleine (le produit). On coupe le bloc.
+  if (dropPackaging) {
+    // seuls les morceaux importants comptent (les miettes et bouts de règle faussent le cadre)
+    const pre = components(mask, mw, mh);
+    const big0 = Math.max(0, ...pre.comps.map((c) => c.area));
+    const small = new Set(pre.comps.filter((c) => c.area < big0 * 0.04 || (looksLikeRuler(c, mw, mh) && c.area < big0)).map((c) => c.id));
+    for (let q = 0; q < mw * mh; q++) if (mask[q] && small.has(pre.label[q])) mask[q] = 0;
+    bx0 = mw; by0 = mh; bx1 = -1; by1 = -1;
+    for (let y = 0; y < mh; y++) for (let x = 0; x < mw; x++) if (mask[y * mw + x]) { if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y; }
+  }
+  if (dropPackaging && bx1 >= 0) {
+    const stripBox = (lo, hi, jlo, jhi, at, lines) => {
+      const n = hi - lo + 1;
+      if (n < 20) return;
+      const row = (i) => {
+        let a = -1, b = -1, c = 0;
+        for (let j = jlo; j <= jhi; j++) if (mask[at(i, j)]) { if (a < 0) a = j; b = j; c++; }
+        return { a, b, fill: a < 0 ? 0 : c / (b - a + 1), span: a < 0 ? 0 : (b - a + 1) / (jhi - jlo + 1) };
+      };
+      const rows = []; for (let i = lo; i <= hi; i++) rows.push(row(i));
+      const total = rows.reduce((t, r) => t + r.fill * r.span, 0);
+      for (const dir of [1]) { // seulement en haut : la boîte est posée derrière le produit, en haut de la photo
+        const at0 = dir === 1 ? 0 : n - 1;
+        // largeur de la boîte : la plus grande ligne pleine près de ce bord
+        let wmax = 0;
+        for (let t = 0; t < n * 0.4; t++) { const r = rows[at0 + dir * t]; if (r && r.fill >= 0.93 && r.span > wmax) wmax = r.span; }
+        if (wmax < 0.3) continue;
+        const full = (r) => r && r.fill >= 0.93 && r.span >= wmax * 0.85;
+        // le bloc commence au bord (coins arrondis ou boîte un peu de travers : quelques lignes tolérées)
+        let k = at0, skip = 0;
+        while (skip < n * 0.1 && rows[k] && !full(rows[k])) { k += dir; skip++; }
+        // coin de travers : on attend que les bords se stabilisent
+        while (skip < n * 0.12 && full(rows[k + dir]) && (Math.abs(rows[k + dir].a - rows[k].a) > 2 || Math.abs(rows[k + dir].b - rows[k].b) > 2)) { k += dir; skip++; }
+        const start = k, r0 = rows[k];
+        if (process.env.DEBUG_CUT) console.log('  boîte? dir', dir, 'début', start, 'largeur', wmax.toFixed(2), 'n', n);
+        if (!full(r0)) continue;
+        // bords droits : peu de variation sur toute la hauteur du bloc
+        const drift = Math.max(3, (jhi - jlo + 1) * 0.06);
+        while (full(rows[k + dir]) && Math.abs(rows[k + dir].a - r0.a) <= drift && Math.abs(rows[k + dir].b - r0.b) <= drift) k += dir;
+        const len = Math.abs(k - start) + 1;
+        if (process.env.DEBUG_CUT) console.log('  boîte? longueur', len);
+        if (len < n * 0.15 || len > n * 0.8) continue;
+        // le reste : assez grand et moins plein (le produit)
+        const rest = dir === 1 ? rows.slice(k + 1) : rows.slice(0, k);
+        const restArea = rest.reduce((t, r) => t + r.fill * r.span, 0);
+        const restFill = rest.length ? rest.reduce((t, r) => t + r.fill, 0) / rest.length : 0;
+        const restSpan = rest.length ? rest.reduce((t, r) => t + r.span, 0) / rest.length : 1;
+        if (process.env.DEBUG_CUT) console.log('  boîte? reste', (restArea / total).toFixed(2), restFill.toFixed(2), (restSpan / wmax).toFixed(2));
+        if (restArea < total * 0.25 || restSpan > wmax * 0.8) continue; // le produit, sous la boîte, est nettement moins large
+        // bord de la boîte un peu de travers : on continue tant que la ligne reste plus large que le produit
+        const restW = rest.length ? [...rest].sort((p, q) => p.span - q.span)[Math.floor(rest.length / 2)].span : 0;
+        let e = k;
+        while (Math.abs(e - k) < n * 0.08 && rows[e + dir] && rows[e + dir].span > restW * 1.15) e += dir;
+        const end = e + dir * 2; // deux lignes de plus pour le bord de la boîte
+        for (let t = Math.min(at0, end); t <= Math.max(at0, end); t++) {
+          if (t < 0 || t >= n) continue;
+          for (let j = 0; j < lines; j++) { mask[at(lo + t, j)] = 0; cut[at(lo + t, j)] = 1; }
+        }
+        if (process.env.DEBUG_CUT) console.log(`  boîte collée retirée (${len} lignes)`);
+        return;
+      }
+    };
+    stripBox(by0, by1, bx0, bx1, H, mw);
+  }
+
   const { label, comps } = components(mask, mw, mh);
   if (!comps.length) return null; // rien détecté : on garde la photo d'origine
   const biggest = Math.max(...comps.map((c) => c.area));
@@ -110,6 +237,50 @@ export async function cleanCutout(cutPng, { width = 900, height = 1200, margin =
       .map((c) => c.id),
   );
   if (!keep.size) return null;
+
+  // Morceaux à moitié transparents à l'écart de l'objet (ex. filigrane du canal, sachet blanc) : écartés
+  if (keep.size > 1) {
+    const alphaSum = new Float64Array(comps.length), cnt = new Uint32Array(comps.length);
+    for (let y = 0; y < h; y += s) for (let x = 0; x < w; x += s) {
+      const l = label[((y / s) | 0) * mw + ((x / s) | 0)];
+      if (l >= 0) { alphaSum[l] += data[(y * w + x) * 4 + 3]; cnt[l]++; }
+    }
+    for (const c of comps) if (keep.has(c.id) && c.area < biggest * 0.3 && cnt[c.id] && alphaSum[c.id] / cnt[c.id] < 170) keep.delete(c.id);
+  }
+
+  // Filigrane du canal (vignette « VYTOXX » posée en bas à gauche) : écarté s'il est à part
+  if (keep.size > 1) {
+    for (const c of comps) {
+      if (!keep.has(c.id) || c.area >= biggest * 0.35) continue;
+      const fill = c.area / ((c.x1 - c.x0 + 1) * (c.y1 - c.y0 + 1)); // la vignette est rectangulaire
+      if (fill > 0.8 && c.x1 < mw * 0.45 && c.y0 > mh * 0.55 && c.y1 > mh * 0.75) keep.delete(c.id);
+    }
+  }
+
+  // Boîte posée à côté du produit (chaussures, accessoires) : un bloc parfaitement rectangulaire,
+  // alors que le produit, lui, a une forme irrégulière. On retire la boîte et on garde le produit.
+  if (dropPackaging && keep.size > 1) {
+    const kept = comps.filter((c) => keep.has(c.id));
+    const total = kept.reduce((a, c) => a + c.area, 0);
+    const fillOf = (c) => c.area / ((c.x1 - c.x0 + 1) * (c.y1 - c.y0 + 1));
+    const big = kept.filter((c) => c.area >= total * 0.08);
+    const boxes = big.filter((c) => fillOf(c) >= 0.9);
+    const products = big.filter((c) => !boxes.includes(c));
+    if (process.env.DEBUG_CUT) console.log('  morceaux', big.map((c) => `${c.area}/${fillOf(c).toFixed(2)}`).join(' '));
+    const bestBox = boxes.length ? Math.min(...boxes.map(fillOf)) : 0;
+    if (boxes.length && products.length && products.some((c) => fillOf(c) <= bestBox - 0.06)) {
+      for (const b of boxes) keep.delete(b.id);
+      if (process.env.DEBUG_CUT) console.log(`  boîte retirée (${boxes.length})`);
+      // ce qui était posé sur la boîte (étiquettes) ou tout petit morceau voisin disparaît aussi
+      const rest = comps.filter((c) => keep.has(c.id));
+      const restBig = Math.max(...rest.map((c) => c.area));
+      for (const c of rest) {
+        const onBox = boxes.some((b) => c.x0 >= b.x0 && c.x1 <= b.x1 && c.y0 >= b.y0 && c.y1 <= b.y1);
+        if (onBox || c.area < restBig * 0.04) keep.delete(c.id);
+      }
+      if (!keep.size) return null;
+    }
+  }
 
   // Détourage troué : l'objet gardé entoure une grande zone vide (ex. seulement les bretelles d'un haut)
   {
@@ -139,7 +310,17 @@ export async function cleanCutout(cutPng, { width = 900, height = 1200, margin =
       const cell = Math.min(mh - 1, (y / s) | 0) * mw + Math.min(mw - 1, (x / s) | 0);
       if (cut[cell]) { data[i + 3] = 0; continue; }
       const l = label[cell];
-      if (l === -1) continue; // cellule sans pixel opaque : simple frange semi-transparente
+      if (l === -1) {
+        // cellule sans pixel opaque : frange semi-transparente, gardée seulement au bord de l'objet
+        const cx = cell % mw, cy = (cell / mw) | 0;
+        let near = false;
+        for (let dy = -1; dy <= 1 && !near; dy++) for (let dx = -1; dx <= 1; dx++) {
+          const nx = cx + dx, ny = cy + dy;
+          if (nx >= 0 && ny >= 0 && nx < mw && ny < mh && keep.has(label[ny * mw + nx])) { near = true; break; }
+        }
+        if (!near) data[i + 3] = 0;
+        continue;
+      }
       if (!keep.has(l)) { data[i + 3] = 0; continue; }
       if (data[i + 3] > 30) { solid++; if (data[i + 3] < 200) semi++; }
       if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;

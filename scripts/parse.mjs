@@ -111,14 +111,14 @@ const CATEGORIES = [
   ['Hauts', /t-?shirt|\btee\b|polo\b|chemise|shirt|maillot|débardeur|\btop\b|\bhaut\b|dri-fit/i],
   ['Bas', /pantalon|jogging|jogger|short|jeans?\b|pants?\b|legging|cargo|caleçons?|boxers?/i],
   ['Ensembles', /ensemble|survêtement|tracksuit|\bsets?\b|sportswear|running|run division/i],
-  ['Chaussures', /chaussure|sneakers?|baskets?|shoes?\b|boots?\b|botte|\btn\b|air max|air force|shox|p6000|jordan|dunk|samba|claquette|slide|sabot|crocs|9060|1906|jumpman|escarpins?|sandales?|mules?|mocassins?|runner|trainer|tennis walk|golden goose|yeezy \d|dior b\d|cloud\w*|gel-|kayano|xt-6|saucony|phenome|trail/i],
+  ['Chaussures', /chaussure|sneakers?|baskets?|shoes?\b|boots?\b|botte|\btn\b|air max|air force|shox|p6000|jordan|dunk|samba|claquette|slide|sabot|crocs|9060|1906|jumpman|escarpins?|sandales?|mules?|mocassins?|runner|trainer|tennis walk|golden goose|yeezy \d|dior b\d|cloud\w*|gel-|kayano|xt-6|saucony|asics|numeris/i],
   ['Accessoires', /bonnet|écharpe|echarpe|scarf|casquette|\bcaps?\b|\bhat\b|beanie|gants?|ceinture|lunettes|glasses|sacs?\b|\bbags?\b|bowling|cisalpin|sprayground|portefeuille|porte-cartes|wallet|bracelet|collier|bague|montres?\b|watch|chrono|gourde|tumbler|quencher|chaussettes|socks|coque|airpods|goyard/i],
 ];
 
 export function detectCategory(title) {
   // Le mot-clé le plus proche du début du titre désigne le type d'article
   // ("Short Nocta Tech Fleece" = un short, "Écharpe Polo Ralph Lauren" = une écharpe)
-  const t = title.toLowerCase().replace(/[\u2010-\u2013]/g, '-');
+  const t = title.toLowerCase().replace(/[\u2010-\u2013]/g, '-').replace(/sweet pants/g, ' '); // « Sweet Pants » : une marque
   if (/hooded and pant|hoodie and pant|\bset\b/i.test(t)) return 'Ensembles';
   let best = null;
   for (const [name, re] of CATEGORIES) {
@@ -219,6 +219,7 @@ export function toArticles(messages, channel = 'lovegobuy_france') {
       title,
       brand,
       category,
+      type: kind, // type précis (Vestes, Doudounes, Sweats…) : sert au choix de la photo de face
       weight,
       description: describe({ title, brand, category: kind, weight, photoCount: photos.length, extra }),
       link: lgb ? lgb.href : null,

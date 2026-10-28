@@ -69,10 +69,9 @@
   app.innerHTML = `
     <header class="top"><div class="wrap top-in">
       <nav class="nav-links" aria-label="Navigation">
-        <a href="#catalogue" id="nav-cat">Articles</a>
-        <a href="#tuto" id="nav-tuto">Tuto pour commander</a>
+        <a href="#tuto" id="nav-tuto">${icon.play} Tuto pour commander</a>
       </nav>
-      <a class="brand" href="#" aria-label="${esc(S.name || 'Accueil')} — accueil">${logo()}</a>
+      <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
       <div class="top-right">
         <button class="gift" type="button" id="open-promo">${icon.gift}<span>${coupon} offerts</span></button>
         <div class="paper" role="group" aria-label="Couleur du fond">
@@ -117,8 +116,10 @@
   // ---------- pop-up coupon ----------
   const promo = document.getElementById('promo');
   let lastFocus = null;
-  const openPromo = () => {
+  const openPromo = (auto) => {
     lastFocus = document.activeElement;
+    // à l'ouverture automatique (arrivée sur le site), « Plus tard » apparaît après 0,5 s, en fondu sur 2 s
+    promo.classList.toggle('intro', auto === true);
     promo.hidden = false;
     document.body.classList.add('locked');
     requestAnimationFrame(() => promo.classList.add('on'));
@@ -136,7 +137,7 @@
     store.set('promo-clicked', String(Date.now()));
     closePromo();
   });
-  document.getElementById('open-promo').addEventListener('click', openPromo);
+  document.getElementById('open-promo').addEventListener('click', () => openPromo());
   document.addEventListener('keydown', (e) => {
     if (promo.hidden) return;
     if (e.key === 'Escape') closePromo();
@@ -149,7 +150,7 @@
   });
   // À l'arrivée sur le site : une fois par visite, sauf si le lien a déjà été ouvert dans les 7 derniers jours
   const clicked = Number(store.get('promo-clicked') || 0);
-  if (!store.sget('promo-seen') && Date.now() - clicked > 7 * 864e5) setTimeout(openPromo, 700);
+  if (!store.sget('promo-seen') && Date.now() - clicked > 7 * 864e5) setTimeout(() => openPromo(true), 700);
 
   // ---------- classement interne : clics sur les produits du site ----------
   // Ouvrir la fiche d'un article et cliquer vers LoveGoBuy incrémentent le compteur de cet article.
@@ -183,10 +184,14 @@
     if (a) trackClick(Number(a.dataset.buy), 'buy');
   });
 
+  // Photo d'origine la plus pertinente (choisie par le robot), utilisée quand il n'y a pas de photo détourée
+  const bestPhoto = (a) => (a.photos || [])[(a.front || 1) - 1] || (a.photos || [])[0];
+
   // ---------- carte ----------
   const card = (a) => {
-    const main = a.cover || (a.photos || [])[0];
-    const real = a.cover ? (a.photos || [])[0] : (a.photos || [])[1];
+    const best = bestPhoto(a);
+    const main = a.cover || best;
+    const real = a.cover ? best : (a.photos || []).find((p) => p !== best);
     const w = weightText(a.weight);
     return `<a class="card" href="#article-${a.id}">
       <div class="ph ${a.cover ? 'is-cut' : ''}">
@@ -223,7 +228,7 @@
 
   const PAGE = 48;
   // ---------- page d'accueil ----------
-  const thumb = (a) => a.cover || (a.photos || [])[0] || '';
+  const thumb = (a) => a.cover || bestPhoto(a) || '';
   // Tuiles larges pour que la grille des catégories tombe juste (4 colonnes sur ordinateur, 2 sur téléphone)
   const tileSpan = (k, n) => {
     const r = n % 4, cls = [];
@@ -268,6 +273,21 @@
       </section>` : ''}
 
       <section class="wrap block duo">
+        <aside class="panel top-col">
+          <div class="block-head"><h2>Top du moment</h2></div>
+          <div class="top-panel">
+          <p class="top-note">Les articles les plus cliqués sur le site ces ${C.days || 30} derniers jours.</p>
+          ${ranking.length ? `<ol class="top-list">${ranking.map((a, k) => `<li><a href="#article-${a.id}">
+            <span class="rank">${k + 1}</span>
+            <span class="top-pic"><img src="${esc(thumb(a))}" alt="" loading="lazy"></span>
+            <span class="top-b"><span class="top-title">${esc(a.title)}</span><span class="top-meta">${top.counts[a.id].toLocaleString('fr-FR')} clic${top.counts[a.id] > 1 ? 's' : ''}</span></span>
+          </a></li>`).join('')}</ol>
+          <a class="more-link solo" href="#catalogue" id="see-top">Voir le classement complet ${icon.right}</a>` : `<div class="top-empty">
+            <span class="top-empty-n">1</span>
+            <p>Le classement se remplit avec les clics sur les articles du site. Il est mis à jour toutes les 15 minutes : les premiers articles cliqués apparaîtront ici.</p>
+          </div>`}
+          </div>
+        </aside>
         <div class="panel">
           <div class="block-head"><h2>Dernières arrivées</h2><a class="more-link" href="#catalogue">Tout voir ${icon.right}</a></div>
           ${latest.length ? `<div class="arrivals">${latest.map((a) => `<a class="arrival" href="#article-${a.id}">
@@ -279,22 +299,9 @@
             </span>
           </a>`).join('')}</div>` : '<p class="muted">Les articles arrivent à la prochaine lecture du canal.</p>'}
         </div>
-        <aside class="panel top-panel">
-          <div class="block-head"><h2>Top du moment</h2></div>
-          <p class="top-note">Les articles les plus cliqués sur le site ces ${C.days || 30} derniers jours.</p>
-          ${ranking.length ? `<ol class="top-list">${ranking.map((a, k) => `<li><a href="#article-${a.id}">
-            <span class="rank">${k + 1}</span>
-            <span class="top-pic"><img src="${esc(thumb(a))}" alt="" loading="lazy"></span>
-            <span class="top-b"><span class="top-title">${esc(a.title)}</span><span class="top-meta">${top.counts[a.id].toLocaleString('fr-FR')} clic${top.counts[a.id] > 1 ? 's' : ''}</span></span>
-          </a></li>`).join('')}</ol>
-          <a class="more-link solo" href="#catalogue" id="see-top">Voir le classement complet ${icon.right}</a>` : `<div class="top-empty">
-            <span class="top-empty-n">1</span>
-            <p>Le classement se remplit avec les clics sur les articles du site. Il est mis à jour toutes les 15 minutes : les premiers articles cliqués apparaîtront ici.</p>
-          </div>`}
-        </aside>
       </section>`;
 
-    view.querySelector('#hero-promo').addEventListener('click', openPromo);
+    view.querySelector('#hero-promo').addEventListener('click', () => openPromo());
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });
     view.querySelectorAll('.cat-tile').forEach((b) => b.addEventListener('click', () => {
       state.cat = b.dataset.c; state.q = ''; state.brand = ''; catScroll = 0;
@@ -472,7 +479,9 @@
       return;
     }
     document.title = `${a.title} · ${S.name || 'Finds'}`;
+    const best = bestPhoto(a);
     const shots = [...(a.cover ? [{ src: a.cover, cut: true }] : []), ...(a.photos || []).map((src) => ({ src, cut: false }))];
+    if (!a.cover && best) { const k = shots.findIndex((x) => x.src === best); if (k > 0) shots.unshift(...shots.splice(k, 1)); }
     const related = state.articles
       .filter((x) => x.id !== a.id && (x.category === a.category || (a.brand && x.brand === a.brand)))
       .sort((x, y) => (y.brand === a.brand) - (x.brand === a.brand) || y.id - x.id)
@@ -527,7 +536,7 @@
       buyObserver = new IntersectionObserver(([e]) => bar.classList.toggle('away', e.isIntersecting));
       buyObserver.observe(mainBuy);
     }
-    view.querySelector('#hint-promo')?.addEventListener('click', openPromo);
+    view.querySelector('#hint-promo')?.addEventListener('click', () => openPromo());
 
     // Galerie : flèches, vignettes, clavier, glisser
     let i = 0;
@@ -588,7 +597,6 @@
     const h = location.hash;
     document.body.classList.toggle('home', !(h === '#tuto' || h === '#catalogue' || /^#article-/.test(h)));
     const m = h.match(/^#article-(\d+)$/);
-    document.getElementById('nav-cat').setAttribute('aria-current', String(h === '#catalogue' || !!m));
     document.getElementById('nav-tuto').setAttribute('aria-current', String(h === '#tuto'));
     if (m) {
       trackClick(Number(m[1]), 'open');
