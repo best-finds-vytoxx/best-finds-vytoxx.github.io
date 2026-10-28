@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-28T14:30:42.023Z",
+ "updatedAt": "2026-10-28T19:53:26.044Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "articles": [
@@ -17,7 +17,7 @@
    "shop": "weidian",
    "productId": "7880297647",
    "date": "2026-10-26T16:53:45+00:00",
-   "views": "425",
+   "views": "464",
    "telegram": "https://t.me/lovegobuy_france/5452",
    "photos": [
     "images/5452/1.webp",
@@ -50,7 +50,7 @@
    "shop": "weidian",
    "productId": "7880177385",
    "date": "2026-10-26T16:53:40+00:00",
-   "views": "365",
+   "views": "434",
    "telegram": "https://t.me/lovegobuy_france/5445",
    "photos": [
     "images/5445/1.webp",
@@ -84,7 +84,7 @@
    "shop": "weidian",
    "productId": "7883242742",
    "date": "2026-10-26T16:53:35+00:00",
-   "views": "360",
+   "views": "425",
    "telegram": "https://t.me/lovegobuy_france/5439",
    "photos": [
     "images/5439/1.webp",
@@ -117,7 +117,7 @@
    "shop": "weidian",
    "productId": "7821172371",
    "date": "2026-10-25T09:14:36+00:00",
-   "views": "698",
+   "views": "724",
    "telegram": "https://t.me/lovegobuy_france/5427",
    "photos": [
     "images/5427/1.webp",
@@ -153,7 +153,7 @@
    "shop": "weidian",
    "productId": "7882813930",
    "date": "2026-10-25T09:14:25+00:00",
-   "views": "646",
+   "views": "669",
    "telegram": "https://t.me/lovegobuy_france/5418",
    "photos": [
     "images/5418/1.webp",
@@ -189,7 +189,7 @@
    "shop": "weidian",
    "productId": "7882723170",
    "date": "2026-10-25T09:14:18+00:00",
-   "views": "568",
+   "views": "592",
    "telegram": "https://t.me/lovegobuy_france/5409",
    "photos": [
     "images/5409/1.webp",
@@ -225,7 +225,7 @@
    "shop": "weidian",
    "productId": "7881923624",
    "date": "2026-10-23T18:30:42+00:00",
-   "views": "810",
+   "views": "835",
    "telegram": "https://t.me/lovegobuy_france/5397",
    "photos": [
     "images/5397/1.webp",
@@ -4602,7 +4602,12 @@
    ],
    "cover": "images/4389/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4385,
@@ -4628,7 +4633,12 @@
    ],
    "cover": "images/4385/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 1,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4380,
@@ -4655,7 +4665,12 @@
    ],
    "cover": "images/4380/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 3,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4374,
@@ -4683,7 +4698,12 @@
    ],
    "cover": "images/4374/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Ensembles"
+   "type": "Ensembles",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4365,
@@ -4714,7 +4734,12 @@
    ],
    "cover": "images/4365/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Ensembles"
+   "type": "Ensembles",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4360,
@@ -4741,7 +4766,12 @@
    ],
    "cover": "images/4360/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4355,
@@ -4768,7 +4798,12 @@
    ],
    "cover": "images/4355/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": "wear"
   },
   {
    "id": 4349,
@@ -4796,7 +4831,12 @@
    ],
    "cover": "images/4349/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": "wear"
   },
   {
    "id": 4344,
@@ -4821,9 +4861,14 @@
     "images/4344/4.webp",
     "images/4344/5.webp"
    ],
-   "cover": "images/4344/cover.webp",
+   "cover": null,
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": null,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4340,
@@ -4847,9 +4892,14 @@
     "images/4340/3.webp",
     "images/4340/4.webp"
    ],
-   "cover": "images/4340/cover.webp",
+   "cover": null,
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": null,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4336,
@@ -4875,7 +4925,12 @@
    ],
    "cover": "images/4336/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Autres"
+   "type": "Autres",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": "shoe"
   },
   {
    "id": 4330,
@@ -4903,7 +4958,12 @@
    ],
    "cover": "images/4330/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4326,
@@ -4929,7 +4989,12 @@
    ],
    "cover": "images/4326/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 2,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4322,
@@ -4955,7 +5020,12 @@
    ],
    "cover": "images/4322/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4315,
@@ -4984,7 +5054,12 @@
    ],
    "cover": "images/4315/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4308,
@@ -5013,7 +5088,12 @@
    ],
    "cover": "images/4308/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 5,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4300,
@@ -5043,7 +5123,12 @@
    ],
    "cover": "images/4300/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4287,
@@ -5073,7 +5158,12 @@
    ],
    "cover": "images/4287/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Ensembles"
+   "type": "Ensembles",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4279,
@@ -5103,7 +5193,12 @@
    ],
    "cover": "images/4279/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4275,
@@ -5129,7 +5224,12 @@
    ],
    "cover": "images/4275/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4261,
@@ -5158,9 +5258,14 @@
     "images/4261/8.webp",
     "images/4261/9.webp"
    ],
-   "cover": "images/4261/cover.webp",
+   "cover": null,
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": null,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": "wear"
   },
   {
    "id": 4256,
@@ -5187,7 +5292,12 @@
    ],
    "cover": "images/4256/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4249,
@@ -5216,7 +5326,12 @@
    ],
    "cover": "images/4249/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4231,
@@ -5243,7 +5358,12 @@
    ],
    "cover": "images/4231/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4227,
@@ -5269,7 +5389,12 @@
    ],
    "cover": "images/4227/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4220,
@@ -5298,7 +5423,12 @@
    ],
    "cover": "images/4220/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4207,
@@ -5326,7 +5456,12 @@
    ],
    "cover": "images/4207/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4201,
@@ -5354,7 +5489,12 @@
    ],
    "cover": "images/4201/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4193,
@@ -5384,7 +5524,12 @@
    ],
    "cover": "images/4193/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4187,
@@ -5412,7 +5557,12 @@
    ],
    "cover": "images/4187/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 3,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4180,
@@ -5440,7 +5590,12 @@
    ],
    "cover": "images/4180/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 4,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4168,
@@ -5467,7 +5622,12 @@
    ],
    "cover": "images/4168/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 2,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4160,
@@ -5497,7 +5657,12 @@
    ],
    "cover": "images/4160/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4149,
@@ -5526,7 +5691,12 @@
    ],
    "cover": "images/4149/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Accessoires"
+   "type": "Accessoires",
+   "coverFrom": 4,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4145,
@@ -5552,7 +5722,12 @@
    ],
    "cover": "images/4145/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4137,
@@ -5582,7 +5757,12 @@
    ],
    "cover": "images/4137/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Ensembles"
+   "type": "Ensembles",
+   "coverFrom": 4,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4131,
@@ -5609,7 +5789,12 @@
    ],
    "cover": "images/4131/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4125,
@@ -5637,7 +5822,12 @@
    ],
    "cover": "images/4125/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4121,
@@ -5663,7 +5853,12 @@
    ],
    "cover": "images/4121/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Accessoires"
+   "type": "Accessoires",
+   "coverFrom": 2,
+   "front": 3,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4113,
@@ -5690,9 +5885,14 @@
     "images/4113/6.webp",
     "images/4113/7.webp"
    ],
-   "cover": null,
+   "cover": "images/4113/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4105,
@@ -5722,7 +5922,12 @@
    ],
    "cover": "images/4105/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4098,
@@ -5751,7 +5956,12 @@
    ],
    "cover": "images/4098/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4092,
@@ -5778,7 +5988,12 @@
    ],
    "cover": "images/4092/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4087,
@@ -5805,7 +6020,12 @@
    ],
    "cover": "images/4087/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 2,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4081,
@@ -5833,7 +6053,12 @@
    ],
    "cover": "images/4081/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Doudounes"
+   "type": "Doudounes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4075,
@@ -5860,7 +6085,12 @@
    ],
    "cover": "images/4075/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4070,
@@ -5887,7 +6117,12 @@
    ],
    "cover": "images/4070/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4062,
@@ -5917,7 +6152,12 @@
    ],
    "cover": "images/4062/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": 1,
+   "kindPick": null
   },
   {
    "id": 4050,
@@ -5944,7 +6184,12 @@
    ],
    "cover": "images/4050/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4038,
@@ -5972,7 +6217,12 @@
    ],
    "cover": "images/4038/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4034,
@@ -5998,7 +6248,12 @@
    ],
    "cover": "images/4034/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4029,
@@ -6025,7 +6280,12 @@
    ],
    "cover": "images/4029/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 3,
+   "front": 3,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4021,
@@ -6052,7 +6312,12 @@
    ],
    "cover": "images/4021/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Vestes"
+   "type": "Vestes",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 4011,
@@ -6079,7 +6344,12 @@
    ],
    "cover": "images/4011/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 2,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4006,
@@ -6105,7 +6375,12 @@
    ],
    "cover": "images/4006/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 3,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 4002,
@@ -6129,9 +6404,14 @@
     "images/4002/3.webp",
     "images/4002/4.webp"
    ],
-   "cover": "images/4002/cover.webp",
+   "cover": null,
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Accessoires"
+   "type": "Accessoires",
+   "coverFrom": null,
+   "front": 4,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3995,
@@ -6160,7 +6440,12 @@
    ],
    "cover": "images/3995/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 2,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 3990,
@@ -6186,7 +6471,12 @@
    ],
    "cover": "images/3990/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Accessoires"
+   "type": "Accessoires",
+   "coverFrom": 3,
+   "front": 3,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3982,
@@ -6216,7 +6506,12 @@
    ],
    "cover": "images/3982/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 3,
+   "front": 3,
+   "coverRev": 4,
+   "coverPick": 3,
+   "kindPick": null
   },
   {
    "id": 3973,
@@ -6247,7 +6542,12 @@
    ],
    "cover": "images/3973/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3967,
@@ -6274,7 +6574,12 @@
    ],
    "cover": "images/3967/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3962,
@@ -6301,7 +6606,12 @@
    ],
    "cover": "images/3962/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats"
+   "type": "Sweats",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3954,
@@ -6331,7 +6641,12 @@
    ],
    "cover": "images/3954/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Ensembles"
+   "type": "Ensembles",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3944,
@@ -6362,7 +6677,12 @@
    ],
    "cover": "images/3944/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Bas"
+   "type": "Bas",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3939,
@@ -6389,7 +6709,12 @@
    ],
    "cover": "images/3939/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Hauts"
+   "type": "Hauts",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null
   },
   {
    "id": 3932,
@@ -6418,7 +6743,12 @@
    ],
    "cover": "images/3932/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Chaussures"
+   "type": "Chaussures",
+   "coverFrom": 1,
+   "front": 2,
+   "coverRev": 4,
+   "coverPick": 2,
+   "kindPick": null
   },
   {
    "id": 3927,
