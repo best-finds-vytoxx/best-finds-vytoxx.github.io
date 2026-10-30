@@ -29,6 +29,11 @@
     if (days < 31) return 'Mise à jour effectuée ce mois-ci';
     return 'Mise à jour effectuée il y a quelque temps';
   };
+  const eur = (v) => v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  const cnyTxt = (v) => v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CNY';
+  // Prix relevé sur LoveGoBuy, seulement s'il correspond bien au lien actuel de l'article (jamais le prix Telegram)
+  const priceOf = (a) => { const p = (state.prices || {})[a.id]; return p && p.eur && (!p.pid || p.pid === a.productId) ? p : null; };
+  const small = (a) => a.coverSm || a.cover;
   const dateFr = (iso) => new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
   const safe = (fn, fb = null) => { try { return fn(); } catch { return fb; } };
   const store = {
@@ -59,6 +64,10 @@
     tag: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>',
     cal: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
   });
+  Object.assign(icon, {
+    zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
+    spark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
+  });
   const coupon = esc(S.coupon || '500 €');
   const IMG = { logo: 'assets/img/logo.webp', banner: 'assets/img/banner.webp', bannerMid: 'assets/img/banner-1200.webp', bannerMobile: 'assets/img/banner-mobile.webp', favicon: 'assets/img/favicon.png', video: 'assets/video/tuto.mp4', poster: 'assets/video/tuto-poster.webp' };
   const logo = (cls = 'logo') => `<img class="${cls}" src="${IMG.logo}" alt="" width="64" height="64">`;
@@ -68,6 +77,12 @@
     l.type = 'image/png';
     l.href = IMG.favicon;
   });
+
+  // Images : fondu à l'apparition, une fois chargées (ou en erreur, pour ne jamais laisser un trou)
+  const done = (e) => { if (e.target.tagName === 'IMG') e.target.classList.add('ld'); };
+  document.addEventListener('load', done, true);
+  document.addEventListener('error', done, true);
+  const img = (src, alt = '', cls = '', extra = '') => `<img class="fade ${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" ${extra}>`;
 
   // ---------- fond crème (unique) ----------
   document.documentElement.dataset.paper = 'cream';
@@ -85,6 +100,14 @@
       </div>
     </div></header>
     <main id="view"></main>
+    <footer class="foot">
+      <div class="wrap foot-in">
+        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
+        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button></nav>
+        <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
+      </div>
+      <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
+    </footer>
     <div class="bar" id="bar"></div>
     <div class="promo" id="promo" hidden>
       <div class="promo-back" data-close></div>
@@ -131,6 +154,7 @@
     closePromo();
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
+  document.getElementById('foot-promo').addEventListener('click', () => openPromo());
   document.addEventListener('keydown', (e) => {
     if (promo.hidden) return;
     if (e.key === 'Escape') closePromo();
@@ -186,16 +210,18 @@
     const main = a.cover || best;
     const real = a.cover ? best : (a.photos || []).find((p) => p !== best);
     const w = weightText(a.weight);
+    const p = priceOf(a);
     return `<a class="card" href="#article-${a.id}">
       <div class="ph ${a.cover ? 'is-cut' : ''}">
         ${isNew(a) ? '<span class="badge">Nouveau</span>' : ''}
-        ${main ? `<img class="main" src="${esc(main)}" alt="${esc(a.title)}" loading="lazy" decoding="async">` : ''}
-        ${real ? `<img class="real" src="${esc(real)}" alt="" loading="lazy" decoding="async">` : ''}
+        ${main ? img(a.cover ? small(a) : main, a.title, 'main') : ''}
+        ${real ? img(real, '', 'real') : ''}
+        ${real ? '<span class="ph-tag">Photo réelle</span>' : ''}
       </div>
       <div class="card-b">
         <span class="br">${esc(a.brand || a.category)}</span>
         <h3>${esc(a.title)}</h3>
-        <div class="row"><span class="cat">${esc(a.category)}</span>${w ? `<span class="wt">${esc(w)}</span>` : ''}</div>
+        <div class="row">${p ? `<span class="price">${esc(eur(p.eur))}</span>` : `<span class="cat">${esc(a.category)}</span>`}${w ? `<span class="wt">${esc(w)}</span>` : ''}</div>
       </div>
     </a>`;
   };
@@ -215,6 +241,8 @@
       recent: (x, y) => y.id - x.id,
       top: (x, y) => (top.counts[y.id] || 0) - (top.counts[x.id] || 0) || y.id - x.id,
       light: (x, y) => (x.weight?.min ?? 1e9) - (y.weight?.min ?? 1e9),
+      cheap: (x, y) => (priceOf(x)?.eur ?? 1e9) - (priceOf(y)?.eur ?? 1e9) || y.id - x.id,
+      dear: (x, y) => (priceOf(y)?.eur ?? -1) - (priceOf(x)?.eur ?? -1) || y.id - x.id,
     };
     return list.sort(sorts[state.sort] || sorts.recent);
   }
@@ -250,7 +278,7 @@
     return t.includes(PRICE_NOTE) ? t : `${t} ${PRICE_NOTE}`.trim();
   };
   // ---------- page d'accueil ----------
-  const thumb = (a) => a.cover || bestPhoto(a) || '';
+  const thumb = (a) => small(a) || bestPhoto(a) || '';
   // Tuiles larges pour que la grille des catégories tombe juste (4 colonnes sur ordinateur, 2 sur téléphone)
   const tileSpan = (k, n) => {
     if (n % 3 === 0) return ''; // 6 catégories : grille de 3 × 2
@@ -266,12 +294,14 @@
     const arts = [...state.articles].sort((x, y) => y.id - x.id);
     const latest = arts.slice(0, 4);
     const cats = {};
-    arts.forEach((a) => { if (!cats[a.category]) cats[a.category] = { n: 0, pics: [] }; cats[a.category].n++; if (a.cover && cats[a.category].pics.length < 3) cats[a.category].pics.push(a.cover); });
+    arts.forEach((a) => { if (!cats[a.category]) cats[a.category] = { n: 0, pics: [] }; cats[a.category].n++; if (a.cover && cats[a.category].pics.length < 3) cats[a.category].pics.push(small(a)); });
     const ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires'];
     // les 6 catégories sont toujours affichées, dans cet ordre (même si l'une est momentanément vide)
     const catList = ORDER.map((c) => [c, cats[c] || { n: 0, pics: [] }]);
     const byId = new Map(arts.map((a) => [a.id, a]));
     const ranking = top.ids.map((id) => byId.get(id)).filter(Boolean).slice(0, 5);
+    const photoCount = arts.reduce((n, a) => n + (a.photos || []).length, 0);
+    const priced = arts.filter(priceOf).length;
 
     view.innerHTML = `
       <h1 class="sr-only">${esc(S.name || 'Finds')} — ${esc(S.tagline || '')}</h1>
@@ -287,24 +317,33 @@
         <button class="sub" type="button" id="hero-promo">${icon.gift} ${coupon} de coupons offerts</button>
         <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
       </div>
+      <div class="wrap">
+        <div class="stats reveal">
+          <div class="stat"><b>${arts.length.toLocaleString('fr-FR')}</b><span>articles du canal, tous au même endroit</span></div>
+          <div class="stat"><b>${photoCount.toLocaleString('fr-FR')}</b><span>photos réelles prises par l'équipe ${esc(S.by || '')}</span></div>
+          <div class="stat"><b>${priced}</b><span>prix relevés directement sur LoveGoBuy</span></div>
+          <div class="stat"><b>15 min</b><span class="live">nouveaux posts ajoutés automatiquement</span></div>
+        </div>
+      </div>
 
-      ${catList.length ? `<section class="wrap block">
+      ${catList.length ? `<section class="wrap block reveal">
         <div class="block-head"><h2>Catégories</h2></div>
         <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}" data-c="${esc(c)}">
-          <span class="cat-pic">${v.pics.map((src, k) => `<img class="p${k}" src="${esc(src)}" alt="" loading="lazy">`).join('')}</span>
-          <span class="cat-foot"><span class="cat-name">${esc(c)}</span><span class="cat-go">${icon.right}</span></span>
+          <span class="cat-pic">${v.pics.map((src, k) => img(src, '', `p${k}`)).join('')}</span>
+          <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
         </button>`).join('')}</div>
       </section>` : ''}
 
-      <section class="wrap block duo">
+      <section class="wrap block duo reveal">
         <aside class="panel top-col">
           <div class="block-head"><h2>Top du moment</h2></div>
           <div class="top-panel">
           <p class="top-note">Les articles les plus cliqués sur le site ces ${C.days || 30} derniers jours.</p>
           ${ranking.length ? `<ol class="top-list">${ranking.map((a, k) => `<li><a href="#article-${a.id}">
             <span class="rank">${k + 1}</span>
-            <span class="top-pic"><img src="${esc(thumb(a))}" alt="" loading="lazy"></span>
+            <span class="top-pic">${img(thumb(a))}</span>
             <span class="top-b"><span class="top-title">${esc(a.title)}</span><span class="top-meta">${top.counts[a.id].toLocaleString('fr-FR')} clic${top.counts[a.id] > 1 ? 's' : ''}</span></span>
+            ${priceOf(a) ? `<span class="top-price">${esc(eur(priceOf(a).eur))}</span>` : ''}
           </a></li>`).join('')}</ol>
           <a class="more-link solo" href="#catalogue" id="see-top">Voir le classement complet ${icon.right}</a>` : `<div class="top-empty">
             <span class="top-empty-n">1</span>
@@ -315,22 +354,33 @@
         <div class="panel">
           <div class="block-head"><h2>Dernières arrivées</h2><a class="more-link" href="#catalogue">Tout voir ${icon.right}</a></div>
           ${latest.length ? `<div class="arrivals">${latest.map((a) => `<a class="arrival" href="#article-${a.id}">
-            <span class="arr-pic"><img src="${esc(thumb(a))}" alt="" loading="lazy"></span>
+            <span class="arr-pic">${img(thumb(a))}</span>
             <span class="arr-b">
               <span class="arr-when">${isNew(a) ? '<i>Nouveau</i>' : ''}${esc(ago(a.date))}</span>
               <span class="arr-title">${esc(a.title)}</span>
-              <span class="arr-meta">${esc([a.brand, a.category].filter(Boolean).join(' · '))}</span>
+              <span class="arr-meta">${esc([priceOf(a) ? eur(priceOf(a).eur) : null, a.brand, a.category].filter(Boolean).join(' · '))}</span>
             </span>
           </a>`).join('')}</div>` : '<p class="muted">Les articles arrivent à la prochaine lecture du canal.</p>'}
         </div>
       </section>`;
 
+    reveal();
     view.querySelector('#hero-promo').addEventListener('click', () => openPromo());
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });
     view.querySelectorAll('.cat-tile').forEach((b) => b.addEventListener('click', () => {
       state.cat = b.dataset.c; state.q = ''; state.brand = ''; catScroll = 0;
       location.hash = 'catalogue';
     }));
+  }
+
+  // Blocs qui apparaissent en douceur quand ils entrent à l'écran
+  let revealObs = null;
+  function reveal() {
+    const els = view.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach((e) => e.classList.add('in')); return; }
+    revealObs?.disconnect();
+    revealObs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach((e) => revealObs.observe(e));
   }
 
   // ---------- tuto pour commander ----------
@@ -443,9 +493,12 @@
 
     view.innerHTML = `
       <section class="wrap intro">
-        <h1 class="cat-title">Tous les articles</h1>
+        <h1>Tous les articles</h1>
+        <p class="tally" id="count" aria-live="polite">${countLine(arts.length)}</p>
+      </section>
+      <div class="filters" id="filters"><div class="wrap">
         <div class="tools">
-          <label class="search">${icon.search}<input id="q" type="search" placeholder="Rechercher : doudoune, Nike, écharpe…" value="${esc(state.q)}" autocomplete="off" aria-label="Rechercher un article"></label>
+          <label class="search">${icon.search}<input id="q" type="search" placeholder="Rechercher : doudoune, Nike, écharpe…" value="${esc(state.q)}" autocomplete="off" aria-label="Rechercher un article"><kbd>/</kbd></label>
           <select id="brand" class="select" aria-label="Marque">
             <option value="">Toutes les marques</option>
             ${brands.map((b) => `<option value="${esc(b)}" ${b === state.brand ? 'selected' : ''}>${esc(b)} (${brandCount[b]})</option>`).join('')}
@@ -453,15 +506,16 @@
           <select id="sort" class="select" aria-label="Trier">
             <option value="recent">Plus récents</option>
             <option value="top">Les plus demandés</option>
+            <option value="cheap">Prix croissant</option>
+            <option value="dear">Prix décroissant</option>
             <option value="light">Plus légers</option>
           </select>
         </div>
-        <p class="tally" id="count" aria-live="polite">${countLine(arts.length)}</p>
-      </section>
-      <div class="wrap">
         <div class="chips" id="chips">
           ${[['Tous', arts.length], ...catList].map(([c, n]) => `<button type="button" class="chip" data-c="${esc(c)}" aria-pressed="${c === state.cat}">${esc(c)} <span>${n}</span></button>`).join('')}
         </div>
+      </div></div>
+      <div class="wrap">
         <div class="grid" id="grid"></div>
         <div class="more" id="more"></div>
       </div>`;
@@ -486,6 +540,15 @@
     paint();
 
     view.querySelector('#q').addEventListener('input', (e) => { state.q = e.target.value; paint(); });
+    // Ombre sous la barre de filtres quand elle est collée en haut
+    const filters = view.querySelector('#filters');
+    stickObs?.disconnect();
+    if ('IntersectionObserver' in window) {
+      const probe = document.createElement('div');
+      filters.before(probe);
+      stickObs = new IntersectionObserver(([e]) => filters.classList.toggle('stuck', !e.isIntersecting), { rootMargin: '-65px 0px 0px 0px' });
+      stickObs.observe(probe);
+    }
     view.querySelector('#brand').addEventListener('change', (e) => { state.brand = e.target.value; paint(); });
     view.querySelector('#sort').addEventListener('change', (e) => { state.sort = e.target.value; paint(); });
     view.querySelector('#chips').addEventListener('click', (e) => {
@@ -515,21 +578,21 @@
     const buyAttrs = a.link ? `href="${esc(a.link)}" target="_blank" rel="noopener" data-buy="${a.id}"` : 'aria-disabled="true"';
     const w = weightText(a.weight);
     // prix relevé sur LoveGoBuy, seulement s'il correspond bien au lien actuel de l'article
-    const lgb = ((p) => (p && p.eur && (!p.pid || p.pid === a.productId) ? p : null))((state.prices || {})[a.id]);
-    const eur = (v) => v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
-    const cnyTxt = (v) => v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CNY';
+    const lgb = priceOf(a);
+    const checked = lgb?.at || state.pricesAt;
 
     view.innerHTML = `
       <div class="wrap">
-        <a class="back" href="#catalogue">${icon.left} Tous les articles</a>
+        <nav class="crumbs" aria-label="Fil d'Ariane"><a href="#catalogue">${icon.left} Tous les articles</a><i>/</i><span>${esc(a.category)}</span>${a.brand ? `<i>/</i><span>${esc(a.brand)}</span>` : ''}</nav>
         <article class="item">
           <div class="gallery">
             <div class="stage ${shots[0]?.cut ? 'is-cut' : ''}" id="stage">
-              ${shots.length ? `<img id="main" src="${esc(shots[0].src)}" alt="${esc(a.title)}">` : ''}
+              ${shots.length ? `<img id="main" class="fade" src="${esc(shots[0].src)}" alt="${esc(a.title)}">` : ''}
+              ${shots.length ? `<span class="zoom-hint" aria-hidden="true">${icon.zoom}</span>` : ''}
               ${shots.length > 1 ? `<button class="nav prev" type="button" aria-label="Photo précédente">${icon.left}</button><button class="nav next" type="button" aria-label="Photo suivante">${icon.right}</button>` : ''}
               <span class="pos" id="pos">${shots[0]?.cut ? 'Détouré' : 'Photo réelle'}${shots.length > 1 ? ` · 1 / ${shots.length}` : ''}</span>
             </div>
-            ${shots.length > 1 ? `<div class="thumbs" id="thumbs">${shots.map((p, i) => `<button type="button" class="${p.cut ? 'is-cut' : ''}" data-i="${i}" aria-label="${p.cut ? 'Photo détourée' : 'Photo réelle ' + i}" aria-current="${i === 0}"><img src="${esc(p.src)}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+            ${shots.length > 1 ? `<div class="thumbs" id="thumbs">${shots.map((p, i) => `<button type="button" class="${p.cut ? 'is-cut' : ''}" data-i="${i}" aria-label="${p.cut ? 'Photo détourée' : 'Photo réelle ' + i}" aria-current="${i === 0}">${img(p.cut ? small(a) : p.src)}</button>`).join('')}</div>` : ''}
           </div>
           <div class="info">
             <div class="info-head">
@@ -538,13 +601,13 @@
               ${introOf(a) ? `<p class="desc">${esc(introOf(a))}</p>` : ''}
             </div>
 
-            <div class="price-box">
+            <div class="card-box price-box">
               <span class="price-label">Prix affiché sur le site</span>
-              ${lgb ? `<span class="price-val">${esc(eur(lgb.eur))}</span><span class="price-sub">${esc(cnyTxt(lgb.cny))} sur LoveGoBuy${state.pricesAt ? `, relevé le ${esc(new Date(state.pricesAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }))}` : ''}</span>`
+              ${lgb ? `<span class="price-val">${esc(eur(lgb.eur))}</span><span class="price-sub"><span class="dot"></span>${esc(cnyTxt(lgb.cny))} sur LoveGoBuy${checked ? ` · relevé le ${esc(new Date(checked).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }))}` : ''}</span>`
                 : `<span class="price-val price-none">Voir la page LoveGoBuy</span><span class="price-sub">Le prix de cet article n'a pas encore été relevé.</span>`}
             </div>
 
-            <section class="panel-box" aria-label="Informations sur l'article">
+            <section class="card-box" aria-label="Informations sur l'article">
               <ul class="facts">
                 <li>${icon.camera}<span><b>${(a.photos || []).length} photo${(a.photos || []).length > 1 ? 's' : ''} exacte${(a.photos || []).length > 1 ? 's' : ''} de l'article</b>Prises par l'équipe Vytoxx, étiquettes et détails compris.</span></li>
                 <li>${icon.box}<span><b>Poids : ${esc(w || 'sur la page LoveGoBuy')}</b>Sert à estimer le prix de la livraison, que les ${coupon} de coupons permettent de réduire.</span></li>
@@ -553,7 +616,7 @@
               </ul>
             </section>
 
-            <section class="panel-box" aria-labelledby="order-t">
+            <section class="card-box" aria-labelledby="order-t">
               <h2 class="box-title" id="order-t">Commander</h2>
               <div class="cta">
                 <a class="buy" ${buyAttrs}>Voir l'article sur LoveGoBuy ${icon.out}</a>
@@ -579,7 +642,7 @@
       </div>
       ${related.length ? `<section class="related"><div class="wrap"><h2>Dans le même style</h2><div class="grid">${related.map(card).join('')}</div></div></section>` : ''}`;
 
-    bar.innerHTML = `<a class="buy" ${buyAttrs}>Voir sur LoveGoBuy ${icon.out}</a>`;
+    bar.innerHTML = `${lgb ? `<span class="bar-price"><b>${esc(eur(lgb.eur))}</b><span>sur LoveGoBuy</span></span>` : ''}<a class="buy" ${buyAttrs}>Voir sur LoveGoBuy ${icon.out}</a>`;
     bar.classList.add('on');
     document.body.classList.add('has-bar');
     // La barre du bas n'apparaît que quand le bouton principal n'est plus visible
@@ -598,6 +661,7 @@
     const show = (n) => {
       if (!shots.length) return;
       i = (n + shots.length) % shots.length;
+      main.classList.remove('swap'); void main.offsetWidth; main.classList.add('swap');
       main.src = shots[i].src;
       stage.classList.toggle('is-cut', shots[i].cut);
       view.querySelector('#pos').textContent = `${shots[i].cut ? 'Détouré' : 'Photo réelle'} · ${i + 1} / ${shots.length}`;
@@ -609,7 +673,11 @@
     view.querySelector('#thumbs')?.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) show(+b.dataset.i); });
     let x0 = null;
     stage.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
-    stage.addEventListener('pointerup', (e) => { if (x0 != null && Math.abs(e.clientX - x0) > 40) show(i + (e.clientX < x0 ? 1 : -1)); x0 = null; });
+    stage.addEventListener('pointerup', (e) => {
+      if (x0 != null && Math.abs(e.clientX - x0) > 40) show(i + (e.clientX < x0 ? 1 : -1));
+      else if (x0 != null && !e.target.closest('.nav')) openLightbox(shots, i, (k) => show(k));
+      x0 = null;
+    });
     keyHandler = (e) => { if (!promo.hidden) return; if (e.key === 'ArrowLeft') show(i - 1); if (e.key === 'ArrowRight') show(i + 1); };
 
     // Copie le lien LoveGoBuy de l'article (le même que dans le post Telegram)
@@ -632,8 +700,78 @@
     });
   }
 
+  // ---------- visionneuse plein écran (zoom au clic, glisser pour changer de photo) ----------
+  function openLightbox(shots, start, onClose) {
+    let i = start, zoom = false;
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Photos en grand');
+    lb.innerHTML = `
+      <div class="lb-top"><span id="lb-pos"></span><button class="lb-x" type="button" aria-label="Fermer">${icon.close}</button></div>
+      <div class="lb-stage"><img id="lb-img" alt="">
+        ${shots.length > 1 ? `<button class="lb-nav prev" type="button" aria-label="Photo précédente">${icon.left}</button><button class="lb-nav next" type="button" aria-label="Photo suivante">${icon.right}</button>` : ''}
+      </div>
+      ${shots.length > 1 ? `<div class="lb-thumbs">${shots.map((p, k) => `<button type="button" data-k="${k}" aria-label="Photo ${k + 1}"><img src="${esc(p.src)}" alt="" loading="lazy"></button>`).join('')}</div>` : '<div></div>'}`;
+    document.body.appendChild(lb);
+    document.body.classList.add('locked');
+    const im = lb.querySelector('#lb-img');
+    const paintLb = () => {
+      zoom = false; im.classList.remove('zoomed'); im.style.transform = '';
+      im.src = shots[i].src; im.classList.toggle('cut', shots[i].cut);
+      lb.querySelector('#lb-pos').textContent = `${i + 1} / ${shots.length} · ${shots[i].cut ? 'détouré' : 'photo réelle'}`;
+      lb.querySelectorAll('.lb-thumbs button').forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
+      lb.querySelector(`.lb-thumbs button[data-k="${i}"]`)?.scrollIntoView({ block: 'nearest', inline: 'center' });
+    };
+    const go = (d) => { i = (i + d + shots.length) % shots.length; paintLb(); };
+    const close = () => {
+      lb.classList.remove('on'); document.body.classList.remove('locked');
+      document.removeEventListener('keydown', onKey, true);
+      setTimeout(() => lb.remove(), 220); onClose?.(i);
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+      if (e.key === 'ArrowLeft') { e.stopPropagation(); go(-1); }
+      if (e.key === 'ArrowRight') { e.stopPropagation(); go(1); }
+    };
+    document.addEventListener('keydown', onKey, true);
+    lb.querySelector('.lb-x').addEventListener('click', close);
+    lb.querySelector('.prev')?.addEventListener('click', () => go(-1));
+    lb.querySelector('.next')?.addEventListener('click', () => go(1));
+    lb.querySelector('.lb-thumbs')?.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { i = +b.dataset.k; paintLb(); } });
+    // Zoom : clic sur la photo, puis la photo suit le pointeur
+    im.addEventListener('click', (e) => {
+      zoom = !zoom; im.classList.toggle('zoomed', zoom);
+      if (!zoom) { im.style.transform = ''; return; }
+      const r = im.getBoundingClientRect();
+      im.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`;
+      im.style.transform = 'scale(2.2)';
+    });
+    im.addEventListener('pointermove', (e) => {
+      if (!zoom || e.pointerType === 'touch') return;
+      const r = im.getBoundingClientRect();
+      im.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`;
+    });
+    let sx = null;
+    const st = lb.querySelector('.lb-stage');
+    st.addEventListener('pointerdown', (e) => { sx = e.clientX; });
+    st.addEventListener('pointerup', (e) => { if (!zoom && sx != null && Math.abs(e.clientX - sx) > 50) go(e.clientX < sx ? 1 : -1); sx = null; });
+    st.addEventListener('click', (e) => { if (e.target === st) close(); });
+    paintLb();
+    requestAnimationFrame(() => lb.classList.add('on'));
+    lb.querySelector('.lb-x').focus({ preventScroll: true });
+  }
+
   // ---------- routage ----------
   let keyHandler = null;
+  let stickObs = null;
+  // « / » place le curseur dans la recherche du catalogue
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== '/' || e.metaKey || e.ctrlKey || /input|textarea|select/i.test(document.activeElement?.tagName || '')) return;
+    const q = document.getElementById('q');
+    if (q) { e.preventDefault(); q.focus(); }
+  });
   let buyObserver = null;
   document.addEventListener('keydown', (e) => keyHandler && keyHandler(e));
   const header = () => document.querySelector('.top');
@@ -668,7 +806,7 @@
     syncHeader();
   }
   let catScroll = 0;
-  window.addEventListener('hashchange', () => route());
+  window.addEventListener('hashchange', () => (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches ? document.startViewTransition(route) : route()));
   window.addEventListener('scroll', () => { if (location.hash === '#catalogue') catScroll = window.scrollY; }, { passive: true });
 
   // ---------- données ----------

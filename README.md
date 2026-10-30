@@ -1,6 +1,6 @@
 # Best Finds — le site du canal Telegram Vytoxx
 
-Site : https://leosakidirect-arch.github.io/Best-finds/
+Site : https://best-finds-vytoxx.github.io/
 
 Le site se remplit tout seul à partir du canal **t.me/lovegobuy_france**. Tu n'as rien à faire sur GitHub :
 pour un changement, demande-le simplement à Claude, qui l'enregistre et le met en ligne lui-même.

@@ -1,0 +1,9 @@
+{
+  "name": "Best Finds · Vytoxx",
+  "short_name": "Best Finds",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#efece5",
+  "theme_color": "#efece5",
+  "icons": [{ "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}
