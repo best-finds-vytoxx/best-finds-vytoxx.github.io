@@ -1,8 +1,112 @@
 {
- "updatedAt": "2026-10-29T16:21:42.560Z",
+ "updatedAt": "2026-10-30T14:32:57.435Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "articles": [
+  {
+   "id": 5510,
+   "title": "Veste Stone Island Soft Shell-R （nfc）",
+   "brand": "Stone Island",
+   "category": "Hauts",
+   "type": "Vestes",
+   "weight": {
+    "min": 740,
+    "max": null
+   },
+   "description": "Veste Stone Island Soft Shell-R （nfc） : une veste sélectionné sur le canal. 9 photos de contrôle prises par l'équipe montrent l'article réel, étiquettes et détails compris. Poids indiqué : 740 g, à prendre en compte pour estimer la livraison. Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7888472404&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7888472404",
+   "date": "2026-10-30T09:44:51+00:00",
+   "views": "103",
+   "telegram": "https://t.me/lovegobuy_france/5510",
+   "photos": [
+    "images/5510/1.webp",
+    "images/5510/2.webp",
+    "images/5510/3.webp",
+    "images/5510/4.webp",
+    "images/5510/5.webp",
+    "images/5510/6.webp",
+    "images/5510/7.webp",
+    "images/5510/8.webp",
+    "images/5510/9.webp"
+   ],
+   "cover": "images/5510/cover.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null,
+   "addedAt": "2026-10-30T14:32:57.422Z"
+  },
+  {
+   "id": 5502,
+   "title": "Sèche-cheveux Dyson Supersonic complet",
+   "brand": "Dyson",
+   "category": "Accessoires",
+   "type": "Autres",
+   "weight": {
+    "min": 1884,
+    "max": null
+   },
+   "description": "Sèche-cheveux Dyson Supersonic complet : un article sélectionné sur le canal. 8 photos de contrôle prises par l'équipe montrent l'article réel, étiquettes et détails compris. Poids indiqué : 1,88 kg, à prendre en compte pour estimer la livraison. Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7888541940&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7888541940",
+   "date": "2026-10-30T09:42:31+00:00",
+   "views": "97",
+   "telegram": "https://t.me/lovegobuy_france/5502",
+   "photos": [
+    "images/5502/1.webp",
+    "images/5502/2.webp",
+    "images/5502/3.webp",
+    "images/5502/4.webp",
+    "images/5502/5.webp",
+    "images/5502/6.webp",
+    "images/5502/7.webp",
+    "images/5502/8.webp"
+   ],
+   "cover": "images/5502/cover.webp",
+   "coverFrom": 6,
+   "front": 6,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null,
+   "addedAt": "2026-10-30T14:32:57.423Z"
+  },
+  {
+   "id": 5496,
+   "title": "Casquette Moncler",
+   "brand": "Moncler",
+   "category": "Accessoires",
+   "type": "Accessoires",
+   "weight": {
+    "min": 118,
+    "max": null
+   },
+   "description": "Casquette Moncler : un accessoire sélectionné sur le canal. 6 photos de contrôle prises par l'équipe montrent l'article réel, étiquettes et détails compris. Poids indiqué : 118 g, à prendre en compte pour estimer la livraison. Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7888478042&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7888478042",
+   "date": "2026-10-30T09:42:25+00:00",
+   "views": "90",
+   "telegram": "https://t.me/lovegobuy_france/5496",
+   "photos": [
+    "images/5496/1.webp",
+    "images/5496/2.webp",
+    "images/5496/3.webp",
+    "images/5496/4.webp",
+    "images/5496/5.webp",
+    "images/5496/6.webp"
+   ],
+   "cover": "images/5496/cover.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 4,
+   "coverPick": null,
+   "kindPick": null,
+   "addedAt": "2026-10-30T14:32:57.424Z"
+  },
   {
    "id": 5490,
    "title": "Casque Apple AirPods Max",
@@ -18,7 +122,7 @@
    "shop": "weidian",
    "productId": "7881113385",
    "date": "2026-10-29T15:36:09+00:00",
-   "views": "31",
+   "views": "266",
    "telegram": "https://t.me/lovegobuy_france/5490",
    "photos": [
     "images/5490/1.webp",
@@ -51,7 +155,7 @@
    "shop": "weidian",
    "productId": "7881190429",
    "date": "2026-10-29T15:36:02+00:00",
-   "views": "28",
+   "views": "259",
    "telegram": "https://t.me/lovegobuy_france/5484",
    "photos": [
     "images/5484/1.webp",
@@ -84,7 +188,7 @@
    "shop": "weidian",
    "productId": "7881162669",
    "date": "2026-10-29T15:35:58+00:00",
-   "views": "22",
+   "views": "207",
    "telegram": "https://t.me/lovegobuy_france/5475",
    "photos": [
     "images/5475/1.webp",
@@ -120,7 +224,7 @@
    "shop": "weidian",
    "productId": "7884228082",
    "date": "2026-10-29T15:35:50+00:00",
-   "views": "24",
+   "views": "230",
    "telegram": "https://t.me/lovegobuy_france/5467",
    "photos": [
     "images/5467/1.webp",
@@ -154,7 +258,7 @@
    "shop": "weidian",
    "productId": "7880297647",
    "date": "2026-10-26T16:53:45+00:00",
-   "views": "539",
+   "views": "622",
    "telegram": "https://t.me/lovegobuy_france/5452",
    "photos": [
     "images/5452/1.webp",
