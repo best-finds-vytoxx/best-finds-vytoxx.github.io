@@ -23,7 +23,15 @@ jobs:
           [ -f models/birefnet-general.onnx ] || curl -sSL -o models/birefnet-general.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
           [ -f models/birefnet-lite.onnx ] || curl -sSL -o models/birefnet-lite.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-bb_swin_v1_tiny-epoch_232.onnx
       - run: free -g; nproc
-      - run: python lab/run.py $(cat lab/models.txt)
+      - name: Essai
+        run: |
+          mkdir -p out
+          for m in $(cat lab/models.txt | tr ',' ' '); do
+            /usr/bin/time -v python lab/run.py $m > out/log-$m.txt 2>&1 || echo "échec $m" >> out/log-$m.txt
+            grep -E "Maximum resident|Elapsed" out/log-$m.txt || true
+            free -m >> out/log-$m.txt
+          done
       - name: Résultats → branche lab-out
+        if: always()
         run: |
           cd out && git init -q && git checkout -q -b lab-out && git add . && git -c user.name=lab -c user.email=lab@users.noreply.github.com commit -qm "résultats" && git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" lab-out

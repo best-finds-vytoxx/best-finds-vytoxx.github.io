@@ -4,7 +4,7 @@ from transformers import AutoProcessor, AutoModelForZeroShotObjectDetection
 torch.set_num_threads(4)
 proc = AutoProcessor.from_pretrained('IDEA-Research/grounding-dino-tiny')
 det = AutoModelForZeroShotObjectDetection.from_pretrained('IDEA-Research/grounding-dino-tiny').eval()
-so = ort.SessionOptions(); so.intra_op_num_threads = 4
+so = ort.SessionOptions(); so.intra_op_num_threads = 4; so.enable_cpu_mem_arena = False
 SEG = {k: ort.InferenceSession(f'models/{k}.onnx', so, providers=['CPUExecutionProvider']) for k in sys.argv[1].split(',')}
 
 def detect(im, prompt):
@@ -49,6 +49,6 @@ for j in json.load(open('lab/jobs.json')):
     th = 520; row = [t_.resize((int(W * th / H), th)) for t_ in tiles]
     sheet = Image.new('RGB', (sum(r.width for r in row) + 8 * len(row), th), (20, 20, 20)); x = 0
     for r in row: sheet.paste(r, (x, 0)); x += r.width + 8
-    sheet.save(f"out/{j['id']}.jpg", quality=82)
+    sheet.save(f"out/{j['id']}-{sys.argv[1]}.jpg", quality=82)
     log.append({'id': j['id'], 'prompt': prompt_for(j), 'boxes': [(l, round(s_, 2)) for b, s_, l in boxes], 'times': times}); print(log[-1], flush=True)
-json.dump(log, open('out/log.json', 'w'), indent=1)
+json.dump(log, open(f'out/log-{sys.argv[1]}.json', 'w'), indent=1)
