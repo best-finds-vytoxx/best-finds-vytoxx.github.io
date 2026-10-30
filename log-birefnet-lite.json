@@ -1,0 +1,682 @@
+[
+ {
+  "id": 4180,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.91
+   ]
+  ],
+  "times": {
+   "det": 5.8,
+   "birefnet-lite-full": 8.4,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4385,
+  "prompt": "polo shirt.",
+  "boxes": [
+   [
+    "polo shirt",
+    0.89
+   ]
+  ],
+  "times": {
+   "det": 6.6,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4231,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.92
+   ]
+  ],
+  "times": {
+   "det": 5.9,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 3462,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.92
+   ]
+  ],
+  "times": {
+   "det": 6.4,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.3
+  }
+ },
+ {
+  "id": 3685,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.87
+   ]
+  ],
+  "times": {
+   "det": 5.9,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.3
+  }
+ },
+ {
+  "id": 3345,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.87
+   ]
+  ],
+  "times": {
+   "det": 5.7,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.2
+  }
+ },
+ {
+  "id": 4495,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.78
+   ],
+   [
+    "shoe",
+    0.59
+   ]
+  ],
+  "times": {
+   "det": 7.0,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.2
+  }
+ },
+ {
+  "id": 4275,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.79
+   ],
+   [
+    "shoe",
+    0.81
+   ]
+  ],
+  "times": {
+   "det": 6.3,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.3
+  }
+ },
+ {
+  "id": 3581,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.8
+   ],
+   [
+    "shoe",
+    0.79
+   ]
+  ],
+  "times": {
+   "det": 6.4,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.1
+  }
+ },
+ {
+  "id": 3564,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.8
+   ],
+   [
+    "shoe",
+    0.79
+   ]
+  ],
+  "times": {
+   "det": 5.5,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 3536,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.88
+   ]
+  ],
+  "times": {
+   "det": 5.9,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.3
+  }
+ },
+ {
+  "id": 3705,
+  "prompt": "bag.",
+  "boxes": [
+   [
+    "bag",
+    0.57
+   ],
+   [
+    "bag",
+    0.43
+   ]
+  ],
+  "times": {
+   "det": 6.0,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.2
+  }
+ },
+ {
+  "id": 3906,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.8
+   ],
+   [
+    "shoe",
+    0.79
+   ]
+  ],
+  "times": {
+   "det": 5.7,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4581,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.79
+   ],
+   [
+    "shoe",
+    0.8
+   ]
+  ],
+  "times": {
+   "det": 6.7,
+   "birefnet-lite-full": 6.2,
+   "birefnet-lite-crop": 6.1
+  }
+ },
+ {
+  "id": 5350,
+  "prompt": "vest.",
+  "boxes": [
+   [
+    "vest",
+    0.89
+   ]
+  ],
+  "times": {
+   "det": 6.4,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.6
+  }
+ },
+ {
+  "id": 5239,
+  "prompt": "vest.",
+  "boxes": [
+   [
+    "vest",
+    0.9
+   ]
+  ],
+  "times": {
+   "det": 6.1,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.5
+  }
+ },
+ {
+  "id": 4779,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.82
+   ],
+   [
+    "shoe",
+    0.81
+   ]
+  ],
+  "times": {
+   "det": 6.1,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4656,
+  "prompt": "pants.",
+  "boxes": [
+   [
+    "pants",
+    0.73
+   ]
+  ],
+  "times": {
+   "det": 6.0,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4544,
+  "prompt": "baseball cap.",
+  "boxes": [
+   [
+    "baseball cap",
+    0.69
+   ]
+  ],
+  "times": {
+   "det": 6.9,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.3
+  }
+ },
+ {
+  "id": 5266,
+  "prompt": "tracksuit set with jacket and pants.",
+  "boxes": [
+   [
+    "tracksuit",
+    0.51
+   ],
+   [
+    "jacket",
+    0.37
+   ],
+   [
+    "tracksuit",
+    0.28
+   ],
+   [
+    "jacket pants",
+    0.45
+   ],
+   [
+    "pants",
+    0.26
+   ]
+  ],
+  "times": {
+   "det": 6.3,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.2
+  }
+ },
+ {
+  "id": 5111,
+  "prompt": "water bottle.",
+  "boxes": [
+   [
+    "water bottle",
+    0.86
+   ]
+  ],
+  "times": {
+   "det": 6.0,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4698,
+  "prompt": "clothing set.",
+  "boxes": [
+   [
+    "clothing set",
+    0.85
+   ]
+  ],
+  "times": {
+   "det": 6.5,
+   "birefnet-lite-full": 6.7,
+   "birefnet-lite-crop": 6.6
+  }
+ },
+ {
+  "id": 4834,
+  "prompt": "bracelet.",
+  "boxes": [
+   [
+    "bracelet",
+    0.25
+   ]
+  ],
+  "times": {
+   "det": 7.5,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4708,
+  "prompt": "jacket.",
+  "boxes": [
+   [
+    "jacket",
+    0.63
+   ],
+   [
+    "jacket",
+    0.28
+   ]
+  ],
+  "times": {
+   "det": 7.7,
+   "birefnet-lite-full": 6.6,
+   "birefnet-lite-crop": 6.6
+  }
+ },
+ {
+  "id": 4458,
+  "prompt": "bag.",
+  "boxes": [
+   [
+    "bag",
+    0.57
+   ],
+   [
+    "bag",
+    0.47
+   ]
+  ],
+  "times": {
+   "det": 7.4,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4121,
+  "prompt": "accessory.",
+  "boxes": [
+   [
+    "accessory",
+    0.83
+   ]
+  ],
+  "times": {
+   "det": 6.1,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.3
+  }
+ },
+ {
+  "id": 3437,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.78
+   ],
+   [
+    "shoe",
+    0.79
+   ]
+  ],
+  "times": {
+   "det": 6.5,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 5172,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.78
+   ],
+   [
+    "shoe",
+    0.77
+   ]
+  ],
+  "times": {
+   "det": 6.0,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.6
+  }
+ },
+ {
+  "id": 4630,
+  "prompt": "hoodie.",
+  "boxes": [
+   [
+    "hoodie",
+    0.84
+   ]
+  ],
+  "times": {
+   "det": 6.4,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.5
+  }
+ },
+ {
+  "id": 3724,
+  "prompt": "sunglasses.",
+  "boxes": [
+   [
+    "sunglasses",
+    0.94
+   ]
+  ],
+  "times": {
+   "det": 6.9,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.5
+  }
+ },
+ {
+  "id": 5510,
+  "prompt": "jacket.",
+  "boxes": [
+   [
+    "jacket",
+    0.91
+   ]
+  ],
+  "times": {
+   "det": 6.9,
+   "birefnet-lite-full": 6.6,
+   "birefnet-lite-crop": 6.6
+  }
+ },
+ {
+  "id": 3828,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.92
+   ]
+  ],
+  "times": {
+   "det": 6.1,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.7
+  }
+ },
+ {
+  "id": 3714,
+  "prompt": "t-shirt.",
+  "boxes": [
+   [
+    "t - shirt",
+    0.91
+   ]
+  ],
+  "times": {
+   "det": 6.3,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.7
+  }
+ },
+ {
+  "id": 5490,
+  "prompt": "over-ear headphones.",
+  "boxes": [
+   [
+    "over - ear headphones",
+    0.85
+   ]
+  ],
+  "times": {
+   "det": 6.9,
+   "birefnet-lite-full": 6.4,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4842,
+  "prompt": "bracelet.",
+  "boxes": [],
+  "times": {
+   "det": 6.3,
+   "birefnet-lite-full": 6.3,
+   "birefnet-lite-crop": 6.4
+  }
+ },
+ {
+  "id": 4401,
+  "prompt": "socks.",
+  "boxes": [
+   [
+    "socks",
+    0.71
+   ],
+   [
+    "socks",
+    0.71
+   ],
+   [
+    "socks",
+    0.69
+   ],
+   [
+    "socks",
+    0.68
+   ],
+   [
+    "socks",
+    0.7
+   ]
+  ],
+  "times": {
+   "det": 7.4,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.6
+  }
+ },
+ {
+  "id": 4002,
+  "prompt": "watch presentation box.",
+  "boxes": [
+   [
+    "watch presentation box",
+    0.57
+   ],
+   [
+    "watch presentation box",
+    0.5
+   ],
+   [
+    "watch presentation box",
+    0.38
+   ],
+   [
+    "presentation box",
+    0.29
+   ],
+   [
+    "presentation box",
+    0.26
+   ]
+  ],
+  "times": {
+   "det": 6.1,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.5
+  }
+ },
+ {
+  "id": 3604,
+  "prompt": "shoe.",
+  "boxes": [
+   [
+    "shoe",
+    0.81
+   ],
+   [
+    "shoe",
+    0.8
+   ]
+  ],
+  "times": {
+   "det": 6.2,
+   "birefnet-lite-full": 6.5,
+   "birefnet-lite-crop": 6.5
+  }
+ },
+ {
+  "id": 3570,
+  "prompt": "bracelet.",
+  "boxes": [
+   [
+    "bracelet",
+    0.77
+   ]
+  ],
+  "times": {
+   "det": 7.6,
+   "birefnet-lite-full": 6.6,
+   "birefnet-lite-crop": 6.6
+  }
+ }
+]
