@@ -1,0 +1,29 @@
+name: Labo détourage
+on:
+  push:
+    branches: [lab]
+permissions:
+  contents: write
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11', cache: pip, cache-dependency-path: lab/requirements.txt }
+      - run: pip install -r lab/requirements.txt
+      - uses: actions/cache@v4
+        with: { path: models, key: models-birefnet-v1 }
+      - uses: actions/cache@v4
+        with: { path: ~/.cache/huggingface, key: hf-gdino-v1 }
+      - name: Modèles
+        run: |
+          mkdir -p models
+          [ -f models/birefnet-general.onnx ] || curl -sSL -o models/birefnet-general.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
+          [ -f models/birefnet-lite.onnx ] || curl -sSL -o models/birefnet-lite.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-bb_swin_v1_tiny-epoch_232.onnx
+      - run: free -g; nproc
+      - run: python lab/run.py $(cat lab/models.txt)
+      - name: Résultats → branche lab-out
+        run: |
+          cd out && git init -q && git checkout -q -b lab-out && git add . && git -c user.name=lab -c user.email=lab@users.noreply.github.com commit -qm "résultats" && git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" lab-out

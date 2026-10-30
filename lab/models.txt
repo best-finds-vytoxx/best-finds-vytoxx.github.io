@@ -1,0 +1,1 @@
+birefnet-general,birefnet-lite
