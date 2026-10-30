@@ -1,6 +1,6 @@
 # Notes de maintenance (pour Claude)
 
-Propriétaire : Léonard (Vytoxx). Parle-lui en français, simplement. Il ne manipule pas GitHub lui-même :
+Propriétaire : Léonard (Vytoxx). Site : https://best-finds-vytoxx.github.io/ (dépôt best-finds-vytoxx/best-finds-vytoxx.github.io). Parle-lui en français, simplement. Il ne manipule pas GitHub lui-même :
 c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site en ligne.
 
 ## Règles

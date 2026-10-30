@@ -67,7 +67,7 @@ jobs:
       - name: Préparer le site
         run: |
           mkdir _site
-          cp -r index.html assets data _site/
+          cp -r index.html manifest.webmanifest assets data _site/
           if [ -d images ]; then cp -r images _site/; fi
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
