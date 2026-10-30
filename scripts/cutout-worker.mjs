@@ -7,6 +7,7 @@
 import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import sharp from 'sharp';
 import { cutout } from './cutout.mjs';
+import { stopVision } from './vision.mjs';
 
 // L'ordre d'essai vient du modèle de reconnaissance (voir pick.mjs) : la photo la plus pertinente d'abord
 // (vêtement de face, chaussures de face, le produit plutôt que son emballage).
@@ -43,7 +44,7 @@ async function tryCut(job, n) {
       const [x0, y0, x1, y1] = job.crop;
       buf = await img.extract({ left: Math.round(x0 * W), top: Math.round(y0 * H), width: Math.round((x1 - x0) * W), height: Math.round((y1 - y0) * H) }).png().toBuffer();
     }
-    const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear' });
+    const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear', prompt: job.prompt || null });
     if (!out) { console.log(`  ${job.id} : détourage de la photo ${n} jugé raté`); return null; }
     const sh = await shape(out);
     if (process.env.DEBUG_CUT) console.log(`  ${job.id} photo ${n} : largeur/hauteur ${sh.ratio.toFixed(2)}, remplissage ${sh.fill.toFixed(2)}`);

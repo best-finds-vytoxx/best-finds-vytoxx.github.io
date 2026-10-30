@@ -4,6 +4,10 @@ import { removeBackground } from '@imgly/background-removal-node';
 import sharp from 'sharp';
 import { grabcut } from './grabcut.mjs';
 import { watermarkMask } from './watermark.mjs';
+import { visionMask } from './vision.mjs';
+import { writeFile, readFile, rm, mkdtemp } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 
 const ALPHA = 110;
 const HAZE_MAX = 0.1; // part maximale de pixels à moitié transparents autour de l'objet // seuil d'opacité pour considérer un pixel comme "objet"
@@ -46,10 +50,35 @@ function looksLikeRuler(c, w, h) {
  * @param {Buffer} input image source (jpg/webp/png)
  * @returns {Promise<Buffer>} webp transparent 900x1200, objet centré
  */
-export async function cutout(input, { width = 900, height = 1200, margin = 0.07, dropPackaging = false, rescue = true } = {}) {
-  const png = await sharp(input).rotate().resize({ width: 1024, height: 1024, fit: 'inside', withoutEnlargement: true }).png().toBuffer();
-  const blob = await removeBackground(new Blob([png], { type: 'image/png' }), { model: 'medium', output: { format: 'image/png' } });
-  let cutPng = Buffer.from(await blob.arrayBuffer());
+/** Méthode principale : produit repéré par son nom puis détouré par BiRefNet (scripts/vision.py). null si indisponible. */
+async function visionCut(png, prompt) {
+  const dir = await mkdtemp(path.join(tmpdir(), 'vis-'));
+  try {
+    const src = path.join(dir, 'in.png'), out = path.join(dir, 'mask.png');
+    await writeFile(src, png);
+    const res = await visionMask(src, out, prompt);
+    if (!res) return null;
+    if (process.env.DEBUG_CUT) console.log('  repérage', JSON.stringify(res.boxes), 'cadre', JSON.stringify(res.crop));
+    const mask = await sharp(await readFile(out)).toColourspace('b-w').raw().toBuffer();
+    const { data, info } = await sharp(png).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const rgba = Buffer.alloc(info.width * info.height * 4);
+    for (let p = 0; p < info.width * info.height; p++) {
+      rgba[p * 4] = data[p * 3]; rgba[p * 4 + 1] = data[p * 3 + 1]; rgba[p * 4 + 2] = data[p * 3 + 2]; rgba[p * 4 + 3] = mask[p];
+    }
+    return sharp(rgba, { raw: { width: info.width, height: info.height, channels: 4 } }).png().toBuffer();
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+}
+
+export async function cutout(input, { width = 900, height = 1200, margin = 0.07, dropPackaging = false, rescue = true, prompt = null } = {}) {
+  const png = await sharp(input).rotate().resize({ width: 1600, height: 1600, fit: 'inside', withoutEnlargement: true }).png().toBuffer();
+  let cutPng = prompt ? await visionCut(png, prompt) : null;
+  const viaVision = !!cutPng;
+  if (!cutPng) {
+    const blob = await removeBackground(new Blob([png], { type: 'image/png' }), { model: 'medium', output: { format: 'image/png' } });
+    cutPng = Buffer.from(await blob.arrayBuffer());
+  }
   // vignette du canal (panda + « VYTOXX ») effacée du détourage si elle y est restée
   let wm = null;
   try { wm = await watermarkMask(png); } catch (e) { if (process.env.DEBUG_CUT) console.log('  vignette non cherchée :', e.message); }
@@ -61,7 +90,10 @@ export async function cutout(input, { width = 900, height = 1200, margin = 0.07,
     }
   }
   const first = await cleanCutout(cutPng, { width, height, margin, source: input, dropPackaging });
-  if (first || !rescue) return first;
+  if (first) return first;
+  // la méthode principale a échoué : on retente avec l'ancienne méthode avant d'abandonner
+  if (viaVision) return cutout(input, { width, height, margin, dropPackaging, rescue, prompt: null });
+  if (!rescue) return null;
   // Détourage raté (vêtement blanc ou gris sur la table grise, objet à moitié transparent…) :
   // seconde méthode, guidée par la couleur de la table, puis mêmes contrôles de qualité
   try {

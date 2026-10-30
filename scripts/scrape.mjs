@@ -16,6 +16,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom } from './parse.mjs';
 import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
+import { promptFor } from './vision.mjs';
 
 const CHANNEL = process.env.CHANNEL || 'lovegobuy_france';
 const RECENT_PAGES = Number(process.env.RECENT_PAGES || 3); // une fois l'historique complet, les dernières pages suffisent
@@ -174,12 +175,12 @@ function makeCovers(items, tmp) {
     let order = (scores ? candidateOrder(scores, kind, front) : FALLBACK[kind]).filter((n) => it.inputs.some((i) => i.n === n));
     // photo choisie à la main (data/overrides.json) : essayée en premier, quelle qu'elle soit
     if (it.forced && it.inputs.some((i) => i.n === it.forced)) order = [it.forced, ...order.filter((n) => n !== it.forced)];
-    return { it, kind, box: !!nk.box, scores, order, exclude: [], done: false };
+    return { it, kind, noun: nk.noun, box: !!nk.box, scores, order, exclude: [], done: false };
   });
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
     if (!todo.length) break;
-    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
     console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
     const cut = runCutouts(jobs, tmp, round);
     const made = todo.filter((s) => cut.get(s.it.id));
@@ -296,9 +297,17 @@ async function main() {
     const place = async (id) => {
       const c = covers.get(id) || { n: 0, front: ov(id).cover || 1 };
       const dest = path.join(IMAGES, String(id), 'cover.webp');
-      if (c.n) await writeFile(dest, await readFile(c.file));
-      else await rm(dest, { force: true });
-      return { cover: c.n ? `images/${id}/cover.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null };
+      const destSm = path.join(IMAGES, String(id), 'cover-sm.webp');
+      if (c.n) {
+        const buf = await readFile(c.file);
+        await writeFile(dest, buf);
+        // miniature légère pour les grilles du site (cartes, catégories, classement)
+        await writeFile(destSm, await sharp(buf).resize({ width: 480, kernel: 'lanczos3' }).webp({ quality: 86, alphaQuality: 90, smartSubsample: true }).toBuffer());
+      } else {
+        await rm(dest, { force: true });
+        await rm(destSm, { force: true });
+      }
+      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null };
     };
     for (const { a, photos, refresh: isRefresh } of downloaded) {
       const { photosRemote, ...info } = a;
