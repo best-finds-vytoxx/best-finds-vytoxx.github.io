@@ -566,3 +566,59 @@ body.home .nav-links { visibility: hidden; }
 /* « Plus tard » : 0,5 s d'attente puis fondu de 2 s, à l'ouverture automatique */
 .promo.intro .promo-later { opacity: 0; animation: later-in 2s ease .5s forwards; }
 @keyframes later-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Titre au-dessus du bouton « Copier le lien LoveGoBuy » */
+.copy-title { font: 500 11px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+
+/* Plus de mention de mise à jour en bas : un peu d'air sous le dernier bloc de l'accueil */
+.duo { margin-bottom: 56px; }
+
+/* ---------- Fiche article harmonisée : en-tête, « En bref », « Commander », coupons ---------- */
+.info { gap: 16px; }
+.info-head { display: grid; gap: 10px; padding-bottom: 4px; }
+.info-head h1 { margin: 0; }
+.info-head .desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
+.panel-box { display: grid; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.box-title { margin: 0; font: 500 11px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; }
+.facts li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px 0; }
+.facts li + li { border-top: 1px solid var(--line); }
+.facts li > svg { width: 34px; height: 34px; padding: 8px; border-radius: 10px; background: var(--bg); color: var(--ink); }
+.facts span { display: grid; gap: 2px; font-size: 13.5px; line-height: 1.4; color: var(--muted); min-width: 0; }
+.facts b { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.panel-box .cta { gap: 10px; }
+.panel-box .buy, .panel-box .sub { height: 52px; border-radius: 12px; font-size: 15px; }
+.panel-box .sub { background: var(--bg); color: var(--ink); font-weight: 500; cursor: pointer; width: 100%; font-family: inherit; }
+.panel-box .copy { display: grid; gap: 6px; justify-items: stretch; }
+.panel-box .copy-title { font-size: 10.5px; letter-spacing: .06em; padding-left: 2px; }
+.panel-box .sub.share.done { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.panel-box .copy-field { height: 44px; border-radius: 12px; }
+.coupon-card {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 14px; align-items: center; width: 100%;
+  padding: 14px 16px; border-radius: 16px; cursor: pointer; text-align: left; font: inherit;
+  color: #f4efe4; border: 1px solid rgba(217, 173, 84, .55);
+  background: radial-gradient(120% 120% at 0% 0%, rgba(217, 173, 84, .25), transparent 60%), linear-gradient(160deg, #1d1f23, #0f1013);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.coupon-card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(217, 173, 84, .7); }
+.coupon-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #1a1408; background: linear-gradient(180deg, #f6dc9b, #d9ad54 55%, #a8792b); }
+.coupon-ic svg { width: 18px; height: 18px; }
+.coupon-txt { display: grid; gap: 2px; font-size: 13px; line-height: 1.4; color: rgba(244, 239, 228, .72); min-width: 0; }
+.coupon-txt b { font-size: 15px; font-weight: 700; color: #f6dc9b; }
+.coupon-go { color: #d9ad54; }
+@media (max-width: 420px) { .panel-box { padding: 14px; } .facts li { grid-template-columns: 30px minmax(0, 1fr); gap: 10px; } .facts li > svg { width: 30px; height: 30px; padding: 6px; } }
+
+/* Prix relevé sur LoveGoBuy */
+.price-box { display: grid; gap: 4px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.price-label { font: 500 11px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.price-val { font: 700 34px/1.1 var(--f-display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.price-val.price-none { font-size: 20px; }
+.price-sub { font-size: 13px; color: var(--muted); }
+
+/* Accueil : 6 catégories, 3 par ligne sur ordinateur, 2 par ligne sur téléphone */
+.cats:has(> .cat-tile:nth-child(6)) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cats:has(> .cat-tile:nth-child(6)) .cat-pic { aspect-ratio: 16 / 10; }
+@media (max-width: 900px) {
+  .cats:has(> .cat-tile:nth-child(6)) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cats:has(> .cat-tile:nth-child(6)) .cat-pic { aspect-ratio: 1 / 1; }
+}

@@ -14,7 +14,7 @@ const require_readFileSync = (f) => { try { return readFileSync(f, 'utf8'); } ca
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { parseMessages, parseChannel, toArticles, minId } from './parse.mjs';
+import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom } from './parse.mjs';
 import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
 
 const CHANNEL = process.env.CHANNEL || 'lovegobuy_france';
@@ -25,6 +25,8 @@ const MAX_PHOTOS = 10;
 const CUTOUT_TRIES = Number(process.env.CUTOUT_TRIES ?? 4); // 0 = pas de détourage
 const RANK_PHOTOS = 9; // photos examinées pour choisir la couverture
 const COVER_REV = 4; // version de la règle de choix de la couverture ; les anciennes couvertures sont refaites
+const PHOTO_REV = 2; // version du stockage des photos : 2 = fichier d'origine du canal, sans recompression
+const RESCUE_REV = 1; // version du détourage de secours : les articles restés sans photo détourée sont retentés
 const RECOVER = Number(process.env.RECOVER || 400); // couvertures anciennes refaites au plus par passage
 const CHUNK = 40; // articles traités ensemble ; le site est enregistré après chaque groupe
 const BUDGET = Number(process.env.BUDGET_MIN || 35) * 60e3; // temps de travail maximal par passage
@@ -85,8 +87,13 @@ async function downloadPhotos(a, tmp) {
   for (const [i, url] of a.photosRemote.slice(0, MAX_PHOTOS).entries()) {
     try {
       const buf = await get(url, 'buffer');
-      const file = `${i + 1}.webp`;
-      await sharp(buf).rotate().resize({ width: 1000, withoutEnlargement: true }).webp({ quality: 74 }).toFile(path.join(dir, file));
+      // Photo gardée telle que publiée sur le canal (aucune recompression : pas de perte de qualité)
+      const meta = await sharp(buf).metadata();
+      const ext = meta.format === 'jpeg' ? 'jpg' : meta.format === 'png' ? 'png' : 'webp';
+      const file = `${i + 1}.${ext}`;
+      if (ext === 'webp' && meta.format !== 'webp') await sharp(buf).rotate().webp({ quality: 92 }).toFile(path.join(dir, file));
+      else await writeFile(path.join(dir, file), buf);
+      for (const old of ['webp', 'jpg', 'png']) if (old !== ext) await rm(path.join(dir, `${i + 1}.${old}`), { force: true });
       photos.push(`images/${a.id}/${file}`);
       if (i < RANK_PHOTOS) { // originaux gardés le temps du passage pour choisir et détourer la couverture
         const src = path.join(tmp, `${a.id}_${i + 1}.img`);
@@ -172,7 +179,7 @@ function makeCovers(items, tmp) {
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
     if (!todo.length) break;
-    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, forced: s.it.forced || null, order: s.order, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
     console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
     const cut = runCutouts(jobs, tmp, round);
     const made = todo.filter((s) => cut.get(s.it.id));
@@ -208,19 +215,25 @@ async function main() {
   const historyDone = existing.historyComplete === true;
 
   // 1. Lire le canal
-  const { channel, messages, pages } = await readChannel(historyDone ? RECENT_PAGES : MAX_PAGES);
+  const photosStale = [...known.values()].some((a) => a.photoRev !== PHOTO_REV);
+  if (photosStale) console.log('Photos à récupérer à nouveau depuis le canal, en qualité d\'origine : lecture de tout le canal');
+  const { channel, messages, pages } = await readChannel(historyDone && !photosStale ? RECENT_PAGES : MAX_PAGES);
   const found = toArticles(messages, CHANNEL);
   console.log(`${found.length} articles lus sur ${pages} page(s) ; ${known.size} déjà sur le site`);
 
   // Corrections faites à la main (data/overrides.json) : { "id": { "cover": n°photo, "category": "Bas", "kind": "shoe" } }
   const overrides = await readJson(OVERRIDES_FILE, {});
   const ov = (id) => overrides[String(id)] || {};
-  const WORD = { Hauts: 'un haut', Bas: 'un bas', Ensembles: 'un ensemble', Accessoires: 'un accessoire' };
+  // Catégorie et description de chaque article, recalculées à chaque passage (y compris les anciens articles) :
+  // catégorie d'après le titre (ou corrigée à la main), mot de la description assorti, mention des prix sur LoveGoBuy
   const fixCat = (a) => {
-    const cat = ov(a.id).category;
-    if (!cat || a.category === cat) return a;
-    const description = (a.description || '').replace(/ : (un|une) [^:.]*? sélectionné sur le canal\./, ` : ${WORD[cat] || 'un article'} sélectionné sur le canal.`);
-    return { ...a, category: cat, type: cat, description };
+    const o = ov(a.id);
+    const precise = detectCategory(a.title || '');
+    const cat = o.category || (o.kind === 'shoe' ? 'Chaussures' : MERGE[precise] || precise);
+    const type = o.category || o.kind === 'shoe' ? cat : precise;
+    const extra = a.extra ?? extraFrom(a.description);
+    const description = describe({ title: a.title, brand: a.brand, category: type, weight: a.weight, photoCount: (a.photos || []).length, extra });
+    return { ...a, category: cat, type, extra: extra || null, description };
   };
 
   // 2. Articles déjà connus : mise à jour du texte si le post a été modifié (les images ne bougent pas)
@@ -243,9 +256,21 @@ async function main() {
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
-  const needsRedo = (a) => a.photos?.length && (a.coverRev !== COVER_REV || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null));
+  const needsRedo = (a) => a.photos?.length && (a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
   const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
-  const work = [...todo.map((a) => ({ a, isNew: true })), ...redoList.map((a) => ({ a, isNew: false }))];
+  // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
+  // puis couverture refaite à partir de ces originaux
+  const foundById = new Map(found.map((a) => [a.id, a]));
+  const refresh = [...known.values()].filter((a) => a.photoRev !== PHOTO_REV && foundById.get(a.id)?.photosRemote?.length).sort((x, y) => y.id - x.id);
+  const refreshIds = new Set(refresh.map((a) => a.id));
+  // post retiré du canal : ses photos ne peuvent plus être récupérées, on garde celles du site
+  const fullRead = known.size && minId(messages) <= Math.min(...known.keys()); // tout le canal a bien été lu
+  if (photosStale && fullRead) for (const [id, a] of known) if (a.photoRev !== PHOTO_REV && !foundById.has(id)) known.set(id, { ...a, photoRev: PHOTO_REV });
+  const work = [
+    ...todo.map((a) => ({ a, isNew: true })),
+    ...refresh.map((a) => ({ a: foundById.get(a.id), isNew: true, refresh: true })),
+    ...redoList.filter((a) => !refreshIds.has(a.id)).map((a) => ({ a, isNew: false })),
+  ];
   let doneNew = 0;
   for (let g = 0; g < work.length; g += CHUNK) {
     if (Date.now() - t0 > BUDGET) { console.log('Temps du passage écoulé : la suite au prochain passage.'); break; }
@@ -254,16 +279,16 @@ async function main() {
     await mkdir(tmp, { recursive: true });
     const downloaded = [];
     const items = [];
-    for (const { a, isNew } of group) {
+    for (const { a, isNew, refresh: isRefresh } of group) {
       const o = ov(a.id);
       if (isNew) {
         const { photos, sources } = await downloadPhotos(a, tmp);
         if (!photos.length) { console.warn(`- ${a.id} ${a.title} : aucune photo récupérée, réessai au prochain passage`); continue; }
-        downloaded.push({ a, photos });
-        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null });
+        downloaded.push({ a, photos, refresh: !!isRefresh });
+        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null });
       } else {
         const inputs = a.photos.slice(0, RANK_PHOTOS).map((p, i) => ({ n: i + 1, path: path.join(ROOT, p) })).filter((i) => existsSync(i.path));
-        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, redo: true });
+        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, redo: true });
       }
     }
     console.log(`Choix des couvertures pour ${items.length} article(s) (groupe ${g / CHUNK + 1})…`);
@@ -273,12 +298,14 @@ async function main() {
       const dest = path.join(IMAGES, String(id), 'cover.webp');
       if (c.n) await writeFile(dest, await readFile(c.file));
       else await rm(dest, { force: true });
-      return { cover: c.n ? `images/${id}/cover.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null };
+      return { cover: c.n ? `images/${id}/cover.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null };
     };
-    for (const { a, photos } of downloaded) {
+    for (const { a, photos, refresh: isRefresh } of downloaded) {
       const { photosRemote, ...info } = a;
       const c = await place(a.id);
-      known.set(a.id, fixCat({ ...info, photos, ...c, addedAt: new Date().toISOString() }));
+      const prev = known.get(a.id) || {};
+      known.set(a.id, fixCat({ ...prev, ...info, photos, ...c, photoRev: PHOTO_REV, addedAt: prev.addedAt || new Date().toISOString() }));
+      if (isRefresh) { console.log(`↻ ${a.id} ${a.title} : photos d'origine récupérées (${photos.length}), couverture refaite`); continue; }
       doneNew++;
       console.log(`+ ${a.id} ${a.title} (${photos.length} photos, ${c.cover ? `détourée depuis la photo ${c.coverFrom}` : `photo ${c.front} d'origine en couverture`})`);
     }

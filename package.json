@@ -12,6 +12,7 @@
   "dependencies": {
     "@huggingface/transformers": "3.0.2",
     "@imgly/background-removal-node": "^1.4.5",
+    "@techstark/opencv-js": "4.10.0-release.1",
     "cheerio": "^1.0.0",
     "sharp": "0.32.6"
   },

@@ -19,7 +19,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 240   # le premier passage importe tout le canal (2 à 3 h) ; ensuite quelques minutes
     outputs:
       changed: ${{ steps.commit.outputs.changed }}
     steps:
@@ -29,8 +29,12 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Vérifier le robot avant de toucher au site (tests hors ligne)
+        run: npm test
       - name: Lire le canal Telegram
         run: node scripts/scrape.mjs
+        env:
+          BUDGET_MIN: 200   # temps de travail maximal ; ce qui reste est fait au passage suivant
       - name: Relever les clics sur les produits (classement Top du moment)
         run: CLICKS_EVERY_MIN=0 node scripts/clicks.mjs
       - name: Enregistrer les nouveautés

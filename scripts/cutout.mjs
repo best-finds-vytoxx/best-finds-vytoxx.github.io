@@ -2,6 +2,8 @@
 // (règles graduées, étiquettes isolées, petites taches) et recadrage centré au format 3:4.
 import { removeBackground } from '@imgly/background-removal-node';
 import sharp from 'sharp';
+import { grabcut } from './grabcut.mjs';
+import { watermarkMask } from './watermark.mjs';
 
 const ALPHA = 110;
 const HAZE_MAX = 0.1; // part maximale de pixels à moitié transparents autour de l'objet // seuil d'opacité pour considérer un pixel comme "objet"
@@ -44,11 +46,33 @@ function looksLikeRuler(c, w, h) {
  * @param {Buffer} input image source (jpg/webp/png)
  * @returns {Promise<Buffer>} webp transparent 900x1200, objet centré
  */
-export async function cutout(input, { width = 900, height = 1200, margin = 0.07, dropPackaging = false } = {}) {
+export async function cutout(input, { width = 900, height = 1200, margin = 0.07, dropPackaging = false, rescue = true } = {}) {
   const png = await sharp(input).rotate().resize({ width: 1024, height: 1024, fit: 'inside', withoutEnlargement: true }).png().toBuffer();
   const blob = await removeBackground(new Blob([png], { type: 'image/png' }), { model: 'medium', output: { format: 'image/png' } });
-  const cutPng = Buffer.from(await blob.arrayBuffer());
-  return cleanCutout(cutPng, { width, height, margin, source: input, dropPackaging });
+  let cutPng = Buffer.from(await blob.arrayBuffer());
+  // vignette du canal (panda + « VYTOXX ») effacée du détourage si elle y est restée
+  let wm = null;
+  try { wm = await watermarkMask(png); } catch (e) { if (process.env.DEBUG_CUT) console.log('  vignette non cherchée :', e.message); }
+  if (wm) {
+    const { data, info } = await sharp(cutPng).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    if (info.width * info.height === wm.length) {
+      for (let p = 0; p < wm.length; p++) if (wm[p]) data[p * 4 + 3] = 0;
+      cutPng = await sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } }).png().toBuffer();
+    }
+  }
+  const first = await cleanCutout(cutPng, { width, height, margin, source: input, dropPackaging });
+  if (first || !rescue) return first;
+  // Détourage raté (vêtement blanc ou gris sur la table grise, objet à moitié transparent…) :
+  // seconde méthode, guidée par la couleur de la table, puis mêmes contrôles de qualité
+  try {
+    const rescue = await grabcut(png, cutPng, wm);
+    if (!rescue) return null;
+    if (process.env.DEBUG_CUT) console.log('  seconde méthode (GrabCut)');
+    return await cleanCutout(rescue, { width, height, margin, source: input, dropPackaging });
+  } catch (e) {
+    if (process.env.DEBUG_CUT) console.log('  seconde méthode impossible :', e.message);
+    return null;
+  }
 }
 
 /**
@@ -353,11 +377,13 @@ export async function cleanCutout(cutPng, { width = 900, height = 1200, margin =
     .extract({ left: x0, top: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 })
     .png()
     .toBuffer();
+  // Objet mis à l'échelle de la toile 900 × 1200 (filtre Lanczos, net), compression très légère :
+  // la netteté dépend surtout de la photo d'origine, gardée sans recompression
   const innerW = Math.round(width * (1 - 2 * margin)), innerH = Math.round(height * (1 - 2 * margin));
-  const fitted = await sharp(obj).resize({ width: innerW, height: innerH, fit: 'inside' }).png().toBuffer();
+  const fitted = await sharp(obj).resize({ width: innerW, height: innerH, fit: 'inside', kernel: 'lanczos3' }).png().toBuffer();
   return sharp({ create: { width, height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
     .composite([{ input: fitted, gravity: 'center' }])
-    .webp({ quality: 82, alphaQuality: 90 })
+    .webp({ quality: 92, alphaQuality: 100, smartSubsample: true, effort: 5 })
     .toBuffer();
 }
 

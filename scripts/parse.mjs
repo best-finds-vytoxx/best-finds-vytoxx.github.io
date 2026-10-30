@@ -112,7 +112,8 @@ const CATEGORIES = [
   ['Bas', /pantalon|jogging|jogger|short|jeans?\b|pants?\b|legging|cargo|caleçons?|boxers?/i],
   ['Ensembles', /ensemble|survêtement|tracksuit|\bsets?\b|sportswear|running|run division/i],
   ['Chaussures', /chaussure|sneakers?|baskets?|shoes?\b|boots?\b|botte|\btn\b|air max|air force|shox|p6000|jordan|dunk|samba|claquette|slide|sabot|crocs|9060|1906|jumpman|escarpins?|sandales?|mules?|mocassins?|runner|trainer|tennis walk|golden goose|yeezy \d|dior b\d|cloud\w*|gel-|kayano|xt-6|saucony|asics|numeris/i],
-  ['Accessoires', /bonnet|écharpe|echarpe|scarf|casquette|\bcaps?\b|\bhat\b|beanie|gants?|ceinture|lunettes|glasses|sacs?\b|\bbags?\b|bowling|cisalpin|sprayground|portefeuille|porte-cartes|wallet|bracelet|collier|bague|montres?\b|watch|chrono|gourde|tumbler|quencher|chaussettes|socks|coque|airpods|goyard/i],
+  ['Électronique', /casque(?!tte)|airpods|écouteurs?|ecouteurs?|enceinte|bluetooth|\bjbl\b|\bbeats\b|chargeur|power ?bank|batterie externe|console|manette|apple watch|montre connectée|iphone|ipad|sèche-cheveux|seche-cheveux|dyson|lisseur|boucleur|rasoir|tondeuse/i],
+  ['Accessoires', /bonnet|écharpe|echarpe|scarf|casquette|\bcaps?\b|\bhat\b|beanie|gants?|ceinture|lunettes|glasses|sacs?\b|\bbags?\b|bowling|cisalpin|sprayground|portefeuille|porte-cartes|wallet|bracelet|collier|bague|montres?\b|watch|chrono|gourde|tumbler|quencher|chaussettes|socks|coque|goyard/i],
 ];
 
 export function detectCategory(title) {
@@ -128,8 +129,8 @@ export function detectCategory(title) {
   return best ? best.name : 'Autres';
 }
 
-// Catégories regroupées sur le site : Hauts, Bas, Accessoires, Ensembles
-export const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', Doudounes: 'Hauts', Chaussures: 'Accessoires', Autres: 'Accessoires' };
+// Catégories regroupées sur le site : Hauts, Bas, Chaussures, Ensembles, Électronique, Accessoires
+export const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', Doudounes: 'Hauts', Autres: 'Accessoires' };
 
 const num = (s) => Number(String(s).replace(',', '.'));
 
@@ -154,7 +155,7 @@ const PROMO = /best spreadsheet|lien lovegobuy|inscri|canal de chat|groupe|poids
 
 const TYPE_WORD = {
   Doudounes: 'une doudoune', Vestes: 'une veste', Sweats: 'un sweat', Hauts: 'un haut', Bas: 'un bas',
-  Ensembles: 'un ensemble', Chaussures: 'une paire de chaussures', Accessoires: 'un accessoire', Autres: 'un article',
+  Ensembles: 'un ensemble', Chaussures: 'une paire de chaussures', Électronique: 'un appareil électronique', Accessoires: 'un accessoire', Autres: 'un article',
 };
 
 function fmtWeight(w) {
@@ -163,16 +164,53 @@ function fmtWeight(w) {
   return w.max ? `entre ${f(w.min)} et ${f(w.max)}` : f(w.min);
 }
 
-/** Description lisible, construite uniquement avec ce que dit le post (jamais de prix). */
+// Aucun prix n'est écrit sur le site : il est affiché sur LoveGoBuy
+export const PRICE_NOTE = 'Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.';
+export const TYPE_WORDS = TYPE_WORD;
+
+// Montant des coupons offerts à l'inscription (même valeur que « coupon » dans assets/config.js)
+export const COUPON = '500 €';
+export const SHIPPING_NOTE = `Ce prix de livraison peut être diminué grâce aux ${COUPON} de coupons offerts à l'inscription sur LoveGoBuy.`;
+export const DOWN_NOTE = "Le rembourrage est en duvet d'oie.";
+// Doudounes uniquement (pas les gilets ni les vestes) : titre ou type précis
+const isDoudoune = (title, category) => category === 'Doudounes' || /doudoune|puffer|down jacket|veste down|blouson de duvet|\bpjs\b|macmillan|mac millan/i.test(title || '');
+
+/** Description lisible, construite uniquement avec ce que dit le post (jamais de prix d'article). */
 export function describe({ title, brand, category, weight, photoCount, extra }) {
   const parts = [];
-  parts.push(`${title}${brand && !title.toLowerCase().includes(brand.toLowerCase()) ? `, de la marque ${brand}` : ''} : ${TYPE_WORD[category] || 'un article'} sélectionné sur le canal.`);
-  if (photoCount > 1) parts.push(`${photoCount} photos de contrôle prises par l'équipe montrent l'article réel, étiquettes et détails compris.`);
-  else if (photoCount === 1) parts.push(`La photo de contrôle montre l'article réel.`);
-  if (weight) parts.push(`Poids indiqué : ${fmtWeight(weight)}, à prendre en compte pour estimer la livraison${weight.max ? ' (le poids varie selon la taille ou le modèle)' : ''}.`);
+  const word = TYPE_WORD[category] || 'un article';
+  parts.push(`${title}${brand && !title.toLowerCase().includes(brand.toLowerCase()) ? `, de la marque ${brand}` : ''} : ${word} ${word.startsWith('une ') ? 'sélectionnée' : 'sélectionné'} sur le canal.`);
+  if (photoCount > 1) parts.push(`Les ${photoCount} photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris.`);
+  else if (photoCount === 1) parts.push(`La photo est la photo exacte de cet article, prise par l'équipe Vytoxx.`);
+  if (isDoudoune(title, category)) parts.push(DOWN_NOTE);
+  if (weight) parts.push(`Poids affiché : ${fmtWeight(weight)}${weight.max ? ' (selon la taille ou le modèle)' : ''}. Il permet d'estimer le prix de la livraison.`);
+  else parts.push(`Le poids, sur la page LoveGoBuy, permet d'estimer le prix de la livraison.`);
+  parts.push(SHIPPING_NOTE);
   if (extra) parts.push(extra);
-  parts.push(`Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy.`);
+  parts.push(PRICE_NOTE);
   return parts.join(' ');
+}
+
+/**
+ * Texte libre du post (ce qui n'est pas généré) retrouvé dans une ancienne description,
+ * pour reconstruire la description d'un article déjà sur le site avec les nouvelles phrases.
+ */
+export function extraFrom(description) {
+  return String(description || '')
+    .replace(/^.*? sélectionnée? sur le canal\.\s*/, '')
+    .replace(/\d+ photos de contrôle prises par l'équipe montrent l'article réel, étiquettes et détails compris\.\s*/, '')
+    .replace(/La photo de contrôle montre l'article réel\.\s*/, '')
+    .replace(/Les \d+ photos sont les photos exactes de cet article[^.]*\.\s*/, '')
+    .replace(/La photo est la photo exacte de cet article[^.]*\.\s*/, '')
+    .replace(DOWN_NOTE, '')
+    .replace(/Poids indiqué : [^.]*?estimer la livraison( \([^)]*\))?\.\s*/, '')
+    .replace(/Poids affiché : [^.]*\. Il permet d'estimer le prix de la livraison\.\s*/, '')
+    .replace(/Le poids, sur la page LoveGoBuy, permet d'estimer le prix de la livraison\.\s*/, '')
+    .replace(SHIPPING_NOTE, '')
+    .replace(/Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy\.\s*/, '')
+    .replace(PRICE_NOTE, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /** Transforme les messages en articles (posts qui commencent par 🔍) */
@@ -201,7 +239,9 @@ export function toArticles(messages, channel = 'lovegobuy_france') {
     const kind = detectCategory(title); // type précis (pour la description)
     const category = MERGE[kind] || kind; // catégorie affichée sur le site
     const weight = parseWeight(m.text);
-    const lgb = m.links.find((l) => /lovegobuy\.com\/product/i.test(l.href));
+    // Lien de l'article : celui intitulé « lien LoveGoBuy » (certains posts ont un autre lien produit avant, sur l'emoji 🔗)
+    const products = m.links.filter((l) => /lovegobuy\.com\/product/i.test(l.href));
+    const lgb = products.find((l) => /lien/i.test(l.label || '')) || products[products.length - 1];
     let shop = null, productId = null;
     if (lgb) {
       try {
@@ -221,6 +261,7 @@ export function toArticles(messages, channel = 'lovegobuy_france') {
       category,
       type: kind, // type précis (Vestes, Doudounes, Sweats…) : sert au choix de la photo de face
       weight,
+      extra: extra || null, // texte libre du post, gardé pour reconstruire la description
       description: describe({ title, brand, category: kind, weight, photoCount: photos.length, extra }),
       link: lgb ? lgb.href : null,
       shop,

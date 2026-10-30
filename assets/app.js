@@ -1,7 +1,7 @@
 (() => {
   const S = window.SITE || {};
   const app = document.getElementById('app');
-  const state = { articles: [], updatedAt: null, q: '', cat: 'Tous', brand: '', sort: 'recent' };
+  const state = { articles: [], updatedAt: null, q: '', cat: 'Tous', brand: '', sort: 'recent', prices: {}, pricesAt: null };
 
   // ---------- utilitaires ----------
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -52,6 +52,13 @@
     gift: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg>',
     tg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.3 18.4 19c-.2 1-.8 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-1 .5l.3-4.7 8.6-7.8c.4-.3-.1-.5-.6-.2L6.6 13 2 11.6c-1-.3-1-1 .2-1.5L20.2 3c.8-.3 1.6.2 1.3 1.3Z"/></svg>',
   };
+  Object.assign(icon, {
+    camera: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>',
+    box: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="m3 7.5 9 4.5 9-4.5M12 12v9"/></svg>',
+    feather: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 4c-7 0-13 5-13 12v4"/><path d="M7 16c6 0 11-3 13-12"/><path d="M11 12h5"/></svg>',
+    tag: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></svg>',
+    cal: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  });
   const coupon = esc(S.coupon || '500 €');
   const IMG = { logo: 'assets/img/logo.webp', banner: 'assets/img/banner.webp', bannerMid: 'assets/img/banner-1200.webp', bannerMobile: 'assets/img/banner-mobile.webp', favicon: 'assets/img/favicon.png', video: 'assets/video/tuto.mp4', poster: 'assets/video/tuto-poster.webp' };
   const logo = (cls = 'logo') => `<img class="${cls}" src="${IMG.logo}" alt="" width="64" height="64">`;
@@ -62,8 +69,8 @@
     l.href = IMG.favicon;
   });
 
-  // ---------- papier crème / blanc ----------
-  document.documentElement.dataset.paper = store.get('paper') || 'cream';
+  // ---------- fond crème (unique) ----------
+  document.documentElement.dataset.paper = 'cream';
 
   // ---------- squelette ----------
   app.innerHTML = `
@@ -74,16 +81,11 @@
       <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
       <div class="top-right">
         <button class="gift" type="button" id="open-promo">${icon.gift}<span>${coupon} offerts</span></button>
-        <div class="paper" role="group" aria-label="Couleur du fond">
-          <button type="button" data-p="cream" title="Fond crème" aria-label="Fond crème"></button>
-          <button type="button" data-p="white" title="Fond blanc" aria-label="Fond blanc"></button>
-        </div>
         <a class="tg" href="${esc(S.telegram)}" target="_blank" rel="noopener" aria-label="Canal Telegram">${icon.tg} <span class="tg-label">Canal Telegram ${esc(S.by || '')}</span></a>
       </div>
     </div></header>
     <main id="view"></main>
     <div class="bar" id="bar"></div>
-    <footer><div class="wrap"><p class="foot-upd" id="foot-upd"></p></div></footer>
     <div class="promo" id="promo" hidden>
       <div class="promo-back" data-close></div>
       <div class="promo-card" role="dialog" aria-modal="true" aria-labelledby="promo-title">
@@ -103,15 +105,6 @@
   const view = document.getElementById('view');
   const bar = document.getElementById('bar');
 
-  const syncPaper = () => app.querySelectorAll('.paper button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.p === document.documentElement.dataset.paper)));
-  app.querySelector('.paper').addEventListener('click', (e) => {
-    const p = e.target.closest('button')?.dataset.p;
-    if (!p) return;
-    document.documentElement.dataset.paper = p;
-    store.set('paper', p);
-    syncPaper();
-  });
-  syncPaper();
 
   // ---------- pop-up coupon ----------
   const promo = document.getElementById('promo');
@@ -227,10 +220,40 @@
   }
 
   const PAGE = 48;
+  // Texte d'introduction de la fiche : la description sans les phrases d'information générales
+  // (elles sont présentées à part, dans l'encadré « En bref »)
+  const introOf = (a) => {
+    let d = String(a.description || '');
+    const generic = [
+      /^.*? : ((?:un|une) [^:.]*? sélectionnée? sur le canal)\.\s*/,
+      /\d+ photos de contrôle prises par l'équipe montrent l'article réel, étiquettes et détails compris\.\s*/,
+      /La photo de contrôle montre l'article réel\.\s*/,
+      /Les \d+ photos sont les photos exactes de cet article[^.]*\.\s*/,
+      /La photo est la photo exacte de cet article[^.]*\.\s*/,
+      /Le rembourrage est en duvet d'oie\.\s*/,
+      /Poids indiqué : [^.]*?estimer la livraison( \([^)]*\))?\.\s*/,
+      /Poids affiché : [^.]*\. Il permet d'estimer le prix de la livraison\.\s*/,
+      /Le poids, sur la page LoveGoBuy, permet d'estimer le prix de la livraison\.\s*/,
+      /Ce prix de livraison peut être diminué[^.]*\.\s*/,
+      /Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy\.\s*/,
+      /Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy\.\s*/,
+    ];
+    // la phrase « un haut sélectionné sur le canal » n'est plus affichée : seul le texte propre au post reste
+    for (const re of generic) d = d.replace(re, '');
+    return d.trim();
+  };
+  const isDown = (a) => /duvet d'oie/.test(a.description || '');
+  // Les prix ne sont jamais affichés ici : la description renvoie vers LoveGoBuy
+  const PRICE_NOTE = 'Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.';
+  const withPriceNote = (d) => {
+    const t = d.replace(/Tailles, coloris et disponibilité sont à choisir directement sur la page LoveGoBuy\./, PRICE_NOTE);
+    return t.includes(PRICE_NOTE) ? t : `${t} ${PRICE_NOTE}`.trim();
+  };
   // ---------- page d'accueil ----------
   const thumb = (a) => a.cover || bestPhoto(a) || '';
   // Tuiles larges pour que la grille des catégories tombe juste (4 colonnes sur ordinateur, 2 sur téléphone)
   const tileSpan = (k, n) => {
+    if (n % 3 === 0) return ''; // 6 catégories : grille de 3 × 2
     const r = n % 4, cls = [];
     if ((r === 3 && k === 0) || (r === 2 && k >= n - 2)) cls.push('w4');
     if (r === 1 && k === n - 1) cls.push('w4', 'full4');
@@ -244,8 +267,9 @@
     const latest = arts.slice(0, 4);
     const cats = {};
     arts.forEach((a) => { if (!cats[a.category]) cats[a.category] = { n: 0, pics: [] }; cats[a.category].n++; if (a.cover && cats[a.category].pics.length < 3) cats[a.category].pics.push(a.cover); });
-    const ORDER = ['Hauts', 'Bas', 'Accessoires', 'Ensembles'];
-    const catList = ORDER.filter((c) => cats[c]).map((c) => [c, cats[c]]);
+    const ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires'];
+    // les 6 catégories sont toujours affichées, dans cet ordre (même si l'une est momentanément vide)
+    const catList = ORDER.map((c) => [c, cats[c] || { n: 0, pics: [] }]);
     const byId = new Map(arts.map((a) => [a.id, a]));
     const ranking = top.ids.map((id) => byId.get(id)).filter(Boolean).slice(0, 5);
 
@@ -409,7 +433,9 @@
     const arts = state.articles;
     const cats = {};
     arts.forEach((a) => (cats[a.category] = (cats[a.category] || 0) + 1));
-    const catList = Object.entries(cats).sort((a, b) => (a[0] === 'Autres') - (b[0] === 'Autres') || b[1] - a[1]);
+    const CAT_ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires'];
+    const rank = (c) => (CAT_ORDER.includes(c) ? CAT_ORDER.indexOf(c) : 99);
+    const catList = Object.entries(cats).sort((a, b) => rank(a[0]) - rank(b[0]) || b[1] - a[1]);
     const brandCount = {};
     arts.forEach((a) => a.brand && (brandCount[a.brand] = (brandCount[a.brand] || 0) + 1));
     const brands = Object.keys(brandCount).sort((a, b) => a.localeCompare(b, 'fr'));
@@ -488,6 +514,10 @@
       .slice(0, 4);
     const buyAttrs = a.link ? `href="${esc(a.link)}" target="_blank" rel="noopener" data-buy="${a.id}"` : 'aria-disabled="true"';
     const w = weightText(a.weight);
+    // prix relevé sur LoveGoBuy, seulement s'il correspond bien au lien actuel de l'article
+    const lgb = ((p) => (p && p.eur && (!p.pid || p.pid === a.productId) ? p : null))((state.prices || {})[a.id]);
+    const eur = (v) => v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    const cnyTxt = (v) => v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' CNY';
 
     view.innerHTML = `
       <div class="wrap">
@@ -502,25 +532,48 @@
             ${shots.length > 1 ? `<div class="thumbs" id="thumbs">${shots.map((p, i) => `<button type="button" class="${p.cut ? 'is-cut' : ''}" data-i="${i}" aria-label="${p.cut ? 'Photo détourée' : 'Photo réelle ' + i}" aria-current="${i === 0}"><img src="${esc(p.src)}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
           </div>
           <div class="info">
-            <div>
+            <div class="info-head">
               <span class="br">${esc([a.brand, a.category].filter(Boolean).join(' · '))}</span>
               <h1>${esc(a.title)}</h1>
+              ${introOf(a) ? `<p class="desc">${esc(introOf(a))}</p>` : ''}
             </div>
-            <p class="desc">${esc(a.description || '')}</p>
-            <dl class="label">
-              <div><dt>Poids</dt><dd>${esc(w || '—')}</dd></div>
-              <div><dt>Photos</dt><dd>${(a.photos || []).length}</dd></div>
-              <div><dt>Publié le</dt><dd>${esc(new Date(a.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' }))}</dd></div>
-            </dl>
-            <div class="cta">
-              <a class="buy" ${buyAttrs}>Voir l'article sur LoveGoBuy ${icon.out}</a>
-              <a class="sub" href="${esc(a.telegram)}" target="_blank" rel="noopener">${icon.tg} Voir le post Telegram</a>
+
+            <div class="price-box">
+              <span class="price-label">Prix affiché sur le site</span>
+              ${lgb ? `<span class="price-val">${esc(eur(lgb.eur))}</span><span class="price-sub">${esc(cnyTxt(lgb.cny))} sur LoveGoBuy${state.pricesAt ? `, relevé le ${esc(new Date(state.pricesAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }))}` : ''}</span>`
+                : `<span class="price-val price-none">Voir la page LoveGoBuy</span><span class="price-sub">Le prix de cet article n'a pas encore été relevé.</span>`}
             </div>
-            ${S.invite ? `<button class="hint" type="button" id="hint-promo">${icon.gift} Pas encore de compte ? ${coupon} de coupons offerts sur ta livraison</button>` : ''}
-            ${a.link ? `<div class="copy">
-              <button class="share" type="button" id="share">${icon.link} Copier le lien LoveGoBuy</button>
-              <input class="copy-field" id="copy-field" type="text" readonly value="${esc(a.link)}" aria-label="Lien LoveGoBuy de l'article" hidden>
-            </div>` : ''}
+
+            <section class="panel-box" aria-label="Informations sur l'article">
+              <ul class="facts">
+                <li>${icon.camera}<span><b>${(a.photos || []).length} photo${(a.photos || []).length > 1 ? 's' : ''} exacte${(a.photos || []).length > 1 ? 's' : ''} de l'article</b>Prises par l'équipe Vytoxx, étiquettes et détails compris.</span></li>
+                <li>${icon.box}<span><b>Poids : ${esc(w || 'sur la page LoveGoBuy')}</b>Sert à estimer le prix de la livraison, que les ${coupon} de coupons permettent de réduire.</span></li>
+                ${isDown(a) ? `<li>${icon.feather}<span><b>Rembourrage en duvet d'oie</b>Garnissage de la doudoune.</span></li>` : ''}
+                <li>${icon.tag}<span><b>Tailles et coloris</b>À choisir directement sur la page LoveGoBuy.</span></li>
+              </ul>
+            </section>
+
+            <section class="panel-box" aria-labelledby="order-t">
+              <h2 class="box-title" id="order-t">Commander</h2>
+              <div class="cta">
+                <a class="buy" ${buyAttrs}>Voir l'article sur LoveGoBuy ${icon.out}</a>
+                ${a.link ? `<div class="copy">
+                  <span class="copy-title">Pour copier-coller directement dans l'application LoveGoBuy</span>
+                  <button class="sub share" type="button" id="share">${icon.link} Copier le lien LoveGoBuy</button>
+                  <input class="copy-field" id="copy-field" type="text" readonly value="${esc(a.link)}" aria-label="Lien LoveGoBuy de l'article" hidden>
+                </div>` : ''}
+                <div class="copy">
+                  <span class="copy-title">Pour le retrouver sur le canal</span>
+                  <a class="sub" href="${esc(a.telegram)}" target="_blank" rel="noopener">${icon.tg} Voir le post Telegram</a>
+                </div>
+              </div>
+            </section>
+
+            ${S.invite ? `<button class="coupon-card" type="button" id="hint-promo">
+              <span class="coupon-ic">${icon.gift}</span>
+              <span class="coupon-txt"><b>${coupon} de coupons offerts</b>Pas encore de compte LoveGoBuy ? Ils réduisent tes frais de livraison.</span>
+              <span class="coupon-go">${icon.right}</span>
+            </button>` : ''}
           </div>
         </article>
       </div>
@@ -623,14 +676,19 @@
     try {
       const data = window.__DATA || (await (await fetch('data/articles.json', { cache: 'no-cache' })).json());
       // Par sécurité, aucun champ de prix n'est jamais lu
-      const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', 'Vestes & sweats': 'Hauts', Doudounes: 'Hauts', Chaussures: 'Accessoires', Autres: 'Accessoires' };
+      const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', 'Vestes & sweats': 'Hauts', Doudounes: 'Hauts', Autres: 'Accessoires' };
       state.articles = (data.articles || []).filter((a) => a && a.id).map(({ price, ...a }) => ({ ...a, category: MERGE[a.category] || a.category }));
       state.updatedAt = data.updatedAt;
     } catch {
       state.articles = [];
     }
-    if (state.updatedAt) {
-      document.getElementById('foot-upd').textContent = vagueUpdate(state.updatedAt);
+    // Prix relevés sur LoveGoBuy (data/prices.json) : seul prix affiché, jamais celui des posts Telegram
+    try {
+      const pr = window.__PRICES || (await (await fetch('data/prices.json', { cache: 'no-cache' })).json());
+      state.prices = pr.items || {};
+      state.pricesAt = pr.checkedAt || null;
+    } catch {
+      state.prices = {};
     }
     await loadTop();
     // Quel que soit le lien d'arrivée, la visite commence sur la page d'accueil

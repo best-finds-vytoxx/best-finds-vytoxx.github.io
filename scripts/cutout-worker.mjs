@@ -32,7 +32,18 @@ async function tryCut(job, n) {
   if (!input) return null;
   try {
     // chaussures et accessoires : boîte, carton et étiquettes posés à côté sont retirés (sauf si la boîte est le produit)
-    const out = await cutout(await readFile(input.path), { dropPackaging: job.kind !== 'wear' && !job.box });
+    // seconde méthode de détourage (vêtements blancs ou gris sur la table) : réservée aux vêtements,
+    // elle ne sait pas séparer un petit objet de sa boîte
+    let buf = await readFile(input.path);
+    // recadrage choisi à la main (data/overrides.json, « crop » : [gauche, haut, droite, bas] en fractions de la photo),
+    // appliqué à la photo imposée : isole le produit quand il est entouré de sa boîte et de ses papiers
+    if (job.crop && n === job.forced) {
+      const img = sharp(buf).rotate();
+      const { width: W, height: H } = await sharp(await img.clone().toBuffer()).metadata();
+      const [x0, y0, x1, y1] = job.crop;
+      buf = await img.extract({ left: Math.round(x0 * W), top: Math.round(y0 * H), width: Math.round((x1 - x0) * W), height: Math.round((y1 - y0) * H) }).png().toBuffer();
+    }
+    const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear' });
     if (!out) { console.log(`  ${job.id} : détourage de la photo ${n} jugé raté`); return null; }
     const sh = await shape(out);
     if (process.env.DEBUG_CUT) console.log(`  ${job.id} photo ${n} : largeur/hauteur ${sh.ratio.toFixed(2)}, remplissage ${sh.fill.toFixed(2)}`);

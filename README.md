@@ -1,75 +1,39 @@
-name: Mise à jour des articles
+# Best Finds — le site du canal Telegram Vytoxx
 
-on:
-  schedule:
-    - cron: "*/15 * * * *"   # toutes les 15 minutes (GitHub peut décaler de quelques minutes)
-  workflow_dispatch:          # bouton "Run workflow" pour lancer à la main
-  push:
-    branches: [main]
+Site : https://leosakidirect-arch.github.io/Best-finds/
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+Le site se remplit tout seul à partir du canal **t.me/lovegobuy_france**. Tu n'as rien à faire sur GitHub :
+pour un changement, demande-le simplement à Claude, qui l'enregistre et le met en ligne lui-même.
 
-concurrency:
-  group: update
-  cancel-in-progress: false
+## Ce qui se passe automatiquement
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    timeout-minutes: 240   # le premier passage importe tout le canal (2 à 3 h) ; ensuite quelques minutes
-    outputs:
-      changed: ${{ steps.commit.outputs.changed }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - name: Lire le canal Telegram
-        run: node scripts/scrape.mjs
-        env:
-          BUDGET_MIN: 200   # temps de travail maximal ; ce qui reste est fait au passage suivant
-      - name: Relever les clics sur les produits (classement Top du moment)
-        run: CLICKS_EVERY_MIN=0 node scripts/clicks.mjs
-      - name: Enregistrer les nouveautés
-        id: commit
-        run: |
-          git config user.name "finds-bot"
-          git config user.email "finds-bot@users.noreply.github.com"
-          git add -A data
-          if [ -d images ]; then git add -A images; fi
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            git commit -m "Nouveaux articles"
-            git pull --rebase
-            git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
+Toutes les 15 minutes, un robot (onglet **Actions** de ce dépôt) :
 
-  deploy:
-    needs: update
-    if: needs.update.outputs.changed == 'true' || github.event_name != 'schedule'
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - name: Préparer le site
-        run: |
-          mkdir _site
-          cp -r index.html assets data _site/
-          if [ -d images ]; then cp -r images _site/; fi
-          touch _site/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-      - id: deployment
-        uses: actions/deploy-pages@v4
+1. lit les derniers posts du canal ; chaque post qui commence par 🔍 devient un article ;
+2. récupère toutes ses photos, telles que publiées (sans perte de qualité) ;
+3. choisit la photo de face (les choix vérifiés à la main sont dans `data/overrides.json`) ;
+4. détoure cette photo (fond, boîte, règle et vignette du canal retirés) ;
+5. range l'article dans sa catégorie : Hauts, Bas, Chaussures, Ensembles, Électronique ou Accessoires ;
+6. met le site à jour.
+
+Un nouveau post apparaît sur le site 15 à 20 minutes après sa publication.
+
+## Pour que tes posts soient bien lus
+
+```
+🔍Nom de l'article        → titre (marque et catégorie sont déduites du titre)
+⚖️Poids: ~ 288g           → poids affiché sur le site
+🔗lien LoveGoBuy (lien)   → bouton « Voir l'article sur LoveGoBuy »
+photos de l'album         → galerie et photo détourée
+```
+
+Le prix du post Telegram n'est jamais repris. Le site affiche le prix relevé sur la page LoveGoBuy
+(`data/prices.json`), quand il a été relevé.
+
+## Si quelque chose ne va pas
+
+- Un rond rouge ✗ dans l'onglet **Actions** : le robot s'est arrêté avant de toucher au site (le site reste tel quel).
+  Préviens Claude.
+- Une photo de couverture à corriger, une catégorie fausse, un changement d'apparence : demande-le à Claude.
+
+Les détails techniques (pour Claude) sont dans `CLAUDE.md`.

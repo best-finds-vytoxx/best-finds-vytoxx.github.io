@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import assert from 'node:assert/strict';
-import { parseMessages, toArticles, parseChannel, minId } from '../scripts/parse.mjs';
+import { parseMessages, toArticles, parseChannel, minId, PRICE_NOTE, SHIPPING_NOTE, extraFrom } from '../scripts/parse.mjs';
 
 // 1. Pages réelles capturées : chaque article vu dans le navigateur doit être retrouvé
 const pages = readdirSync('test/fixtures').filter((f) => f.endsWith('.html')).map((f) => readFileSync('test/fixtures/' + f, 'utf8'));
@@ -27,7 +27,10 @@ const money = /€|\$|prix|\d+[.,]\d+\s*e\b/i;
 for (const a of [...all, ...arts]) {
   assert.ok(!('price' in a), 'champ prix présent ' + a.id);
   assert.ok(a.title && !money.test(a.title), 'titre ' + a.id + ' ' + a.title);
-  assert.ok(!money.test(a.description), 'prix dans la description ' + a.id + ' : ' + a.description);
+  const generic = a.description.replace(PRICE_NOTE, '').replace(SHIPPING_NOTE, '').replace(/le prix de la livraison/g, '');
+  assert.ok(!money.test(generic), 'prix dans la description ' + a.id + ' : ' + a.description);
+  assert.equal(extraFrom(a.description), a.extra || '', 'texte libre retrouvé ' + a.id);
+  assert.ok(a.description.includes(PRICE_NOTE), 'mention du prix sur LoveGoBuy ' + a.id);
 }
 const withPoids = all.filter((a) => /Poids/i.test(hist[a.id]));
 const noWeight = withPoids.filter((a) => !a.weight);
@@ -43,3 +46,13 @@ if (process.env.VERBOSE) {
   console.log(arts[0].description);
 }
 console.log('OK', arts.length, 'articles récents,', all.length, 'dans l\'historique');
+
+// 3. Post avec un lien produit sur l'emoji 🔗 avant le vrai « lien LoveGoBuy » : c'est le second qui compte
+{
+  const [a] = toArticles([{ id: 4105, date: '2026-01-01T00:00:00Z', text: '🔍Corteiz × Nike Air Max 95\n⚖️Poids: ~ 1082g\n🔗lien LoveGoBuy', photos: ['x'], links: [
+    { label: '🔗', href: 'https://www.lovegobuy.com/product?shop_type=weidian&id=7730484310&invite_code=V4LTTW' },
+    { label: 'lien LoveGoBuy', href: 'https://www.lovegobuy.com/product?shop_type=weidian&id=7828590540&invite_code=V4LTTW' },
+  ] }]);
+  assert.equal(a.productId, '7828590540', 'lien LoveGoBuy du post 4105');
+  console.log('OK lien LoveGoBuy choisi par son intitulé');
+}
