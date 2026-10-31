@@ -1103,3 +1103,17 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hero-card.lg { background: linear-gradient(155deg, rgba(30, 32, 36, .62), rgba(30, 32, 36, .45)); }
 }
+
+/* icônes « verre clair » : pâles, presque transparentes, pictogramme sombre */
+.help-ic, .ic-gold, .ic-navy, .ic-terra {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .14));
+  -webkit-backdrop-filter: blur(10px) saturate(160%); backdrop-filter: blur(10px) saturate(160%);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 0 0 1px rgba(255, 255, 255, .55), inset 0 -6px 10px -8px rgba(255, 255, 255, .8), 0 6px 14px -10px rgba(70, 45, 20, .35);
+}
+.help-ic::before { background: linear-gradient(rgba(255, 255, 255, .55), rgba(255, 255, 255, 0)); height: 70%; top: -35%; }
+.help-ic svg { filter: none; opacity: .82; }
+.help-ic.ic-gold svg path { fill: currentColor; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .help-ic { background: linear-gradient(160deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .05)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 0 0 1px rgba(255, 255, 255, .14); }
+}
