@@ -53,7 +53,9 @@ jobs:
           [ -s models/birefnet-general.onnx ] || curl -sSL --retry 3 -o models/birefnet-general.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
           ls -la models
       - name: Lire le canal Telegram
-        run: node scripts/scrape.mjs
+        run: |
+          set -o pipefail
+          node scripts/scrape.mjs 2>&1 | tee scrape.log
         env:
           BUDGET_MIN: 200   # temps de travail maximal ; ce qui reste est fait au passage suivant
           BIREFNET: models/birefnet-general.onnx
@@ -74,6 +76,14 @@ jobs:
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      # Compte rendu du passage (réussi ou non) sur la branche robot-status : lisible sans ouvrir GitHub
+      - name: Compte rendu
+        if: always()
+        run: |
+          mkdir -p /tmp/status && cd /tmp/status && git init -q && git checkout -q -b robot-status
+          { echo "passage: ${{ github.run_number }} (${{ github.event_name }})"; echo "résultat: ${{ job.status }}"; echo "date: $(date -u +%FT%TZ)"; echo "commit: ${{ github.sha }}"; echo; tail -n 300 "$GITHUB_WORKSPACE/scrape.log" 2>/dev/null; } > status.txt
+          git add status.txt && git -c user.name=finds-bot -c user.email=finds-bot@users.noreply.github.com commit -qm "compte rendu ${{ github.run_number }}"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" robot-status || true
 
   deploy:
     needs: update
