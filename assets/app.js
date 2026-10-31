@@ -418,8 +418,8 @@
           <div class="hero-card lg">
             <div class="hero-txt">
               <h1 class="hero-title">Vytoxx <em>Best Finds</em></h1>
-              <p class="hero-lead">Les meilleurs finds de Vytoxx, répertoriés au même endroit. Les articles sont photographiés par notre équipe pour certifier la qualité.</p>
-              <p class="hero-note">Vytoxx n'est pas un fournisseur : il déniche simplement les meilleurs produits du marché pour les regrouper ici.</p>
+              <p class="hero-lead">Les meilleurs finds de Vytoxx, réunis ici et photographiés par notre équipe pour garantir la qualité.</p>
+              <p class="hero-note">Vytoxx n'est pas un fournisseur : il sélectionne les meilleurs produits du marché.</p>
               <p class="hero-meta"><b>${arts.length.toLocaleString('fr-FR')}</b> articles</p>
             </div>
             <div class="hero-pic" aria-hidden="true">
