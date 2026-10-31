@@ -1240,3 +1240,42 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
   :root:not([data-theme="light"]) .ph, :root:not([data-theme="light"]) .stage, :root:not([data-theme="light"]) .cat-pic { background: linear-gradient(160deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .04)); }
   :root:not([data-theme="light"]) .dr-link:hover { background: rgba(255, 255, 255, .06); }
 }
+
+/* ---------- Articles : verre renforcé ----------
+   Chaque article du catalogue est une tuile de verre (photo + texte), avec le même liseré lumineux que l'accueil.
+   Sur la fiche, la grande photo et les blocs ont aussi ce liseré. */
+.card, .stage, .card-box, .cat-tile, .arrival, .top-panel {
+  position: relative; isolation: isolate;
+}
+.card {
+  padding: 7px 7px 12px; border-radius: 24px; gap: 9px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .18) 45%, rgba(255, 255, 255, .1) 65%, rgba(255, 255, 255, .3));
+  -webkit-backdrop-filter: blur(22px) saturate(200%) brightness(1.05); backdrop-filter: blur(22px) saturate(200%) brightness(1.05);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .95), inset 0 14px 24px -18px rgba(255, 255, 255, .9), inset 0 -10px 20px -16px rgba(255, 255, 255, .6),
+    0 2px 4px rgba(70, 45, 20, .06), 0 20px 40px -26px rgba(80, 45, 15, .6);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.card .card-b { padding-inline: 8px; }
+.card .ph { border-radius: 18px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 0 0 .5px rgba(255, 255, 255, .6);
+  background: radial-gradient(90% 70% at 50% 40%, rgba(255, 255, 255, .85), rgba(255, 255, 255, .35)); border-color: rgba(255, 255, 255, .7); }
+@media (hover: hover) {
+  .card:hover { transform: translateY(-4px); box-shadow: inset 0 1.5px 0 #fff, inset 0 14px 24px -18px #fff, 0 2px 4px rgba(70, 45, 20, .06), 0 28px 50px -26px rgba(80, 45, 15, .7); }
+  .card:hover .ph { transform: none; box-shadow: inset 0 1px 0 #fff; }
+}
+.card:active { transform: scale(.98); }
+/* liseré lumineux (haut-gauche et bas-droite) */
+.card::after, .stage::after, .card-box::after, .cat-tile::after, .arrival::after, .top-panel::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.3px; pointer-events: none; z-index: 3;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, .2) 30%, rgba(255, 255, 255, .04) 52%, rgba(255, 255, 255, .28) 74%, rgba(255, 255, 255, .9));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.stage { box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .95), inset 0 16px 30px -22px #fff, 0 24px 48px -30px rgba(80, 45, 15, .6);
+  background: radial-gradient(85% 70% at 50% 42%, rgba(255, 255, 255, .85), rgba(255, 255, 255, .3)); -webkit-backdrop-filter: blur(22px) saturate(190%); backdrop-filter: blur(22px) saturate(190%); }
+.card-box, .cat-tile, .arrival, .top-panel { background: linear-gradient(155deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .22) 50%, rgba(255, 255, 255, .34)); border-color: transparent; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .card { background: linear-gradient(155deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .03) 50%, rgba(255, 255, 255, .07)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 20px 40px -26px rgba(0, 0, 0, .85); }
+  :root:not([data-theme="light"]) .card .ph, :root:not([data-theme="light"]) .stage { background: radial-gradient(90% 70% at 50% 40%, rgba(255, 255, 255, .14), rgba(255, 255, 255, .04)); }
+  :root:not([data-theme="light"]) .card-box, :root:not([data-theme="light"]) .cat-tile, :root:not([data-theme="light"]) .arrival, :root:not([data-theme="light"]) .top-panel { background: linear-gradient(155deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03)); }
+  :root:not([data-theme="light"]) .card::after, :root:not([data-theme="light"]) .stage::after, :root:not([data-theme="light"]) .card-box::after,
+  :root:not([data-theme="light"]) .cat-tile::after, :root:not([data-theme="light"]) .arrival::after, :root:not([data-theme="light"]) .top-panel::after { opacity: .35; }
+}

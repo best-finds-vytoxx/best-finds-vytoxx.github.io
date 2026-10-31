@@ -103,7 +103,6 @@
     <header class="top"><div class="wrap top-in">
       <nav class="nav-links" aria-label="Navigation">
         <button class="menu-btn" type="button" id="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">${icon.menu}<span>Menu</span></button>
-        <a href="#tuto" id="nav-tuto">${icon.play} Tuto pour commander</a>
       </nav>
       <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
       <div class="top-right">
@@ -1174,7 +1173,6 @@
     const h = location.hash;
     document.body.classList.toggle('home', !(h === '#tuto' || h === '#ecran' || h === '#aide' || h === '#catalogue' || /^#article-/.test(h)));
     const m = h.match(/^#article-(\d+)$/);
-    document.getElementById('nav-tuto').setAttribute('aria-current', String(h === '#tuto'));
     if (m) {
       trackClick(Number(m[1]), 'open');
       renderArticle(Number(m[1]));
