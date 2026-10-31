@@ -1279,3 +1279,11 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
   :root:not([data-theme="light"]) .card::after, :root:not([data-theme="light"]) .stage::after, :root:not([data-theme="light"]) .card-box::after,
   :root:not([data-theme="light"]) .cat-tile::after, :root:not([data-theme="light"]) .arrival::after, :root:not([data-theme="light"]) .top-panel::after { opacity: .35; }
 }
+
+/* Haut des pages : plus de bandes. La barre de filtres est transparente tant qu'elle n'est pas collée en haut ;
+   collée, elle prend le même verre que le bandeau et se fond vers le bas au lieu d'un trait net. */
+.top { border-bottom-color: transparent; box-shadow: 0 1px 0 rgba(255, 255, 255, .55), 0 10px 24px -20px rgba(80, 45, 15, .35); }
+.filters { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: transparent !important;
+  transition: background .3s ease, box-shadow .3s ease, top .3s var(--ease); }
+.filters.stuck { background: var(--gl-bar); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .55), 0 14px 28px -22px rgba(80, 45, 15, .45); }
