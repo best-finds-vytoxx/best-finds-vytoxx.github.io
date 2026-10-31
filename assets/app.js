@@ -420,7 +420,7 @@
               <h1 class="hero-title">Vytoxx <em>Best Finds</em></h1>
               <p class="hero-lead">Les meilleurs finds de Vytoxx, répertoriés au même endroit. Les articles sont photographiés par notre équipe pour certifier la qualité.</p>
               <p class="hero-note">Vytoxx n'est pas un fournisseur : il déniche simplement les meilleurs produits du marché pour les regrouper ici.</p>
-              <p class="hero-meta"><b>${arts.length.toLocaleString('fr-FR')}</b> articles<i></i>mis à jour toutes les 15&nbsp;min</p>
+              <p class="hero-meta"><b>${arts.length.toLocaleString('fr-FR')}</b> articles</p>
             </div>
             <div class="hero-pic" aria-hidden="true">
               <span class="hero-sun"></span>
