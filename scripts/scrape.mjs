@@ -222,7 +222,7 @@ async function main() {
   const found = toArticles(messages, CHANNEL);
   console.log(`${found.length} articles lus sur ${pages} page(s) ; ${known.size} déjà sur le site`);
 
-  // Corrections faites à la main (data/overrides.json) : { "id": { "cover": n°photo, "category": "Bas", "kind": "shoe" } }
+  // Corrections faites à la main (data/overrides.json) : { "id": { "cover": n°photo, "category": "Bas", "kind": "shoe", "hide": true } }
   const overrides = await readJson(OVERRIDES_FILE, {});
   const ov = (id) => overrides[String(id)] || {};
   // Catégorie et description de chaque article, recalculées à chaque passage (y compris les anciens articles) :
@@ -234,7 +234,9 @@ async function main() {
     const type = o.category || o.kind === 'shoe' ? cat : precise;
     const extra = a.extra ?? extraFrom(a.description);
     const description = describe({ title: a.title, brand: a.brand, category: type, weight: a.weight, photoCount: (a.photos || []).length, extra });
-    return { ...a, category: cat, type, extra: extra || null, description };
+    // "hide": true dans overrides.json → article retiré du site (lien mort, article plus disponible…)
+    const { hidden, ...rest } = a;
+    return { ...rest, category: cat, type, extra: extra || null, description, ...(o.hide ? { hidden: true } : {}) };
   };
 
   // 2. Articles déjà connus : mise à jour du texte si le post a été modifié (les images ne bougent pas)
@@ -257,7 +259,7 @@ async function main() {
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
-  const needsRedo = (a) => a.photos?.length && !a.dupOf && (a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
+  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && (a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
   const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
   // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
   // puis couverture refaite à partir de ces originaux

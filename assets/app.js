@@ -1191,7 +1191,7 @@
       const all = (data.articles || []).filter((a) => a && a.id);
       // doublons (même lien LoveGoBuy reposté) : seul le post le plus récent est affiché
       state.dups = new Map(all.filter((a) => a.dupOf).map((a) => [a.id, a.dupOf]));
-      state.articles = all.filter((a) => !a.dupOf).map(({ price, ...a }) => ({ ...a, category: MERGE[a.category] || a.category }));
+      state.articles = all.filter((a) => !a.dupOf && !a.hidden).map(({ price, ...a }) => ({ ...a, category: MERGE[a.category] || a.category }));
       state.updatedAt = data.updatedAt;
     } catch {
       state.articles = [];

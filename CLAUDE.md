@@ -27,7 +27,8 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   `watermark.mjs` repère la vignette panda « VYTOXX ». Chaque couverture a une miniature `cover-sm.webp` (480 px).
 - Revue visuelle des couvertures : planche de toutes les `cover.webp`, puis `cover` dans `data/overrides.json`
   pour les mauvaises vues (talons, emballage, détail).
-- `data/overrides.json` : `{ "id": { "cover": n°photo, "category": "Bas", "kind": "wear|shoe|acc", "crop": [g,h,d,b] } }`.
+- `data/overrides.json` : `{ "id": { "cover": n°photo, "category": "Bas", "kind": "wear|shoe|acc", "crop": [g,h,d,b], "hide": true } }`
+  (`hide` retire l’article du site : lien mort, article plus disponible).
 - `data/prices.json` : `{ checkedAt, items: { id: { cny, eur, pid } } }`, relevé dans le navigateur de Léonard sur les
   pages LoveGoBuy (le site LoveGoBuy bloque les robots). Le prix n'est affiché que si `pid` = lien actuel de l'article.
 - Site : `index.html` + `assets/app.js` (routage par #, accueil à chaque arrivée) + `assets/style.css` + `assets/config.js`.

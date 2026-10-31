@@ -1,6 +1,7 @@
 {
   "3264": {"cover": 3, "crop": [0.13, 0.18, 0.54, 0.96]},
   "3345": {"cover": 2},
+  "3349": {"hide": true},
   "3362": {"cover": 1},
   "3366": {"cover": 1},
   "3390": {"cover": 2, "kind": "shoe"},
@@ -8,6 +9,7 @@
   "3445": {"cover": 1},
   "3458": {"cover": 2},
   "3536": {"cover": 1},
+  "3544": {"hide": true},
   "3555": {"cover": 1},
   "3559": {"cover": 1},
   "3564": {"cover": 1},
@@ -116,5 +118,5 @@
   "5490": {"cover": 2},
   "5502": {"cover": 4},
   "5510": {"cover": 4},
-  "_aide": "Corrections faites à la main, appliquées par le robot à chaque passage. cover = numéro de la photo à mettre en couverture (1 = première photo du post) ; category = Hauts, Bas, Chaussures, Ensembles, Électronique ou Accessoires ; kind = wear (vêtement), shoe (chaussures) ou acc (accessoire) ; crop = [gauche, haut, droite, bas] en fractions de la photo choisie, pour isoler le produit."
+  "_aide": "Corrections faites à la main, appliquées par le robot à chaque passage. cover = numéro de la photo à mettre en couverture (1 = première photo du post) ; category = Hauts, Bas, Chaussures, Ensembles, Électronique ou Accessoires ; kind = wear (vêtement), shoe (chaussures) ou acc (accessoire) ; crop = [gauche, haut, droite, bas] en fractions de la photo choisie, pour isoler le produit ; hide = true pour retirer l'article du site."
 }
