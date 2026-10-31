@@ -603,8 +603,10 @@
       a: "1. Tape le <b>nom de l'article</b> dans la barre de recherche du site.<br>2. Rien ne sort ? Tape la <b>marque et le type de produit</b> (par exemple « Nike jogging »).<br>3. Il n'est pas sur le site ? Va sur le <b>groupe de discussion</b> et envoie une capture d'écran du produit en demandant gentiment le lien.", act: ['search', 'group'] },
     { q: 'Dans combien de temps je reçois ma commande ?', k: 'temps delai delais combien jours semaines recevoir recois reception arrive arriver quand long attente livre livraison',
       a: "Compte environ <b>3 semaines</b> en tout :<br>• <b>3 à 7 jours</b> pour que le vendeur envoie ton article à l'entrepôt LoveGoBuy ;<br>• puis <b>6 à 18 jours</b> de livraison jusqu'à chez toi, selon la ligne choisie." },
+    { q: 'Comment suivre mon colis ?', k: 'suivre suivi tracking numero colis trouve ou est aftership track localiser',
+      a: "1. Dans l'appli LoveGoBuy, va dans <b>Colis</b> puis touche <b>Détails</b>.<br>2. Descends tout en bas et touche le <b>numéro de suivi</b> : il s'actualise au fur et à mesure, même tant que le colis est hors d'Europe.<br>3. Pour un suivi plus précis une fois le colis <b>arrivé en Europe</b>, copie ce numéro et colle-le sur <b>AfterShip</b> (site ou appli).", act: 'aftership' },
     { q: "Mon colis ne bouge plus, c'est normal ?", k: 'bouge bouger suivi tracking bloque rien nouvelle avance statut normal toujours depuis',
-      a: "Oui, c'est fréquent : le suivi peut rester <b>plusieurs jours sans nouvelle info</b>, surtout pendant le vol et le passage en douane. Tant que tu es dans les délais (6 à 18 jours de livraison), pas d'inquiétude. Au-delà, ouvre un <b>ticket</b> sur le site LoveGoBuy ou demande sur le groupe de discussion.", act: 'group' },
+      a: "Oui, c'est fréquent : le suivi peut rester <b>plusieurs jours sans nouvelle info</b>, surtout pendant le vol et le passage en douane. Regarde le suivi dans l'appli (Colis, puis Détails, puis le numéro de suivi tout en bas). Tant que tu es dans les délais (6 à 18 jours de livraison), pas d'inquiétude. Au-delà, ouvre un <b>ticket</b> sur le site LoveGoBuy ou demande sur le groupe de discussion.", act: 'group' },
     { q: 'Combien coûte la livraison ?', k: 'combien cout coute prix livraison frais tarif poids estimer estimation kilo volume calcul cher',
       a: "Le prix dépend du <b>poids</b>, du <b>volume</b> du colis et de la ligne choisie.<br>• Les prix sont les plus avantageux entre <b>500 g et 5 kg</b> par colis.<br>• Le volume compte : un coussin d'1 kg coûte bien plus cher à envoyer qu'un pull épais d'1 kg.<br>• Pour estimer avant de payer, utilise l'onglet <b>Estimation</b> sur l'accueil LoveGoBuy.<br>• Poids indicatifs : t-shirt 250 g, short 350 g, pull 500 à 800 g, pantalon 600 g, chaussures 1 à 1,2 kg. Le poids est aussi indiqué sur la fiche de chaque article." },
     { q: "C'est quoi le colis d'essai ?", k: 'colis essai test calcul precis exact vacuum vide sous volumineux emballage',
@@ -647,6 +649,7 @@
     tuto: [`${icon.play} Voir le tuto pour commander`, () => { location.hash = 'tuto'; }],
     ecran: [`${icon.phone} Voir le tuto iPhone`, () => { location.hash = 'ecran'; }],
     search: [`${icon.search} Chercher sur le site`, () => { location.hash = 'catalogue'; setTimeout(() => document.getElementById('q')?.focus(), 350); }],
+    aftership: [`${icon.out} Ouvrir AfterShip`, () => window.open('https://www.aftership.com/', '_blank', 'noopener')],
     group: [`${icon.tg} Ouvrir le groupe`, () => window.open(S.chat || S.telegram, '_blank', 'noopener')],
   };
   // mots trop courants pour départager deux questions
