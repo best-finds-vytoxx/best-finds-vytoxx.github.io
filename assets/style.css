@@ -163,7 +163,7 @@ body.home .nav-links { visibility: hidden; }
   animation: settle 1.6s var(--ease) both;
 }
 @keyframes settle { from { transform: scale(1.04); filter: saturate(.85); } to { transform: none; filter: none; } }
-@media (max-width: 640px) { .banner img { height: 56vh; min-height: 320px; object-position: center 18%; } }
+@media (max-width: 640px) { .banner img { height: 48vh; min-height: 300px; max-height: 440px; object-position: center 18%; } }
 .hero-cta { position: relative; z-index: 2; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: -68px; margin-bottom: 8px; }
 .hero-cta .sub, .hero-cta .buy { height: 54px; isolation: isolate; backdrop-filter: blur(18px) saturate(1.8); -webkit-backdrop-filter: blur(18px) saturate(1.8); }
 .hero-cta .sub {
@@ -176,7 +176,11 @@ body.home .nav-links { visibility: hidden; }
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent), inset 0 1px 0 rgba(255, 255, 255, .35), 0 12px 30px -14px rgba(20, 22, 26, .6);
 }
 .hero-cta .sub:hover, .hero-cta .buy:hover { transform: translateY(-2px); filter: none; }
-@media (max-width: 640px) { .hero-cta { margin-top: -60px; } .hero-cta > * { flex: 1 1 100%; } }
+@media (max-width: 640px) {
+  .hero-cta { margin-top: -56px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hero-cta > .buy { grid-column: 1 / -1; }
+  .hero-cta .sub { padding: 0 10px; font-size: 13.5px; gap: 6px; }
+}
 
 /* Bande de chiffres sous la bannière */
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 34px; border-block: 1px solid var(--line); }
@@ -616,11 +620,27 @@ body.home .nav-links { visibility: hidden; }
 .sheet .promo-x { color: var(--muted); }
 .sheet-title { font: 700 20px/1.15 var(--f-display); letter-spacing: -0.02em; padding-right: 40px; }
 .sheet-text { margin: 0; color: var(--muted); font-size: 14px; }
-.sheet-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.sheet-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 4px; }
 .sheet-btn { display: grid; justify-items: center; gap: 8px; padding: 14px 6px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg); color: var(--ink); text-decoration: none; cursor: pointer; font: 500 12.5px/1.2 var(--f-body); text-align: center; }
 .sheet-btn:hover { border-color: var(--ink); }
 .sheet-btn.done { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.sheet-btn svg { width: 20px; height: 20px; }
+.sheet-btn i { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: var(--ink); }
+.sheet-btn i svg { width: 22px; height: 22px; }
+.sheet-btn .ic-wa { background: #25d366; }
+.sheet-btn .ic-snap { background: #fffc00; color: #111; }
+.sheet-btn .ic-snap svg { fill: #fff; stroke: #111; stroke-width: 1.2; }
+.sheet-btn .ic-tg { background: #2aabee; }
+.sheet-btn .ic-sms { background: #34c759; }
+.sheet-btn.done i { background: var(--ok); }
+.sheet-grab { justify-self: center; width: 40px; height: 5px; border-radius: 99px; background: var(--line-strong); margin: -10px 0 2px; }
+@media (min-width: 641px) { .sheet-grab { display: none; } }
+.share-pill {
+  justify-self: start; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; margin-top: 2px;
+  border-radius: 99px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font: 600 14px/1 var(--f-body); cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, transform .2s var(--ease);
+}
+.share-pill:hover { border-color: var(--ink); transform: translateY(-1px); }
+.bar-share { flex: none; width: 48px; height: 48px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
 
 /* ---------- Téléphone : confort tactile ---------- */
 a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -645,6 +665,15 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
   .block { padding-block: 36px 4px; }
   .block-head { margin-bottom: 14px; }
   .filters .wrap { padding-block: 8px; gap: 8px; }
+  .intro h1 { font-size: 30px; }
+  .tally .num { font-size: 26px; } .tally .unit { font-size: 16px; }
+  .select { padding: 0 30px 0 12px; height: 40px; background-position: right 11px center; }
+  .search input { height: 42px; }
+  .grid { gap: 20px 10px; }
+  .card { gap: 8px; }
+  .crumbs { font-size: 12.5px; }
+  .cta .buy { height: 52px; }
+  .bar { gap: 8px; }
   .tools { gap: 8px; }
   .chip { height: 34px; padding: 0 12px; font-size: 13.5px; }
   .card h3 { font-size: 14px; }

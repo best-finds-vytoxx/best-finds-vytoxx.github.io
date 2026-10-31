@@ -67,6 +67,8 @@
   Object.assign(icon, {
     share: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>',
     wa: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>',
+    snap: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c2.9 0 5.1 2.2 5.1 5.3v2.3c.5.2 1.1.1 1.6-.2.5-.2 1 .3.8.8-.3.7-1.4 1-2.1 1.3.2 1.6 1.8 3.4 3.8 4 .5.2.5.8 0 1-.8.3-1.7.4-2.3.6-.2.5-.1 1.1-.6 1.2-.6.1-1.3-.2-2.2 0-1 .2-1.7 1.6-4.1 1.6s-3.1-1.4-4.1-1.6c-.9-.2-1.6.1-2.2 0-.5-.1-.4-.7-.6-1.2-.6-.2-1.5-.3-2.3-.6-.5-.2-.5-.8 0-1 2-.6 3.6-2.4 3.8-4-.7-.3-1.8-.6-2.1-1.3-.2-.5.3-1 .8-.8.5.3 1.1.4 1.6.2V7.5c0-3.1 2.2-5.3 5.1-5.3Z"/></svg>',
+    more: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>',
     zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
     spark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
   });
@@ -157,7 +159,7 @@
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
   document.getElementById('foot-promo').addEventListener('click', () => openPromo());
-  document.getElementById('foot-share').addEventListener('click', () => shareThis({ title: S.name || 'Best Finds', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
+  document.getElementById('foot-share').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
   document.addEventListener('keydown', (e) => {
     if (promo.hidden) return;
     if (e.key === 'Escape') closePromo();
@@ -175,35 +177,43 @@
   // ---------- partage (feuille de partage du téléphone, sinon petite fenêtre : copier, WhatsApp, Telegram, SMS) ----------
   const siteUrl = () => location.origin + location.pathname;
   async function shareThis({ title, text, url }) {
-    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
-      try { await navigator.share({ title, text, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; }
-    }
     const msg = `${text} ${url}`;
     const sh = document.createElement('div');
     sh.className = 'sheet';
     sh.innerHTML = `<div class="sheet-back" data-x></div>
       <div class="sheet-card" role="dialog" aria-modal="true" aria-label="Partager">
+        <span class="sheet-grab" aria-hidden="true"></span>
         <button class="promo-x" type="button" data-x aria-label="Fermer">${icon.close}</button>
         <b class="sheet-title">${esc(title)}</b>
-        <p class="sheet-text">${esc(text)}</p>
         <div class="sheet-row">
-          <button type="button" class="sheet-btn" id="sh-copy">${icon.link}<span>Copier le lien</span></button>
-          <a class="sheet-btn" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${icon.wa}<span>WhatsApp</span></a>
-          <a class="sheet-btn" href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener">${icon.tg}<span>Telegram</span></a>
-          <a class="sheet-btn" href="sms:?&body=${encodeURIComponent(msg)}">${icon.out}<span>SMS</span></a>
+          <a class="sheet-btn" data-x href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"><i class="ic-wa">${icon.wa}</i><span>WhatsApp</span></a>
+          <a class="sheet-btn" data-x href="https://www.snapchat.com/scan?attachmentUrl=${encodeURIComponent(url)}" target="_blank" rel="noopener"><i class="ic-snap">${icon.snap}</i><span>Snapchat</span></a>
+          <a class="sheet-btn" data-x href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener"><i class="ic-tg">${icon.tg}</i><span>Telegram</span></a>
+          <a class="sheet-btn" data-x href="sms:?&body=${encodeURIComponent(msg)}"><i class="ic-sms">${icon.out}</i><span>SMS</span></a>
+          <button type="button" class="sheet-btn" id="sh-copy"><i class="ic-copy">${icon.link}</i><span>Copier le lien</span></button>
+          ${navigator.share ? `<button type="button" class="sheet-btn" id="sh-more"><i class="ic-more">${icon.more}</i><span>Autres</span></button>` : ''}
         </div>
-        <input class="copy-field" type="text" readonly value="${esc(url)}" aria-label="Lien à partager">
       </div>`;
     document.body.appendChild(sh);
     document.body.classList.add('locked');
     const close = () => { sh.classList.remove('on'); document.body.classList.remove('locked'); document.removeEventListener('keydown', onKey, true); setTimeout(() => sh.remove(), 200); };
     const onKey = (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(); } };
     document.addEventListener('keydown', onKey, true);
-    sh.addEventListener('click', (e) => { if (e.target.closest('[data-x]')) close(); });
+    sh.addEventListener('click', (e) => { if (e.target.closest('[data-x]')) setTimeout(close, 50); });
+    sh.querySelector('#sh-more')?.addEventListener('click', async () => {
+      try { await navigator.share({ title, text, url }); close(); } catch {}
+    });
     sh.querySelector('#sh-copy').addEventListener('click', async (e) => {
       const b = e.currentTarget;
-      try { await navigator.clipboard.writeText(url); b.classList.add('done'); b.querySelector('span').textContent = 'Lien copié'; }
-      catch { const f = sh.querySelector('.copy-field'); f.focus(); f.select(); b.querySelector('span').textContent = 'Lien sélectionné'; }
+      let ok = false;
+      try { await navigator.clipboard.writeText(url); ok = true; } catch {
+        // ancien navigateur : copie par une zone de texte invisible
+        const t = document.createElement('textarea'); t.value = url; t.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(t); t.select();
+        try { ok = document.execCommand('copy'); } catch {} t.remove();
+      }
+      b.classList.toggle('done', ok);
+      b.querySelector('span').textContent = ok ? 'Lien copié' : 'Copie impossible';
+      if (ok) setTimeout(close, 900);
     });
     requestAnimationFrame(() => sh.classList.add('on'));
   }
@@ -354,6 +364,7 @@
       <div class="wrap hero-cta">
         <a class="buy" href="#catalogue">Voir tous les articles ${icon.right}</a>
         <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
+        <button class="sub" type="button" id="share-site">${icon.share} Partager le site</button>
       </div>
 
       ${catList.length ? `<section class="wrap block reveal">
@@ -363,13 +374,6 @@
           <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
         </button>`).join('')}</div>
       </section>` : ''}
-
-      <section class="wrap block reveal">
-        <div class="share-card">
-          <div class="share-txt"><b>Partage ce site à un ami</b><span>Toutes les trouvailles du canal au même endroit, et ${coupon} de coupons offerts à l'inscription.</span></div>
-          <button class="buy" type="button" id="share-site">${icon.share} Partager le site</button>
-        </div>
-      </section>
 
       <section class="wrap block duo reveal">
         <aside class="panel top-col">
@@ -403,7 +407,7 @@
 
     reveal();
     view.querySelector('#share-site').addEventListener('click', () => shareThis({
-      title: S.name || 'Best Finds',
+      title: 'Partage ce site à un ami',
       text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`,
       url: siteUrl(),
     }));
@@ -641,6 +645,7 @@
               <span class="br">${esc([a.brand, a.category].filter(Boolean).join(' · '))}</span>
               <h1>${esc(a.title)}</h1>
               ${introOf(a) ? `<p class="desc">${esc(introOf(a))}</p>` : ''}
+              <button class="share-pill" type="button" id="share-item">${icon.share} Partage ce produit à un pote</button>
             </div>
 
             <div class="card-box price-box">
@@ -674,8 +679,6 @@
               </div>
             </section>
 
-            <button class="share-btn" type="button" id="share-item">${icon.share}<span><b>Partage ce produit à un pote</b>Il ouvrira directement cette fiche</span>${icon.right}</button>
-
             ${S.invite ? `<button class="coupon-card" type="button" id="hint-promo">
               <span class="coupon-ic">${icon.gift}</span>
               <span class="coupon-txt"><b>${coupon} de coupons offerts</b>Pas encore de compte LoveGoBuy ? Ils réduisent tes frais de livraison.</span>
@@ -686,7 +689,7 @@
       </div>
       ${related.length ? `<section class="related"><div class="wrap"><h2>Dans le même style</h2><div class="grid">${related.map(card).join('')}</div></div></section>` : ''}`;
 
-    bar.innerHTML = `${lgb ? `<span class="bar-price"><b>${esc(eur(lgb.eur))}</b><span>sur LoveGoBuy</span></span>` : ''}<a class="buy" ${buyAttrs}>Voir sur LoveGoBuy ${icon.out}</a>`;
+    bar.innerHTML = `${lgb ? `<span class="bar-price"><b>${esc(eur(lgb.eur))}</b><span>sur LoveGoBuy</span></span>` : ''}<a class="buy" ${buyAttrs}>Voir sur LoveGoBuy ${icon.out}</a><button class="bar-share" type="button" id="bar-share" aria-label="Partager ce produit">${icon.share}</button>`;
     bar.classList.add('on');
     document.body.classList.add('has-bar');
     // La barre du bas n'apparaît que quand le bouton principal n'est plus visible
@@ -697,11 +700,13 @@
       buyObserver.observe(mainBuy);
     }
     view.querySelector('#hint-promo')?.addEventListener('click', () => openPromo());
-    view.querySelector('#share-item').addEventListener('click', () => shareThis({
-      title: a.title,
+    const shareItem = () => shareThis({
+      title: 'Partage ce produit à un pote',
       text: `Regarde ça : ${a.title}${lgb ? ` à ${eur(lgb.eur)}` : ''} sur ${S.name || 'Best Finds'}`,
       url: `${siteUrl()}?p=${a.id}`,
-    }));
+    });
+    view.querySelector('#share-item').addEventListener('click', shareItem);
+    bar.querySelector('#bar-share').addEventListener('click', shareItem);
 
     // Galerie : carrousel qui défile au doigt (défilement natif aimanté), flèches, vignettes, clavier
     let i = 0;
