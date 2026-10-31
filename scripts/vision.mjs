@@ -19,6 +19,10 @@ function start() {
       if (msg.ready) return resolve(true);
       waiting.shift()?.(msg);
     });
+    // modèles trop longs à charger (téléchargement bloqué…) : on abandonne cette méthode pour ce passage
+    const t = setTimeout(() => { console.warn('  repérage/détourage : démarrage trop long, ancienne méthode utilisée'); broken = true; proc?.kill('SIGKILL'); resolve(false); }, 6 * 60e3);
+    t.unref?.();
+    rl.on('line', () => clearTimeout(t));
     proc.on('exit', (code) => {
       broken = true; proc = null;
       resolve(false);
@@ -40,7 +44,9 @@ export async function visionMask(inPath, outPath, prompt) {
   const ok = await start();
   if (!ok || !proc) return null;
   const res = await new Promise((resolve) => {
-    waiting.push(resolve);
+    // une photo qui prend plus de 3 minutes : le processus est arrêté, l'ancienne méthode prend le relais
+    const t = setTimeout(() => { broken = true; proc?.kill('SIGKILL'); resolve({ ok: false, error: 'trop long' }); }, 3 * 60e3);
+    waiting.push((r) => { clearTimeout(t); resolve(r); });
     proc.stdin.write(JSON.stringify({ in: inPath, out: outPath, prompt }) + '\n');
   });
   if (!res.ok) { console.warn(`  repérage/détourage impossible : ${res.error}`); return null; }
