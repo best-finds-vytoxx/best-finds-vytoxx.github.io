@@ -10,10 +10,10 @@
   --photo: #e4e0d7;
   --line: #dad5ca;
   --line-strong: #c9c3b6;
-  --ink: #23272b;
-  --ink-2: #4a4f55;
+  --ink: #1f2533;
+  --ink-2: #474e5c;
   --muted: #77756e;
-  --accent: #2b3036;
+  --accent: #1f2a40;
   --accent-ink: #f7f5f0;
   --shadow: rgba(40, 36, 28, .16);
   --scrim: rgba(20, 22, 24, .6);
@@ -866,8 +866,16 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
 .mock-screen { position: relative; height: 100%; border-radius: 20px; overflow: hidden; background: #f2f2f6; color: #111; font-size: 8px; line-height: 1.25; }
 .mock .hl { position: relative; z-index: 2; box-shadow: 0 0 0 2px #ff3b30; border-radius: 6px; animation: hlpulse 1.8s ease-in-out infinite; }
 @keyframes hlpulse { 0%, 100% { box-shadow: 0 0 0 2px #ff3b30, 0 0 0 0 rgba(255, 59, 48, .45); } 50% { box-shadow: 0 0 0 2px #ff3b30, 0 0 0 6px rgba(255, 59, 48, 0); } }
-.mk-site { position: absolute; inset: 0 0 30px; background: #efece5; }
-.mk-site img { width: 100%; height: 46%; object-fit: cover; object-position: center 20%; }
+.mk-site { position: absolute; inset: 0 0 30px; padding: 22px 6px 0; display: grid; gap: 5px; align-content: start;
+  background: radial-gradient(120% 60% at 80% 0%, rgba(240, 180, 92, .55), transparent 70%), #efece5; }
+.mk-hero { position: relative; display: flex; align-items: flex-end; justify-content: space-between; height: 62px; padding: 0 0 0 7px; border-radius: 9px; overflow: hidden;
+  background: linear-gradient(155deg, rgba(255, 255, 255, .75), rgba(255, 255, 255, .35)); box-shadow: inset 0 0 0 .6px rgba(255, 255, 255, .9), 0 3px 8px -5px rgba(80, 45, 15, .5); }
+.mk-hero span { display: grid; align-self: center; line-height: 1; }
+.mk-hero b { font: 700 10px/1 var(--f-display); color: #1f2533; }
+.mk-hero i { font: italic 400 10px/1 var(--f-serif); color: #c4673a; }
+.mk-hero img { height: 58px; width: auto; }
+.mk-help { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.mk-help i { height: 20px; border-radius: 6px; background: rgba(255, 255, 255, .6); box-shadow: inset 0 0 0 .6px rgba(255, 255, 255, .9); }
 .mk-site-btn { width: 62%; height: 9px; margin: 7px auto; border-radius: 99px; background: #2b3036; }
 .mk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 0 8px; }
 .mk-grid i { aspect-ratio: 3 / 4; border-radius: 6px; background: #e0dcd2; }
@@ -1116,4 +1124,19 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
 .help-ic.ic-gold svg path { fill: currentColor; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .help-ic { background: linear-gradient(160deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .05)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 0 0 1px rgba(255, 255, 255, .14); }
+}
+
+/* ---------- Harmonie générale ----------
+   La lumière dorée du haut de l'accueil se retrouve, plus douce, en haut de toutes les pages ; le bandeau est en verre partout. */
+body { background:
+  radial-gradient(90% 420px at 85% -140px, rgba(240, 180, 92, .28), transparent 72%),
+  radial-gradient(70% 360px at 0% -120px, rgba(196, 103, 58, .14), transparent 70%),
+  var(--bg) no-repeat; }
+.top { background: color-mix(in srgb, var(--bg) 62%, transparent); -webkit-backdrop-filter: saturate(1.6) blur(18px); backdrop-filter: saturate(1.6) blur(18px); border-bottom-color: color-mix(in srgb, var(--line) 60%, transparent); }
+.foot-note { margin-top: 6px !important; font: italic 400 14px/1.35 var(--f-serif); color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body { background:
+    radial-gradient(90% 420px at 85% -140px, rgba(240, 180, 92, .12), transparent 72%),
+    radial-gradient(70% 360px at 0% -120px, rgba(196, 103, 58, .08), transparent 70%),
+    var(--bg) no-repeat; }
 }

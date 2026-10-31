@@ -2,7 +2,7 @@
 window.SITE = {
   name: 'Vytoxx Best Finds',
   by: 'Vytoxx',
-  tagline: 'Toutes les trouvailles du canal, vérifiées et rangées au même endroit.',
+  tagline: 'Les meilleurs finds de Vytoxx, photographiés par notre équipe.',
   telegram: 'https://t.me/lovegobuy_france',
   chat: 'https://t.me/LoveGoBuy_fr', // groupe de discussion (questions, liens introuvables)
   invite: 'https://www.lovegobuy.com/?invite_code=EPHDII', // lien d'inscription (pop-up + boutons)

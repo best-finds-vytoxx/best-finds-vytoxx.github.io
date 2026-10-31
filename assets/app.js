@@ -114,7 +114,7 @@
     <main id="view"></main>
     <footer class="foot">
       <div class="wrap foot-in">
-        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Vytoxx Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
+        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Vytoxx Best Finds')}</b><p>Les meilleurs finds de Vytoxx, réunis ici et photographiés par notre équipe pour garantir la qualité.</p><p class="foot-note">Vytoxx n'est pas un fournisseur : il sélectionne les meilleurs produits du marché.</p></div>
         <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur l'écran d'accueil</a><a href="#aide">Chat bot : pose ta question</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
@@ -503,7 +503,7 @@
     ['Récupère tes coupons', `Dans ton compte, ouvre les coupons et touche <b>Recevoir</b>. Ils servent plus tard à payer <b>moins cher la livraison</b>.`,
       phone(`${lgbTop('Mes coupons')}<div class="mk-coupons">${['1,43', '1,43', '2,85', '4,28'].map((v, i) => `<div class="mk-cpn"><b>€${v}</b><small>Réduction livraison</small><span class="${i === 0 ? 'hl' : ''}">Recevoir</span></div>`).join('')}</div>`)],
     ["Choisis ton article sur Vytoxx Best Finds", `Sur la fiche de l'article qui te plaît, touche <b>Copier le lien LoveGoBuy</b> (ou <b>Voir sur LoveGoBuy</b> pour l'ouvrir directement).`,
-      phone(`<div class="mk-site"><img src="${IMG.bannerMobile}" alt=""></div><div class="mk-fiche"><b>Nike Tech</b><span class="mk-price">20,46 €</span><span class="mk-btn">Voir sur LoveGoBuy</span><span class="mk-btn ghost hl">Copier le lien LoveGoBuy</span></div>`)],
+      phone(`<div class="mk-site">${miniHero}</div><div class="mk-fiche"><b>Nike Tech</b><span class="mk-price">20,46 €</span><span class="mk-btn">Voir sur LoveGoBuy</span><span class="mk-btn ghost hl">Copier le lien LoveGoBuy</span></div>`)],
     ['Colle le lien dans LoveGoBuy', `Dans l'appli ou le site LoveGoBuy, colle le lien dans la <b>barre de recherche</b> en haut, puis touche <b>Rechercher</b>.`,
       phone(`${lgbTop('Accueil')}<div class="mk-search"><span>lovegobuy.com/product?…</span><b class="hl">Rechercher</b></div><div class="mk-grid mk-grid-lgb"><i></i><i></i><i></i><i></i></div>`)],
     ['Choisis ta taille et achète', `Sur la page de l'article, choisis la <b>taille</b> et la <b>couleur</b>, puis touche <b>Acheter</b> (ou <b>Ajouter au panier</b> pour grouper plusieurs articles).`,
@@ -727,7 +727,9 @@
   // Illustrations dessinées en HTML (aucune capture d'écran) : un téléphone simplifié, le bouton à toucher entouré
   const phone = (screen, cls = '') => `<div class="mock ${cls}" aria-hidden="true"><div class="mock-notch"></div><div class="mock-screen">${screen}</div></div>`;
   const safariBar = (hl) => `<div class="mk-bar"><span class="mk-url">🔒 best-finds-vytoxx.github.io</span><span class="mk-dots ${hl ? 'hl' : ''}">•••</span></div>`;
-  const sitePage = `<div class="mk-site"><img src="${IMG.bannerMobile}" alt=""><div class="mk-site-btn"></div><div class="mk-grid"><i></i><i></i><i></i><i></i></div></div>`;
+  // l'accueil du site en miniature : carte en verre avec le panda, les 3 aides, puis la grille d'articles
+  const miniHero = `<div class="mk-hero"><span><b>Vytoxx</b><i>Best Finds</i></span><img src="assets/img/panda-hero.webp?v=2" alt=""></div><div class="mk-help"><i></i><i></i><i></i></div>`;
+  const sitePage = `<div class="mk-site">${miniHero}<div class="mk-grid"><i></i><i></i><i></i><i></i></div></div>`;
   const chromeBar = (hl) => `<div class="mk-cbar"><span class="mk-url">🔒 best-finds-vytoxx.github.io</span><span class="mk-kebab ${hl ? 'hl' : ''}">⋮</span></div>`;
   const sitePageTop = sitePage.replace('mk-site', 'mk-site mk-site-top');
   const andPhone = (screen, cls = '') => phone(screen, `mock-and ${cls}`);
