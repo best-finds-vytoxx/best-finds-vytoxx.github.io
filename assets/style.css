@@ -223,7 +223,7 @@ body.home #nav-tuto { display: none; }
   -webkit-mask-image: linear-gradient(#000 45%, transparent); mask-image: linear-gradient(#000 45%, transparent);
   opacity: .95;
 }
-.hero-glow::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 20%, rgba(240, 180, 92, .45), transparent 70%), radial-gradient(50% 60% at 0% 60%, rgba(30, 42, 68, .25), transparent 70%); }
+.hero-glow::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 20%, rgba(240, 180, 92, .45), transparent 70%); }
 .hero-in { display: grid; gap: 14px; }
 .hero-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 8px; border-radius: 30px; padding: 22px 0 0 22px; min-height: 236px; }
 .hero-txt { display: grid; gap: 10px; align-self: center; padding-bottom: 22px; }
@@ -1055,3 +1055,51 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
 /* petit détail d'identité : un trait doré sous les titres de section */
 .block-head h2 { position: relative; }
 .block-head h2::after { content: ""; position: absolute; left: 0; bottom: -7px; width: 28px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--terra), var(--sun)); }
+
+/* ---------- Liquid glass, version renforcée (accueil) ----------
+   Verre plus transparent, liseré lumineux qui suit le bord (haut-gauche et bas-droite, comme la lumière sur du verre épais),
+   reflet intérieur en haut, icônes façon apps iOS : couleurs vives, reflet brillant, pictogramme blanc. */
+.lg {
+  background: linear-gradient(155deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, .16) 40%, rgba(255, 255, 255, .08) 60%, rgba(255, 255, 255, .26));
+  -webkit-backdrop-filter: blur(20px) saturate(210%) brightness(1.06); backdrop-filter: blur(20px) saturate(210%) brightness(1.06);
+  border-color: transparent;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, .95),
+    inset 0 14px 24px -18px rgba(255, 255, 255, .95),
+    inset 0 -12px 22px -18px rgba(255, 255, 255, .7),
+    inset 0 0 0 .5px rgba(255, 255, 255, .45),
+    0 2px 4px rgba(70, 45, 20, .08), 0 22px 44px -24px rgba(80, 45, 15, .6);
+}
+.lg::after { /* liseré de lumière sur le bord */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px; pointer-events: none; z-index: 2;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, .25) 28%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .3) 72%, rgba(255, 255, 255, .95));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.help-tile.lg::before { background: radial-gradient(90% 55% at 20% -8%, rgba(255, 255, 255, .85), transparent 60%), radial-gradient(70% 45% at 100% 110%, rgba(255, 255, 255, .35), transparent 65%); }
+.help-tile { transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s; }
+.help-tile:hover { transform: translateY(-3px) scale(1.012); background: linear-gradient(155deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .22) 45%, rgba(255, 255, 255, .3)); }
+.help-tile:active { transform: scale(.97); }
+
+/* icônes façon apps iOS */
+.help-ic { position: relative; overflow: hidden; width: 46px; height: 46px; border-radius: 13px; color: #fff;
+  box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .45), inset 0 -3px 8px rgba(0, 0, 0, .22), 0 1px 1px rgba(0, 0, 0, .12), 0 10px 18px -8px var(--ic-glow, rgba(0, 0, 0, .5)); }
+.help-ic::before { /* reflet brillant */
+  content: ""; position: absolute; left: -10%; right: -10%; top: -45%; height: 85%; border-radius: 50%;
+  background: linear-gradient(rgba(255, 255, 255, .7), rgba(255, 255, 255, .08)); pointer-events: none; }
+.help-ic svg { position: relative; width: 21px; height: 21px; filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, .35)); }
+.ic-gold { background: linear-gradient(165deg, #ffe08a 0%, #ffb52e 48%, #e88a0c 100%); color: #fff; --ic-glow: rgba(232, 138, 12, .75); }
+.ic-navy { background: linear-gradient(165deg, #7fb2ff 0%, #2f6bea 48%, #1a2f7a 100%); --ic-glow: rgba(47, 107, 234, .7); }
+.ic-terra { background: linear-gradient(165deg, #ffb48a 0%, #ff6f3c 50%, #c9431c 100%); --ic-glow: rgba(255, 111, 60, .7); }
+.help-ic.ic-gold svg path { fill: #fff; }
+@media (max-width: 640px) { .help-ic { width: 42px; height: 42px; border-radius: 12px; } .help-ic svg { width: 19px; height: 19px; } }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lg { background: linear-gradient(155deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .04) 45%, rgba(255, 255, 255, .09));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 12px 22px -18px rgba(255, 255, 255, .35), 0 22px 44px -24px rgba(0, 0, 0, .85); }
+  :root:not([data-theme="light"]) .lg::after { opacity: .45; }
+}
+/* la grande carte reste plus dépolie que les tuiles, pour que le texte se lise bien */
+.hero-card.lg { background: linear-gradient(155deg, rgba(255, 255, 255, .7), rgba(255, 255, 255, .42) 45%, rgba(255, 255, 255, .34) 70%, rgba(255, 255, 255, .5)); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-card.lg { background: linear-gradient(155deg, rgba(30, 32, 36, .62), rgba(30, 32, 36, .45)); }
+}
