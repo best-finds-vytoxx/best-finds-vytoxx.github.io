@@ -355,7 +355,6 @@
       </section>
       <div class="wrap hero-cta">
         <a class="buy" href="#catalogue">Voir tous les articles ${icon.right}</a>
-        <button class="sub" type="button" id="hero-promo">${icon.gift} ${coupon} de coupons offerts</button>
         <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
       </div>
       <div class="wrap">
@@ -413,7 +412,6 @@
       </section>`;
 
     reveal();
-    view.querySelector('#hero-promo').addEventListener('click', () => openPromo());
     view.querySelector('#share-site').addEventListener('click', () => shareThis({
       title: S.name || 'Best Finds',
       text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`,
