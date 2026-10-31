@@ -243,11 +243,11 @@
         <button class="promo-x" type="button" data-x aria-label="Fermer">${icon.close}</button>
         <b class="sheet-title">${esc(title)}</b>
         <div class="sheet-row">
-          <a class="sheet-btn" data-x href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"><i class="ic-wa">${icon.wa}</i><span>WhatsApp</span></a>
-          <a class="sheet-btn" data-x href="https://www.snapchat.com/scan?attachmentUrl=${encodeURIComponent(url)}" target="_blank" rel="noopener"><i class="ic-snap">${icon.snap}</i><span>Snapchat</span></a>
-          <a class="sheet-btn" data-x href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener"><i class="ic-tg">${icon.tg}</i><span>Telegram</span></a>
-          <a class="sheet-btn" data-x href="sms:?&body=${encodeURIComponent(msg)}"><i class="ic-sms">${icon.out}</i><span>SMS</span></a>
           <button type="button" class="sheet-btn" id="sh-copy"><i class="ic-copy">${icon.link}</i><span>Copier le lien</span></button>
+          <a class="sheet-btn" data-x href="https://www.snapchat.com/scan?attachmentUrl=${encodeURIComponent(url)}" target="_blank" rel="noopener"><i class="ic-snap">${icon.snap}</i><span>Snapchat</span></a>
+          <a class="sheet-btn" data-x href="sms:?&body=${encodeURIComponent(msg)}"><i class="ic-sms">${icon.out}</i><span>SMS</span></a>
+          <a class="sheet-btn" data-x href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener"><i class="ic-tg">${icon.tg}</i><span>Telegram</span></a>
+          <a class="sheet-btn" data-x href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"><i class="ic-wa">${icon.wa}</i><span>WhatsApp</span></a>
           ${navigator.share ? `<button type="button" class="sheet-btn" id="sh-more"><i class="ic-more">${icon.more}</i><span>Autres</span></button>` : ''}
         </div>
       </div>`;
