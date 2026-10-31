@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import assert from 'node:assert/strict';
-import { parseMessages, toArticles, parseChannel, minId, PRICE_NOTE, SHIPPING_NOTE, extraFrom } from '../scripts/parse.mjs';
+import { parseMessages, toArticles, parseChannel, minId, PRICE_NOTE, SHIPPING_NOTE, extraFrom, markDuplicates } from '../scripts/parse.mjs';
 
 // 1. Pages réelles capturées : chaque article vu dans le navigateur doit être retrouvé
 const pages = readdirSync('test/fixtures').filter((f) => f.endsWith('.html')).map((f) => readFileSync('test/fixtures/' + f, 'utf8'));
@@ -55,4 +55,18 @@ console.log('OK', arts.length, 'articles récents,', all.length, 'dans l\'histor
   ] }]);
   assert.equal(a.productId, '7828590540', 'lien LoveGoBuy du post 4105');
   console.log('OK lien LoveGoBuy choisi par son intitulé');
+}
+
+// Doublons : même lien LoveGoBuy posté deux fois → seul le plus récent reste affiché
+{
+  const m = new Map([
+    [10, { id: 10, shop: 'weidian', productId: '1' }],
+    [20, { id: 20, shop: 'weidian', productId: '1' }],
+    [30, { id: 30, shop: 'weidian', productId: '2', dupOf: 99 }],
+  ]);
+  assert.equal(markDuplicates(m), 1);
+  assert.equal(m.get(10).dupOf, 20);
+  assert.ok(!('dupOf' in m.get(20)));
+  assert.ok(!('dupOf' in m.get(30)), 'ancienne marque de doublon retirée');
+  console.log('OK doublons (même lien LoveGoBuy)');
 }

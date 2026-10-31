@@ -14,7 +14,7 @@ const require_readFileSync = (f) => { try { return readFileSync(f, 'utf8'); } ca
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom } from './parse.mjs';
+import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates } from './parse.mjs';
 import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
 import { promptFor } from './vision.mjs';
 
@@ -257,7 +257,7 @@ async function main() {
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
-  const needsRedo = (a) => a.photos?.length && (a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
+  const needsRedo = (a) => a.photos?.length && !a.dupOf && (a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
   const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
   // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
   // puis couverture refaite à partir de ces originaux
@@ -330,6 +330,10 @@ async function main() {
   const remaining = found.filter((a) => !known.has(a.id)).length;
   if (remaining > 0) console.log(`${remaining} article(s) restant(s), traités aux prochains passages`);
   void doneNew;
+
+  // Doublons : un même lien LoveGoBuy posté plusieurs fois (article repartagé). Seul le post le plus récent est
+  // affiché ; les anciens restent en mémoire (dupOf = id du post gardé) pour ne pas être réimportés.
+  markDuplicates(known);
 
   // 4. Enregistrer (les vues seules ne déclenchent pas de mise à jour du site)
   const historyComplete = historyDone || remaining === 0;

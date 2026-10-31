@@ -65,6 +65,8 @@
     cal: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
   });
   Object.assign(icon, {
+    share: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>',
+    wa: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>',
     zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
     spark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
   });
@@ -103,7 +105,7 @@
     <footer class="foot">
       <div class="wrap foot-in">
         <div class="foot-brand">${logo()}<b>${esc(S.name || 'Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
-        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button></nav>
+        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
       <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
@@ -155,6 +157,7 @@
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
   document.getElementById('foot-promo').addEventListener('click', () => openPromo());
+  document.getElementById('foot-share').addEventListener('click', () => shareThis({ title: S.name || 'Best Finds', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
   document.addEventListener('keydown', (e) => {
     if (promo.hidden) return;
     if (e.key === 'Escape') closePromo();
@@ -168,6 +171,42 @@
   // À l'arrivée sur le site : une fois par visite, sauf si le lien a déjà été ouvert dans les 7 derniers jours
   const clicked = Number(store.get('promo-clicked') || 0);
   if (!store.sget('promo-seen') && Date.now() - clicked > 7 * 864e5) setTimeout(() => openPromo(true), 700);
+
+  // ---------- partage (feuille de partage du téléphone, sinon petite fenêtre : copier, WhatsApp, Telegram, SMS) ----------
+  const siteUrl = () => location.origin + location.pathname;
+  async function shareThis({ title, text, url }) {
+    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+      try { await navigator.share({ title, text, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    const msg = `${text} ${url}`;
+    const sh = document.createElement('div');
+    sh.className = 'sheet';
+    sh.innerHTML = `<div class="sheet-back" data-x></div>
+      <div class="sheet-card" role="dialog" aria-modal="true" aria-label="Partager">
+        <button class="promo-x" type="button" data-x aria-label="Fermer">${icon.close}</button>
+        <b class="sheet-title">${esc(title)}</b>
+        <p class="sheet-text">${esc(text)}</p>
+        <div class="sheet-row">
+          <button type="button" class="sheet-btn" id="sh-copy">${icon.link}<span>Copier le lien</span></button>
+          <a class="sheet-btn" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${icon.wa}<span>WhatsApp</span></a>
+          <a class="sheet-btn" href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener">${icon.tg}<span>Telegram</span></a>
+          <a class="sheet-btn" href="sms:?&body=${encodeURIComponent(msg)}">${icon.out}<span>SMS</span></a>
+        </div>
+        <input class="copy-field" type="text" readonly value="${esc(url)}" aria-label="Lien à partager">
+      </div>`;
+    document.body.appendChild(sh);
+    document.body.classList.add('locked');
+    const close = () => { sh.classList.remove('on'); document.body.classList.remove('locked'); document.removeEventListener('keydown', onKey, true); setTimeout(() => sh.remove(), 200); };
+    const onKey = (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(); } };
+    document.addEventListener('keydown', onKey, true);
+    sh.addEventListener('click', (e) => { if (e.target.closest('[data-x]')) close(); });
+    sh.querySelector('#sh-copy').addEventListener('click', async (e) => {
+      const b = e.currentTarget;
+      try { await navigator.clipboard.writeText(url); b.classList.add('done'); b.querySelector('span').textContent = 'Lien copié'; }
+      catch { const f = sh.querySelector('.copy-field'); f.focus(); f.select(); b.querySelector('span').textContent = 'Lien sélectionné'; }
+    });
+    requestAnimationFrame(() => sh.classList.add('on'));
+  }
 
   // ---------- classement interne : clics sur les produits du site ----------
   // Ouvrir la fiche d'un article et cliquer vers LoveGoBuy incrémentent le compteur de cet article.
@@ -188,7 +227,9 @@
     let data = window.__CLICKS || null;
     if (!data) data = await fetch('data/clicks.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const counts = (data && data.period) || {};
-    top.counts = Object.fromEntries(Object.entries(counts).map(([k, v]) => [Number(k), Number(v)]));
+    top.counts = {};
+    // les clics d'un doublon comptent pour le post gardé
+    for (const [k, v] of Object.entries(counts)) { const id = state.dups?.get(Number(k)) || Number(k); top.counts[id] = (top.counts[id] || 0) + Number(v); }
     // Uniquement les articles qui ont reçu des clics, du plus cliqué au moins cliqué (à égalité : le plus récent)
     top.ids = state.articles
       .filter((a) => (top.counts[a.id] || 0) > 0)
@@ -334,6 +375,13 @@
         </button>`).join('')}</div>
       </section>` : ''}
 
+      <section class="wrap block reveal">
+        <div class="share-card">
+          <div class="share-txt"><b>Partage ce site à un ami</b><span>Toutes les trouvailles du canal au même endroit, et ${coupon} de coupons offerts à l'inscription.</span></div>
+          <button class="buy" type="button" id="share-site">${icon.share} Partager le site</button>
+        </div>
+      </section>
+
       <section class="wrap block duo reveal">
         <aside class="panel top-col">
           <div class="block-head"><h2>Top du moment</h2></div>
@@ -366,6 +414,11 @@
 
     reveal();
     view.querySelector('#hero-promo').addEventListener('click', () => openPromo());
+    view.querySelector('#share-site').addEventListener('click', () => shareThis({
+      title: S.name || 'Best Finds',
+      text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`,
+      url: siteUrl(),
+    }));
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });
     view.querySelectorAll('.cat-tile').forEach((b) => b.addEventListener('click', () => {
       state.cat = b.dataset.c; state.q = ''; state.brand = ''; catScroll = 0;
@@ -586,11 +639,12 @@
         <nav class="crumbs" aria-label="Fil d'Ariane"><a href="#catalogue">${icon.left} Tous les articles</a><i>/</i><span>${esc(a.category)}</span>${a.brand ? `<i>/</i><span>${esc(a.brand)}</span>` : ''}</nav>
         <article class="item">
           <div class="gallery">
-            <div class="stage ${shots[0]?.cut ? 'is-cut' : ''}" id="stage">
-              ${shots.length ? `<img id="main" class="fade" src="${esc(shots[0].src)}" alt="${esc(a.title)}">` : ''}
+            <div class="stage" id="stage">
+              <div class="slides" id="slides">${shots.map((p, k) => `<figure class="slide ${p.cut ? 'is-cut' : ''}" data-k="${k}"><img class="fade" src="${esc(p.src)}" alt="${k === 0 ? esc(a.title) : ''}" ${k ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async" draggable="false"></figure>`).join('')}</div>
               ${shots.length ? `<span class="zoom-hint" aria-hidden="true">${icon.zoom}</span>` : ''}
               ${shots.length > 1 ? `<button class="nav prev" type="button" aria-label="Photo précédente">${icon.left}</button><button class="nav next" type="button" aria-label="Photo suivante">${icon.right}</button>` : ''}
               <span class="pos" id="pos">${shots[0]?.cut ? 'Détouré' : 'Photo réelle'}${shots.length > 1 ? ` · 1 / ${shots.length}` : ''}</span>
+              ${shots.length > 1 ? `<span class="dots" aria-hidden="true">${shots.map((_, k) => `<i${k ? '' : ' class="on"'}></i>`).join('')}</span>` : ''}
             </div>
             ${shots.length > 1 ? `<div class="thumbs" id="thumbs">${shots.map((p, i) => `<button type="button" class="${p.cut ? 'is-cut' : ''}" data-i="${i}" aria-label="${p.cut ? 'Photo détourée' : 'Photo réelle ' + i}" aria-current="${i === 0}">${img(p.cut ? small(a) : p.src)}</button>`).join('')}</div>` : ''}
           </div>
@@ -632,6 +686,8 @@
               </div>
             </section>
 
+            <button class="share-btn" type="button" id="share-item">${icon.share}<span><b>Partage ce produit à un pote</b>Il ouvrira directement cette fiche</span>${icon.right}</button>
+
             ${S.invite ? `<button class="coupon-card" type="button" id="hint-promo">
               <span class="coupon-ic">${icon.gift}</span>
               <span class="coupon-txt"><b>${coupon} de coupons offerts</b>Pas encore de compte LoveGoBuy ? Ils réduisent tes frais de livraison.</span>
@@ -653,31 +709,49 @@
       buyObserver.observe(mainBuy);
     }
     view.querySelector('#hint-promo')?.addEventListener('click', () => openPromo());
+    view.querySelector('#share-item').addEventListener('click', () => shareThis({
+      title: a.title,
+      text: `Regarde ça : ${a.title}${lgb ? ` à ${eur(lgb.eur)}` : ''} sur ${S.name || 'Best Finds'}`,
+      url: `${siteUrl()}?p=${a.id}`,
+    }));
 
-    // Galerie : flèches, vignettes, clavier, glisser
+    // Galerie : carrousel qui défile au doigt (défilement natif aimanté), flèches, vignettes, clavier
     let i = 0;
-    const main = view.querySelector('#main');
+    const slides = view.querySelector('#slides');
     const stage = view.querySelector('#stage');
-    const show = (n) => {
-      if (!shots.length) return;
-      i = (n + shots.length) % shots.length;
-      main.classList.remove('swap'); void main.offsetWidth; main.classList.add('swap');
-      main.src = shots[i].src;
-      stage.classList.toggle('is-cut', shots[i].cut);
-      view.querySelector('#pos').textContent = `${shots[i].cut ? 'Détouré' : 'Photo réelle'} · ${i + 1} / ${shots.length}`;
+    const mark = (n) => {
+      if (n === i && view.querySelector('#pos').dataset.k === String(n)) return;
+      i = n;
+      view.querySelector('#pos').dataset.k = String(n);
+      view.querySelector('#pos').textContent = `${shots[i].cut ? 'Détouré' : 'Photo réelle'}${shots.length > 1 ? ` · ${i + 1} / ${shots.length}` : ''}`;
+      view.querySelectorAll('.dots i').forEach((d, k) => d.classList.toggle('on', k === i));
       view.querySelectorAll('#thumbs button').forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
-      view.querySelector(`#thumbs button[data-i="${i}"]`)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      const t = view.querySelector(`#thumbs button[data-i="${i}"]`);
+      const th = view.querySelector('#thumbs');
+      if (t && th) th.scrollTo({ left: t.offsetLeft - th.clientWidth / 2 + t.clientWidth / 2, behavior: 'smooth' });
     };
+    const show = (n, smooth = true) => {
+      if (!shots.length) return;
+      const k = (n + shots.length) % shots.length;
+      slides.scrollTo({ left: k * slides.clientWidth, behavior: smooth ? 'smooth' : 'auto' });
+      mark(k);
+    };
+    let raf = 0;
+    slides.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => mark(Math.round(slides.scrollLeft / Math.max(1, slides.clientWidth))));
+    }, { passive: true });
     view.querySelector('.prev')?.addEventListener('click', () => show(i - 1));
     view.querySelector('.next')?.addEventListener('click', () => show(i + 1));
     view.querySelector('#thumbs')?.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) show(+b.dataset.i); });
-    let x0 = null;
-    stage.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
-    stage.addEventListener('pointerup', (e) => {
-      if (x0 != null && Math.abs(e.clientX - x0) > 40) show(i + (e.clientX < x0 ? 1 : -1));
-      else if (x0 != null && !e.target.closest('.nav')) openLightbox(shots, i, (k) => show(k));
-      x0 = null;
+    // un appui (sans glisser) ouvre la visionneuse plein écran
+    let p0 = null;
+    slides.addEventListener('pointerdown', (e) => { p0 = [e.clientX, e.clientY]; });
+    slides.addEventListener('click', (e) => {
+      if (p0 && Math.hypot(e.clientX - p0[0], e.clientY - p0[1]) > 10) return;
+      openLightbox(shots, i, (k) => show(k, false));
     });
+    void stage;
     keyHandler = (e) => { if (!promo.hidden) return; if (e.key === 'ArrowLeft') show(i - 1); if (e.key === 'ArrowRight') show(i + 1); };
 
     // Copie le lien LoveGoBuy de l'article (le même que dans le post Telegram)
@@ -742,6 +816,7 @@
     lb.querySelector('.lb-thumbs')?.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { i = +b.dataset.k; paintLb(); } });
     // Zoom : clic sur la photo, puis la photo suit le pointeur
     im.addEventListener('click', (e) => {
+      if (moved > 10) return; // c'était un glissement, pas un appui
       zoom = !zoom; im.classList.toggle('zoomed', zoom);
       if (!zoom) { im.style.transform = ''; return; }
       const r = im.getBoundingClientRect();
@@ -749,14 +824,23 @@
       im.style.transform = 'scale(2.2)';
     });
     im.addEventListener('pointermove', (e) => {
-      if (!zoom || e.pointerType === 'touch') return;
+      if (!zoom) return;
       const r = im.getBoundingClientRect();
       im.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`;
     });
     let sx = null;
     const st = lb.querySelector('.lb-stage');
-    st.addEventListener('pointerdown', (e) => { sx = e.clientX; });
-    st.addEventListener('pointerup', (e) => { if (!zoom && sx != null && Math.abs(e.clientX - sx) > 50) go(e.clientX < sx ? 1 : -1); sx = null; });
+    let sy = null, moved = 0;
+    st.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; });
+    st.addEventListener('pointerup', (e) => {
+      moved = sx == null ? 0 : Math.hypot(e.clientX - sx, e.clientY - sy);
+      if (!zoom && sx != null) {
+        const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+        else if (dy > 90 && Math.abs(dx) < 70) close(); // glisser vers le bas : fermer
+      }
+      sx = sy = null;
+    });
     st.addEventListener('click', (e) => { if (e.target === st) close(); });
     paintLb();
     requestAnimationFrame(() => lb.classList.add('on'));
@@ -782,6 +866,16 @@
     header().classList.toggle('over', over && window.scrollY < limit);
   };
   window.addEventListener('scroll', syncHeader, { passive: true });
+  // Sur téléphone, le bandeau se cache quand on descend et revient dès qu'on remonte (plus de place pour les articles)
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const mobile = window.matchMedia('(max-width: 860px)').matches;
+    if (!mobile || document.body.classList.contains('home') || y < 120) document.body.classList.remove('hdr-hide');
+    else if (y > lastY + 8) document.body.classList.add('hdr-hide');
+    else if (y < lastY - 8) document.body.classList.remove('hdr-hide');
+    if (Math.abs(y - lastY) > 8) lastY = y;
+  }, { passive: true });
   window.addEventListener('resize', syncHeader);
   function route() {
     keyHandler = null;
@@ -806,7 +900,7 @@
     syncHeader();
   }
   let catScroll = 0;
-  window.addEventListener('hashchange', () => (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches ? document.startViewTransition(route) : route()));
+  window.addEventListener('hashchange', () => (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches ? safe(() => { const t = document.startViewTransition(route); t.ready.catch(() => {}); t.finished.catch(() => {}); }) : route()));
   window.addEventListener('scroll', () => { if (location.hash === '#catalogue') catScroll = window.scrollY; }, { passive: true });
 
   // ---------- données ----------
@@ -815,7 +909,10 @@
       const data = window.__DATA || (await (await fetch('data/articles.json', { cache: 'no-cache' })).json());
       // Par sécurité, aucun champ de prix n'est jamais lu
       const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', 'Vestes & sweats': 'Hauts', Doudounes: 'Hauts', Autres: 'Accessoires' };
-      state.articles = (data.articles || []).filter((a) => a && a.id).map(({ price, ...a }) => ({ ...a, category: MERGE[a.category] || a.category }));
+      const all = (data.articles || []).filter((a) => a && a.id);
+      // doublons (même lien LoveGoBuy reposté) : seul le post le plus récent est affiché
+      state.dups = new Map(all.filter((a) => a.dupOf).map((a) => [a.id, a.dupOf]));
+      state.articles = all.filter((a) => !a.dupOf).map(({ price, ...a }) => ({ ...a, category: MERGE[a.category] || a.category }));
       state.updatedAt = data.updatedAt;
     } catch {
       state.articles = [];
@@ -829,11 +926,15 @@
       state.prices = {};
     }
     await loadTop();
-    // Quel que soit le lien d'arrivée, la visite commence sur la page d'accueil
-    if (location.hash) safe(() => history.replaceState(null, '', location.pathname + location.search));
+    // Quel que soit le lien d'arrivée, la visite commence sur la page d'accueil,
+    // sauf un lien partagé depuis une fiche (?p=ID) : il ouvre directement le produit
+    const shared = Number(new URLSearchParams(location.search).get('p')) || 0;
+    safe(() => history.replaceState(null, '', location.pathname));
     document.body.classList.add('home');
     renderWelcome();
     syncHeader();
+    const target = state.dups?.get(shared) || shared;
+    if (target && state.articles.some((a) => a.id === target)) location.hash = `article-${target}`;
     view.querySelector('.banner img')?.addEventListener('load', syncHeader);
   }
   load();

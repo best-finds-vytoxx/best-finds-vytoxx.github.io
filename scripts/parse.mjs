@@ -274,3 +274,29 @@ export function toArticles(messages, channel = 'lovegobuy_france') {
   });
   return articles;
 }
+
+/**
+ * Doublons : articles qui pointent vers le même produit LoveGoBuy (même lien, post repartagé).
+ * Le plus récent est gardé ; les autres reçoivent dupOf = id du post gardé (le site ne les affiche pas).
+ * known : Map id → article (modifiée sur place). Renvoie le nombre d'articles masqués.
+ */
+export function markDuplicates(known) {
+  const keep = new Map();
+  for (const a of known.values()) {
+    if (!a.productId) continue;
+    const k = `${a.shop || ''}:${a.productId}`;
+    if (!keep.has(k) || keep.get(k) < a.id) keep.set(k, a.id);
+  }
+  let n = 0;
+  for (const [id, a] of known) {
+    const k = a.productId ? `${a.shop || ''}:${a.productId}` : null;
+    const winner = k ? keep.get(k) : null;
+    const dupOf = winner && winner !== a.id ? winner : null;
+    if (dupOf) n++;
+    if ((a.dupOf || null) !== dupOf) {
+      const { dupOf: _, ...rest } = a;
+      known.set(id, dupOf ? { ...rest, dupOf } : rest);
+    }
+  }
+  return n;
+}
