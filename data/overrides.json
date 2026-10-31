@@ -82,6 +82,7 @@
   "4581": {"cover": 1},
   "4589": {"cover": 2},
   "4614": {"cover": 1},
+  "4622": {"cover": 3, "crop": [0.14, 0.36, 0.86, 0.93]},
   "4630": {"category": "Accessoires", "kind": "acc"},
   "4638": {"cover": 2},
   "4656": {"category": "Bas", "kind": "wear", "cover": 5},
