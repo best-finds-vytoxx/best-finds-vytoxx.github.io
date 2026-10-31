@@ -841,6 +841,7 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
 .bm-b { max-width: 82%; padding: 11px 14px; border-radius: 18px; font-size: 15px; line-height: 1.5; display: grid; gap: 10px; }
 .bm.bm-bot .bm-b { background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
 .bm.bm-me .bm-b { background: var(--ink); color: var(--bg); border-bottom-right-radius: 6px; }
+.bm-acts { display: flex; flex-wrap: wrap; gap: 8px; }
 .bm-act { justify-self: start; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 99px; border: 0; background: var(--ink); color: var(--bg); font: 600 13.5px/1 var(--f-body); cursor: pointer; }
 .bm-act svg { width: 15px; height: 15px; }
 .bm-typing { display: inline-flex; gap: 4px; padding: 4px 0; }

@@ -32,3 +32,7 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   pages LoveGoBuy (le site LoveGoBuy bloque les robots). Le prix n'est affiché que si `pid` = lien actuel de l'article.
 - Site : `index.html` + `assets/app.js` (routage par #, accueil à chaque arrivée) + `assets/style.css` + `assets/config.js`.
 - Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face.
+- Chat bot (`#aide`) : tableau `BOT` dans `assets/app.js`, réponses validées par Léonard (coupons 485 € ≈ 500 €, un coupon par colis ;
+  délais 3–7 j + 6–18 j ; prix optimaux 500 g–5 kg, le volume compte ; remboursement 8 j / 5 j, sur le solde ; stockage 60 j ;
+  ligne la moins chère entre LoveGoBuy EU, DHL, DPD). Jamais : taxe 2 €/article, 1.1, rep, Vinted, Hacoo, noms de helpers.
+  Groupe de discussion : `chat` dans `assets/config.js` (t.me/LoveGoBuy_fr).

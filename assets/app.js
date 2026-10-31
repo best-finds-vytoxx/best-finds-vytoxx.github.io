@@ -596,43 +596,66 @@
   // ---------- chat bot : réponses aux questions de ceux qui n'ont jamais commandé ----------
   // Tout se passe dans le navigateur (pas de serveur ni d'abonnement) : la question est comparée aux mots-clés
   // de chaque réponse, la plus proche est affichée. Les réponses se modifient ici, dans BOT.
+  // Réponses validées avec Léonard (questions les plus posées sur le groupe LoveGoBuy_fr, dans cet ordre).
+  // hide: true → la question n'est jamais proposée, le bot répond seulement si on la pose.
   const BOT = [
-    { q: "C'est quoi LoveGoBuy ?", k: 'lovegobuy agent site marche fonctionne comment ca marche principe intermediaire chine',
-      a: "LoveGoBuy est un <b>agent d'achat</b> : tu commandes chez eux, ils achètent l'article au vendeur en Chine, le reçoivent dans leur entrepôt, puis te l'envoient chez toi. Tu paies l'article d'abord, puis la livraison quand ton colis est prêt." },
-    { q: 'Comment obtenir les 500 € de coupons ?', k: '500 coupon coupons reduction code promo offert offerts bon inscription parrainage cadeau',
-      a: `Crée ton compte LoveGoBuy avec le lien du site : les <b>${coupon} de coupons</b> sont ajoutés automatiquement à ton compte. Ils se déduisent au moment de payer la <b>livraison</b>.`, act: 'promo' },
-    { q: 'Comment commander un article du site ?', k: 'commander acheter achat commande etapes faire comment lien panier article',
-      a: "1. Ouvre la fiche de l'article et touche <b>Voir sur LoveGoBuy</b> (ou copie le lien et colle-le dans l'appli LoveGoBuy).<br>2. Choisis ta taille et ta couleur, puis achète ou ajoute au panier.<br>3. Quand l'article arrive à l'entrepôt, choisis-le dans « Mon entrepôt » et demande l'expédition.<br>4. Paie la livraison avec tes coupons. Tout est montré dans le tuto vidéo.", act: 'tuto' },
-    { q: 'Est-ce que je vais recevoir la même chose que sur les photos ?', k: 'meme photo photos reel reelle vrai qualite identique recevoir fake arnaque fiable confiance controle qc',
-      a: "Les photos des fiches sont les <b>photos exactes de l'article</b>, prises par l'équipe Vytoxx, étiquettes et détails compris. Et quand ton article arrive à l'entrepôt, LoveGoBuy te montre des <b>photos de contrôle</b> avant l'envoi : tu vérifies que c'est bien ce que tu as commandé." },
-    { q: 'Comment payer le moins cher possible la livraison ?', k: 'moins cher livraison economiser economie reduire payer frais port envoi colis prix livraison astuce',
-      a: `• Utilise tes <b>${coupon} de coupons</b>.<br>• Regroupe plusieurs articles dans <b>un seul colis</b>.<br>• <b>Sépare les catégories</b> : électronique, liquides et bijoux chacun de leur côté, pour qu'ils partent sur la bonne ligne.<br>• Au moment d'expédier, regarde l'option « <b>Colis d'essai</b> » et le retrait de l'emballage d'origine pour alléger le colis.`, act: 'tuto' },
-    { q: 'Combien coûte la livraison ?', k: 'combien cout coute prix livraison frais tarif poids estimer estimation',
-      a: "Le prix dépend surtout du <b>poids</b> du colis et de la ligne choisie. Le poids de chaque article est affiché sur sa fiche pour t'aider à estimer. Le prix exact s'affiche sur LoveGoBuy quand ton colis est prêt, et tes coupons le réduisent." },
-    { q: 'Combien de temps pour recevoir ma commande ?', k: 'temps delai combien jours semaines recevoir reception arrive arriver quand long attente',
-      a: "En général : <b>2 à 5 jours</b> pour que l'article arrive à l'entrepôt, <b>2 à 3 jours</b> pour préparer ton colis, puis environ <b>2 semaines</b> de livraison jusqu'à chez toi." },
-    { q: 'Comment choisir ma taille ?', k: 'taille tailles size guide mesure grand petit taille fit correspondance',
-      a: "Choisis la taille directement sur la page LoveGoBuy de l'article, avec le guide des tailles du vendeur. Les photos montrent l'étiquette, et la règle posée à côté donne les dimensions réelles. Un doute ? Demande sur le canal Telegram." },
-    { q: 'Comment payer ?', k: 'payer paiement carte bancaire apple pay google paypal moyen crypto',
-      a: "Au moment de payer, LoveGoBuy propose plusieurs moyens : <b>carte bancaire</b>, <b>Apple Pay</b>, <b>Google Pay</b> et d'autres. Tu paies deux fois : l'article d'abord, la livraison ensuite." },
-    { q: 'Le prix affiché sur le site est-il le bon ?', k: 'prix affiche bon exact change euro yuan cny different',
+    { q: 'Je cherche un article précis, comment je fais ?', k: 'cherche chercher trouve trouver lien liens article produit dispo disponible find recherche recherch existe modele',
+      a: "1. Tape le <b>nom de l'article</b> dans la barre de recherche du site.<br>2. Rien ne sort ? Tape la <b>marque et le type de produit</b> (par exemple « Nike jogging »).<br>3. Il n'est pas sur le site ? Va sur le <b>groupe de discussion</b> et envoie une capture d'écran du produit en demandant gentiment le lien.", act: ['search', 'group'] },
+    { q: 'Dans combien de temps je reçois ma commande ?', k: 'temps delai delais combien jours semaines recevoir recois reception arrive arriver quand long attente livre livraison',
+      a: "Compte environ <b>3 semaines</b> en tout :<br>• <b>3 à 7 jours</b> pour que le vendeur envoie ton article à l'entrepôt LoveGoBuy ;<br>• puis <b>6 à 18 jours</b> de livraison jusqu'à chez toi, selon la ligne choisie." },
+    { q: "Mon colis ne bouge plus, c'est normal ?", k: 'bouge bouger suivi tracking bloque rien nouvelle avance statut normal toujours depuis',
+      a: "Oui, c'est fréquent : le suivi peut rester <b>plusieurs jours sans nouvelle info</b>, surtout pendant le vol et le passage en douane. Tant que tu es dans les délais (6 à 18 jours de livraison), pas d'inquiétude. Au-delà, ouvre un <b>ticket</b> sur le site LoveGoBuy ou demande sur le groupe de discussion.", act: 'group' },
+    { q: 'Combien coûte la livraison ?', k: 'combien cout coute prix livraison frais tarif poids estimer estimation kilo volume calcul cher',
+      a: "Le prix dépend du <b>poids</b>, du <b>volume</b> du colis et de la ligne choisie.<br>• Les prix sont les plus avantageux entre <b>500 g et 5 kg</b> par colis.<br>• Le volume compte : un coussin d'1 kg coûte bien plus cher à envoyer qu'un pull épais d'1 kg.<br>• Pour estimer avant de payer, utilise l'onglet <b>Estimation</b> sur l'accueil LoveGoBuy.<br>• Poids indicatifs : t-shirt 250 g, short 350 g, pull 500 à 800 g, pantalon 600 g, chaussures 1 à 1,2 kg. Le poids est aussi indiqué sur la fiche de chaque article." },
+    { q: "C'est quoi le colis d'essai ?", k: 'colis essai test calcul precis exact vacuum vide sous volumineux emballage',
+      a: "Pour <b>2 € par colis</b>, LoveGoBuy prépare ton colis et te donne son <b>poids et son prix de livraison exacts</b> en 24 h environ, avant que tu paies.<br>• Fais-le quand <b>tous tes articles sont arrivés</b> à l'entrepôt.<br>• Pour les articles volumineux (doudoune, pull épais…), choisis aussi le <b>Vacuum pack</b> (mise sous vide) : le colis prend moins de place et coûte moins cher.", act: 'tuto' },
+    { q: `Comment obtenir les ${S.coupon || '500 €'} de coupons ?`, k: '500 485 coupon coupons reduction code promo offert offerts bon inscription parrainage cadeau',
+      a: "Inscris-toi sur LoveGoBuy avec le lien du site : tu reçois <b>485 € de coupons</b> (environ 500 €).<br>• Ils servent uniquement à réduire la <b>livraison</b>.<br>• Tu peux utiliser <b>un seul coupon par colis</b>.<br>• Pense à les récupérer dans ton compte (bouton « Recevoir »).", act: 'promo' },
+    { q: 'Comment me faire rembourser ?', k: 'rembourse remboursement rembourser annuler annulation cancel argent retour retourner',
+      a: "• Si le vendeur n'a pas envoyé l'article au bout de <b>8 jours</b>, tu peux demander le remboursement.<br>• Une fois l'article arrivé à l'entrepôt, tu as <b>5 jours</b> pour le demander.<br>• L'argent revient sur ton <b>solde LoveGoBuy</b> (pas sur ton compte bancaire) en <b>3 à 8 jours</b>." },
+    { q: 'Je ne vois pas les photos de contrôle (QC)', k: 'qc photo photos controle verification entrepot voir vois pas apparait',
+      a: "Les photos de contrôle arrivent en général <b>1 à 2 jours</b> après l'arrivée de l'article à l'entrepôt. Toujours rien au bout de <b>72 h</b> ? Ouvre un <b>ticket</b> sur le site LoveGoBuy pour les demander." },
+    { q: "Que veut dire ce message de l'appli ?", k: 'message veut dire signifie recharge need closed ferme apply cancel statut appli application',
+      a: "• « <b>Need to recharge</b> » : le prix de l'article a changé, tu dois payer la différence.<br>• « <b>Apply cancel</b> » : ta demande d'annulation est en cours.<br>• « <b>Colis fermé</b> » : l'article est resté plus de 60 jours à l'entrepôt et il est reparti chez le vendeur.<br>Un autre message ? Envoie une capture sur le groupe de discussion.", act: 'group' },
+    { q: "LoveGoBuy, c'est fiable ?", k: 'fiable confiance arnaque scam serieux sur securise lovegobuy marche vraiment legit',
+      a: "LoveGoBuy est un <b>agent d'achat</b> : il achète l'article au vendeur en Chine, le reçoit dans son entrepôt, te montre des <b>photos de contrôle</b>, puis te l'envoie. Si le vendeur n'envoie pas l'article, tu es <b>remboursé</b> sur ton solde LoveGoBuy. Le groupe de discussion est là si tu as un doute." },
+    { q: 'Quelle ligne de livraison choisir ?', k: 'ligne dhl dpd europe eu transporteur choisir choix meilleure moins chere',
+      a: "LoveGoBuy EU, DHL ou DPD : les délais sont <b>à peu près les mêmes</b>. Prends simplement la <b>moins chère</b> des lignes proposées pour ton colis." },
+    { q: 'Quelle taille prendre ?', k: 'taille tailles size guide mesure grand petit fit correspondance prendre',
+      a: "Choisis la taille sur la page LoveGoBuy de l'article, avec le guide des tailles du vendeur. Les photos des fiches montrent l'étiquette, et la règle posée à côté donne les dimensions réelles. Un doute ? Demande sur le groupe de discussion.", act: 'group' },
+    { q: 'Combien de temps mes articles restent à l\'entrepôt ?', k: 'stockage stocker garder entrepot jours gratuit reste rester 60 attendre',
+      a: "Le stockage est <b>gratuit pendant 60 jours</b>. Passé ce délai, l'article repart chez le vendeur : pense à expédier ton colis avant." },
+    { q: 'Comment contacter le service client ?', k: 'service client contacter contact aide support ticket probleme parler joindre',
+      a: "Ouvre un <b>ticket</b> sur le site LoveGoBuy, depuis ton compte. Tu peux aussi poser ta question sur le <b>groupe de discussion</b>.", act: 'group' },
+    { q: 'Comment commander un article du site ?', k: 'commander acheter achat commande etapes faire comment panier',
+      a: "1. Ouvre la fiche de l'article et touche <b>Voir sur LoveGoBuy</b>.<br>2. Choisis ta taille et ta couleur, puis achète.<br>3. Quand l'article est à l'entrepôt, vérifie les photos de contrôle et demande l'expédition.<br>4. Paie la livraison avec tes coupons. Tout est montré pas à pas dans le tuto.", act: 'tuto' },
+    { q: 'Est-ce que je vais recevoir la même chose que sur les photos ?', k: 'meme photo photos reel reelle vrai qualite identique pareil',
+      a: "Les photos des fiches sont les <b>photos exactes de l'article</b>, étiquettes et détails compris. Et quand ton article arrive à l'entrepôt, LoveGoBuy te montre des <b>photos de contrôle</b> avant l'envoi : tu vérifies que c'est bien ce que tu as commandé." },
+    { q: 'Comment payer ?', k: 'payer paiement carte bancaire apple pay google paypal moyen usd dollar euro',
+      a: "LoveGoBuy propose plusieurs moyens : <b>carte bancaire</b>, <b>Apple Pay</b>, <b>Google Pay</b> et d'autres. Tu paies deux fois : l'article d'abord, la livraison ensuite." },
+    { q: 'Le prix affiché sur le site est-il le bon ?', k: 'prix affiche bon exact change yuan cny different',
       a: "Le prix affiché est celui de la page LoveGoBuy, relevé à la date indiquée sous le prix. Il peut changer : le prix qui compte est celui affiché sur LoveGoBuy au moment de commander." },
-    { q: 'Pourquoi séparer les catégories dans mes colis ?', k: 'separer categories pourquoi electronique liquide bijou bijoux ligne melanger',
+    { q: 'Pourquoi séparer les catégories dans mes colis ?', k: 'separer categories pourquoi electronique liquide bijou bijoux melanger',
       a: "L'électronique, les liquides et les bijoux partent sur des lignes de livraison spéciales. En les gardant chacun de leur côté, chaque colis part sur la bonne ligne et coûte moins cher." },
-    { q: 'Comment ajouter le site sur mon iPhone ?', k: 'iphone ecran accueil appli application installer raccourci icone',
+    { q: 'Comment ajouter le site sur mon iPhone ?', k: 'iphone ecran accueil installer raccourci icone',
       a: "Dans Safari : touche « ••• », puis Partager, puis « Sur l'écran d'accueil ». Toutes les étapes sont illustrées dans le petit tuto.", act: 'ecran' },
+    { q: 'Mon colis peut-il être saisi à la douane ?', hide: true, k: 'saisi saisie douane attrape attraper bloque confisque perdu risque',
+      a: "C'est <b>extrêmement rare</b> : moins d'un colis sur 500. En général, le colis est simplement saisi et n'arrive pas chez toi. LoveGoBuy prend cela en charge : <b>si le colis est assuré, il est remboursé</b>. Les règles peuvent changer : pour ce genre de question, ouvre un <b>ticket</b> sur le site LoveGoBuy." },
   ];
   const ACTS = {
     promo: [`${icon.gift} Récupérer mes ${coupon}`, () => openPromo()],
-    tuto: [`${icon.play} Voir le tuto vidéo`, () => { location.hash = 'tuto'; }],
+    tuto: [`${icon.play} Voir le tuto pour commander`, () => { location.hash = 'tuto'; }],
     ecran: [`${icon.phone} Voir le tuto iPhone`, () => { location.hash = 'ecran'; }],
-    tg: [`${icon.tg} Demander sur le canal`, () => window.open(S.telegram, '_blank', 'noopener')],
+    search: [`${icon.search} Chercher sur le site`, () => { location.hash = 'catalogue'; setTimeout(() => document.getElementById('q')?.focus(), 350); }],
+    group: [`${icon.tg} Ouvrir le groupe`, () => window.open(S.chat || S.telegram, '_blank', 'noopener')],
   };
+  // mots trop courants pour départager deux questions
+  const BOT_STOP = new Set('comment fais faire est pour les des une mon mes ton tes que qui quoi quel quelle avec dans sur pas vous tu je suis peut ca cest'.split(' '));
   const botAnswer = (text) => {
-    const words = fold(text).replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
+    const words = fold(text).replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((w) => (w.length > 2 || w === 'qc') && !BOT_STOP.has(w));
     let best = null, bestScore = 0;
     for (const e of BOT) {
-      const keys = fold(`${e.k} ${e.q}`).replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((k) => k.length > 2);
+      const keys = fold(`${e.k} ${e.q}`).replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((k) => (k.length > 2 || k === 'qc') && !BOT_STOP.has(k));
       let sc = 0;
       for (const w of words) if (keys.some((k) => k === w || (w.length > 4 && k.length > 4 && (k.startsWith(w.slice(0, 5)) || w.startsWith(k.slice(0, 5)))))) sc++;
       if (sc > bestScore) { bestScore = sc; best = e; }
@@ -657,13 +680,13 @@
     const bubble = (who, html, act) => {
       const d = document.createElement('div');
       d.className = `bm bm-${who}`;
-      d.innerHTML = `${who === 'bot' ? `<img class="bm-av" src="${IMG.logo}" alt="">` : ''}<div class="bm-b"><div>${html}</div>${act ? `<button type="button" class="bm-act" data-act="${act}">${ACTS[act][0]}</button>` : ''}</div>`;
+      d.innerHTML = `${who === 'bot' ? `<img class="bm-av" src="${IMG.logo}" alt="">` : ''}<div class="bm-b"><div>${html}</div>${act ? `<div class="bm-acts">${[].concat(act).map((x) => `<button type="button" class="bm-act" data-act="${x}">${ACTS[x][0]}</button>`).join('')}</div>` : ''}</div>`;
       feed.appendChild(d);
       d.scrollIntoView({ block: 'end', behavior: 'smooth' });
       return d;
     };
     const showSugg = (exclude = []) => {
-      sugg.innerHTML = BOT.filter((e) => !exclude.includes(e)).slice(0, 6).map((e) => `<button type="button" class="chip" data-q="${esc(e.q)}">${esc(e.q)}</button>`).join('');
+      sugg.innerHTML = BOT.filter((e) => !e.hide && !exclude.includes(e)).slice(0, 6).map((e) => `<button type="button" class="chip" data-q="${esc(e.q)}">${esc(e.q)}</button>`).join('');
     };
     const asked = new Set();
     const ask = (text) => {
@@ -676,13 +699,13 @@
       setTimeout(() => {
         typing.remove();
         if (e) { asked.add(e); bubble('bot', e.a, e.act); botLog.push(['bot', e]); }
-        else { bubble('bot', "Je n'ai pas encore la réponse à cette question. Pose-la sur le canal Telegram, l'équipe te répondra. Sinon, choisis une des questions ci-dessous.", 'tg'); botLog.push(['bot', null]); }
+        else { bubble('bot', "Je n'ai pas encore la réponse à cette question. Pose-la sur le groupe de discussion, on te répondra. Sinon, choisis une des questions ci-dessous.", 'group'); botLog.push(['bot', null]); }
         showSugg([...asked]);
       }, 550 + Math.random() * 350);
     };
     // la conversation est gardée tant que la page n'est pas rechargée
-    if (botLog.length) botLog.forEach(([who, x]) => (who === 'me' ? bubble('me', esc(x)) : x ? bubble('bot', x.a, x.act) : bubble('bot', "Je n'ai pas encore la réponse à cette question. Pose-la sur le canal Telegram.", 'tg')));
-    else bubble('bot', `Salut 👋 Je réponds aux questions sur la commande LoveGoBuy : coupons, livraison, tailles, paiement… Touche une question ci-dessous ou écris la tienne.`);
+    if (botLog.length) botLog.forEach(([who, x]) => (who === 'me' ? bubble('me', esc(x)) : x ? bubble('bot', x.a, x.act) : bubble('bot', "Je n'ai pas encore la réponse à cette question. Pose-la sur le groupe de discussion.", 'group')));
+    else bubble('bot', `Salut 👋 Je réponds aux questions sur la commande LoveGoBuy : trouver un article, délais, livraison, coupons, remboursement… Touche une question ci-dessous ou écris la tienne.`);
     showSugg();
     sugg.addEventListener('click', (ev) => { const b = ev.target.closest('[data-q]'); if (b) ask(b.dataset.q); });
     feed.addEventListener('click', (ev) => { const b = ev.target.closest('[data-act]'); if (b) ACTS[b.dataset.act][1](); });
