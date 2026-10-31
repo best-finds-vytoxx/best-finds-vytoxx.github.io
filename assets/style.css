@@ -1173,3 +1173,6 @@ body { background:
   .hero-pic { width: 112px; }
   .hero-pic img { max-height: 172px; }
 }
+.help-title { font-size: 15px; letter-spacing: .16em; }
+@media (min-width: 861px) { .help-title { font-size: 15px; } }
+@media (max-width: 370px) { .help-title { font-size: 13.5px; } }
