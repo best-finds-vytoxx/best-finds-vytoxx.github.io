@@ -113,8 +113,13 @@ img.fade.ld { opacity: 1; }
 body.home .top { margin-bottom: -65px; }
 .top.over { background: transparent; border-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; color: #fff; }
 .top.over::before { content: ""; position: absolute; inset: 0 0 -48px; background: linear-gradient(rgba(8, 10, 12, .55), rgba(8, 10, 12, 0)); pointer-events: none; z-index: -1; }
-.top-in { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; height: 64px; }
-.nav-links { display: flex; gap: 6px; min-width: 0; }
+/* une seule ligne : menu, accueil (et tuto) à gauche ; partager et cadeau à droite */
+.top-in { display: flex; align-items: center; gap: 12px; height: 64px; }
+.nav-links { display: contents; }
+.menu-btn { order: 0; }
+.brand { order: 1; }
+#nav-tuto { order: 2; }
+.top-right { order: 3; margin-left: auto; }
 .nav-links a {
   display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 99px;
   text-decoration: none; font-size: 14.5px; font-weight: 600; color: var(--ink); border: 1px solid var(--line-strong); white-space: nowrap;
@@ -163,7 +168,7 @@ body.home #nav-tuto { display: none; }
 .dr-cat { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--ink); font: 600 14px/1.2 var(--f-body); background: var(--bg); }
 .dr-cat:hover { border-color: var(--ink); }
 .dr-cat small { font: 400 11.5px/1 var(--f-mono); color: var(--muted); }
-.brand { display: grid; justify-items: center; gap: 3px; text-decoration: none; justify-self: center; }
+.brand { display: grid; justify-items: center; gap: 3px; text-decoration: none; flex: none; }
 .logo { width: 42px; height: 42px; flex: none; display: block; object-fit: contain; filter: drop-shadow(0 4px 8px var(--shadow)); }
 .brand:hover .logo { animation: wiggle .6s ease; }
 @keyframes wiggle { 30% { transform: rotate(-10deg); } 60% { transform: rotate(8deg); } }
@@ -202,21 +207,12 @@ body.home #nav-tuto { display: none; }
 }
 @keyframes settle { from { transform: scale(1.04); filter: saturate(.85); } to { transform: none; filter: none; } }
 @media (max-width: 640px) { .banner img { height: 48vh; min-height: 300px; max-height: 440px; object-position: center 18%; } }
-.banner-wrap { position: relative; }
-.banner-tools { position: absolute; left: 0; right: 0; top: 74px; display: flex; justify-content: flex-end; pointer-events: none; z-index: 3; }
-.share-top {
-  pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 99px; cursor: pointer;
-  color: #fff; font: 600 14px/1 var(--f-body); border: 1px solid rgba(255, 255, 255, .45);
-  background: rgba(0, 0, 0, .22); backdrop-filter: blur(10px) saturate(1.4); -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  box-shadow: 0 8px 22px -12px rgba(0, 0, 0, .6); transition: background .2s, transform .2s var(--ease);
-  animation: rise .6s .3s var(--ease) both;
-}
-.share-top svg { width: 16px; height: 16px; }
-.share-top:hover { background: rgba(0, 0, 0, .38); transform: translateY(-1px); }
-@keyframes rise { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-@media (max-width: 640px) {
-  .banner-tools { top: 68px; }
-  .share-top { height: 38px; padding: 0 14px; font-size: 13.5px; }
+.share-hdr { display: none; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 99px; cursor: pointer; color: var(--ink); font: 600 14.5px/1 var(--f-body); border: 1px solid var(--line-strong); background: transparent; transition: border-color .2s, background .2s; }
+.share-hdr svg { width: 16px; height: 16px; }
+.share-hdr:hover { border-color: var(--ink); }
+.top.over .share-hdr { color: #fff; border-color: rgba(255, 255, 255, .45); background: rgba(0, 0, 0, .14); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+body.home .share-hdr { display: inline-flex; }
+@media (max-width: 440px) { .share-hdr { height: 38px; padding: 0 13px; font-size: 13.5px; gap: 6px; } }
 }
 
 /* Bande de chiffres sous la bannière */

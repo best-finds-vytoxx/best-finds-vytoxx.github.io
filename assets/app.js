@@ -107,6 +107,7 @@
       </nav>
       <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
       <div class="top-right">
+        <button class="share-hdr" type="button" id="share-site">${icon.share}<span>Partager</span></button>
         <button class="gift" type="button" id="open-promo">${icon.gift}<span>${coupon} offerts</span></button>
       </div>
     </div></header>
@@ -183,6 +184,7 @@
     closePromo();
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
+  document.getElementById('share-site').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
   document.getElementById('foot-promo').addEventListener('click', () => openPromo());
   // ---------- menu déroulant (bouton en haut à gauche) ----------
   const drawer = document.getElementById('drawer');
@@ -417,7 +419,6 @@
           <source media="(max-width: 1100px)" srcset="${IMG.bannerMid}">
           <img src="${IMG.banner}" alt="${esc(S.name || '')} — le panda Vytoxx devant ses colis LoveGoBuy" fetchpriority="high">
         </picture>
-        <div class="wrap banner-tools"><button class="share-top" type="button" id="share-site">${icon.share}<span>Partager</span></button></div>
       </section>
 
       ${catList.length ? `<section class="wrap block reveal">
@@ -459,11 +460,6 @@
       </section>`;
 
     reveal();
-    view.querySelector('#share-site').addEventListener('click', () => shareThis({
-      title: 'Partage ce site à un ami',
-      text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`,
-      url: siteUrl(),
-    }));
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });
     view.querySelectorAll('.cat-tile').forEach((b) => b.addEventListener('click', () => {
       state.cat = b.dataset.c; state.q = ''; state.brand = ''; catScroll = 0;
