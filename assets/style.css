@@ -1293,3 +1293,16 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --prod-shadow: drop-shadow(0 16px 16px rgba(0, 0, 0, .55)); } }
 .ph.is-cut .main, .cat-pic img, .arr-pic img, .slide.is-cut img { filter: var(--prod-shadow); }
 .top-pic img { filter: drop-shadow(0 2px 2px rgba(60, 40, 20, .14)) drop-shadow(0 6px 6px rgba(60, 40, 20, .18)); }
+
+/* Pop-up des 500 € : fixe, ne défile pas (le reflet animé débordait et rendait la carte « déroulable ») */
+.promo { overscroll-behavior: contain; touch-action: none; }
+.promo-card { overflow: hidden; max-height: none; overscroll-behavior: contain; touch-action: manipulation; }
+@media (max-height: 700px) {
+  .promo-card { padding: 22px 20px 16px; gap: 10px; }
+  .promo-amount { font-size: clamp(48px, 13vw, 64px); }
+  .promo-card h2 { font-size: 22px; }
+  .promo-card p, .promo-steps { font-size: 13.5px; }
+  .promo-steps { padding-block: 10px; gap: 4px; }
+}
+@media (max-height: 560px) { .promo-steps { display: none; } }
+.promo-eyebrow { padding-right: 40px; line-height: 1.3; }
