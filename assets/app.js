@@ -341,8 +341,6 @@
     const catList = ORDER.map((c) => [c, cats[c] || { n: 0, pics: [] }]);
     const byId = new Map(arts.map((a) => [a.id, a]));
     const ranking = top.ids.map((id) => byId.get(id)).filter(Boolean).slice(0, 5);
-    const photoCount = arts.reduce((n, a) => n + (a.photos || []).length, 0);
-    const priced = arts.filter(priceOf).length;
 
     view.innerHTML = `
       <h1 class="sr-only">${esc(S.name || 'Finds')} — ${esc(S.tagline || '')}</h1>
@@ -356,14 +354,6 @@
       <div class="wrap hero-cta">
         <a class="buy" href="#catalogue">Voir tous les articles ${icon.right}</a>
         <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
-      </div>
-      <div class="wrap">
-        <div class="stats reveal">
-          <div class="stat"><b>${arts.length.toLocaleString('fr-FR')}</b><span>articles du canal, tous au même endroit</span></div>
-          <div class="stat"><b>${photoCount.toLocaleString('fr-FR')}</b><span>photos réelles prises par l'équipe ${esc(S.by || '')}</span></div>
-          <div class="stat"><b>${priced}</b><span>prix relevés directement sur LoveGoBuy</span></div>
-          <div class="stat"><b>15 min</b><span class="live">nouveaux posts ajoutés automatiquement</span></div>
-        </div>
       </div>
 
       ${catList.length ? `<section class="wrap block reveal">

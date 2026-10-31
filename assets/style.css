@@ -164,7 +164,7 @@ body.home .nav-links { visibility: hidden; }
 }
 @keyframes settle { from { transform: scale(1.04); filter: saturate(.85); } to { transform: none; filter: none; } }
 @media (max-width: 640px) { .banner img { height: 56vh; min-height: 320px; object-position: center 18%; } }
-.hero-cta { position: relative; z-index: 2; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: -68px; }
+.hero-cta { position: relative; z-index: 2; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: -68px; margin-bottom: 8px; }
 .hero-cta .sub, .hero-cta .buy { height: 54px; isolation: isolate; backdrop-filter: blur(18px) saturate(1.8); -webkit-backdrop-filter: blur(18px) saturate(1.8); }
 .hero-cta .sub {
   padding: 0 22px; background: linear-gradient(180deg, var(--glass-shine) -60%, var(--glass-bg) 45%); border: 1px solid var(--glass-edge);
