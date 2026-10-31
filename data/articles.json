@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-30T21:37:46.524Z",
+ "updatedAt": "2026-10-31T03:30:42.281Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "articles": [
@@ -18,7 +18,7 @@
    "shop": "weidian",
    "productId": "7888472404",
    "date": "2026-10-30T09:44:51+00:00",
-   "views": "216",
+   "views": "255",
    "telegram": "https://t.me/lovegobuy_france/5510",
    "photos": [
     "images/5510/1.jpg",
@@ -34,14 +34,15 @@
    "cover": "images/5510/cover.webp",
    "coverFrom": 4,
    "front": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 4,
    "kindPick": null,
    "addedAt": "2026-10-30T14:32:57.422Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5510/cover-sm.webp"
   },
   {
    "id": 5502,
@@ -58,7 +59,7 @@
    "shop": "weidian",
    "productId": "7888541940",
    "date": "2026-10-30T09:42:31+00:00",
-   "views": "199",
+   "views": "233",
    "telegram": "https://t.me/lovegobuy_france/5502",
    "photos": [
     "images/5502/1.jpg",
@@ -73,14 +74,15 @@
    "cover": "images/5502/cover.webp",
    "coverFrom": 4,
    "front": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 4,
    "kindPick": null,
    "addedAt": "2026-10-30T14:32:57.423Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5502/cover-sm.webp"
   },
   {
    "id": 5496,
@@ -97,7 +99,7 @@
    "shop": "weidian",
    "productId": "7888478042",
    "date": "2026-10-30T09:42:25+00:00",
-   "views": "174",
+   "views": "199",
    "telegram": "https://t.me/lovegobuy_france/5496",
    "photos": [
     "images/5496/1.jpg",
@@ -110,14 +112,15 @@
    "cover": "images/5496/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-30T14:32:57.424Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5496/cover-sm.webp"
   },
   {
    "id": 5490,
@@ -134,7 +137,7 @@
    "shop": "weidian",
    "productId": "7881113385",
    "date": "2026-10-29T15:36:09+00:00",
-   "views": "317",
+   "views": "330",
    "telegram": "https://t.me/lovegobuy_france/5490",
    "photos": [
     "images/5490/1.jpg",
@@ -144,17 +147,18 @@
     "images/5490/5.jpg",
     "images/5490/6.jpg"
    ],
-   "cover": null,
-   "coverFrom": null,
-   "front": 3,
-   "coverRev": 4,
-   "coverPick": 3,
+   "cover": "images/5490/cover.webp",
+   "coverFrom": 3,
+   "front": 2,
+   "coverRev": 5,
+   "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-29T16:21:42.544Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5490/cover-sm.webp"
   },
   {
    "id": 5484,
@@ -171,7 +175,7 @@
    "shop": "weidian",
    "productId": "7881190429",
    "date": "2026-10-29T15:36:02+00:00",
-   "views": "315",
+   "views": "329",
    "telegram": "https://t.me/lovegobuy_france/5484",
    "photos": [
     "images/5484/1.jpg",
@@ -184,7 +188,7 @@
    "cover": "images/5484/cover.webp",
    "coverFrom": 4,
    "front": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 4,
    "kindPick": null,
    "addedAt": "2026-10-29T16:21:42.545Z",
@@ -196,7 +200,8 @@
     0.95,
     0.98
    ],
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5484/cover-sm.webp"
   },
   {
    "id": 5475,
@@ -213,7 +218,7 @@
    "shop": "weidian",
    "productId": "7881162669",
    "date": "2026-10-29T15:35:58+00:00",
-   "views": "261",
+   "views": "275",
    "telegram": "https://t.me/lovegobuy_france/5475",
    "photos": [
     "images/5475/1.jpg",
@@ -229,14 +234,15 @@
    "cover": "images/5475/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-29T16:21:42.546Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5475/cover-sm.webp"
   },
   {
    "id": 5467,
@@ -253,7 +259,7 @@
    "shop": "weidian",
    "productId": "7884228082",
    "date": "2026-10-29T15:35:50+00:00",
-   "views": "288",
+   "views": "303",
    "telegram": "https://t.me/lovegobuy_france/5467",
    "photos": [
     "images/5467/1.jpg",
@@ -268,14 +274,15 @@
    "cover": "images/5467/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-29T16:21:42.547Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5467/cover-sm.webp"
   },
   {
    "id": 5452,
@@ -291,7 +298,7 @@
    "shop": "weidian",
    "productId": "7880297647",
    "date": "2026-10-26T16:53:45+00:00",
-   "views": "651",
+   "views": "660",
    "telegram": "https://t.me/lovegobuy_france/5452",
    "photos": [
     "images/5452/1.jpg",
@@ -306,13 +313,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5452/cover-sm.webp"
   },
   {
    "id": 5445,
@@ -344,13 +352,14 @@
    "type": "Bas",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5445/cover-sm.webp"
   },
   {
    "id": 5439,
@@ -381,13 +390,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5439/cover-sm.webp"
   },
   {
    "id": 5427,
@@ -421,13 +431,14 @@
    "type": "Sweats",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5427/cover-sm.webp"
   },
   {
    "id": 5418,
@@ -461,13 +472,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5418/cover-sm.webp"
   },
   {
    "id": 5409,
@@ -501,13 +513,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5409/cover-sm.webp"
   },
   {
    "id": 5397,
@@ -541,13 +554,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5397/cover-sm.webp"
   },
   {
    "id": 5388,
@@ -581,13 +595,14 @@
    "type": "Accessoires",
    "front": 4,
    "coverFrom": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5388/cover-sm.webp"
   },
   {
    "id": 5382,
@@ -618,13 +633,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5382/cover-sm.webp"
   },
   {
    "id": 5364,
@@ -658,13 +674,14 @@
    "type": "Doudounes",
    "front": 4,
    "coverFrom": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 4,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5364/cover-sm.webp"
   },
   {
    "id": 5358,
@@ -695,13 +712,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5358/cover-sm.webp"
   },
   {
    "id": 5350,
@@ -734,13 +752,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5350/cover-sm.webp"
   },
   {
    "id": 5345,
@@ -770,13 +789,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5345/cover-sm.webp"
   },
   {
    "id": 5334,
@@ -809,13 +829,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5334/cover-sm.webp"
   },
   {
    "id": 5326,
@@ -848,13 +869,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5326/cover-sm.webp"
   },
   {
    "id": 5320,
@@ -885,13 +907,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5320/cover-sm.webp"
   },
   {
    "id": 5311,
@@ -925,13 +948,14 @@
    "type": "Doudounes",
    "front": 3,
    "coverFrom": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5311/cover-sm.webp"
   },
   {
    "id": 5305,
@@ -962,13 +986,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5305/cover-sm.webp"
   },
   {
    "id": 5296,
@@ -1001,13 +1026,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5296/cover-sm.webp"
   },
   {
    "id": 5291,
@@ -1037,13 +1063,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5291/cover-sm.webp"
   },
   {
    "id": 5283,
@@ -1076,13 +1103,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5283/cover-sm.webp"
   },
   {
    "id": 5275,
@@ -1115,13 +1143,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5275/cover-sm.webp"
   },
   {
    "id": 5266,
@@ -1153,15 +1182,16 @@
    "cover": "images/5266/cover.webp",
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Ensembles",
-   "front": 1,
-   "coverFrom": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 6,
+   "coverFrom": 6,
+   "coverRev": 5,
+   "coverPick": 6,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5266/cover-sm.webp"
   },
   {
    "id": 5260,
@@ -1190,15 +1220,16 @@
    "cover": "images/5260/cover.webp",
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Accessoires",
-   "front": 5,
-   "coverFrom": 3,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 4,
+   "coverFrom": 4,
+   "coverRev": 5,
+   "coverPick": 4,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5260/cover-sm.webp"
   },
   {
    "id": 5250,
@@ -1232,13 +1263,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5250/cover-sm.webp"
   },
   {
    "id": 5245,
@@ -1268,13 +1300,14 @@
    "type": "Bas",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5245/cover-sm.webp"
   },
   {
    "id": 5239,
@@ -1305,13 +1338,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5239/cover-sm.webp"
   },
   {
    "id": 5232,
@@ -1342,13 +1376,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5232/cover-sm.webp"
   },
   {
    "id": 5226,
@@ -1379,13 +1414,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5226/cover-sm.webp"
   },
   {
    "id": 5220,
@@ -1416,13 +1452,14 @@
    "type": "Sweats",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5220/cover-sm.webp"
   },
   {
    "id": 5214,
@@ -1453,13 +1490,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5214/cover-sm.webp"
   },
   {
    "id": 5205,
@@ -1492,14 +1530,15 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverFrom": 2,
+   "coverRev": 5,
+   "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5205/cover-sm.webp"
   },
   {
    "id": 5196,
@@ -1533,13 +1572,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5196/cover-sm.webp"
   },
   {
    "id": 5187,
@@ -1572,13 +1612,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5187/cover-sm.webp"
   },
   {
    "id": 5179,
@@ -1611,13 +1652,14 @@
    "type": "Sweats",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5179/cover-sm.webp"
   },
   {
    "id": 5172,
@@ -1648,13 +1690,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5172/cover-sm.webp"
   },
   {
    "id": 5164,
@@ -1687,13 +1730,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5164/cover-sm.webp"
   },
   {
    "id": 5155,
@@ -1726,14 +1770,15 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverFrom": 2,
+   "coverRev": 5,
+   "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5155/cover-sm.webp"
   },
   {
    "id": 5146,
@@ -1766,13 +1811,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5146/cover-sm.webp"
   },
   {
    "id": 5138,
@@ -1805,13 +1851,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5138/cover-sm.webp"
   },
   {
    "id": 5127,
@@ -1845,13 +1892,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5127/cover-sm.webp"
   },
   {
    "id": 5119,
@@ -1884,13 +1932,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5119/cover-sm.webp"
   },
   {
    "id": 5111,
@@ -1921,13 +1970,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5111/cover-sm.webp"
   },
   {
    "id": 5105,
@@ -1958,13 +2008,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5105/cover-sm.webp"
   },
   {
    "id": 5095,
@@ -1997,13 +2048,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5095/cover-sm.webp"
   },
   {
    "id": 5086,
@@ -2037,13 +2089,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5086/cover-sm.webp"
   },
   {
    "id": 5080,
@@ -2074,13 +2127,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5080/cover-sm.webp"
   },
   {
    "id": 5070,
@@ -2113,13 +2167,14 @@
    "type": "Sweats",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5070/cover-sm.webp"
   },
   {
    "id": 5062,
@@ -2152,13 +2207,14 @@
    "type": "Vestes",
    "front": 3,
    "coverFrom": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5062/cover-sm.webp"
   },
   {
    "id": 5055,
@@ -2190,13 +2246,14 @@
    "type": "Sweats",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5055/cover-sm.webp"
   },
   {
    "id": 5045,
@@ -2228,13 +2285,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5045/cover-sm.webp"
   },
   {
    "id": 5037,
@@ -2267,13 +2325,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5037/cover-sm.webp"
   },
   {
    "id": 5028,
@@ -2306,13 +2365,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5028/cover-sm.webp"
   },
   {
    "id": 5020,
@@ -2345,13 +2405,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5020/cover-sm.webp"
   },
   {
    "id": 5012,
@@ -2384,13 +2445,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5012/cover-sm.webp"
   },
   {
    "id": 5007,
@@ -2420,13 +2482,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5007/cover-sm.webp"
   },
   {
    "id": 5002,
@@ -2456,13 +2519,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/5002/cover-sm.webp"
   },
   {
    "id": 4993,
@@ -2496,13 +2560,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4993/cover-sm.webp"
   },
   {
    "id": 4982,
@@ -2536,13 +2601,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4982/cover-sm.webp"
   },
   {
    "id": 4973,
@@ -2576,13 +2642,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4973/cover-sm.webp"
   },
   {
    "id": 4953,
@@ -2613,13 +2680,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4953/cover-sm.webp"
   },
   {
    "id": 4947,
@@ -2650,13 +2718,14 @@
    "type": "Vestes",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4947/cover-sm.webp"
   },
   {
    "id": 4936,
@@ -2690,13 +2759,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4936/cover-sm.webp"
   },
   {
    "id": 4928,
@@ -2729,13 +2799,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4928/cover-sm.webp"
   },
   {
    "id": 4913,
@@ -2768,13 +2839,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4913/cover-sm.webp"
   },
   {
    "id": 4907,
@@ -2805,13 +2877,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4907/cover-sm.webp"
   },
   {
    "id": 4895,
@@ -2842,13 +2915,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4895/cover-sm.webp"
   },
   {
    "id": 4883,
@@ -2880,13 +2954,14 @@
    "type": "Vestes",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4883/cover-sm.webp"
   },
   {
    "id": 4878,
@@ -2916,13 +2991,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4878/cover-sm.webp"
   },
   {
    "id": 4871,
@@ -2954,13 +3030,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4871/cover-sm.webp"
   },
   {
    "id": 4862,
@@ -2994,13 +3071,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4862/cover-sm.webp"
   },
   {
    "id": 4854,
@@ -3033,13 +3111,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4854/cover-sm.webp"
   },
   {
    "id": 4848,
@@ -3069,14 +3148,15 @@
    "addedAt": "2026-10-27T23:06:36.738Z",
    "type": "Accessoires",
    "front": 1,
-   "coverFrom": 2,
-   "coverRev": 4,
+   "coverFrom": 1,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4848/cover-sm.webp"
   },
   {
    "id": 4842,
@@ -3107,13 +3187,14 @@
    "type": "Accessoires",
    "front": 5,
    "coverFrom": null,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverRev": 5,
+   "coverPick": 5,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": null
   },
   {
    "id": 4834,
@@ -3144,15 +3225,16 @@
    "cover": "images/4834/cover.webp",
    "addedAt": "2026-10-27T23:06:36.738Z",
    "type": "Accessoires",
-   "front": 5,
-   "coverFrom": 4,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 2,
+   "coverFrom": 2,
+   "coverRev": 5,
+   "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4834/cover-sm.webp"
   },
   {
    "id": 4829,
@@ -3180,15 +3262,16 @@
    "cover": "images/4829/cover.webp",
    "addedAt": "2026-10-27T23:06:36.738Z",
    "type": "Accessoires",
-   "front": 1,
-   "coverFrom": 4,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 3,
+   "coverFrom": 3,
+   "coverRev": 5,
+   "coverPick": 3,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4829/cover-sm.webp"
   },
   {
    "id": 4818,
@@ -3220,13 +3303,14 @@
    "type": "Chaussures",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4818/cover-sm.webp"
   },
   {
    "id": 4811,
@@ -3257,14 +3341,15 @@
    "addedAt": "2026-10-27T23:06:36.738Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 5,
-   "coverRev": 4,
+   "coverFrom": 1,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4811/cover-sm.webp"
   },
   {
    "id": 4805,
@@ -3295,13 +3380,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4805/cover-sm.webp"
   },
   {
    "id": 4796,
@@ -3335,13 +3421,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4796/cover-sm.webp"
   },
   {
    "id": 4787,
@@ -3373,14 +3460,15 @@
    "addedAt": "2026-10-28T01:40:49.933Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 6,
-   "coverRev": 4,
+   "coverFrom": 1,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "shoe",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4787/cover-sm.webp"
   },
   {
    "id": 4779,
@@ -3413,13 +3501,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4779/cover-sm.webp"
   },
   {
    "id": 4771,
@@ -3452,13 +3541,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4771/cover-sm.webp"
   },
   {
    "id": 4764,
@@ -3490,13 +3580,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4764/cover-sm.webp"
   },
   {
    "id": 4755,
@@ -3530,13 +3621,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4755/cover-sm.webp"
   },
   {
    "id": 4746,
@@ -3569,13 +3661,14 @@
    "type": "Doudounes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4746/cover-sm.webp"
   },
   {
    "id": 4738,
@@ -3608,13 +3701,14 @@
    "type": "Sweats",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4738/cover-sm.webp"
   },
   {
    "id": 4729,
@@ -3647,7 +3741,7 @@
    "type": "Électronique",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
@@ -3658,7 +3752,8 @@
     0.64,
     0.9
    ],
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4729/cover-sm.webp"
   },
   {
    "id": 4717,
@@ -3687,13 +3782,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4717/cover-sm.webp"
   },
   {
    "id": 4708,
@@ -3725,15 +3821,16 @@
    "cover": "images/4708/cover.webp",
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Vestes",
-   "front": 3,
-   "coverFrom": 3,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 1,
+   "coverFrom": 1,
+   "coverRev": 5,
+   "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4708/cover-sm.webp"
   },
   {
    "id": 4698,
@@ -3767,13 +3864,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "wear",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4698/cover-sm.webp"
   },
   {
    "id": 4692,
@@ -3802,15 +3900,16 @@
    "cover": "images/4692/cover.webp",
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Accessoires",
-   "front": 1,
-   "coverFrom": 1,
-   "coverRev": 4,
-   "coverPick": 1,
+   "front": 6,
+   "coverFrom": 6,
+   "coverRev": 5,
+   "coverPick": 6,
    "kindPick": "acc",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4692/cover-sm.webp"
   },
   {
    "id": 4686,
@@ -3841,13 +3940,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4686/cover-sm.webp"
   },
   {
    "id": 4677,
@@ -3880,13 +3980,14 @@
    "type": "Accessoires",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4677/cover-sm.webp"
   },
   {
    "id": 4670,
@@ -3918,13 +4019,14 @@
    "type": "Accessoires",
    "front": 7,
    "coverFrom": 7,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4670/cover-sm.webp"
   },
   {
    "id": 4663,
@@ -3956,13 +4058,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4663/cover-sm.webp"
   },
   {
    "id": 4656,
@@ -3992,15 +4095,16 @@
    "cover": "images/4656/cover.webp",
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Bas",
-   "front": 1,
-   "coverFrom": 1,
-   "coverRev": 4,
-   "coverPick": 1,
+   "front": 5,
+   "coverFrom": 5,
+   "coverRev": 5,
+   "coverPick": 5,
    "kindPick": "wear",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4656/cover-sm.webp"
   },
   {
    "id": 4646,
@@ -4034,13 +4138,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4646/cover-sm.webp"
   },
   {
    "id": 4638,
@@ -4073,13 +4178,14 @@
    "type": "Ensembles",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4638/cover-sm.webp"
   },
   {
    "id": 4630,
@@ -4112,13 +4218,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": "acc",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4630/cover-sm.webp"
   },
   {
    "id": 4622,
@@ -4151,13 +4258,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4622/cover-sm.webp"
   },
   {
    "id": 4614,
@@ -4190,13 +4298,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4614/cover-sm.webp"
   },
   {
    "id": 4606,
@@ -4229,13 +4338,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4606/cover-sm.webp"
   },
   {
    "id": 4596,
@@ -4269,13 +4379,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4596/cover-sm.webp"
   },
   {
    "id": 4589,
@@ -4307,13 +4418,14 @@
    "type": "Sweats",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4589/cover-sm.webp"
   },
   {
    "id": 4581,
@@ -4346,13 +4458,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4581/cover-sm.webp"
   },
   {
    "id": 4572,
@@ -4386,13 +4499,14 @@
    "type": "Chaussures",
    "front": 3,
    "coverFrom": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4572/cover-sm.webp"
   },
   {
    "id": 4563,
@@ -4424,15 +4538,16 @@
    "cover": "images/4563/cover.webp",
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
-   "front": 7,
-   "coverFrom": 7,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 8,
+   "coverFrom": 8,
+   "coverRev": 5,
+   "coverPick": 8,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4563/cover-sm.webp"
   },
   {
    "id": 4555,
@@ -4463,14 +4578,15 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Sweats",
    "front": 1,
-   "coverFrom": 3,
-   "coverRev": 4,
+   "coverFrom": 1,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4555/cover-sm.webp"
   },
   {
    "id": 4549,
@@ -4501,13 +4617,14 @@
    "type": "Accessoires",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4549/cover-sm.webp"
   },
   {
    "id": 4544,
@@ -4535,15 +4652,16 @@
    "cover": "images/4544/cover.webp",
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Accessoires",
-   "front": 1,
-   "coverFrom": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 2,
+   "coverFrom": 2,
+   "coverRev": 5,
+   "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4544/cover-sm.webp"
   },
   {
    "id": 4535,
@@ -4576,13 +4694,14 @@
    "type": "Doudounes",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4535/cover-sm.webp"
   },
   {
    "id": 4526,
@@ -4616,13 +4735,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4526/cover-sm.webp"
   },
   {
    "id": 4519,
@@ -4653,13 +4773,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4519/cover-sm.webp"
   },
   {
    "id": 4515,
@@ -4688,13 +4809,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4515/cover-sm.webp"
   },
   {
    "id": 4511,
@@ -4723,13 +4845,14 @@
    "type": "Ensembles",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4511/cover-sm.webp"
   },
   {
    "id": 4504,
@@ -4761,13 +4884,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4504/cover-sm.webp"
   },
   {
    "id": 4495,
@@ -4800,13 +4924,14 @@
    "type": "Chaussures",
    "front": 4,
    "coverFrom": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 4,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4495/cover-sm.webp"
   },
   {
    "id": 4491,
@@ -4835,13 +4960,14 @@
    "type": "Bas",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4491/cover-sm.webp"
   },
   {
    "id": 4487,
@@ -4870,13 +4996,14 @@
    "type": "Hauts",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4487/cover-sm.webp"
   },
   {
    "id": 4482,
@@ -4905,13 +5032,14 @@
    "type": "Hauts",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4482/cover-sm.webp"
   },
   {
    "id": 4475,
@@ -4943,13 +5071,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4475/cover-sm.webp"
   },
   {
    "id": 4470,
@@ -4979,13 +5108,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4470/cover-sm.webp"
   },
   {
    "id": 4466,
@@ -5014,13 +5144,14 @@
    "type": "Hauts",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4466/cover-sm.webp"
   },
   {
    "id": 4458,
@@ -5051,15 +5182,16 @@
    "cover": "images/4458/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
    "type": "Accessoires",
-   "front": 6,
-   "coverFrom": 6,
-   "coverRev": 4,
-   "coverPick": null,
+   "front": 1,
+   "coverFrom": 1,
+   "coverRev": 5,
+   "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4458/cover-sm.webp"
   },
   {
    "id": 4452,
@@ -5090,13 +5222,14 @@
    "type": "Vestes",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4452/cover-sm.webp"
   },
   {
    "id": 4444,
@@ -5129,13 +5262,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4444/cover-sm.webp"
   },
   {
    "id": 4435,
@@ -5169,13 +5303,14 @@
    "type": "Chaussures",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4435/cover-sm.webp"
   },
   {
    "id": 4427,
@@ -5206,13 +5341,14 @@
    "type": "Ensembles",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4427/cover-sm.webp"
   },
   {
    "id": 4423,
@@ -5241,13 +5377,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4423/cover-sm.webp"
   },
   {
    "id": 4411,
@@ -5277,13 +5414,14 @@
    "type": "Accessoires",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4411/cover-sm.webp"
   },
   {
    "id": 4405,
@@ -5314,13 +5452,14 @@
    "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4405/cover-sm.webp"
   },
   {
    "id": 4401,
@@ -5344,18 +5483,19 @@
     "images/4401/3.jpg",
     "images/4401/4.jpg"
    ],
-   "cover": null,
+   "cover": "images/4401/cover.webp",
    "addedAt": "2026-10-28T07:34:23.852Z",
    "type": "Accessoires",
    "front": 1,
-   "coverFrom": null,
-   "coverRev": 4,
+   "coverFrom": 1,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4401/cover-sm.webp"
   },
   {
    "id": 4393,
@@ -5385,13 +5525,14 @@
    "type": "Sweats",
    "front": 2,
    "coverFrom": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4393/cover-sm.webp"
   },
   {
    "id": 4389,
@@ -5420,13 +5561,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4389/cover-sm.webp"
   },
   {
    "id": 4385,
@@ -5455,13 +5597,14 @@
    "type": "Hauts",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4385/cover-sm.webp"
   },
   {
    "id": 4380,
@@ -5491,13 +5634,14 @@
    "type": "Hauts",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4380/cover-sm.webp"
   },
   {
    "id": 4374,
@@ -5528,13 +5672,14 @@
    "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4374/cover-sm.webp"
   },
   {
    "id": 4365,
@@ -5568,13 +5713,14 @@
    "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4365/cover-sm.webp"
   },
   {
    "id": 4360,
@@ -5604,13 +5750,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4360/cover-sm.webp"
   },
   {
    "id": 4355,
@@ -5640,13 +5787,14 @@
    "type": "Hauts",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "wear",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4355/cover-sm.webp"
   },
   {
    "id": 4349,
@@ -5677,13 +5825,14 @@
    "type": "Hauts",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "wear",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4349/cover-sm.webp"
   },
   {
    "id": 4344,
@@ -5713,13 +5862,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4344/cover-sm.webp"
   },
   {
    "id": 4340,
@@ -5748,13 +5898,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4340/cover-sm.webp"
   },
   {
    "id": 4336,
@@ -5781,15 +5932,16 @@
    "cover": "images/4336/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
-   "front": 1,
-   "coverRev": 4,
-   "coverPick": 1,
+   "coverFrom": 4,
+   "front": 4,
+   "coverRev": 5,
+   "coverPick": 4,
    "kindPick": "shoe",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4336/cover-sm.webp"
   },
   {
    "id": 4330,
@@ -5820,13 +5972,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4330/cover-sm.webp"
   },
   {
    "id": 4326,
@@ -5855,13 +6008,14 @@
    "type": "Bas",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4326/cover-sm.webp"
   },
   {
    "id": 4322,
@@ -5890,13 +6044,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4322/cover-sm.webp"
   },
   {
    "id": 4315,
@@ -5928,13 +6083,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4315/cover-sm.webp"
   },
   {
    "id": 4308,
@@ -5964,15 +6120,16 @@
    "cover": "images/4308/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 2,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4308/cover-sm.webp"
   },
   {
    "id": 4300,
@@ -6005,13 +6162,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4300/cover-sm.webp"
   },
   {
    "id": 4287,
@@ -6044,13 +6202,14 @@
    "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4287/cover-sm.webp"
   },
   {
    "id": 4279,
@@ -6081,15 +6240,16 @@
    "cover": "images/4279/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 7,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4279/cover-sm.webp"
   },
   {
    "id": 4275,
@@ -6118,13 +6278,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4275/cover-sm.webp"
   },
   {
    "id": 4261,
@@ -6158,13 +6319,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "wear",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4261/cover-sm.webp"
   },
   {
    "id": 4256,
@@ -6194,13 +6356,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4256/cover-sm.webp"
   },
   {
    "id": 4249,
@@ -6232,13 +6395,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4249/cover-sm.webp"
   },
   {
    "id": 4231,
@@ -6268,13 +6432,14 @@
    "type": "Hauts",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverRev": 5,
+   "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4231/cover-sm.webp"
   },
   {
    "id": 4227,
@@ -6303,13 +6468,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4227/cover-sm.webp"
   },
   {
    "id": 4220,
@@ -6341,13 +6507,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4220/cover-sm.webp"
   },
   {
    "id": 4207,
@@ -6378,13 +6545,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4207/cover-sm.webp"
   },
   {
    "id": 4201,
@@ -6415,13 +6583,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4201/cover-sm.webp"
   },
   {
    "id": 4193,
@@ -6454,13 +6623,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4193/cover-sm.webp"
   },
   {
    "id": 4187,
@@ -6491,13 +6661,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4187/cover-sm.webp"
   },
   {
    "id": 4180,
@@ -6526,15 +6697,16 @@
    "cover": "images/4180/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Hauts",
-   "coverFrom": 3,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverRev": 5,
+   "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4180/cover-sm.webp"
   },
   {
    "id": 4168,
@@ -6564,13 +6736,14 @@
    "type": "Sweats",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4168/cover-sm.webp"
   },
   {
    "id": 4160,
@@ -6603,13 +6776,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4160/cover-sm.webp"
   },
   {
    "id": 4149,
@@ -6639,15 +6813,16 @@
    "cover": "images/4149/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Accessoires",
-   "coverFrom": 1,
+   "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4149/cover-sm.webp"
   },
   {
    "id": 4145,
@@ -6676,13 +6851,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4145/cover-sm.webp"
   },
   {
    "id": 4137,
@@ -6715,13 +6891,14 @@
    "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4137/cover-sm.webp"
   },
   {
    "id": 4131,
@@ -6751,13 +6928,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4131/cover-sm.webp"
   },
   {
    "id": 4125,
@@ -6788,13 +6966,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4125/cover-sm.webp"
   },
   {
    "id": 4121,
@@ -6821,15 +7000,16 @@
    "cover": "images/4121/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Accessoires",
-   "coverFrom": 2,
-   "front": 4,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4121/cover-sm.webp"
   },
   {
    "id": 4113,
@@ -6861,13 +7041,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4113/cover-sm.webp"
   },
   {
    "id": 4105,
@@ -6898,15 +7079,16 @@
    "cover": "images/4105/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Chaussures",
-   "coverFrom": 7,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4105/cover-sm.webp"
   },
   {
    "id": 4098,
@@ -6938,13 +7120,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4098/cover-sm.webp"
   },
   {
    "id": 4092,
@@ -6974,13 +7157,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4092/cover-sm.webp"
   },
   {
    "id": 4087,
@@ -7010,13 +7194,14 @@
    "type": "Bas",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4087/cover-sm.webp"
   },
   {
    "id": 4081,
@@ -7047,13 +7232,14 @@
    "type": "Doudounes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4081/cover-sm.webp"
   },
   {
    "id": 4075,
@@ -7083,13 +7269,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4075/cover-sm.webp"
   },
   {
    "id": 4070,
@@ -7119,13 +7306,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4070/cover-sm.webp"
   },
   {
    "id": 4062,
@@ -7158,13 +7346,14 @@
    "type": "Chaussures",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4062/cover-sm.webp"
   },
   {
    "id": 4050,
@@ -7194,13 +7383,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4050/cover-sm.webp"
   },
   {
    "id": 4038,
@@ -7231,13 +7421,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4038/cover-sm.webp"
   },
   {
    "id": 4034,
@@ -7266,13 +7457,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4034/cover-sm.webp"
   },
   {
    "id": 4029,
@@ -7302,13 +7494,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4029/cover-sm.webp"
   },
   {
    "id": 4021,
@@ -7338,13 +7531,14 @@
    "type": "Vestes",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4021/cover-sm.webp"
   },
   {
    "id": 4011,
@@ -7374,13 +7568,14 @@
    "type": "Chaussures",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4011/cover-sm.webp"
   },
   {
    "id": 4006,
@@ -7409,13 +7604,14 @@
    "type": "Sweats",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4006/cover-sm.webp"
   },
   {
    "id": 4002,
@@ -7439,18 +7635,19 @@
     "images/4002/3.jpg",
     "images/4002/4.jpg"
    ],
-   "cover": null,
+   "cover": "images/4002/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Accessoires",
-   "coverFrom": null,
+   "coverFrom": 4,
    "front": 4,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/4002/cover-sm.webp"
   },
   {
    "id": 3995,
@@ -7482,13 +7679,14 @@
    "type": "Chaussures",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3995/cover-sm.webp"
   },
   {
    "id": 3990,
@@ -7517,13 +7715,14 @@
    "type": "Accessoires",
    "coverFrom": 3,
    "front": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3990/cover-sm.webp"
   },
   {
    "id": 3982,
@@ -7554,15 +7753,16 @@
    "cover": "images/3982/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Chaussures",
-   "coverFrom": 3,
-   "front": 3,
-   "coverRev": 4,
-   "coverPick": 3,
+   "coverFrom": 4,
+   "front": 4,
+   "coverRev": 5,
+   "coverPick": 4,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3982/cover-sm.webp"
   },
   {
    "id": 3973,
@@ -7596,13 +7796,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3973/cover-sm.webp"
   },
   {
    "id": 3967,
@@ -7632,13 +7833,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3967/cover-sm.webp"
   },
   {
    "id": 3962,
@@ -7668,13 +7870,14 @@
    "type": "Sweats",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3962/cover-sm.webp"
   },
   {
    "id": 3954,
@@ -7707,13 +7910,14 @@
    "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3954/cover-sm.webp"
   },
   {
    "id": 3944,
@@ -7747,13 +7951,14 @@
    "type": "Bas",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3944/cover-sm.webp"
   },
   {
    "id": 3939,
@@ -7783,13 +7988,14 @@
    "type": "Hauts",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3939/cover-sm.webp"
   },
   {
    "id": 3932,
@@ -7821,13 +8027,14 @@
    "type": "Chaussures",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3932/cover-sm.webp"
   },
   {
    "id": 3927,
@@ -7855,14 +8062,15 @@
    "cover": "images/3927/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.284Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3927/cover-sm.webp"
   },
   {
    "id": 3923,
@@ -7888,16 +8096,17 @@
     "images/3923/4.jpg"
    ],
    "cover": "images/3923/cover.webp",
-   "coverFrom": 3,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.285Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3923/cover-sm.webp"
   },
   {
    "id": 3917,
@@ -7927,14 +8136,15 @@
    "cover": "images/3917/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.286Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3917/cover-sm.webp"
   },
   {
    "id": 3912,
@@ -7961,16 +8171,17 @@
     "images/3912/5.jpg"
    ],
    "cover": "images/3912/cover.webp",
-   "coverFrom": 4,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.286Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3912/cover-sm.webp"
   },
   {
    "id": 3906,
@@ -8000,14 +8211,15 @@
    "cover": "images/3906/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.287Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3906/cover-sm.webp"
   },
   {
    "id": 3898,
@@ -8039,14 +8251,15 @@
    "cover": "images/3898/cover.webp",
    "coverFrom": 3,
    "front": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.288Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3898/cover-sm.webp"
   },
   {
    "id": 3894,
@@ -8074,14 +8287,15 @@
    "cover": "images/3894/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.288Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3894/cover-sm.webp"
   },
   {
    "id": 3890,
@@ -8109,14 +8323,15 @@
    "cover": "images/3890/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.289Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3890/cover-sm.webp"
   },
   {
    "id": 3886,
@@ -8144,14 +8359,15 @@
    "cover": "images/3886/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "wear",
    "addedAt": "2026-10-28T14:02:15.289Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3886/cover-sm.webp"
   },
   {
    "id": 3882,
@@ -8179,14 +8395,15 @@
    "cover": "images/3882/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.290Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3882/cover-sm.webp"
   },
   {
    "id": 3878,
@@ -8214,14 +8431,15 @@
    "cover": "images/3878/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.290Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3878/cover-sm.webp"
   },
   {
    "id": 3873,
@@ -8250,14 +8468,15 @@
    "cover": "images/3873/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.291Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3873/cover-sm.webp"
   },
   {
    "id": 3869,
@@ -8285,14 +8504,15 @@
    "cover": "images/3869/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.291Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3869/cover-sm.webp"
   },
   {
    "id": 3865,
@@ -8320,14 +8540,15 @@
    "cover": "images/3865/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.292Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3865/cover-sm.webp"
   },
   {
    "id": 3861,
@@ -8355,14 +8576,15 @@
    "cover": "images/3861/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.293Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3861/cover-sm.webp"
   },
   {
    "id": 3857,
@@ -8390,14 +8612,15 @@
    "cover": "images/3857/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.293Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3857/cover-sm.webp"
   },
   {
    "id": 3853,
@@ -8425,14 +8648,15 @@
    "cover": "images/3853/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.294Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3853/cover-sm.webp"
   },
   {
    "id": 3847,
@@ -8462,14 +8686,15 @@
    "cover": "images/3847/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.294Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3847/cover-sm.webp"
   },
   {
    "id": 3843,
@@ -8497,14 +8722,15 @@
    "cover": "images/3843/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.295Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3843/cover-sm.webp"
   },
   {
    "id": 3837,
@@ -8534,14 +8760,15 @@
    "cover": "images/3837/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.295Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3837/cover-sm.webp"
   },
   {
    "id": 3832,
@@ -8570,14 +8797,15 @@
    "cover": "images/3832/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.296Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3832/cover-sm.webp"
   },
   {
    "id": 3828,
@@ -8605,14 +8833,15 @@
    "cover": "images/3828/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.297Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3828/cover-sm.webp"
   },
   {
    "id": 3824,
@@ -8640,14 +8869,15 @@
    "cover": "images/3824/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.297Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3824/cover-sm.webp"
   },
   {
    "id": 3816,
@@ -8675,14 +8905,15 @@
    "cover": "images/3816/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.297Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3816/cover-sm.webp"
   },
   {
    "id": 3806,
@@ -8710,14 +8941,15 @@
    "cover": "images/3806/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.298Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3806/cover-sm.webp"
   },
   {
    "id": 3798,
@@ -8747,16 +8979,17 @@
     "images/3798/8.jpg"
    ],
    "cover": "images/3798/cover.webp",
-   "coverFrom": 6,
+   "coverFrom": 3,
    "front": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.298Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3798/cover-sm.webp"
   },
   {
    "id": 3790,
@@ -8788,14 +9021,15 @@
    "cover": "images/3790/cover.webp",
    "coverFrom": 3,
    "front": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.299Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3790/cover-sm.webp"
   },
   {
    "id": 3786,
@@ -8823,14 +9057,15 @@
    "cover": "images/3786/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.300Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3786/cover-sm.webp"
   },
   {
    "id": 3781,
@@ -8859,14 +9094,15 @@
    "cover": "images/3781/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.300Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3781/cover-sm.webp"
   },
   {
    "id": 3777,
@@ -8894,14 +9130,15 @@
    "cover": "images/3777/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.301Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3777/cover-sm.webp"
   },
   {
    "id": 3771,
@@ -8931,14 +9168,15 @@
    "cover": "images/3771/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.301Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3771/cover-sm.webp"
   },
   {
    "id": 3763,
@@ -8970,14 +9208,15 @@
    "cover": "images/3763/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.302Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3763/cover-sm.webp"
   },
   {
    "id": 3755,
@@ -9009,14 +9248,15 @@
    "cover": "images/3755/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.302Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3755/cover-sm.webp"
   },
   {
    "id": 3746,
@@ -9049,14 +9289,15 @@
    "cover": "images/3746/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.302Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3746/cover-sm.webp"
   },
   {
    "id": 3734,
@@ -9086,14 +9327,15 @@
    "cover": "images/3734/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "shoe",
    "addedAt": "2026-10-28T14:02:15.303Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3734/cover-sm.webp"
   },
   {
    "id": 3728,
@@ -9123,14 +9365,15 @@
    "cover": "images/3728/cover.webp",
    "coverFrom": 3,
    "front": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.303Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3728/cover-sm.webp"
   },
   {
    "id": 3724,
@@ -9156,16 +9399,17 @@
     "images/3724/4.jpg"
    ],
    "cover": "images/3724/cover.webp",
-   "coverFrom": 4,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.304Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3724/cover-sm.webp"
   },
   {
    "id": 3720,
@@ -9193,14 +9437,15 @@
    "cover": "images/3720/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.304Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3720/cover-sm.webp"
   },
   {
    "id": 3714,
@@ -9230,14 +9475,15 @@
    "cover": "images/3714/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "wear",
    "addedAt": "2026-10-28T14:02:15.305Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3714/cover-sm.webp"
   },
   {
    "id": 3705,
@@ -9268,16 +9514,17 @@
     "images/3705/9.jpg"
    ],
    "cover": "images/3705/cover.webp",
-   "coverFrom": 8,
-   "front": 8,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverFrom": 4,
+   "front": 4,
+   "coverRev": 5,
+   "coverPick": 4,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.305Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3705/cover-sm.webp"
   },
   {
    "id": 3699,
@@ -9305,16 +9552,17 @@
     "images/3699/6.jpg"
    ],
    "cover": "images/3699/cover.webp",
-   "coverFrom": 5,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.558Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3699/cover-sm.webp"
   },
   {
    "id": 3693,
@@ -9342,16 +9590,17 @@
     "images/3693/6.jpg"
    ],
    "cover": "images/3693/cover.webp",
-   "coverFrom": 2,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.558Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3693/cover-sm.webp"
   },
   {
    "id": 3689,
@@ -9379,14 +9628,15 @@
    "cover": "images/3689/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.559Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3689/cover-sm.webp"
   },
   {
    "id": 3685,
@@ -9414,14 +9664,15 @@
    "cover": "images/3685/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.560Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3685/cover-sm.webp"
   },
   {
    "id": 3680,
@@ -9450,14 +9701,15 @@
    "cover": "images/3680/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.560Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3680/cover-sm.webp"
   },
   {
    "id": 3676,
@@ -9485,14 +9737,15 @@
    "cover": "images/3676/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.561Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3676/cover-sm.webp"
   },
   {
    "id": 3668,
@@ -9524,14 +9777,15 @@
    "cover": "images/3668/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.561Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3668/cover-sm.webp"
   },
   {
    "id": 3662,
@@ -9561,14 +9815,15 @@
    "cover": "images/3662/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.562Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3662/cover-sm.webp"
   },
   {
    "id": 3652,
@@ -9596,14 +9851,15 @@
    "cover": "images/3652/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.562Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3652/cover-sm.webp"
   },
   {
    "id": 3648,
@@ -9631,14 +9887,15 @@
    "cover": "images/3648/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.563Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3648/cover-sm.webp"
   },
   {
    "id": 3644,
@@ -9666,14 +9923,15 @@
    "cover": "images/3644/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.564Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3644/cover-sm.webp"
   },
   {
    "id": 3638,
@@ -9703,14 +9961,15 @@
    "cover": "images/3638/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.564Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3638/cover-sm.webp"
   },
   {
    "id": 3634,
@@ -9738,14 +9997,15 @@
    "cover": "images/3634/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.565Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3634/cover-sm.webp"
   },
   {
    "id": 3626,
@@ -9777,14 +10037,15 @@
    "cover": "images/3626/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.565Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3626/cover-sm.webp"
   },
   {
    "id": 3613,
@@ -9812,14 +10073,15 @@
    "cover": "images/3613/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.566Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3613/cover-sm.webp"
   },
   {
    "id": 3609,
@@ -9847,14 +10109,15 @@
    "cover": "images/3609/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.566Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3609/cover-sm.webp"
   },
   {
    "id": 3604,
@@ -9880,17 +10143,18 @@
     "images/3604/4.jpg",
     "images/3604/5.jpg"
    ],
-   "cover": null,
-   "coverFrom": null,
+   "cover": "images/3604/cover.webp",
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": "shoe",
    "addedAt": "2026-10-28T14:08:31.566Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3604/cover-sm.webp"
   },
   {
    "id": 3600,
@@ -9918,14 +10182,15 @@
    "cover": "images/3600/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.567Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3600/cover-sm.webp"
   },
   {
    "id": 3596,
@@ -9953,14 +10218,15 @@
    "cover": "images/3596/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.567Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3596/cover-sm.webp"
   },
   {
    "id": 3592,
@@ -9988,14 +10254,15 @@
    "cover": "images/3592/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.568Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3592/cover-sm.webp"
   },
   {
    "id": 3586,
@@ -10025,14 +10292,15 @@
    "cover": "images/3586/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.568Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3586/cover-sm.webp"
   },
   {
    "id": 3581,
@@ -10061,14 +10329,15 @@
    "cover": "images/3581/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.569Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3581/cover-sm.webp"
   },
   {
    "id": 3575,
@@ -10098,14 +10367,15 @@
    "cover": "images/3575/cover.webp",
    "coverFrom": 6,
    "front": 6,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 6,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.569Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3575/cover-sm.webp"
   },
   {
    "id": 3570,
@@ -10131,17 +10401,18 @@
     "images/3570/4.jpg",
     "images/3570/5.jpg"
    ],
-   "cover": null,
-   "coverFrom": null,
+   "cover": "images/3570/cover.webp",
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.569Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3570/cover-sm.webp"
   },
   {
    "id": 3564,
@@ -10171,14 +10442,15 @@
    "cover": "images/3564/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.570Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3564/cover-sm.webp"
   },
   {
    "id": 3559,
@@ -10205,16 +10477,17 @@
     "images/3559/5.jpg"
    ],
    "cover": "images/3559/cover.webp",
-   "coverFrom": 4,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.570Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3559/cover-sm.webp"
   },
   {
    "id": 3555,
@@ -10242,14 +10515,15 @@
    "cover": "images/3555/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.571Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3555/cover-sm.webp"
   },
   {
    "id": 3550,
@@ -10278,14 +10552,15 @@
    "cover": "images/3550/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.571Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3550/cover-sm.webp"
   },
   {
    "id": 3544,
@@ -10315,14 +10590,15 @@
    "cover": "images/3544/cover.webp",
    "coverFrom": 5,
    "front": 5,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.572Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3544/cover-sm.webp"
   },
   {
    "id": 3540,
@@ -10350,14 +10626,15 @@
    "cover": "images/3540/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.572Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3540/cover-sm.webp"
   },
   {
    "id": 3536,
@@ -10383,16 +10660,17 @@
     "images/3536/4.jpg"
    ],
    "cover": "images/3536/cover.webp",
-   "coverFrom": 4,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.572Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3536/cover-sm.webp"
   },
   {
    "id": 3532,
@@ -10420,14 +10698,15 @@
    "cover": "images/3532/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.573Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3532/cover-sm.webp"
   },
   {
    "id": 3525,
@@ -10458,14 +10737,15 @@
    "cover": "images/3525/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.573Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3525/cover-sm.webp"
   },
   {
    "id": 3522,
@@ -10492,14 +10772,15 @@
    "cover": "images/3522/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.574Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3522/cover-sm.webp"
   },
   {
    "id": 3518,
@@ -10527,14 +10808,15 @@
    "cover": "images/3518/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.574Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3518/cover-sm.webp"
   },
   {
    "id": 3508,
@@ -10564,14 +10846,15 @@
    "cover": "images/3508/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.575Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3508/cover-sm.webp"
   },
   {
    "id": 3504,
@@ -10599,14 +10882,15 @@
    "cover": "images/3504/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.575Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3504/cover-sm.webp"
   },
   {
    "id": 3496,
@@ -10638,14 +10922,15 @@
    "cover": "images/3496/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.576Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3496/cover-sm.webp"
   },
   {
    "id": 3492,
@@ -10673,14 +10958,15 @@
    "cover": "images/3492/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.576Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3492/cover-sm.webp"
   },
   {
    "id": 3488,
@@ -10708,14 +10994,15 @@
    "cover": "images/3488/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:08:31.576Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3488/cover-sm.webp"
   },
   {
    "id": 3484,
@@ -10743,14 +11030,15 @@
    "cover": "images/3484/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.498Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3484/cover-sm.webp"
   },
   {
    "id": 3476,
@@ -10780,16 +11068,17 @@
     "images/3476/8.jpg"
    ],
    "cover": "images/3476/cover.webp",
-   "coverFrom": 3,
-   "front": 3,
-   "coverRev": 4,
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.499Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3476/cover-sm.webp"
   },
   {
    "id": 3472,
@@ -10817,14 +11106,15 @@
    "cover": "images/3472/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.499Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3472/cover-sm.webp"
   },
   {
    "id": 3468,
@@ -10852,14 +11142,15 @@
    "cover": "images/3468/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.499Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3468/cover-sm.webp"
   },
   {
    "id": 3462,
@@ -10889,14 +11180,15 @@
    "cover": "images/3462/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.500Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3462/cover-sm.webp"
   },
   {
    "id": 3458,
@@ -10922,16 +11214,17 @@
     "images/3458/4.jpg"
    ],
    "cover": "images/3458/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.500Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3458/cover-sm.webp"
   },
   {
    "id": 3445,
@@ -10958,16 +11251,17 @@
     "images/3445/5.jpg"
    ],
    "cover": "images/3445/cover.webp",
-   "coverFrom": 3,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
-   "coverPick": null,
+   "coverRev": 5,
+   "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.500Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3445/cover-sm.webp"
   },
   {
    "id": 3441,
@@ -10995,14 +11289,15 @@
    "cover": "images/3441/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.501Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3441/cover-sm.webp"
   },
   {
    "id": 3437,
@@ -11028,16 +11323,17 @@
     "images/3437/4.jpg"
    ],
    "cover": "images/3437/cover.webp",
-   "coverFrom": 2,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.502Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3437/cover-sm.webp"
   },
   {
    "id": 3417,
@@ -11067,14 +11363,15 @@
    "cover": "images/3417/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.502Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3417/cover-sm.webp"
   },
   {
    "id": 3413,
@@ -11102,14 +11399,15 @@
    "cover": "images/3413/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.502Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3413/cover-sm.webp"
   },
   {
    "id": 3406,
@@ -11140,14 +11438,15 @@
    "cover": "images/3406/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.503Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3406/cover-sm.webp"
   },
   {
    "id": 3400,
@@ -11177,14 +11476,15 @@
    "cover": "images/3400/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.504Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3400/cover-sm.webp"
   },
   {
    "id": 3394,
@@ -11212,16 +11512,17 @@
     "images/3394/6.jpg"
    ],
    "cover": "images/3394/cover.webp",
-   "coverFrom": 3,
+   "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.504Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3394/cover-sm.webp"
   },
   {
    "id": 3390,
@@ -11249,14 +11550,15 @@
    "cover": "images/3390/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": "shoe",
    "addedAt": "2026-10-28T14:14:42.505Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3390/cover-sm.webp"
   },
   {
    "id": 3384,
@@ -11286,14 +11588,15 @@
    "cover": "images/3384/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.505Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3384/cover-sm.webp"
   },
   {
    "id": 3378,
@@ -11323,14 +11626,15 @@
    "cover": "images/3378/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.506Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3378/cover-sm.webp"
   },
   {
    "id": 3374,
@@ -11358,14 +11662,15 @@
    "cover": "images/3374/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.506Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3374/cover-sm.webp"
   },
   {
    "id": 3370,
@@ -11393,14 +11698,15 @@
    "cover": "images/3370/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.506Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3370/cover-sm.webp"
   },
   {
    "id": 3366,
@@ -11428,14 +11734,15 @@
    "cover": "images/3366/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.507Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3366/cover-sm.webp"
   },
   {
    "id": 3362,
@@ -11463,14 +11770,15 @@
    "cover": "images/3362/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.507Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3362/cover-sm.webp"
   },
   {
    "id": 3349,
@@ -11500,14 +11808,15 @@
    "cover": "images/3349/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.508Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3349/cover-sm.webp"
   },
   {
    "id": 3345,
@@ -11535,14 +11844,15 @@
    "cover": "images/3345/cover.webp",
    "coverFrom": 2,
    "front": 2,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.508Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3345/cover-sm.webp"
   },
   {
    "id": 3339,
@@ -11572,14 +11882,15 @@
    "cover": "images/3339/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.509Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3339/cover-sm.webp"
   },
   {
    "id": 3331,
@@ -11611,14 +11922,15 @@
    "cover": "images/3331/cover.webp",
    "coverFrom": 1,
    "front": 1,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.510Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3331/cover-sm.webp"
   },
   {
    "id": 3264,
@@ -11650,14 +11962,15 @@
    "cover": "images/3264/cover.webp",
    "coverFrom": 8,
    "front": 3,
-   "coverRev": 4,
+   "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.510Z",
    "extra": null,
    "rescueRev": 1,
    "cropPick": null,
-   "photoRev": 2
+   "photoRev": 2,
+   "coverSm": "images/3264/cover-sm.webp"
   }
  ]
 }
