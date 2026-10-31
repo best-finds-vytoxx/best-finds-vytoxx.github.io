@@ -72,6 +72,8 @@
     menu: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
     home: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>',
     grid: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
+    phone: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>',
+    plusSq: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/></svg>',
     zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
     spark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
   });
@@ -111,7 +113,7 @@
     <footer class="foot">
       <div class="wrap foot-in">
         <div class="foot-brand">${logo()}<b>${esc(S.name || 'Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
-        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
+        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur iPhone</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
       <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
@@ -127,6 +129,7 @@
         <div class="dr-cats" id="dr-cats"></div>
         <div class="dr-title">Commander</div>
         <a class="dr-link" href="#tuto" data-dx>${icon.play}<span>Tuto pour commander</span></a>
+        <a class="dr-link" href="#ecran" data-dx>${icon.phone}<span>Ajouter le site sur iPhone</span></a>
         <button class="dr-link dr-gold" type="button" id="dr-promo">${icon.gift}<span>${coupon} de coupons offerts</span></button>
         <div class="dr-title">Partager et suivre</div>
         <button class="dr-link" type="button" id="dr-share">${icon.share}<span>Partager le site à un ami</span></button>
@@ -584,6 +587,57 @@
     }));
   }
 
+  // ---------- tuto : ajouter le site sur l'écran d'accueil de l'iPhone ----------
+  // Illustrations dessinées en HTML (aucune capture d'écran) : un iPhone simplifié, le bouton à toucher entouré
+  const phone = (screen, cls = '') => `<div class="mock ${cls}" aria-hidden="true"><div class="mock-notch"></div><div class="mock-screen">${screen}</div></div>`;
+  const safariBar = (hl) => `<div class="mk-bar"><span class="mk-url">🔒 best-finds-vytoxx.github.io</span><span class="mk-dots ${hl ? 'hl' : ''}">•••</span></div>`;
+  const sitePage = `<div class="mk-site"><img src="${IMG.bannerMobile}" alt=""><div class="mk-site-btn"></div><div class="mk-grid"><i></i><i></i><i></i><i></i></div></div>`;
+  function renderHomeScreen() {
+    resetChrome();
+    document.title = `Ajouter le site sur iPhone · ${S.name || 'Finds'}`;
+    const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    const ua = navigator.userAgent;
+    const inApp = /Instagram|FBAN|FBAV|Telegram|Snapchat|TikTok|Line\/|GSA\//i.test(ua);
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const notSafari = ios && /CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+    const steps = [
+      ['Ouvre le site dans Safari', `Le site doit être ouvert dans <b>Safari</b>, le navigateur de l'iPhone. Si tu l'as ouvert depuis Telegram, Instagram ou Snapchat, choisis « Ouvrir dans Safari » dans le menu de l'appli (ou copie le lien et colle-le dans Safari).`,
+        phone(`${sitePage}${safariBar(false)}`)],
+      ['Touche les trois points « ••• »', `En bas de l'écran, à droite de l'adresse du site, touche <b>•••</b>, puis <b>Partager</b>.<br><span class="hs-note">Sur un iPhone qui n'est pas à jour, touche directement le bouton Partager (le carré avec une flèche vers le haut), en bas au milieu.</span>`,
+        phone(`${sitePage}<div class="mk-pop"><span>Ajouter aux favoris</span><span>Nouvel onglet</span><span class="hl">${icon.share} Partager</span></div>${safariBar(true)}`)],
+      ["Touche « Sur l'écran d'accueil »", `Dans le menu qui s'ouvre, fais défiler vers le bas et touche <b>Sur l'écran d'accueil</b>.<br><span class="hs-note">Tu ne le vois pas ? Touche « Plus » ou « Modifier les actions » tout en bas pour l'afficher.</span>`,
+        phone(`<div class="mk-sheet"><div class="mk-share-head"><span class="mk-ic"></span><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-apps"><i></i><i></i><i></i><i></i></div><div class="mk-list"><span>Copier ${icon.link}</span><span>Ajouter aux favoris</span><span class="hl">Sur l'écran d'accueil ${icon.plusSq}</span><span>Imprimer</span></div></div>`)],
+      ['Touche « Ajouter »', `Laisse le nom <b>Best Finds</b> et l'option <b>Ouvrir en tant qu'app web</b> activée, puis touche <b>Ajouter</b> en haut à droite.`,
+        phone(`<div class="mk-add"><div class="mk-add-top"><span>Annuler</span><b>Ajouter à l'écran</b><span class="hl">Ajouter</span></div><div class="mk-add-row"><img src="${IMG.logo}" alt=""><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-toggle"><span>Ouvrir en tant qu'app web</span><i></i></div></div>`)],
+      ["C'est fait !", `Le panda <b>Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
+        phone(`<div class="mk-home">${Array.from({ length: 11 }, () => '<i></i>').join('')}<span class="mk-app hl"><img src="${IMG.logo}" alt=""><small>Best Finds</small></span>${Array.from({ length: 4 }, () => '<i></i>').join('')}</div>`, 'mock-home')],
+    ];
+    view.innerHTML = `
+      <section class="wrap tuto hs">
+        <header class="tuto-head">
+          <span class="eyebrow">Tuto iPhone · 30 secondes</span>
+          <h1>Le site sur ton écran d'accueil, comme une appli</h1>
+          <p class="lead">Une icône Best Finds à côté de tes applis : un appui et tu retrouves toutes les trouvailles, sans chercher le lien.</p>
+          ${standalone ? `<p class="hs-ok">${icon.check} C'est déjà fait : tu utilises le site depuis ton écran d'accueil.</p>` : ''}
+          ${!standalone && (inApp || notSafari) ? `<div class="hs-warn"><b>Tu n'es pas dans Safari</b><span>Copie le lien, ouvre Safari et colle-le dans la barre d'adresse, puis suis les étapes.</span><button class="sub" type="button" id="hs-copy">${icon.link} Copier le lien du site</button></div>` : ''}
+        </header>
+        <ol class="hs-steps">${steps.map(([t, txt, pic], k) => `<li class="hs-step reveal">
+          <div class="hs-pic">${pic}</div>
+          <div class="hs-txt"><span class="hs-n">${k + 1}</span><h2>${t}</h2><p>${txt}</p></div>
+        </li>`).join('')}</ol>
+        <p class="hs-android"><b>Sur Android ?</b> Dans Chrome, touche les trois points en haut à droite, puis « Ajouter à l'écran d'accueil » (ou « Installer l'application »).</p>
+        <div class="tuto-cta">
+          <a class="buy" href="#catalogue">Voir les articles ${icon.right}</a>
+          <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
+        </div>
+      </section>`;
+    reveal();
+    view.querySelector('#hs-copy')?.addEventListener('click', async (e) => {
+      const b = e.currentTarget, url = siteUrl();
+      try { await navigator.clipboard.writeText(url); b.innerHTML = `${icon.check} Lien copié`; } catch { b.textContent = url; }
+    });
+  }
+
   const resetChrome = () => {
     buyObserver?.disconnect();
     bar.classList.remove('on', 'away');
@@ -942,7 +996,7 @@
   function route() {
     keyHandler = null;
     const h = location.hash;
-    document.body.classList.toggle('home', !(h === '#tuto' || h === '#catalogue' || /^#article-/.test(h)));
+    document.body.classList.toggle('home', !(h === '#tuto' || h === '#ecran' || h === '#catalogue' || /^#article-/.test(h)));
     const m = h.match(/^#article-(\d+)$/);
     document.getElementById('nav-tuto').setAttribute('aria-current', String(h === '#tuto'));
     if (m) {
@@ -951,6 +1005,9 @@
       window.scrollTo(0, 0);
     } else if (h === '#tuto') {
       renderTuto();
+      window.scrollTo(0, 0);
+    } else if (h === '#ecran') {
+      renderHomeScreen();
       window.scrollTo(0, 0);
     } else if (h === '#catalogue') {
       renderCatalog();
