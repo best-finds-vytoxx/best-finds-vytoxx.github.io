@@ -1154,3 +1154,22 @@ body { background:
   .hero-note { font-size: 12px; }
 }
 @media (min-width: 861px) { .hero-note { font-size: 13.5px; } }
+
+/* textes plus grands, carte plus basse */
+.help-title { font-size: 12.5px; letter-spacing: .2em; color: var(--ink); font-weight: 600; }
+.hero-lead { font-size: 15px; line-height: 1.4; color: var(--ink); max-width: 38ch; }
+.hero-card { min-height: 0; }
+.hero-txt { padding-bottom: 16px; gap: 8px; }
+@media (min-width: 861px) {
+  .hero-card { padding-top: 26px; min-height: 0; }
+  .hero-lead { font-size: 17px; }
+  .hero-pic img { max-height: 250px; }
+  .help-title { font-size: 13px; }
+}
+@media (max-width: 640px) {
+  .hero-card { padding-top: 14px; }
+  .hero-lead { font-size: 14.5px; }
+  .hero-txt { padding-top: 2px; padding-bottom: 14px; }
+  .hero-pic { width: 112px; }
+  .hero-pic img { max-height: 172px; }
+}
