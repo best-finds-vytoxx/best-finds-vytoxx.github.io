@@ -481,17 +481,21 @@
   }
 
   // ---------- tuto pour commander ----------
+  // Étapes de la vidéo (secondes de début), lues sur la vidéo tuto_lovegobuy
   const CHAPTERS = [
     [0, 'Introduction'],
-    [2, 'Créer ton compte avec le lien'],
-    [5, 'Récupérer les coupons'],
-    [8, 'Choisir un lien sur le canal'],
-    [11, 'Coller le lien dans LoveGoBuy'],
-    [14, 'Ajouter ton adresse'],
-    [20, 'Faire expédier depuis l\'entrepôt'],
-    [38, 'Payer moins cher la livraison'],
-    [41, 'Quand le colis est prêt'],
-    [44, 'Choisir le mode de paiement'],
+    [6, 'Créer ton compte avec le lien'],
+    [12, 'Récupérer tes coupons'],
+    [18, 'Choisir ton article dans le canal'],
+    [24, 'Coller le lien dans LoveGoBuy'],
+    [30, 'Acheter ou ajouter au panier'],
+    [34, 'Ajouter ton adresse'],
+    [40, 'Choisir ce que tu expédies'],
+    [49, 'Le conseil : séparer les catégories'],
+    [62, 'Payer moins cher la livraison'],
+    [70, 'Choisir la livraison'],
+    [74, 'Choisir le mode de paiement'],
+    [80, "C'est tout !"],
   ];
   function renderTuto() {
     resetChrome();
@@ -500,7 +504,7 @@
     view.innerHTML = `
       <section class="wrap tuto">
         <header class="tuto-head">
-          <span class="eyebrow">Tuto vidéo · 48 secondes</span>
+          <span class="eyebrow">Tuto vidéo · 1 min 30</span>
           <h1>Commander sur LoveGoBuy, de A à Z</h1>
           <p class="lead">De l'inscription au paiement de la livraison. Touche une étape pour y aller directement.</p>
         </header>
@@ -512,9 +516,10 @@
           <div class="player" id="player">
             <video id="tuto-video" src="${IMG.video}" poster="${IMG.poster}" playsinline webkit-playsinline disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback" preload="metadata"></video>
             <button class="pl-big" type="button" id="pl-big" aria-label="Lire la vidéo">${icon.play}</button>
+            <div class="pl-step" aria-hidden="true"><span id="pl-step"></span></div>
             <div class="pl-bar">
               <button type="button" class="pl-btn" id="pl-play" aria-label="Lire">${icon.play}</button>
-              <input type="range" id="pl-seek" min="0" max="48" step="0.1" value="0" aria-label="Position dans la vidéo">
+              <input type="range" id="pl-seek" min="0" max="89" step="0.1" value="0" aria-label="Position dans la vidéo">
               <span class="pl-time" id="pl-time">0:00</span>
               <button type="button" class="pl-btn" id="pl-mute" aria-label="Couper le son">${icon.sound}</button>
             </div>
@@ -534,6 +539,8 @@
     const playBtn = view.querySelector('#pl-play');
     const muteBtn = view.querySelector('#pl-mute');
     const items = [...view.querySelectorAll('#chapters button')];
+    const stepLabel = view.querySelector('#pl-step');
+    stepLabel.textContent = `1/${CHAPTERS.length} · ${CHAPTERS[0][1]}`;
     const toggle = () => (v.paused ? v.play().catch(() => {}) : v.pause());
     const sync = () => {
       player.classList.toggle('playing', !v.paused);
@@ -546,7 +553,7 @@
     v.addEventListener('play', sync);
     v.addEventListener('pause', sync);
     v.addEventListener('ended', sync);
-    v.addEventListener('loadedmetadata', () => { seek.max = String(v.duration || 48); });
+    v.addEventListener('loadedmetadata', () => { seek.max = String(v.duration || 89); });
     v.addEventListener('dblclick', (e) => e.preventDefault());
     v.addEventListener('webkitbeginfullscreen', () => safe(() => v.webkitExitFullscreen()));
     document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement === v) safe(() => document.exitFullscreen()); });
@@ -558,13 +565,23 @@
     });
     v.addEventListener('timeupdate', () => {
       seek.value = String(v.currentTime);
-      seek.style.setProperty('--p', `${(v.currentTime / (v.duration || 48)) * 100}%`);
+      seek.style.setProperty('--p', `${(v.currentTime / (v.duration || 89)) * 100}%`);
       time.textContent = t(v.currentTime);
       let cur = 0;
       CHAPTERS.forEach(([sec], k) => { if (v.currentTime >= sec) cur = k; });
-      items.forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
+      if (items[cur]?.getAttribute('aria-current') !== 'true') {
+        items.forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
+        stepLabel.textContent = `${cur + 1}/${CHAPTERS.length} · ${CHAPTERS[cur][1]}`;
+        // sur téléphone, la liste suit l'étape en cours sans faire défiler la page
+        const list = items[cur].closest('.chapters');
+        if (list && list.scrollHeight > list.clientHeight) list.scrollTo({ top: items[cur].offsetTop - list.clientHeight / 2, behavior: 'smooth' });
+      }
     });
-    items.forEach((b) => b.addEventListener('click', () => { v.currentTime = Number(b.dataset.t); v.play().catch(() => {}); }));
+    items.forEach((b) => b.addEventListener('click', () => {
+      v.currentTime = Number(b.dataset.t); v.play().catch(() => {});
+      // sur téléphone la vidéo est au-dessus de la liste : on remonte jusqu'à elle
+      if (matchMedia('(max-width: 760px)').matches) player.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
   }
 
   const resetChrome = () => {
