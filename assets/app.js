@@ -424,7 +424,7 @@
             </div>
             <div class="hero-pic" aria-hidden="true">
               <span class="hero-sun"></span>
-              <img src="assets/img/panda-hero.webp" alt="" fetchpriority="high">
+              <img src="assets/img/panda-hero.webp?v=2" alt="" fetchpriority="high">
             </div>
           </div>
           <div class="help">
