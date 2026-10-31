@@ -108,7 +108,6 @@
       <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
       <div class="top-right">
         <button class="gift" type="button" id="open-promo">${icon.gift}<span>${coupon} offerts</span></button>
-        <a class="tg" href="${esc(S.telegram)}" target="_blank" rel="noopener" aria-label="Canal Telegram">${icon.tg} <span class="tg-label">Canal Telegram ${esc(S.by || '')}</span></a>
       </div>
     </div></header>
     <main id="view"></main>
