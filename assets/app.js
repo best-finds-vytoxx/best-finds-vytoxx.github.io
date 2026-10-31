@@ -114,7 +114,7 @@
     <footer class="foot">
       <div class="wrap foot-in">
         <div class="foot-brand">${logo()}<b>${esc(S.name || 'Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
-        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur iPhone</a><a href="#aide">Chat bot : pose ta question</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
+        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur l'écran d'accueil</a><a href="#aide">Chat bot : pose ta question</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
       <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
@@ -131,7 +131,7 @@
         <div class="dr-cats" id="dr-cats"></div>
         <div class="dr-title">Aide pour commander</div>
         <a class="dr-link" href="#tuto" data-dx>${icon.play}<span>Tuto pour commander</span></a>
-        <a class="dr-link" href="#ecran" data-dx>${icon.phone}<span>Ajouter le site sur iPhone</span></a>
+        <a class="dr-link" href="#ecran" data-dx>${icon.phone}<span>Ajouter le site sur l'écran d'accueil</span></a>
         <a class="dr-link" href="#aide" data-dx>${icon.chat}<span>Chat bot : pose ta question</span></a>
         <div class="dr-title">Partager et suivre</div>
         <button class="dr-link" type="button" id="dr-share">${icon.share}<span>Partager le site à un ami</span></button>
@@ -638,15 +638,15 @@
       a: "Le prix affiché est celui de la page LoveGoBuy, relevé à la date indiquée sous le prix. Il peut changer : le prix qui compte est celui affiché sur LoveGoBuy au moment de commander." },
     { q: 'Pourquoi séparer les catégories dans mes colis ?', k: 'separer categories pourquoi electronique liquide bijou bijoux melanger',
       a: "L'électronique, les liquides et les bijoux partent sur des lignes de livraison spéciales. En les gardant chacun de leur côté, chaque colis part sur la bonne ligne et coûte moins cher." },
-    { q: 'Comment ajouter le site sur mon iPhone ?', k: 'iphone ecran accueil installer raccourci icone',
-      a: "Dans Safari : touche « ••• », puis Partager, puis « Sur l'écran d'accueil ». Toutes les étapes sont illustrées dans le petit tuto.", act: 'ecran' },
+    { q: "Comment ajouter le site sur mon écran d'accueil ?", k: 'iphone android ecran accueil installer raccourci icone appli application telephone',
+      a: "<b>iPhone</b> : dans Safari, touche « ••• », puis Partager, puis « Sur l'écran d'accueil ».<br><b>Android</b> : dans Chrome, touche « ⋮ » en haut à droite, puis « Ajouter à l'écran d'accueil ».<br>Toutes les étapes sont illustrées dans le petit tuto.", act: 'ecran' },
     { q: 'Mon colis peut-il être saisi à la douane ?', hide: true, k: 'saisi saisie douane attrape attraper bloque confisque perdu risque',
       a: "C'est <b>extrêmement rare</b> : moins d'un colis sur 500. En général, le colis est simplement saisi et n'arrive pas chez toi. LoveGoBuy prend cela en charge : <b>si le colis est assuré, il est remboursé</b>. Les règles peuvent changer : pour ce genre de question, ouvre un <b>ticket</b> sur le site LoveGoBuy." },
   ];
   const ACTS = {
     promo: [`${icon.gift} Récupérer mes ${coupon}`, () => openPromo()],
     tuto: [`${icon.play} Voir le tuto pour commander`, () => { location.hash = 'tuto'; }],
-    ecran: [`${icon.phone} Voir le tuto iPhone`, () => { location.hash = 'ecran'; }],
+    ecran: [`${icon.phone} Voir le tuto`, () => { location.hash = 'ecran'; }],
     search: [`${icon.search} Chercher sur le site`, () => { location.hash = 'catalogue'; setTimeout(() => document.getElementById('q')?.focus(), 350); }],
     aftership: [`${icon.out} Ouvrir AfterShip`, () => window.open('https://www.aftership.com/', '_blank', 'noopener')],
     group: [`${icon.tg} Ouvrir le groupe`, () => window.open(S.chat || S.telegram, '_blank', 'noopener')],
@@ -714,55 +714,93 @@
     form.addEventListener('submit', (ev) => { ev.preventDefault(); ask(input.value); input.value = ''; });
   }
 
-  // ---------- tuto : ajouter le site sur l'écran d'accueil de l'iPhone ----------
-  // Illustrations dessinées en HTML (aucune capture d'écran) : un iPhone simplifié, le bouton à toucher entouré
+  // ---------- tuto : ajouter le site sur l'écran d'accueil (iPhone ou Android) ----------
+  // Illustrations dessinées en HTML (aucune capture d'écran) : un téléphone simplifié, le bouton à toucher entouré
   const phone = (screen, cls = '') => `<div class="mock ${cls}" aria-hidden="true"><div class="mock-notch"></div><div class="mock-screen">${screen}</div></div>`;
   const safariBar = (hl) => `<div class="mk-bar"><span class="mk-url">🔒 best-finds-vytoxx.github.io</span><span class="mk-dots ${hl ? 'hl' : ''}">•••</span></div>`;
   const sitePage = `<div class="mk-site"><img src="${IMG.bannerMobile}" alt=""><div class="mk-site-btn"></div><div class="mk-grid"><i></i><i></i><i></i><i></i></div></div>`;
-  function renderHomeScreen() {
-    resetChrome();
-    document.title = `Ajouter le site sur iPhone · ${S.name || 'Finds'}`;
-    const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-    const ua = navigator.userAgent;
-    const inApp = /Instagram|FBAN|FBAV|Telegram|Snapchat|TikTok|Line\/|GSA\//i.test(ua);
-    const ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const notSafari = ios && /CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
-    const steps = [
+  const chromeBar = (hl) => `<div class="mk-cbar"><span class="mk-url">🔒 best-finds-vytoxx.github.io</span><span class="mk-kebab ${hl ? 'hl' : ''}">⋮</span></div>`;
+  const sitePageTop = sitePage.replace('mk-site', 'mk-site mk-site-top');
+  const andPhone = (screen, cls = '') => phone(screen, `mock-and ${cls}`);
+  const homeIcons = (n) => Array.from({ length: n }, () => '<i></i>').join('');
+  const HS_STEPS = {
+    ios: () => [
       ['Ouvre le site dans Safari', `Le site doit être ouvert dans <b>Safari</b>, le navigateur de l'iPhone. Si tu l'as ouvert depuis Telegram, Instagram ou Snapchat, choisis « Ouvrir dans Safari » dans le menu de l'appli (ou copie le lien et colle-le dans Safari).`,
         phone(`${sitePage}${safariBar(false)}`)],
-      ['Touche les trois points « ••• »', `En bas de l'écran, à droite de l'adresse du site, touche <b>•••</b>, puis <b>Partager</b>.<br><span class="hs-note">Sur un iPhone qui n'est pas à jour, touche directement le bouton Partager (le carré avec une flèche vers le haut), en bas au milieu.</span>`,
+      ['Touche les trois points « ••• »', `En bas de l'écran, à droite de l'adresse du site, touche <b>•••</b>, puis <b>Partager</b>.<br><span class="hs-note">Sur un iPhone qui n'est pas à jour, touche directement le bouton Partager (le carré avec une flèche vers le haut), en bas au milieu.</span>`,
         phone(`${sitePage}<div class="mk-pop"><span>Ajouter aux favoris</span><span>Nouvel onglet</span><span class="hl">${icon.share} Partager</span></div>${safariBar(true)}`)],
       ["Touche « Sur l'écran d'accueil »", `Dans le menu qui s'ouvre, fais défiler vers le bas et touche <b>Sur l'écran d'accueil</b>.<br><span class="hs-note">Tu ne le vois pas ? Touche « Plus » ou « Modifier les actions » tout en bas pour l'afficher.</span>`,
         phone(`<div class="mk-sheet"><div class="mk-share-head"><span class="mk-ic"></span><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-apps"><i></i><i></i><i></i><i></i></div><div class="mk-list"><span>Copier ${icon.link}</span><span>Ajouter aux favoris</span><span class="hl">Sur l'écran d'accueil ${icon.plusSq}</span><span>Imprimer</span></div></div>`)],
       ['Touche « Ajouter »', `Laisse le nom <b>Best Finds</b> et l'option <b>Ouvrir en tant qu'app web</b> activée, puis touche <b>Ajouter</b> en haut à droite.`,
         phone(`<div class="mk-add"><div class="mk-add-top"><span>Annuler</span><b>Ajouter à l'écran</b><span class="hl">Ajouter</span></div><div class="mk-add-row"><img src="${IMG.logo}" alt=""><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-toggle"><span>Ouvrir en tant qu'app web</span><i></i></div></div>`)],
       ["C'est fait !", `Le panda <b>Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
-        phone(`<div class="mk-home">${Array.from({ length: 11 }, () => '<i></i>').join('')}<span class="mk-app hl"><img src="${IMG.logo}" alt=""><small>Best Finds</small></span>${Array.from({ length: 4 }, () => '<i></i>').join('')}</div>`, 'mock-home')],
-    ];
-    view.innerHTML = `
+        phone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="${IMG.logo}" alt=""><small>Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
+    ],
+    android: () => [
+      ['Ouvre le site dans Chrome', `Le site doit être ouvert dans <b>Chrome</b>. Si tu l'as ouvert depuis Telegram, Instagram ou Snapchat, touche les trois points de l'appli puis « Ouvrir dans Chrome » (ou « Ouvrir dans le navigateur »).`,
+        andPhone(`${chromeBar(false)}${sitePageTop}`)],
+      ['Touche les trois points « ⋮ »', `En haut à droite de l'écran, à côté de l'adresse du site, touche <b>⋮</b>.<br><span class="hs-note">Sur Samsung Internet, touche plutôt le menu ☰ en bas à droite, puis « Ajouter la page à », puis « Écran d'accueil ».</span>`,
+        andPhone(`${chromeBar(true)}${sitePageTop}`)],
+      ["Touche « Ajouter à l'écran d'accueil »", `Dans le menu qui s'ouvre, touche <b>Ajouter à l'écran d'accueil</b>.<br><span class="hs-note">Selon ton téléphone, l'option s'appelle aussi « Installer l'application ».</span>`,
+        andPhone(`${chromeBar(false)}${sitePageTop}<div class="mk-amenu"><span>Nouvel onglet</span><span>Historique</span><span>Favoris</span><span>Partager…</span><span class="hl">${icon.plusSq} Ajouter à l'écran d'accueil</span><span>Paramètres</span></div>`)],
+      ['Touche « Installer »', `Laisse le nom <b>Best Finds</b> et touche <b>Installer</b> (ou <b>Ajouter</b>). Si le téléphone te le redemande, confirme avec <b>Ajouter</b>.`,
+        andPhone(`${sitePageTop}<div class="mk-adlg"><b>Ajouter à l'écran d'accueil</b><div class="mk-add-row"><img src="${IMG.logo}" alt=""><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-adlg-btns"><span>Annuler</span><span class="hl">Installer</span></div></div>`)],
+      ["C'est fait !", `Le panda <b>Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
+        andPhone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="${IMG.logo}" alt=""><small>Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
+    ],
+  };
+  let hsOS = null;
+  function renderHomeScreen() {
+    resetChrome();
+    document.title = `Ajouter le site sur l'écran d'accueil · ${S.name || 'Finds'}`;
+    const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    const ua = navigator.userAgent;
+    const inApp = /Instagram|FBAN|FBAV|Telegram|Snapchat|TikTok|Line\/|GSA\//i.test(ua);
+    const ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const android = /Android/i.test(ua);
+    if (!hsOS) { try { hsOS = localStorage.getItem('bf_hs_os'); } catch {} }
+    if (hsOS !== 'ios' && hsOS !== 'android') hsOS = android ? 'android' : 'ios';
+    const notSafari = ios && /CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+    const draw = () => {
+      const isIOS = hsOS === 'ios';
+      const browser = isIOS ? 'Safari' : 'Chrome';
+      const wrongBrowser = !standalone && (inApp || (isIOS && notSafari)) && (isIOS ? ios : android);
+      view.innerHTML = `
       <section class="wrap tuto hs">
         <header class="tuto-head">
-          <span class="eyebrow">Tuto iPhone · 30 secondes</span>
+          <span class="eyebrow">Tuto ${isIOS ? 'iPhone' : 'Android'} · 30 secondes</span>
           <h1>Le site sur ton écran d'accueil, comme une appli</h1>
           <p class="lead">Une icône Best Finds à côté de tes applis : un appui et tu retrouves toutes les trouvailles, sans chercher le lien.</p>
+          <div class="hs-os" role="radiogroup" aria-label="Ton téléphone">
+            <button type="button" role="radio" aria-checked="${isIOS}" data-os="ios"><i></i>iPhone</button>
+            <button type="button" role="radio" aria-checked="${!isIOS}" data-os="android"><i></i>Android</button>
+          </div>
           ${standalone ? `<p class="hs-ok">${icon.check} C'est déjà fait : tu utilises le site depuis ton écran d'accueil.</p>` : ''}
-          ${!standalone && (inApp || notSafari) ? `<div class="hs-warn"><b>Tu n'es pas dans Safari</b><span>Copie le lien, ouvre Safari et colle-le dans la barre d'adresse, puis suis les étapes.</span><button class="sub" type="button" id="hs-copy">${icon.link} Copier le lien du site</button></div>` : ''}
+          ${wrongBrowser ? `<div class="hs-warn"><b>Tu n'es pas dans ${browser}</b><span>Copie le lien, ouvre ${browser} et colle-le dans la barre d'adresse, puis suis les étapes.</span><button class="sub" type="button" id="hs-copy">${icon.link} Copier le lien du site</button></div>` : ''}
         </header>
-        <ol class="hs-steps">${steps.map(([t, txt, pic], k) => `<li class="hs-step reveal">
+        <ol class="hs-steps">${HS_STEPS[hsOS]().map(([t, txt, pic], k) => `<li class="hs-step reveal">
           <div class="hs-pic">${pic}</div>
           <div class="hs-txt"><span class="hs-n">${k + 1}</span><h2>${t}</h2><p>${txt}</p></div>
         </li>`).join('')}</ol>
-        <p class="hs-android"><b>Sur Android ?</b> Dans Chrome, touche les trois points en haut à droite, puis « Ajouter à l'écran d'accueil » (ou « Installer l'application »).</p>
         <div class="tuto-cta">
           <a class="buy" href="#catalogue">Voir les articles ${icon.right}</a>
           <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
         </div>
       </section>`;
-    reveal();
-    view.querySelector('#hs-copy')?.addEventListener('click', async (e) => {
-      const b = e.currentTarget, url = siteUrl();
-      try { await navigator.clipboard.writeText(url); b.innerHTML = `${icon.check} Lien copié`; } catch { b.textContent = url; }
-    });
+      reveal();
+      view.querySelectorAll('.hs-os [data-os]').forEach((b) => b.addEventListener('click', () => {
+        if (b.dataset.os === hsOS) return;
+        hsOS = b.dataset.os;
+        try { localStorage.setItem('bf_hs_os', hsOS); } catch {}
+        draw();
+        view.querySelector(`.hs-os [data-os="${hsOS}"]`)?.focus();
+      }));
+      view.querySelector('#hs-copy')?.addEventListener('click', async (e) => {
+        const b = e.currentTarget, url = siteUrl();
+        try { await navigator.clipboard.writeText(url); b.innerHTML = `${icon.check} Lien copié`; } catch { b.textContent = url; }
+      });
+    };
+    draw();
   }
 
   const resetChrome = () => {
