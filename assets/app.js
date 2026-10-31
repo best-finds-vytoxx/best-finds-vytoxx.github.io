@@ -503,6 +503,35 @@
     [74, 'Choisir le mode de paiement'],
     [80, "C'est tout !"],
   ];
+  // Tuto illustré pour commander : mêmes iPhones dessinés que le tuto « écran d'accueil »
+  const lgbTop = (title) => `<div class="mk-lgb-top"><b>LoveGoBuy</b><span>${title}</span></div>`;
+  const orderSteps = () => [
+    ['Crée ton compte avec le lien', `Touche <b>Créer mon compte</b> (le bouton doré du site) : tu arrives sur LoveGoBuy. Inscris-toi avec ton e-mail. C'est ce lien qui te donne droit aux <b>${coupon} de coupons</b>.`,
+      phone(`${lgbTop('Inscription')}<div class="mk-form"><div class="mk-gold">${coupon} de coupons offerts</div><span class="mk-field">E-mail</span><span class="mk-field">Mot de passe</span><span class="mk-btn hl">S'inscrire</span></div>`)],
+    ['Récupère tes coupons', `Dans ton compte, ouvre les coupons et touche <b>Recevoir</b>. Ils servent plus tard à payer <b>moins cher la livraison</b>.`,
+      phone(`${lgbTop('Mes coupons')}<div class="mk-coupons">${['1,43', '1,43', '2,85', '4,28'].map((v, i) => `<div class="mk-cpn"><b>€${v}</b><small>Réduction livraison</small><span class="${i === 0 ? 'hl' : ''}">Recevoir</span></div>`).join('')}</div>`)],
+    ["Choisis ton article sur Best Finds", `Sur la fiche de l'article qui te plaît, touche <b>Copier le lien LoveGoBuy</b> (ou <b>Voir sur LoveGoBuy</b> pour l'ouvrir directement).`,
+      phone(`<div class="mk-site"><img src="${IMG.bannerMobile}" alt=""></div><div class="mk-fiche"><b>Nike Tech</b><span class="mk-price">20,46 €</span><span class="mk-btn">Voir sur LoveGoBuy</span><span class="mk-btn ghost hl">Copier le lien LoveGoBuy</span></div>`)],
+    ['Colle le lien dans LoveGoBuy', `Dans l'appli ou le site LoveGoBuy, colle le lien dans la <b>barre de recherche</b> en haut, puis touche <b>Rechercher</b>.`,
+      phone(`${lgbTop('Accueil')}<div class="mk-search"><span>lovegobuy.com/product?…</span><b class="hl">Rechercher</b></div><div class="mk-grid mk-grid-lgb"><i></i><i></i><i></i><i></i></div>`)],
+    ['Choisis ta taille et achète', `Sur la page de l'article, choisis la <b>taille</b> et la <b>couleur</b>, puis touche <b>Acheter</b> (ou <b>Ajouter au panier</b> pour grouper plusieurs articles).`,
+      phone(`${lgbTop('Article')}<div class="mk-prod"><div class="mk-prod-img"></div><b>CNY 140 ≈ €20,46</b><div class="mk-sizes"><span>S</span><span class="on">M</span><span>L</span><span>XL</span></div><div class="mk-two"><span class="mk-btn ghost">Ajouter au panier</span><span class="mk-btn hl">Acheter</span></div></div>`)],
+    ['Ajoute ton adresse et paie l\'article', `Ajoute ton <b>adresse de livraison</b>, puis touche <b>Vérifier</b> pour payer l'article. LoveGoBuy l'achète au vendeur et le fait venir dans son entrepôt.`,
+      phone(`${lgbTop('Commande')}<div class="mk-form"><span class="mk-field">📍 Ton adresse</span><span class="mk-field">Article : 1</span><div class="mk-total"><span>Total article</span><b>€20,46</b></div><span class="mk-btn hl">Vérifier</span></div>`)],
+    ['Choisis ce que tu expédies', `Après <b>2 à 5 jours</b>, ton article arrive dans <b>Mon entrepôt</b>, avec des photos de contrôle. Coche les articles à envoyer ensemble, puis touche <b>Soumettre l'expédition</b>.`,
+      phone(`${lgbTop('Mon entrepôt')}<div class="mk-wh">${[1, 1, 0].map((c) => `<div class="mk-wh-row"><i class="${c ? 'on' : ''}"></i><span></span><b></b></div>`).join('')}<span class="mk-btn hl">Soumettre l'expédition</span></div>`)],
+    ['Conseil : sépare les catégories', `Mets l'<b>électronique</b>, les <b>liquides</b> et les <b>bijoux</b> chacun dans un colis à part. Chaque colis part sur la bonne ligne et la livraison coûte moins cher.`,
+      `<div class="od-tip-pic" aria-hidden="true"><span>⚡<b>Électronique</b><small>1 colis</small></span><span>💧<b>Liquides</b><small>1 colis</small></span><span>💎<b>Bijoux</b><small>1 colis</small></span></div>`],
+    ['Paie moins cher la livraison', `Au moment d'emballer, choisis l'option <b>Colis d'essai</b> et retire l'emballage d'origine : le colis est plus léger, donc moins cher.`,
+      phone(`${lgbTop('Emballage')}<div class="mk-form">${['Itinéraire logistique', 'Coupon'].map((x) => `<div class="mk-total"><span>${x}</span><b>›</b></div>`).join('')}<div class="mk-total hl"><span>Colis d'essai</span><i class="mk-check"></i></div><div class="mk-total"><span>Retirer l'emballage d'origine</span><i class="mk-check"></i></div></div>`)],
+    ['Choisis la livraison', `Ton colis est prêt en <b>2 à 3 jours</b>. Choisis une ligne de livraison (prix et délai affichés) et touche <b>Sélectionner</b>.`,
+      phone(`${lgbTop('Logistique')}<div class="mk-form">${['Ligne économique', 'Ligne express'].map((x, i) => `<div class="mk-line"><span><b>${x}</b><small>${i ? '7 à 12 jours' : '12 à 20 jours'}</small></span><span class="mk-sel ${i ? '' : 'hl'}">Sélectionner</span></div>`).join('')}</div>`)],
+    ['Paie la livraison avec tes coupons', `Tes <b>coupons</b> se déduisent du prix de la livraison. Choisis ton moyen de paiement (carte, Apple Pay…) et touche <b>Confirmer</b>.`,
+      phone(`${lgbTop('Paiement')}<div class="mk-form"><div class="mk-total"><span>Livraison</span><b>€18,90</b></div><div class="mk-total good"><span>Coupons</span><b>−€8,55</b></div><span class="mk-field">💳 Carte bancaire</span><span class="mk-field"> Apple Pay</span><span class="mk-btn hl">Confirmer</span></div>`)],
+    ["C'est tout !", `Il ne reste plus qu'à attendre ton colis, environ <b>2 semaines</b>. Tu peux suivre son trajet dans ton compte LoveGoBuy.`,
+      `<div class="od-done" aria-hidden="true">${icon.check}<b>Colis en route</b><small>≈ 2 semaines</small></div>`],
+  ];
+
   function renderTuto() {
     resetChrome();
     document.title = `Tuto pour commander · ${S.name || 'Finds'}`;
@@ -510,9 +539,22 @@
     view.innerHTML = `
       <section class="wrap tuto">
         <header class="tuto-head">
-          <span class="eyebrow">Tuto vidéo · 1 min 30</span>
+          <span class="eyebrow">Tuto · 10 étapes + 1 conseil</span>
           <h1>Commander sur LoveGoBuy, de A à Z</h1>
-          <p class="lead">De l'inscription au paiement de la livraison. Touche une étape pour y aller directement.</p>
+          <p class="lead">De l'inscription au paiement de la livraison, étape par étape. Le bouton à toucher est entouré en rouge sur chaque écran.</p>
+        </header>
+        <ol class="hs-steps od-steps">${orderSteps().map(([title, txt, pic], k) => `<li class="hs-step reveal ${title.startsWith('Conseil') ? 'od-tip' : ''}">
+          <div class="hs-pic">${pic}</div>
+          <div class="hs-txt"><span class="hs-n">${title.startsWith('Conseil') ? '★' : title.startsWith("C'est tout") ? '✓' : k + 1 - (k > 7 ? 1 : 0)}</span><h2>${title}</h2><p>${txt}</p></div>
+        </li>`).join('')}</ol>
+        <div class="tuto-cta">
+          <a class="buy" href="${esc(S.invite)}" target="_blank" rel="noopener">${icon.gift} Créer mon compte · ${coupon} offerts</a>
+          <a class="sub" href="#aide">${icon.chat} Une question ? Le chat bot</a>
+        </div>
+        <header class="tuto-head od-video-head">
+          <span class="eyebrow">En vidéo · 1 min 30</span>
+          <h2>La même chose en vidéo</h2>
+          <p class="lead">Touche une étape pour y aller directement.</p>
         </header>
         <div class="tuto-grid">
           <div class="steps-box">
@@ -532,10 +574,10 @@
           </div>
         </div>
         <div class="tuto-cta">
-          <a class="buy" href="${esc(S.invite)}" target="_blank" rel="noopener">${icon.gift} Créer mon compte · ${coupon} offerts</a>
           <a class="sub" href="#catalogue">Voir les articles ${icon.right}</a>
         </div>
       </section>`;
+    reveal();
 
     // Lecteur sans plein écran : la vidéo se regarde uniquement dans son cadre, sur ordinateur comme sur iPhone
     const v = view.querySelector('#tuto-video');
