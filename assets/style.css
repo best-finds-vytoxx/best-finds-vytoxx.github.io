@@ -909,3 +909,6 @@ a, button, .chip, .card, .cat-tile { -webkit-tap-highlight-color: transparent; t
 .od-done svg { width: 64px; height: 64px; padding: 14px; border-radius: 50%; background: color-mix(in srgb, var(--ok) 15%, transparent); }
 .od-done b { color: var(--ink); font: 700 18px/1 var(--f-display); } .od-done small { color: var(--muted); }
 @media (max-width: 760px) { .od-tip-pic { max-width: 132px; grid-template-columns: 1fr; gap: 5px; padding: 0; } .od-tip-pic span { grid-template-columns: auto 1fr; justify-items: start; align-items: center; padding: 7px 9px; font-size: 16px; gap: 0 8px; } .od-tip-pic small { display: none; } .od-done svg { width: 54px; height: 54px; } .od-done { padding: 8px 0; } }
+
+.tuto-grid.solo { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.tuto-grid.solo .player { justify-self: center; }

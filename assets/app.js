@@ -487,22 +487,6 @@
   }
 
   // ---------- tuto pour commander ----------
-  // Étapes de la vidéo (secondes de début), lues sur la vidéo tuto_lovegobuy
-  const CHAPTERS = [
-    [0, 'Introduction'],
-    [6, 'Créer ton compte avec le lien'],
-    [12, 'Récupérer tes coupons'],
-    [18, 'Choisir ton article dans le canal'],
-    [24, 'Coller le lien dans LoveGoBuy'],
-    [30, 'Acheter ou ajouter au panier'],
-    [34, 'Ajouter ton adresse'],
-    [40, 'Choisir ce que tu expédies'],
-    [49, 'Le conseil : séparer les catégories'],
-    [62, 'Payer moins cher la livraison'],
-    [70, 'Choisir la livraison'],
-    [74, 'Choisir le mode de paiement'],
-    [80, "C'est tout !"],
-  ];
   // Tuto illustré pour commander : mêmes iPhones dessinés que le tuto « écran d'accueil »
   const lgbTop = (title) => `<div class="mk-lgb-top"><b>LoveGoBuy</b><span>${title}</span></div>`;
   const orderSteps = () => [
@@ -554,17 +538,11 @@
         <header class="tuto-head od-video-head">
           <span class="eyebrow">En vidéo · 1 min 30</span>
           <h2>La même chose en vidéo</h2>
-          <p class="lead">Touche une étape pour y aller directement.</p>
         </header>
-        <div class="tuto-grid">
-          <div class="steps-box">
-            <div class="steps-title">Les étapes</div>
-            <ol class="chapters" id="chapters">${CHAPTERS.map(([sec, label], k) => `<li><button type="button" data-t="${sec}" aria-current="${k === 0}"><span class="ch-n">${k + 1}</span><span class="ch-l">${esc(label)}</span><span class="ch-t">${t(sec)}</span></button></li>`).join('')}</ol>
-          </div>
+        <div class="tuto-grid solo">
           <div class="player" id="player">
             <video id="tuto-video" src="${IMG.video}" poster="${IMG.poster}" playsinline webkit-playsinline disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback" preload="metadata"></video>
             <button class="pl-big" type="button" id="pl-big" aria-label="Lire la vidéo">${icon.play}</button>
-            <div class="pl-step" aria-hidden="true"><span id="pl-step"></span></div>
             <div class="pl-bar">
               <button type="button" class="pl-btn" id="pl-play" aria-label="Lire">${icon.play}</button>
               <input type="range" id="pl-seek" min="0" max="89" step="0.1" value="0" aria-label="Position dans la vidéo">
@@ -586,9 +564,6 @@
     const time = view.querySelector('#pl-time');
     const playBtn = view.querySelector('#pl-play');
     const muteBtn = view.querySelector('#pl-mute');
-    const items = [...view.querySelectorAll('#chapters button')];
-    const stepLabel = view.querySelector('#pl-step');
-    stepLabel.textContent = `1/${CHAPTERS.length} · ${CHAPTERS[0][1]}`;
     const toggle = () => (v.paused ? v.play().catch(() => {}) : v.pause());
     const sync = () => {
       player.classList.toggle('playing', !v.paused);
@@ -615,21 +590,7 @@
       seek.value = String(v.currentTime);
       seek.style.setProperty('--p', `${(v.currentTime / (v.duration || 89)) * 100}%`);
       time.textContent = t(v.currentTime);
-      let cur = 0;
-      CHAPTERS.forEach(([sec], k) => { if (v.currentTime >= sec) cur = k; });
-      if (items[cur]?.getAttribute('aria-current') !== 'true') {
-        items.forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
-        stepLabel.textContent = `${cur + 1}/${CHAPTERS.length} · ${CHAPTERS[cur][1]}`;
-        // sur téléphone, la liste suit l'étape en cours sans faire défiler la page
-        const list = items[cur].closest('.chapters');
-        if (list && list.scrollHeight > list.clientHeight) list.scrollTo({ top: items[cur].offsetTop - list.clientHeight / 2, behavior: 'smooth' });
-      }
     });
-    items.forEach((b) => b.addEventListener('click', () => {
-      v.currentTime = Number(b.dataset.t); v.play().catch(() => {});
-      // sur téléphone la vidéo est au-dessus de la liste : on remonte jusqu'à elle
-      if (matchMedia('(max-width: 760px)').matches) player.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }));
   }
 
   // ---------- chat bot : réponses aux questions de ceux qui n'ont jamais commandé ----------
