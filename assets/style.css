@@ -1176,3 +1176,67 @@ body { background:
 .help-title { font-size: 15px; letter-spacing: .16em; }
 @media (min-width: 861px) { .help-title { font-size: 15px; } }
 @media (max-width: 370px) { .help-title { font-size: 13.5px; } }
+
+/* =====================================================================
+   LIQUID GLASS SUR TOUT LE SITE
+   Une lumière dorée floutée (la Toscane de la bannière) reste derrière chaque page ;
+   tous les panneaux, cartes, boutons et barres sont du même verre que l'accueil.
+   ===================================================================== */
+:root {
+  --gl-bg: linear-gradient(155deg, rgba(255, 255, 255, .64), rgba(255, 255, 255, .36) 55%, rgba(255, 255, 255, .46));
+  --gl-edge: rgba(255, 255, 255, .78);
+  --gl-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 0 0 .5px rgba(255, 255, 255, .45), 0 1px 2px rgba(70, 45, 20, .06), 0 16px 32px -22px rgba(80, 45, 15, .5);
+  --gl-blur: blur(22px) saturate(190%);
+  --gl-bar: color-mix(in srgb, var(--bg) 58%, transparent);
+  --gl-thick: rgba(247, 244, 238, .8);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --gl-bg: linear-gradient(155deg, rgba(255, 255, 255, .11), rgba(255, 255, 255, .04) 55%, rgba(255, 255, 255, .07));
+    --gl-edge: rgba(255, 255, 255, .16);
+    --gl-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 16px 32px -22px rgba(0, 0, 0, .8);
+    --gl-bar: color-mix(in srgb, var(--bg) 62%, transparent);
+    --gl-thick: rgba(30, 32, 36, .82);
+  }
+}
+/* la lumière derrière toutes les pages */
+html::before { content: ""; position: fixed; inset: -8%; z-index: -1; pointer-events: none;
+  background: url("img/hero-glow.webp") center 30% / cover no-repeat; opacity: .26; filter: saturate(1.15); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"])::before { opacity: .16; } }
+body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+
+/* panneaux et cartes */
+.cat-tile, .arrival, .top-panel, .card-box, .steps-box, .hs-step, .bot-head, .bm.bm-bot .bm-b, .share-btn, .dr-cat,
+.sheet-btn, .od-step, .top-empty {
+  background: var(--gl-bg); border-color: var(--gl-edge); box-shadow: var(--gl-shadow);
+  -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+}
+/* champs, menus, puces, pastilles */
+.search input, .select, .chip, .share-pill, .bar-share, .hs-os, .cta .sub, .cta .share, .sub, .tally .new {
+  background-color: rgba(255, 255, 255, .42); border-color: var(--gl-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 6px 16px -12px rgba(80, 45, 15, .45);
+  -webkit-backdrop-filter: blur(14px) saturate(180%); backdrop-filter: blur(14px) saturate(180%);
+}
+.chip[aria-pressed="true"], .chip.on, .chip.is-on { background-color: var(--ink); }
+/* photos des articles : fond de verre très clair au lieu du gris plat */
+.ph, .stage, .cat-pic { background: linear-gradient(160deg, rgba(255, 255, 255, .7), rgba(255, 255, 255, .38)); }
+.ph { border: 1px solid var(--gl-edge); box-shadow: var(--gl-shadow); }
+.thumbs button, .thumbs button.is-cut { background: rgba(255, 255, 255, .5); }
+.facts li > svg { background: rgba(255, 255, 255, .6); box-shadow: inset 0 1px 0 #fff; }
+/* barres collantes et panneaux flottants : verre épais */
+.filters, .bar { background: var(--gl-bar); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); }
+.bar { border-top-color: var(--gl-edge); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7); }
+.drawer-panel, .sheet-card { background: var(--gl-thick); -webkit-backdrop-filter: blur(30px) saturate(180%); backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .6), 20px 0 60px rgba(0, 0, 0, .22); }
+.sheet-card { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 -20px 60px rgba(0, 0, 0, .25); }
+.foot { background: var(--gl-bar); border-top-color: var(--gl-edge); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+.dr-link:hover, .dr-link:focus-visible { background: rgba(255, 255, 255, .5); }
+.cat-foot, .card-b { background: transparent; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .search input, :root:not([data-theme="light"]) .select, :root:not([data-theme="light"]) .chip,
+  :root:not([data-theme="light"]) .share-pill, :root:not([data-theme="light"]) .bar-share, :root:not([data-theme="light"]) .hs-os,
+  :root:not([data-theme="light"]) .cta .sub, :root:not([data-theme="light"]) .cta .share, :root:not([data-theme="light"]) .sub, :root:not([data-theme="light"]) .tally .new {
+    background-color: rgba(255, 255, 255, .07); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14); }
+  :root:not([data-theme="light"]) .ph, :root:not([data-theme="light"]) .stage, :root:not([data-theme="light"]) .cat-pic { background: linear-gradient(160deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .04)); }
+  :root:not([data-theme="light"]) .dr-link:hover { background: rgba(255, 255, 255, .06); }
+}

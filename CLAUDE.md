@@ -34,6 +34,8 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 - Site : `index.html` + `assets/app.js` (routage par #, accueil à chaque arrivée) + `assets/style.css` + `assets/config.js`.
   Accueil : carte « liquid glass » (classe `.lg`) avec le panda détouré `assets/img/panda-hero.webp` sur la lumière floutée
   de la bannière (`hero-glow.webp`), puis les 3 aides pour commander. Couleurs d’identité : `--sun --terra --linen --navy --lgb`.
+  Liquid glass sur tout le site : variables `--gl-*` et bloc « LIQUID GLASS SUR TOUT LE SITE » en fin de style.css ;
+  la lumière floutée reste derrière chaque page (`html::before`). Pas d’italique, pas de police de code.
 - Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face.
 - Chat bot (`#aide`) : tableau `BOT` dans `assets/app.js`, réponses validées par Léonard (coupons 485 € ≈ 500 €, un coupon par colis ;
   délais 3–7 j + 6–18 j ; prix optimaux 500 g–5 kg, le volume compte ; remboursement 8 j / 5 j, sur le solde ; stockage 60 j ;
