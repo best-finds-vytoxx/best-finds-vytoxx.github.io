@@ -31,10 +31,32 @@ jobs:
       - run: npm ci
       - name: Vérifier le robot avant de toucher au site (tests hors ligne)
         run: npm test
+      # Détourage : repérage du produit (Grounding DINO) puis BiRefNet, en Python (voir scripts/vision.py)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+      - name: Outils de détourage
+        run: pip install -r scripts/requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: models
+          key: birefnet-general-v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-grounding-dino-tiny-v1
+      - name: Modèle de détourage
+        run: |
+          mkdir -p models
+          [ -s models/birefnet-general.onnx ] || curl -sSL --retry 3 -o models/birefnet-general.onnx https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
+          ls -la models
       - name: Lire le canal Telegram
         run: node scripts/scrape.mjs
         env:
           BUDGET_MIN: 200   # temps de travail maximal ; ce qui reste est fait au passage suivant
+          BIREFNET: models/birefnet-general.onnx
       - name: Relever les clics sur les produits (classement Top du moment)
         run: CLICKS_EVERY_MIN=0 node scripts/clicks.mjs
       - name: Enregistrer les nouveautés

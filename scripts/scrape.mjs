@@ -25,7 +25,7 @@ const BATCH = Number(process.env.BATCH || 1000); // nouveaux articles traités a
 const MAX_PHOTOS = 10;
 const CUTOUT_TRIES = Number(process.env.CUTOUT_TRIES ?? 4); // 0 = pas de détourage
 const RANK_PHOTOS = 9; // photos examinées pour choisir la couverture
-const COVER_REV = 4; // version de la règle de choix de la couverture ; les anciennes couvertures sont refaites
+const COVER_REV = 5; // version de la règle de choix de la couverture ; les anciennes couvertures sont refaites
 const PHOTO_REV = 2; // version du stockage des photos : 2 = fichier d'origine du canal, sans recompression
 const RESCUE_REV = 1; // version du détourage de secours : les articles restés sans photo détourée sont retentés
 const RECOVER = Number(process.env.RECOVER || 400); // couvertures anciennes refaites au plus par passage

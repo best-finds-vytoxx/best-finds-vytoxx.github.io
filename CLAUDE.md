@@ -20,8 +20,13 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   couverture (`pick.mjs` + `rank-worker.mjs`, modèle CLIP), détourage par lots dans un processus séparé
   (`cutout-worker.mjs`), budget de temps par passage (`BUDGET_MIN`), sauvegarde après chaque groupe.
   Changer `COVER_REV` refait toutes les couvertures ; `PHOTO_REV` re-télécharge toutes les photos.
-- `scripts/cutout.mjs` : détourage (@imgly) + nettoyage (règles, boîtes, carton, vignette du canal) ; en cas d'échec
-  sur un vêtement, seconde méthode `grabcut.mjs` (OpenCV). `watermark.mjs` repère la vignette panda « VYTOXX ».
+- `scripts/cutout.mjs` : détourage principal `vision.py` (via `vision.mjs`) : Grounding DINO repère le produit d'après
+  son nom (`promptFor`), recadrage sur lui (règle, vignette, boîte et papiers restent dehors), puis BiRefNet
+  (`models/birefnet-general.onnx`, téléchargé et mis en cache par le workflow, ~9 Go de mémoire, ~18 s par photo).
+  Puis nettoyage (règles, boîtes, carton, vignette du canal). Si échec : ancienne méthode @imgly, puis `grabcut.mjs`.
+  `watermark.mjs` repère la vignette panda « VYTOXX ». Chaque couverture a une miniature `cover-sm.webp` (480 px).
+- Revue visuelle des couvertures : planche de toutes les `cover.webp`, puis `cover` dans `data/overrides.json`
+  pour les mauvaises vues (talons, emballage, détail).
 - `data/overrides.json` : `{ "id": { "cover": n°photo, "category": "Bas", "kind": "wear|shoe|acc", "crop": [g,h,d,b] } }`.
 - `data/prices.json` : `{ checkedAt, items: { id: { cny, eur, pid } } }`, relevé dans le navigateur de Léonard sur les
   pages LoveGoBuy (le site LoveGoBuy bloque les robots). Le prix n'est affiché que si `pid` = lien actuel de l'article.
