@@ -412,13 +412,30 @@
     const ranking = top.ids.map((id) => byId.get(id)).filter(Boolean).slice(0, 5);
 
     view.innerHTML = `
-      <h1 class="sr-only">${esc(S.name || 'Finds')} — ${esc(S.tagline || '')}</h1>
-      <section class="banner-wrap">
-        <picture class="banner">
-          <source media="(max-width: 640px)" srcset="${IMG.bannerMobile}">
-          <source media="(max-width: 1100px)" srcset="${IMG.bannerMid}">
-          <img src="${IMG.banner}" alt="${esc(S.name || '')} — le panda Vytoxx devant ses colis LoveGoBuy" fetchpriority="high">
-        </picture>
+      <section class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="wrap hero-in">
+          <div class="hero-card lg">
+            <div class="hero-txt">
+              <span class="hero-kicker">Le canal ${esc(S.by || 'Vytoxx')}</span>
+              <h1 class="hero-title">Vytoxx <em>Best Finds</em></h1>
+              <p class="hero-lead">Les meilleures trouvailles LoveGoBuy, en photos réelles et au prix vérifié.</p>
+              <p class="hero-meta"><b>${arts.length.toLocaleString('fr-FR')}</b> articles<i></i>mis à jour toutes les 15&nbsp;min</p>
+            </div>
+            <div class="hero-pic" aria-hidden="true">
+              <span class="hero-sun"></span>
+              <img src="assets/img/panda-hero.webp" alt="" fetchpriority="high">
+            </div>
+          </div>
+          <div class="help">
+            <span class="help-title">Aide pour commander</span>
+            <div class="help-row">
+              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>10 étapes illustrées</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#ecran"><span class="help-ic ic-navy">${icon.phone}</span><b>Le site sur ton écran</b><small>iPhone et Android</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#aide"><span class="help-ic ic-terra">${icon.chat}</span><b>Chat bot</b><small>Pose ta question</small><span class="help-go">${icon.right}</span></a>
+            </div>
+          </div>
+        </div>
       </section>
 
       ${catList.length ? `<section class="wrap block reveal">
@@ -1214,7 +1231,6 @@
     syncHeader();
     const target = state.dups?.get(shared) || shared;
     if (target && state.articles.some((a) => a.id === target)) location.hash = `article-${target}`;
-    view.querySelector('.banner img')?.addEventListener('load', syncHeader);
   }
   load();
 })();
