@@ -204,24 +204,21 @@ body.home #nav-tuto { display: none; }
 @media (max-width: 640px) { .banner img { height: 48vh; min-height: 300px; max-height: 440px; object-position: center 18%; } }
 .banner-wrap { position: relative; }
 .banner-tools { position: absolute; left: 0; right: 0; top: 74px; display: flex; justify-content: flex-end; pointer-events: none; z-index: 3; }
-.share-top {
-  pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 99px; cursor: pointer;
-  color: #fff; font: 600 14px/1 var(--f-body); border: 1px solid rgba(255, 255, 255, .45);
-  background: rgba(0, 0, 0, .22); backdrop-filter: blur(10px) saturate(1.4); -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  box-shadow: 0 8px 22px -12px rgba(0, 0, 0, .6); transition: background .2s, transform .2s var(--ease);
-  animation: rise .6s .3s var(--ease) both;
-}
-.share-top svg { width: 16px; height: 16px; }
-.share-top:hover { background: rgba(0, 0, 0, .38); transform: translateY(-1px); }
+/* Accueil : « Partager le site » prend la place du cadeau dans le bandeau, le cadeau descend juste dessous */
+.share-hdr { display: none; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 99px; cursor: pointer; color: inherit; font: 600 14.5px/1 var(--f-body); border: 1px solid var(--line-strong); background: transparent; }
+.share-hdr svg { width: 16px; height: 16px; }
+.top.over .share-hdr { color: #fff; border-color: rgba(255, 255, 255, .45); background: rgba(0, 0, 0, .14); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+body.home .share-hdr { display: inline-flex; }
+body.home .top-right #open-promo { display: none; }
+.gift-top { pointer-events: auto; display: inline-flex; animation: rise .6s .3s var(--ease) both; }
+.gift-top span { display: inline !important; }
 @keyframes rise { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1100px) { .share-hdr span { display: none; } .share-hdr { width: 40px; padding: 0; justify-content: center; } }
+@media (max-width: 440px) { .share-hdr { width: 38px; height: 38px; } }
 @media (max-width: 640px) {
   .banner-tools { top: 68px; }
-  .share-top { height: 38px; padding: 0 14px; font-size: 13.5px; }
+  .gift-top { width: auto !important; height: 38px; padding: 0 14px !important; font-size: 13.5px; }
 }
-.all-pill { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border-radius: 99px; background: var(--ink); color: var(--bg); font: 600 14px/1 var(--f-body); text-decoration: none; transition: transform .2s var(--ease); }
-.all-pill svg { width: 15px; height: 15px; transition: transform .2s var(--ease); }
-.all-pill:hover svg { transform: translateX(3px); }
-@media (max-width: 440px) { .all-pill { height: 36px; padding: 0 13px; font-size: 13px; } }
 
 /* Bande de chiffres sous la bannière */
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 34px; border-block: 1px solid var(--line); }

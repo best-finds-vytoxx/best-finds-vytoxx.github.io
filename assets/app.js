@@ -107,6 +107,7 @@
       </nav>
       <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
       <div class="top-right">
+        <button class="share-hdr" type="button" id="hdr-share" aria-label="Partager le site">${icon.share}<span>Partager le site</span></button>
         <button class="gift" type="button" id="open-promo">${icon.gift}<span>${coupon} offerts</span></button>
       </div>
     </div></header>
@@ -183,6 +184,7 @@
     closePromo();
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
+  document.getElementById('hdr-share').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
   document.getElementById('foot-promo').addEventListener('click', () => openPromo());
   // ---------- menu déroulant (bouton en haut à gauche) ----------
   const drawer = document.getElementById('drawer');
@@ -417,11 +419,11 @@
           <source media="(max-width: 1100px)" srcset="${IMG.bannerMid}">
           <img src="${IMG.banner}" alt="${esc(S.name || '')} — le panda Vytoxx devant ses colis LoveGoBuy" fetchpriority="high">
         </picture>
-        <div class="wrap banner-tools"><button class="share-top" type="button" id="share-site">${icon.share}<span>Partager le site</span></button></div>
+        <div class="wrap banner-tools"><button class="gift gift-top" type="button" id="hero-promo">${icon.gift}<span>${coupon} offerts</span></button></div>
       </section>
 
       ${catList.length ? `<section class="wrap block reveal">
-        <div class="block-head"><h2>Catégories</h2><a class="all-pill" href="#catalogue">Voir tous les articles ${icon.right}</a></div>
+        <div class="block-head"><h2>Catégories</h2><a class="more-link" href="#catalogue">Voir tous les articles ${icon.right}</a></div>
         <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}" data-c="${esc(c)}">
           <span class="cat-pic">${v.pics.map((src, k) => img(src, '', `p${k}`)).join('')}</span>
           <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
@@ -459,11 +461,7 @@
       </section>`;
 
     reveal();
-    view.querySelector('#share-site').addEventListener('click', () => shareThis({
-      title: 'Partage ce site à un ami',
-      text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`,
-      url: siteUrl(),
-    }));
+    view.querySelector('#hero-promo').addEventListener('click', () => openPromo());
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });
     view.querySelectorAll('.cat-tile').forEach((b) => b.addEventListener('click', () => {
       state.cat = b.dataset.c; state.q = ''; state.brand = ''; catScroll = 0;
