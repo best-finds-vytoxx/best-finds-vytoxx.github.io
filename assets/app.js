@@ -125,12 +125,12 @@
         <div class="drawer-head">${logo()}<b>${esc(S.name || 'Best Finds')}</b><button class="promo-x" type="button" data-dx aria-label="Fermer le menu">${icon.close}</button></div>
         <a class="dr-link" href="#" data-dx>${icon.home}<span>Accueil</span></a>
         <a class="dr-link" href="#catalogue" data-dx data-cat="Tous">${icon.grid}<span>Tous les articles</span><small id="dr-n"></small></a>
+        <button class="dr-link dr-gold" type="button" id="dr-promo">${icon.gift}<span>${coupon} de coupons offerts</span></button>
         <div class="dr-title">Catégories</div>
         <div class="dr-cats" id="dr-cats"></div>
-        <div class="dr-title">Commander</div>
+        <div class="dr-title">Aide pour commander</div>
         <a class="dr-link" href="#tuto" data-dx>${icon.play}<span>Tuto pour commander</span></a>
         <a class="dr-link" href="#ecran" data-dx>${icon.phone}<span>Ajouter le site sur iPhone</span></a>
-        <button class="dr-link dr-gold" type="button" id="dr-promo">${icon.gift}<span>${coupon} de coupons offerts</span></button>
         <div class="dr-title">Partager et suivre</div>
         <button class="dr-link" type="button" id="dr-share">${icon.share}<span>Partager le site à un ami</span></button>
         <a class="dr-link" href="${esc(S.telegram)}" target="_blank" rel="noopener">${icon.tg}<span>Canal Telegram ${esc(S.by || '')}</span>${icon.out}</a>
