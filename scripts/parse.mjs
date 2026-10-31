@@ -84,14 +84,14 @@ const BRANDS = [
   'Palm Angels', 'Maison Margiela', 'Margiela', 'Sprayground', 'SprayGround', 'Calvin Klein', 'Godspeed', 'Purple Brand', 'Purple', 'Acne Studios', 'Acne Studio',
   'Bape', 'Rhude', 'Numeris', 'Ray-Ban', 'Golden Goose', 'Goyard', 'Comme des Garçons', 'Saucony', 'Ermenegildo Zegna', 'Zegna', 'Loro Piana',
   'Van Cleef', 'Alhambra', 'Bvlgari', 'Bulgari', 'LV', 'UA', 'The North', 'AirPods', 'Swarovski',
-  'Apple', 'Dyson', 'Ugg', 'UGG', 'Timberland', 'Ami', 'Polo', 'Oakley', 'Moose Knuckles', 'Ralph',
+  'Apple', 'Dyson', 'JBL', 'Sweet Pants', 'Goodbrand', 'Amir', 'Ugg', 'UGG', 'Timberland', 'Ami', 'Polo', 'Oakley', 'Moose Knuckles', 'Ralph',
 ];
 const CANON = {
   'C.P Company': 'C.P. Company', 'CP Company': 'C.P. Company', Arcteryx: "Arc'teryx", Céline: 'Celine', Courrèges: 'Courreges',
   Stussy: 'Stüssy', Hermes: 'Hermès', UGG: 'Ugg', Polo: 'Ralph Lauren', Ralph: 'Ralph Lauren', Audemar: 'Audemars Piguet', Syna: 'Syna World', Ami: 'AMI',
   Margiela: 'Maison Margiela', SprayGround: 'Sprayground', Purple: 'Purple Brand', 'Acne Studio': 'Acne Studios', Zegna: 'Ermenegildo Zegna',
   'Ermenegildo Zegna': 'Ermenegildo Zegna', Alhambra: 'Van Cleef & Arpels', 'Van Cleef': 'Van Cleef & Arpels', Bulgari: 'Bvlgari', LV: 'Louis Vuitton',
-  UA: 'Under Armour', 'The North': 'The North Face', AirPods: 'Apple',
+  UA: 'Under Armour', 'The North': 'The North Face', AirPods: 'Apple', Amir: 'Amiri', Goodbrand: 'Goodbrand',
 };
 
 export function detectBrand(title) {
@@ -121,6 +121,9 @@ export function detectCategory(title) {
   // ("Short Nocta Tech Fleece" = un short, "Écharpe Polo Ralph Lauren" = une écharpe)
   const t = title.toLowerCase().replace(/[\u2010-\u2013]/g, '-').replace(/sweet pants/g, ' '); // « Sweet Pants » : une marque
   if (/hooded and pant|hoodie and pant|\bset\b/i.test(t)) return 'Ensembles';
+  // haut ET bas proposés ensemble (« Veste / Pantalon », « T-shirt / Shorts », « t-shirt shorts suit ») : un ensemble
+  const top = CATEGORIES.slice(0, 4).some(([, re]) => re.test(t)), bottom = CATEGORIES[4][1].test(t);
+  if (top && bottom && /\/|\+|\band\b|\bet\b|\bsuit\b/.test(t)) return 'Ensembles';
   let best = null;
   for (const [name, re] of CATEGORIES) {
     const m = re.exec(t);
