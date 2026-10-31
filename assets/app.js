@@ -886,12 +886,15 @@
     // Ombre sous la barre de filtres quand elle est collée en haut
     const filters = view.querySelector('#filters');
     stickObs?.disconnect();
-    if ('IntersectionObserver' in window) {
-      const probe = document.createElement('div');
-      filters.before(probe);
-      stickObs = new IntersectionObserver(([e]) => filters.classList.toggle('stuck', !e.isIntersecting), { rootMargin: '-65px 0px 0px 0px' });
-      stickObs.observe(probe);
-    }
+    // (calcul à partir de la position réelle : Safari se trompait avec l'ancienne méthode et collait la barre dès l'arrivée)
+    const syncStuck = () => {
+      if (!filters.isConnected) { window.removeEventListener('scroll', syncStuck); return; }
+      const top = parseFloat(getComputedStyle(filters).top) || 0;
+      filters.classList.toggle('stuck', window.scrollY > 4 && filters.getBoundingClientRect().top <= top + 1);
+    };
+    window.addEventListener('scroll', syncStuck, { passive: true });
+    stickObs = { disconnect: () => window.removeEventListener('scroll', syncStuck) };
+    syncStuck();
     view.querySelector('#brand').addEventListener('change', (e) => { state.brand = e.target.value; paint(); });
     view.querySelector('#sort').addEventListener('change', (e) => { state.sort = e.target.value; paint(); });
     view.querySelector('#chips').addEventListener('click', (e) => {
