@@ -72,8 +72,15 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Nouveaux articles"
-            git pull --rebase
-            git push
+            # main a pu avancer pendant le passage (une modification envoyée entre-temps) : on reprend par-dessus, 3 essais
+            ok=0
+            for i in 1 2 3; do
+              if git pull --rebase --autostash -X theirs >> scrape.log 2>&1 && git push >> scrape.log 2>&1; then ok=1; break; fi
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 10))
+            done
+            git status --short | head -20 >> scrape.log
+            [ "$ok" = 1 ] || { echo "envoi des nouveautés impossible" | tee -a scrape.log; exit 1; }
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
       # Compte rendu du passage (réussi ou non) sur la branche robot-status : lisible sans ouvrir GitHub
