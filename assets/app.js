@@ -114,17 +114,17 @@
     <main id="view"></main>
     <footer class="foot">
       <div class="wrap foot-in">
-        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
+        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Vytoxx Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
         <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur l'écran d'accueil</a><a href="#aide">Chat bot : pose ta question</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
-      <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
+      <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Vytoxx Best Finds')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
     </footer>
     <div class="bar" id="bar"></div>
     <div class="drawer" id="drawer" hidden>
       <div class="drawer-back" data-dx></div>
       <nav class="drawer-panel" aria-label="Menu">
-        <div class="drawer-head">${logo()}<b>${esc(S.name || 'Best Finds')}</b><button class="promo-x" type="button" data-dx aria-label="Fermer le menu">${icon.close}</button></div>
+        <div class="drawer-head">${logo()}<b>${esc(S.name || 'Vytoxx Best Finds')}</b><button class="promo-x" type="button" data-dx aria-label="Fermer le menu">${icon.close}</button></div>
         <a class="dr-link" href="#" data-dx>${icon.home}<span>Accueil</span></a>
         <a class="dr-link" href="#catalogue" data-dx data-cat="Tous">${icon.grid}<span>Tous les articles</span><small id="dr-n"></small></a>
         <button class="dr-link dr-gold" type="button" id="dr-promo">${icon.gift}<span>${coupon} de coupons offerts</span></button>
@@ -485,7 +485,7 @@
       phone(`${lgbTop('Inscription')}<div class="mk-form"><div class="mk-gold">${coupon} de coupons offerts</div><span class="mk-field">E-mail</span><span class="mk-field">Mot de passe</span><span class="mk-btn hl">S'inscrire</span></div>`)],
     ['Récupère tes coupons', `Dans ton compte, ouvre les coupons et touche <b>Recevoir</b>. Ils servent plus tard à payer <b>moins cher la livraison</b>.`,
       phone(`${lgbTop('Mes coupons')}<div class="mk-coupons">${['1,43', '1,43', '2,85', '4,28'].map((v, i) => `<div class="mk-cpn"><b>€${v}</b><small>Réduction livraison</small><span class="${i === 0 ? 'hl' : ''}">Recevoir</span></div>`).join('')}</div>`)],
-    ["Choisis ton article sur Best Finds", `Sur la fiche de l'article qui te plaît, touche <b>Copier le lien LoveGoBuy</b> (ou <b>Voir sur LoveGoBuy</b> pour l'ouvrir directement).`,
+    ["Choisis ton article sur Vytoxx Best Finds", `Sur la fiche de l'article qui te plaît, touche <b>Copier le lien LoveGoBuy</b> (ou <b>Voir sur LoveGoBuy</b> pour l'ouvrir directement).`,
       phone(`<div class="mk-site"><img src="${IMG.bannerMobile}" alt=""></div><div class="mk-fiche"><b>Nike Tech</b><span class="mk-price">20,46 €</span><span class="mk-btn">Voir sur LoveGoBuy</span><span class="mk-btn ghost hl">Copier le lien LoveGoBuy</span></div>`)],
     ['Colle le lien dans LoveGoBuy', `Dans l'appli ou le site LoveGoBuy, colle le lien dans la <b>barre de recherche</b> en haut, puis touche <b>Rechercher</b>.`,
       phone(`${lgbTop('Accueil')}<div class="mk-search"><span>lovegobuy.com/product?…</span><b class="hl">Rechercher</b></div><div class="mk-grid mk-grid-lgb"><i></i><i></i><i></i><i></i></div>`)],
@@ -662,7 +662,7 @@
     document.title = `Chat bot · ${S.name || 'Finds'}`;
     view.innerHTML = `
       <section class="wrap bot">
-        <header class="bot-head">${logo()}<div><b>Assistant ${esc(S.name || 'Best Finds')}</b><span class="bot-on">Répond tout de suite</span></div></header>
+        <header class="bot-head">${logo()}<div><b>Assistant ${esc(S.name || 'Vytoxx Best Finds')}</b><span class="bot-on">Répond tout de suite</span></div></header>
         <div class="bot-feed" id="bot-feed" aria-live="polite"></div>
         <div class="bot-sugg" id="bot-sugg"></div>
         <form class="bot-form" id="bot-form" autocomplete="off">
@@ -722,11 +722,11 @@
       ['Touche les trois points « ••• »', `En bas de l'écran, à droite de l'adresse du site, touche <b>•••</b>, puis <b>Partager</b>.<br><span class="hs-note">Sur un iPhone qui n'est pas à jour, touche directement le bouton Partager (le carré avec une flèche vers le haut), en bas au milieu.</span>`,
         phone(`${sitePage}<div class="mk-pop"><span>Ajouter aux favoris</span><span>Nouvel onglet</span><span class="hl">${icon.share} Partager</span></div>${safariBar(true)}`)],
       ["Touche « Sur l'écran d'accueil »", `Dans le menu qui s'ouvre, fais défiler vers le bas et touche <b>Sur l'écran d'accueil</b>.<br><span class="hs-note">Tu ne le vois pas ? Touche « Plus » ou « Modifier les actions » tout en bas pour l'afficher.</span>`,
-        phone(`<div class="mk-sheet"><div class="mk-share-head"><span class="mk-ic"></span><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-apps"><i></i><i></i><i></i><i></i></div><div class="mk-list"><span>Copier ${icon.link}</span><span>Ajouter aux favoris</span><span class="hl">Sur l'écran d'accueil ${icon.plusSq}</span><span>Imprimer</span></div></div>`)],
-      ['Touche « Ajouter »', `Laisse le nom <b>Best Finds</b> et l'option <b>Ouvrir en tant qu'app web</b> activée, puis touche <b>Ajouter</b> en haut à droite.`,
-        phone(`<div class="mk-add"><div class="mk-add-top"><span>Annuler</span><b>Ajouter à l'écran</b><span class="hl">Ajouter</span></div><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-toggle"><span>Ouvrir en tant qu'app web</span><i></i></div></div>`)],
-      ["C'est fait !", `Le panda <b>Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
-        phone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
+        phone(`<div class="mk-sheet"><div class="mk-share-head"><span class="mk-ic"></span><span><b>Vytoxx Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-apps"><i></i><i></i><i></i><i></i></div><div class="mk-list"><span>Copier ${icon.link}</span><span>Ajouter aux favoris</span><span class="hl">Sur l'écran d'accueil ${icon.plusSq}</span><span>Imprimer</span></div></div>`)],
+      ['Touche « Ajouter »', `Laisse le nom <b>Vytoxx Best Finds</b> et l'option <b>Ouvrir en tant qu'app web</b> activée, puis touche <b>Ajouter</b> en haut à droite.`,
+        phone(`<div class="mk-add"><div class="mk-add-top"><span>Annuler</span><b>Ajouter à l'écran</b><span class="hl">Ajouter</span></div><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Vytoxx Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-toggle"><span>Ouvrir en tant qu'app web</span><i></i></div></div>`)],
+      ["C'est fait !", `Le panda <b>Vytoxx Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
+        phone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Vytoxx Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
     ],
     android: () => [
       ['Ouvre le site dans Chrome', `Le site doit être ouvert dans <b>Chrome</b>. Si tu l'as ouvert depuis Telegram, Instagram ou Snapchat, touche les trois points de l'appli puis « Ouvrir dans Chrome » (ou « Ouvrir dans le navigateur »).`,
@@ -735,10 +735,10 @@
         andPhone(`${chromeBar(true)}${sitePageTop}`)],
       ["Touche « Ajouter à l'écran d'accueil »", `Dans le menu qui s'ouvre, touche <b>Ajouter à l'écran d'accueil</b>.<br><span class="hs-note">Selon ton téléphone, l'option s'appelle aussi « Installer l'application ».</span>`,
         andPhone(`${chromeBar(false)}${sitePageTop}<div class="mk-amenu"><span>Nouvel onglet</span><span>Historique</span><span>Favoris</span><span>Partager…</span><span class="hl">${icon.plusSq} Ajouter à l'écran d'accueil</span><span>Paramètres</span></div>`)],
-      ['Touche « Installer »', `Laisse le nom <b>Best Finds</b> et touche <b>Installer</b> (ou <b>Ajouter</b>). Si le téléphone te le redemande, confirme avec <b>Ajouter</b>.`,
-        andPhone(`${sitePageTop}<div class="mk-adlg"><b>Ajouter à l'écran d'accueil</b><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-adlg-btns"><span>Annuler</span><span class="hl">Installer</span></div></div>`)],
-      ["C'est fait !", `Le panda <b>Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
-        andPhone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
+      ['Touche « Installer »', `Laisse le nom <b>Vytoxx Best Finds</b> et touche <b>Installer</b> (ou <b>Ajouter</b>). Si le téléphone te le redemande, confirme avec <b>Ajouter</b>.`,
+        andPhone(`${sitePageTop}<div class="mk-adlg"><b>Ajouter à l'écran d'accueil</b><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Vytoxx Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-adlg-btns"><span>Annuler</span><span class="hl">Installer</span></div></div>`)],
+      ["C'est fait !", `Le panda <b>Vytoxx Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
+        andPhone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Vytoxx Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
     ],
   };
   let hsOS = null;
@@ -762,7 +762,7 @@
         <header class="tuto-head">
           <span class="eyebrow">Tuto ${isIOS ? 'iPhone' : 'Android'} · 30 secondes</span>
           <h1>Le site sur ton écran d'accueil, comme une appli</h1>
-          <p class="lead">Une icône Best Finds à côté de tes applis : un appui et tu retrouves toutes les trouvailles, sans chercher le lien.</p>
+          <p class="lead">Une icône Vytoxx Best Finds à côté de tes applis : un appui et tu retrouves toutes les trouvailles, sans chercher le lien.</p>
           <div class="hs-os" role="radiogroup" aria-label="Ton téléphone">
             <button type="button" role="radio" aria-checked="${isIOS}" data-os="ios"><i></i>iPhone</button>
             <button type="button" role="radio" aria-checked="${!isIOS}" data-os="android"><i></i>Android</button>
@@ -982,7 +982,7 @@
     view.querySelector('#hint-promo')?.addEventListener('click', () => openPromo());
     const shareItem = () => shareThis({
       title: 'Partage ce produit à un pote',
-      text: `Regarde ça : ${a.title}${lgb ? ` à ${eur(lgb.eur)}` : ''} sur ${S.name || 'Best Finds'}`,
+      text: `Regarde ça : ${a.title}${lgb ? ` à ${eur(lgb.eur)}` : ''} sur ${S.name || 'Vytoxx Best Finds'}`,
       url: `${siteUrl()}?p=${a.id}`,
     });
     view.querySelector('#share-item').addEventListener('click', shareItem);

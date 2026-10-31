@@ -1,4 +1,4 @@
-# Best Finds — le site du canal Telegram Vytoxx
+# Vytoxx Best Finds — le site du canal Telegram Vytoxx
 
 Site : https://best-finds-vytoxx.github.io/
 

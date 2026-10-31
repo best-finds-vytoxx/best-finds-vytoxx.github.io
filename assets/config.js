@@ -1,6 +1,6 @@
 // Réglages du site — modifie ces valeurs librement.
 window.SITE = {
-  name: 'Best Finds',
+  name: 'Vytoxx Best Finds',
   by: 'Vytoxx',
   tagline: 'Toutes les trouvailles du canal, vérifiées et rangées au même endroit.',
   telegram: 'https://t.me/lovegobuy_france',
