@@ -74,6 +74,8 @@
     grid: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
     phone: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>',
     plusSq: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/></svg>',
+    chat: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg>',
+    send: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.3 10.2 15 12 3.3 13.8z"/></svg>',
     zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
     spark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
   });
@@ -113,7 +115,7 @@
     <footer class="foot">
       <div class="wrap foot-in">
         <div class="foot-brand">${logo()}<b>${esc(S.name || 'Best Finds')}</b><p>Les trouvailles du canal ${esc(S.by || '')}, rangées au même endroit : photos réelles, lien LoveGoBuy direct, prix relevé sur LoveGoBuy.</p></div>
-        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur iPhone</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
+        <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur iPhone</a><a href="#aide">Chat bot : pose ta question</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
       <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
@@ -131,6 +133,7 @@
         <div class="dr-title">Aide pour commander</div>
         <a class="dr-link" href="#tuto" data-dx>${icon.play}<span>Tuto pour commander</span></a>
         <a class="dr-link" href="#ecran" data-dx>${icon.phone}<span>Ajouter le site sur iPhone</span></a>
+        <a class="dr-link" href="#aide" data-dx>${icon.chat}<span>Chat bot : pose ta question</span></a>
         <div class="dr-title">Partager et suivre</div>
         <button class="dr-link" type="button" id="dr-share">${icon.share}<span>Partager le site à un ami</span></button>
         <a class="dr-link" href="${esc(S.telegram)}" target="_blank" rel="noopener">${icon.tg}<span>Canal Telegram ${esc(S.by || '')}</span>${icon.out}</a>
@@ -587,6 +590,102 @@
     }));
   }
 
+  // ---------- chat bot : réponses aux questions de ceux qui n'ont jamais commandé ----------
+  // Tout se passe dans le navigateur (pas de serveur ni d'abonnement) : la question est comparée aux mots-clés
+  // de chaque réponse, la plus proche est affichée. Les réponses se modifient ici, dans BOT.
+  const BOT = [
+    { q: "C'est quoi LoveGoBuy ?", k: 'lovegobuy agent site marche fonctionne comment ca marche principe intermediaire chine',
+      a: "LoveGoBuy est un <b>agent d'achat</b> : tu commandes chez eux, ils achètent l'article au vendeur en Chine, le reçoivent dans leur entrepôt, puis te l'envoient chez toi. Tu paies l'article d'abord, puis la livraison quand ton colis est prêt." },
+    { q: 'Comment obtenir les 500 € de coupons ?', k: '500 coupon coupons reduction code promo offert offerts bon inscription parrainage cadeau',
+      a: `Crée ton compte LoveGoBuy avec le lien du site : les <b>${coupon} de coupons</b> sont ajoutés automatiquement à ton compte. Ils se déduisent au moment de payer la <b>livraison</b>.`, act: 'promo' },
+    { q: 'Comment commander un article du site ?', k: 'commander acheter achat commande etapes faire comment lien panier article',
+      a: "1. Ouvre la fiche de l'article et touche <b>Voir sur LoveGoBuy</b> (ou copie le lien et colle-le dans l'appli LoveGoBuy).<br>2. Choisis ta taille et ta couleur, puis achète ou ajoute au panier.<br>3. Quand l'article arrive à l'entrepôt, choisis-le dans « Mon entrepôt » et demande l'expédition.<br>4. Paie la livraison avec tes coupons. Tout est montré dans le tuto vidéo.", act: 'tuto' },
+    { q: 'Est-ce que je vais recevoir la même chose que sur les photos ?', k: 'meme photo photos reel reelle vrai qualite identique recevoir fake arnaque fiable confiance controle qc',
+      a: "Les photos des fiches sont les <b>photos exactes de l'article</b>, prises par l'équipe Vytoxx, étiquettes et détails compris. Et quand ton article arrive à l'entrepôt, LoveGoBuy te montre des <b>photos de contrôle</b> avant l'envoi : tu vérifies que c'est bien ce que tu as commandé." },
+    { q: 'Comment payer le moins cher possible la livraison ?', k: 'moins cher livraison economiser economie reduire payer frais port envoi colis prix livraison astuce',
+      a: `• Utilise tes <b>${coupon} de coupons</b>.<br>• Regroupe plusieurs articles dans <b>un seul colis</b>.<br>• <b>Sépare les catégories</b> : électronique, liquides et bijoux chacun de leur côté, pour qu'ils partent sur la bonne ligne.<br>• Au moment d'expédier, regarde l'option « <b>Colis d'essai</b> » et le retrait de l'emballage d'origine pour alléger le colis.`, act: 'tuto' },
+    { q: 'Combien coûte la livraison ?', k: 'combien cout coute prix livraison frais tarif poids estimer estimation',
+      a: "Le prix dépend surtout du <b>poids</b> du colis et de la ligne choisie. Le poids de chaque article est affiché sur sa fiche pour t'aider à estimer. Le prix exact s'affiche sur LoveGoBuy quand ton colis est prêt, et tes coupons le réduisent." },
+    { q: 'Combien de temps pour recevoir ma commande ?', k: 'temps delai combien jours semaines recevoir reception arrive arriver quand long attente',
+      a: "En général : <b>2 à 5 jours</b> pour que l'article arrive à l'entrepôt, <b>2 à 3 jours</b> pour préparer ton colis, puis environ <b>2 semaines</b> de livraison jusqu'à chez toi." },
+    { q: 'Comment choisir ma taille ?', k: 'taille tailles size guide mesure grand petit taille fit correspondance',
+      a: "Choisis la taille directement sur la page LoveGoBuy de l'article, avec le guide des tailles du vendeur. Les photos montrent l'étiquette, et la règle posée à côté donne les dimensions réelles. Un doute ? Demande sur le canal Telegram." },
+    { q: 'Comment payer ?', k: 'payer paiement carte bancaire apple pay google paypal moyen crypto',
+      a: "Au moment de payer, LoveGoBuy propose plusieurs moyens : <b>carte bancaire</b>, <b>Apple Pay</b>, <b>Google Pay</b> et d'autres. Tu paies deux fois : l'article d'abord, la livraison ensuite." },
+    { q: 'Le prix affiché sur le site est-il le bon ?', k: 'prix affiche bon exact change euro yuan cny different',
+      a: "Le prix affiché est celui de la page LoveGoBuy, relevé à la date indiquée sous le prix. Il peut changer : le prix qui compte est celui affiché sur LoveGoBuy au moment de commander." },
+    { q: 'Pourquoi séparer les catégories dans mes colis ?', k: 'separer categories pourquoi electronique liquide bijou bijoux ligne melanger',
+      a: "L'électronique, les liquides et les bijoux partent sur des lignes de livraison spéciales. En les gardant chacun de leur côté, chaque colis part sur la bonne ligne et coûte moins cher." },
+    { q: 'Comment ajouter le site sur mon iPhone ?', k: 'iphone ecran accueil appli application installer raccourci icone',
+      a: "Dans Safari : touche « ••• », puis Partager, puis « Sur l'écran d'accueil ». Toutes les étapes sont illustrées dans le petit tuto.", act: 'ecran' },
+  ];
+  const ACTS = {
+    promo: [`${icon.gift} Récupérer mes ${coupon}`, () => openPromo()],
+    tuto: [`${icon.play} Voir le tuto vidéo`, () => { location.hash = 'tuto'; }],
+    ecran: [`${icon.phone} Voir le tuto iPhone`, () => { location.hash = 'ecran'; }],
+    tg: [`${icon.tg} Demander sur le canal`, () => window.open(S.telegram, '_blank', 'noopener')],
+  };
+  const botAnswer = (text) => {
+    const words = fold(text).replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
+    let best = null, bestScore = 0;
+    for (const e of BOT) {
+      const keys = fold(`${e.k} ${e.q}`).replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((k) => k.length > 2);
+      let sc = 0;
+      for (const w of words) if (keys.some((k) => k === w || (w.length > 4 && k.length > 4 && (k.startsWith(w.slice(0, 5)) || w.startsWith(k.slice(0, 5)))))) sc++;
+      if (sc > bestScore) { bestScore = sc; best = e; }
+    }
+    return bestScore ? best : null;
+  };
+  const botLog = [];
+  function renderBot() {
+    resetChrome();
+    document.title = `Chat bot · ${S.name || 'Finds'}`;
+    view.innerHTML = `
+      <section class="wrap bot">
+        <header class="bot-head">${logo()}<div><b>Assistant ${esc(S.name || 'Best Finds')}</b><span class="bot-on">Répond tout de suite</span></div></header>
+        <div class="bot-feed" id="bot-feed" aria-live="polite"></div>
+        <div class="bot-sugg" id="bot-sugg"></div>
+        <form class="bot-form" id="bot-form" autocomplete="off">
+          <input id="bot-in" type="text" placeholder="Pose ta question…" aria-label="Ta question" enterkeyhint="send">
+          <button type="submit" aria-label="Envoyer">${icon.send}</button>
+        </form>
+      </section>`;
+    const feed = view.querySelector('#bot-feed'), sugg = view.querySelector('#bot-sugg'), form = view.querySelector('#bot-form'), input = view.querySelector('#bot-in');
+    const bubble = (who, html, act) => {
+      const d = document.createElement('div');
+      d.className = `bm bm-${who}`;
+      d.innerHTML = `${who === 'bot' ? `<img class="bm-av" src="${IMG.logo}" alt="">` : ''}<div class="bm-b"><div>${html}</div>${act ? `<button type="button" class="bm-act" data-act="${act}">${ACTS[act][0]}</button>` : ''}</div>`;
+      feed.appendChild(d);
+      d.scrollIntoView({ block: 'end', behavior: 'smooth' });
+      return d;
+    };
+    const showSugg = (exclude = []) => {
+      sugg.innerHTML = BOT.filter((e) => !exclude.includes(e)).slice(0, 6).map((e) => `<button type="button" class="chip" data-q="${esc(e.q)}">${esc(e.q)}</button>`).join('');
+    };
+    const asked = new Set();
+    const ask = (text) => {
+      text = String(text || '').trim();
+      if (!text) return;
+      bubble('me', esc(text));
+      botLog.push(['me', text]);
+      const typing = bubble('bot', '<span class="bm-typing"><i></i><i></i><i></i></span>');
+      const e = BOT.find((x) => x.q === text) || botAnswer(text);
+      setTimeout(() => {
+        typing.remove();
+        if (e) { asked.add(e); bubble('bot', e.a, e.act); botLog.push(['bot', e]); }
+        else { bubble('bot', "Je n'ai pas encore la réponse à cette question. Pose-la sur le canal Telegram, l'équipe te répondra. Sinon, choisis une des questions ci-dessous.", 'tg'); botLog.push(['bot', null]); }
+        showSugg([...asked]);
+      }, 550 + Math.random() * 350);
+    };
+    // la conversation est gardée tant que la page n'est pas rechargée
+    if (botLog.length) botLog.forEach(([who, x]) => (who === 'me' ? bubble('me', esc(x)) : x ? bubble('bot', x.a, x.act) : bubble('bot', "Je n'ai pas encore la réponse à cette question. Pose-la sur le canal Telegram.", 'tg')));
+    else bubble('bot', `Salut 👋 Je réponds aux questions sur la commande LoveGoBuy : coupons, livraison, tailles, paiement… Touche une question ci-dessous ou écris la tienne.`);
+    showSugg();
+    sugg.addEventListener('click', (ev) => { const b = ev.target.closest('[data-q]'); if (b) ask(b.dataset.q); });
+    feed.addEventListener('click', (ev) => { const b = ev.target.closest('[data-act]'); if (b) ACTS[b.dataset.act][1](); });
+    form.addEventListener('submit', (ev) => { ev.preventDefault(); ask(input.value); input.value = ''; });
+  }
+
   // ---------- tuto : ajouter le site sur l'écran d'accueil de l'iPhone ----------
   // Illustrations dessinées en HTML (aucune capture d'écran) : un iPhone simplifié, le bouton à toucher entouré
   const phone = (screen, cls = '') => `<div class="mock ${cls}" aria-hidden="true"><div class="mock-notch"></div><div class="mock-screen">${screen}</div></div>`;
@@ -996,7 +1095,7 @@
   function route() {
     keyHandler = null;
     const h = location.hash;
-    document.body.classList.toggle('home', !(h === '#tuto' || h === '#ecran' || h === '#catalogue' || /^#article-/.test(h)));
+    document.body.classList.toggle('home', !(h === '#tuto' || h === '#ecran' || h === '#aide' || h === '#catalogue' || /^#article-/.test(h)));
     const m = h.match(/^#article-(\d+)$/);
     document.getElementById('nav-tuto').setAttribute('aria-current', String(h === '#tuto'));
     if (m) {
@@ -1008,6 +1107,9 @@
       window.scrollTo(0, 0);
     } else if (h === '#ecran') {
       renderHomeScreen();
+      window.scrollTo(0, 0);
+    } else if (h === '#aide') {
+      renderBot();
       window.scrollTo(0, 0);
     } else if (h === '#catalogue') {
       renderCatalog();
