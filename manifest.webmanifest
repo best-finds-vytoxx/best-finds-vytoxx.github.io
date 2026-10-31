@@ -1,6 +1,6 @@
 {
   "name": "Vytoxx Best Finds",
-  "short_name": "Vytoxx Best Finds",
+  "short_name": "Vytoxx Finds",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#2e3236",

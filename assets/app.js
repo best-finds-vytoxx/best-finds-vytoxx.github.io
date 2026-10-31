@@ -723,10 +723,10 @@
         phone(`${sitePage}<div class="mk-pop"><span>Ajouter aux favoris</span><span>Nouvel onglet</span><span class="hl">${icon.share} Partager</span></div>${safariBar(true)}`)],
       ["Touche « Sur l'écran d'accueil »", `Dans le menu qui s'ouvre, fais défiler vers le bas et touche <b>Sur l'écran d'accueil</b>.<br><span class="hs-note">Tu ne le vois pas ? Touche « Plus » ou « Modifier les actions » tout en bas pour l'afficher.</span>`,
         phone(`<div class="mk-sheet"><div class="mk-share-head"><span class="mk-ic"></span><span><b>Vytoxx Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-apps"><i></i><i></i><i></i><i></i></div><div class="mk-list"><span>Copier ${icon.link}</span><span>Ajouter aux favoris</span><span class="hl">Sur l'écran d'accueil ${icon.plusSq}</span><span>Imprimer</span></div></div>`)],
-      ['Touche « Ajouter »', `Laisse le nom <b>Vytoxx Best Finds</b> et l'option <b>Ouvrir en tant qu'app web</b> activée, puis touche <b>Ajouter</b> en haut à droite.`,
-        phone(`<div class="mk-add"><div class="mk-add-top"><span>Annuler</span><b>Ajouter à l'écran</b><span class="hl">Ajouter</span></div><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Vytoxx Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-toggle"><span>Ouvrir en tant qu'app web</span><i></i></div></div>`)],
+      ['Touche « Ajouter »', `Laisse le nom <b>Vytoxx Finds</b> et l'option <b>Ouvrir en tant qu'app web</b> activée, puis touche <b>Ajouter</b> en haut à droite.`,
+        phone(`<div class="mk-add"><div class="mk-add-top"><span>Annuler</span><b>Ajouter à l'écran</b><span class="hl">Ajouter</span></div><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Vytoxx Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-toggle"><span>Ouvrir en tant qu'app web</span><i></i></div></div>`)],
       ["C'est fait !", `Le panda <b>Vytoxx Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
-        phone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Vytoxx Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
+        phone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Vytoxx Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
     ],
     android: () => [
       ['Ouvre le site dans Chrome', `Le site doit être ouvert dans <b>Chrome</b>. Si tu l'as ouvert depuis Telegram, Instagram ou Snapchat, touche les trois points de l'appli puis « Ouvrir dans Chrome » (ou « Ouvrir dans le navigateur »).`,
@@ -735,10 +735,10 @@
         andPhone(`${chromeBar(true)}${sitePageTop}`)],
       ["Touche « Ajouter à l'écran d'accueil »", `Dans le menu qui s'ouvre, touche <b>Ajouter à l'écran d'accueil</b>.<br><span class="hs-note">Selon ton téléphone, l'option s'appelle aussi « Installer l'application ».</span>`,
         andPhone(`${chromeBar(false)}${sitePageTop}<div class="mk-amenu"><span>Nouvel onglet</span><span>Historique</span><span>Favoris</span><span>Partager…</span><span class="hl">${icon.plusSq} Ajouter à l'écran d'accueil</span><span>Paramètres</span></div>`)],
-      ['Touche « Installer »', `Laisse le nom <b>Vytoxx Best Finds</b> et touche <b>Installer</b> (ou <b>Ajouter</b>). Si le téléphone te le redemande, confirme avec <b>Ajouter</b>.`,
-        andPhone(`${sitePageTop}<div class="mk-adlg"><b>Ajouter à l'écran d'accueil</b><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Vytoxx Best Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-adlg-btns"><span>Annuler</span><span class="hl">Installer</span></div></div>`)],
+      ['Touche « Installer »', `Laisse le nom <b>Vytoxx Finds</b> et touche <b>Installer</b> (ou <b>Ajouter</b>). Si le téléphone te le redemande, confirme avec <b>Ajouter</b>.`,
+        andPhone(`${sitePageTop}<div class="mk-adlg"><b>Ajouter à l'écran d'accueil</b><div class="mk-add-row"><img src="assets/img/app-icon-180.png" alt=""><span><b>Vytoxx Finds</b><small>best-finds-vytoxx.github.io</small></span></div><div class="mk-adlg-btns"><span>Annuler</span><span class="hl">Installer</span></div></div>`)],
       ["C'est fait !", `Le panda <b>Vytoxx Best Finds</b> est sur ton écran d'accueil. Touche-le : le site s'ouvre en plein écran, comme une vraie appli, toujours à jour avec les derniers articles du canal.`,
-        andPhone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Vytoxx Best Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
+        andPhone(`<div class="mk-home">${homeIcons(11)}<span class="mk-app hl"><img src="assets/img/app-icon-180.png" alt=""><small>Vytoxx Finds</small></span>${homeIcons(4)}</div>`, 'mock-home')],
     ],
   };
   let hsOS = null;
