@@ -69,6 +69,9 @@
     wa: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>',
     snap: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c2.9 0 5.1 2.2 5.1 5.3v2.3c.5.2 1.1.1 1.6-.2.5-.2 1 .3.8.8-.3.7-1.4 1-2.1 1.3.2 1.6 1.8 3.4 3.8 4 .5.2.5.8 0 1-.8.3-1.7.4-2.3.6-.2.5-.1 1.1-.6 1.2-.6.1-1.3-.2-2.2 0-1 .2-1.7 1.6-4.1 1.6s-3.1-1.4-4.1-1.6c-.9-.2-1.6.1-2.2 0-.5-.1-.4-.7-.6-1.2-.6-.2-1.5-.3-2.3-.6-.5-.2-.5-.8 0-1 2-.6 3.6-2.4 3.8-4-.7-.3-1.8-.6-2.1-1.3-.2-.5.3-1 .8-.8.5.3 1.1.4 1.6.2V7.5c0-3.1 2.2-5.3 5.1-5.3Z"/></svg>',
     more: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>',
+    menu: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>',
+    home: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>',
+    grid: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
     zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
     spark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
   });
@@ -95,6 +98,7 @@
   app.innerHTML = `
     <header class="top"><div class="wrap top-in">
       <nav class="nav-links" aria-label="Navigation">
+        <button class="menu-btn" type="button" id="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer">${icon.menu}<span>Menu</span></button>
         <a href="#tuto" id="nav-tuto">${icon.play} Tuto pour commander</a>
       </nav>
       <a class="brand" href="#" aria-label="Retour à l'accueil">${logo()}<span class="brand-label">Accueil</span></a>
@@ -113,6 +117,22 @@
       <div class="wrap foot-base"><span>© ${new Date().getFullYear()} ${esc(S.name || 'Best Finds')} · ${esc(S.by || '')}</span><span>Prix indicatifs relevés sur LoveGoBuy · ils peuvent évoluer</span></div>
     </footer>
     <div class="bar" id="bar"></div>
+    <div class="drawer" id="drawer" hidden>
+      <div class="drawer-back" data-dx></div>
+      <nav class="drawer-panel" aria-label="Menu">
+        <div class="drawer-head">${logo()}<b>${esc(S.name || 'Best Finds')}</b><button class="promo-x" type="button" data-dx aria-label="Fermer le menu">${icon.close}</button></div>
+        <a class="dr-link" href="#" data-dx>${icon.home}<span>Accueil</span></a>
+        <a class="dr-link" href="#catalogue" data-dx data-cat="Tous">${icon.grid}<span>Tous les articles</span><small id="dr-n"></small></a>
+        <div class="dr-title">Catégories</div>
+        <div class="dr-cats" id="dr-cats"></div>
+        <div class="dr-title">Commander</div>
+        <a class="dr-link" href="#tuto" data-dx>${icon.play}<span>Tuto pour commander</span></a>
+        <button class="dr-link dr-gold" type="button" id="dr-promo">${icon.gift}<span>${coupon} de coupons offerts</span></button>
+        <div class="dr-title">Partager et suivre</div>
+        <button class="dr-link" type="button" id="dr-share">${icon.share}<span>Partager le site à un ami</span></button>
+        <a class="dr-link" href="${esc(S.telegram)}" target="_blank" rel="noopener">${icon.tg}<span>Canal Telegram ${esc(S.by || '')}</span>${icon.out}</a>
+      </nav>
+    </div>
     <div class="promo" id="promo" hidden>
       <div class="promo-back" data-close></div>
       <div class="promo-card" role="dialog" aria-modal="true" aria-labelledby="promo-title">
@@ -159,6 +179,38 @@
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
   document.getElementById('foot-promo').addEventListener('click', () => openPromo());
+  // ---------- menu déroulant (bouton en haut à gauche) ----------
+  const drawer = document.getElementById('drawer');
+  const menuBtn = document.getElementById('menu-btn');
+  const fillDrawer = () => {
+    const n = {}; state.articles.forEach((a) => (n[a.category] = (n[a.category] || 0) + 1));
+    document.getElementById('dr-n').textContent = state.articles.length || '';
+    document.getElementById('dr-cats').innerHTML = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires']
+      .map((c) => `<a class="dr-cat" href="#catalogue" data-dx data-cat="${esc(c)}"><span>${esc(c)}</span><small>${n[c] || 0}</small></a>`).join('');
+  };
+  const openMenu = () => {
+    fillDrawer();
+    drawer.hidden = false; document.body.classList.add('locked'); menuBtn.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(() => drawer.classList.add('on'));
+    drawer.querySelector('.dr-link')?.focus({ preventScroll: true });
+  };
+  const closeMenu = () => {
+    drawer.classList.remove('on'); document.body.classList.remove('locked'); menuBtn.setAttribute('aria-expanded', 'false');
+    setTimeout(() => { drawer.hidden = true; }, 260);
+  };
+  menuBtn.addEventListener('click', openMenu);
+  drawer.addEventListener('click', (e) => {
+    const c = e.target.closest('[data-cat]');
+    if (c) { state.cat = c.dataset.cat; state.q = ''; state.brand = ''; catScroll = 0; if (location.hash === '#catalogue') route(); }
+    if (e.target.closest('[data-dx]')) closeMenu();
+  });
+  document.getElementById('dr-promo').addEventListener('click', () => { closeMenu(); setTimeout(() => openPromo(), 120); });
+  document.getElementById('dr-share').addEventListener('click', () => { closeMenu(); setTimeout(() => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }), 120); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) closeMenu(); });
+  // glisser vers la gauche pour fermer (téléphone)
+  let dx0 = null;
+  drawer.addEventListener('pointerdown', (e) => { dx0 = e.clientX; });
+  drawer.addEventListener('pointerup', (e) => { if (dx0 != null && dx0 - e.clientX > 70) closeMenu(); dx0 = null; });
   document.getElementById('foot-share').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
   document.addEventListener('keydown', (e) => {
     if (promo.hidden) return;
