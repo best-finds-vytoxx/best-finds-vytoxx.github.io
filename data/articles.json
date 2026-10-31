@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-31T03:30:42.281Z",
+ "updatedAt": "2026-10-31T06:48:31.476Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "articles": [
@@ -18,7 +18,7 @@
    "shop": "weidian",
    "productId": "7888472404",
    "date": "2026-10-30T09:44:51+00:00",
-   "views": "255",
+   "views": "270",
    "telegram": "https://t.me/lovegobuy_france/5510",
    "photos": [
     "images/5510/1.jpg",
@@ -59,7 +59,7 @@
    "shop": "weidian",
    "productId": "7888541940",
    "date": "2026-10-30T09:42:31+00:00",
-   "views": "233",
+   "views": "246",
    "telegram": "https://t.me/lovegobuy_france/5502",
    "photos": [
     "images/5502/1.jpg",
@@ -99,7 +99,7 @@
    "shop": "weidian",
    "productId": "7888478042",
    "date": "2026-10-30T09:42:25+00:00",
-   "views": "199",
+   "views": "212",
    "telegram": "https://t.me/lovegobuy_france/5496",
    "photos": [
     "images/5496/1.jpg",
@@ -137,7 +137,7 @@
    "shop": "weidian",
    "productId": "7881113385",
    "date": "2026-10-29T15:36:09+00:00",
-   "views": "330",
+   "views": "338",
    "telegram": "https://t.me/lovegobuy_france/5490",
    "photos": [
     "images/5490/1.jpg",
@@ -163,7 +163,7 @@
   {
    "id": 5484,
    "title": "Enceinte bluetooth JBL Boombox 4 noire",
-   "brand": null,
+   "brand": "JBL",
    "category": "Électronique",
    "type": "Électronique",
    "weight": {
@@ -175,7 +175,7 @@
    "shop": "weidian",
    "productId": "7881190429",
    "date": "2026-10-29T15:36:02+00:00",
-   "views": "329",
+   "views": "337",
    "telegram": "https://t.me/lovegobuy_france/5484",
    "photos": [
     "images/5484/1.jpg",
@@ -218,7 +218,7 @@
    "shop": "weidian",
    "productId": "7881162669",
    "date": "2026-10-29T15:35:58+00:00",
-   "views": "275",
+   "views": "282",
    "telegram": "https://t.me/lovegobuy_france/5475",
    "photos": [
     "images/5475/1.jpg",
@@ -259,7 +259,7 @@
    "shop": "weidian",
    "productId": "7884228082",
    "date": "2026-10-29T15:35:50+00:00",
-   "views": "303",
+   "views": "310",
    "telegram": "https://t.me/lovegobuy_france/5467",
    "photos": [
     "images/5467/1.jpg",
@@ -298,7 +298,7 @@
    "shop": "weidian",
    "productId": "7880297647",
    "date": "2026-10-26T16:53:45+00:00",
-   "views": "660",
+   "views": "664",
    "telegram": "https://t.me/lovegobuy_france/5452",
    "photos": [
     "images/5452/1.jpg",
@@ -1227,7 +1227,12 @@
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.25,
+    0.5,
+    1,
+    0.7
+   ],
    "photoRev": 2,
    "coverSm": "images/5260/cover-sm.webp"
   },
@@ -1778,7 +1783,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5155/cover-sm.webp"
+   "coverSm": "images/5155/cover-sm.webp",
+   "dupOf": 5205
   },
   {
    "id": 5146,
@@ -2055,7 +2061,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5095/cover-sm.webp"
+   "coverSm": "images/5095/cover-sm.webp",
+   "dupOf": 5334
   },
   {
    "id": 5086,
@@ -2922,7 +2929,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4895/cover-sm.webp"
+   "coverSm": "images/4895/cover-sm.webp",
+   "dupOf": 5320
   },
   {
    "id": 4883,
@@ -3192,7 +3200,12 @@
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.06,
+    0.55,
+    0.97,
+    0.76
+   ],
    "photoRev": 2,
    "coverSm": null
   },
@@ -3232,7 +3245,12 @@
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.32,
+    0.66,
+    0.57,
+    0.84
+   ],
    "photoRev": 2,
    "coverSm": "images/4834/cover-sm.webp"
   },
@@ -3269,7 +3287,12 @@
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.4,
+    0.63,
+    0.79,
+    0.89
+   ],
    "photoRev": 2,
    "coverSm": "images/4829/cover-sm.webp"
   },
@@ -3428,7 +3451,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4796/cover-sm.webp"
+   "coverSm": "images/4796/cover-sm.webp",
+   "dupOf": 5283
   },
   {
    "id": 4787,
@@ -3668,7 +3692,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4746/cover-sm.webp"
+   "coverSm": "images/4746/cover-sm.webp",
+   "dupOf": 5326
   },
   {
    "id": 4738,
@@ -3795,12 +3820,12 @@
    "id": 4708,
    "title": "Veste / Pantalon de survêtement Palm Angels",
    "brand": "Palm Angels",
-   "category": "Hauts",
+   "category": "Ensembles",
    "weight": {
     "min": 514,
     "max": null
    },
-   "description": "Veste / Pantalon de survêtement Palm Angels : une veste sélectionnée sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 514 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "Veste / Pantalon de survêtement Palm Angels : un ensemble sélectionné sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 514 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7855123310&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7855123310",
@@ -3820,7 +3845,7 @@
    ],
    "cover": "images/4708/cover.webp",
    "addedAt": "2026-10-28T01:40:49.934Z",
-   "type": "Vestes",
+   "type": "Ensembles",
    "front": 1,
    "coverFrom": 1,
    "coverRev": 5,
@@ -7009,7 +7034,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4121/cover-sm.webp"
+   "coverSm": "images/4121/cover-sm.webp",
+   "dupOf": 4829
   },
   {
    "id": 4113,
@@ -7428,7 +7454,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4038/cover-sm.webp"
+   "coverSm": "images/4038/cover-sm.webp",
+   "dupOf": 5427
   },
   {
    "id": 4034,
@@ -7768,12 +7795,12 @@
    "id": 3973,
    "title": "Hoodies Pants Supreme",
    "brand": "Supreme",
-   "category": "Hauts",
+   "category": "Ensembles",
    "weight": {
     "min": 514,
     "max": 660
    },
-   "description": "Hoodies Pants Supreme : un sweat sélectionné sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : entre 514 g et 660 g (selon la taille ou le modèle). Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "Hoodies Pants Supreme : un ensemble sélectionné sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : entre 514 g et 660 g (selon la taille ou le modèle). Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7819087195&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7819087195",
@@ -7793,7 +7820,7 @@
    ],
    "cover": "images/3973/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Sweats",
+   "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
    "coverRev": 5,
@@ -7923,12 +7950,12 @@
    "id": 3944,
    "title": "Pants / Hoodie Ralph Lauren",
    "brand": "Ralph Lauren",
-   "category": "Bas",
+   "category": "Ensembles",
    "weight": {
     "min": 354,
     "max": 450
    },
-   "description": "Pants / Hoodie Ralph Lauren : un bas sélectionné sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : entre 354 g et 450 g (selon la taille ou le modèle). Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "Pants / Hoodie Ralph Lauren : un ensemble sélectionné sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : entre 354 g et 450 g (selon la taille ou le modèle). Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7820748672&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7820748672",
@@ -7948,7 +7975,7 @@
    ],
    "cover": "images/3944/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
-   "type": "Bas",
+   "type": "Ensembles",
    "coverFrom": 1,
    "front": 1,
    "coverRev": 5,
@@ -9399,15 +9426,20 @@
     "images/3724/4.jpg"
    ],
    "cover": "images/3724/cover.webp",
-   "coverFrom": 1,
-   "front": 1,
+   "coverFrom": 4,
+   "front": 4,
    "coverRev": 5,
-   "coverPick": null,
+   "coverPick": 4,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.304Z",
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.36,
+    0.63,
+    0.82,
+    0.77
+   ],
    "photoRev": 2,
    "coverSm": "images/3724/cover-sm.webp"
   },
@@ -9522,7 +9554,12 @@
    "addedAt": "2026-10-28T14:02:15.305Z",
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.18,
+    0.56,
+    0.64,
+    0.93
+   ],
    "photoRev": 2,
    "coverSm": "images/3705/cover-sm.webp"
   },
@@ -9791,13 +9828,13 @@
    "id": 3662,
    "title": "Under Armour t-shirt shorts suit",
    "brand": "Under Armour",
-   "category": "Hauts",
-   "type": "Hauts",
+   "category": "Ensembles",
+   "type": "Ensembles",
    "weight": {
     "min": 322,
     "max": null
    },
-   "description": "Under Armour t-shirt shorts suit : un haut sélectionné sur le canal. Les 6 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 322 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "Under Armour t-shirt shorts suit : un ensemble sélectionné sur le canal. Les 6 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 322 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7799542993&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7799542993",
@@ -10300,7 +10337,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3586/cover-sm.webp"
+   "coverSm": "images/3586/cover-sm.webp",
+   "dupOf": 4113
   },
   {
    "id": 3581,
@@ -10786,13 +10824,13 @@
    "id": 3518,
    "title": "Short / Tee Maison Margiela",
    "brand": "Maison Margiela",
-   "category": "Bas",
-   "type": "Bas",
+   "category": "Ensembles",
+   "type": "Ensembles",
    "weight": {
     "min": 462,
     "max": null
    },
-   "description": "Short / Tee Maison Margiela : un bas sélectionné sur le canal. Les 4 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 462 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "Short / Tee Maison Margiela : un ensemble sélectionné sur le canal. Les 4 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 462 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7807387016&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7807387016",
@@ -11008,13 +11046,13 @@
    "id": 3484,
    "title": "T-shirt / Shorts CB Cole Buxton",
    "brand": "Cole Buxton",
-   "category": "Hauts",
-   "type": "Hauts",
+   "category": "Ensembles",
+   "type": "Ensembles",
    "weight": {
     "min": 458,
     "max": null
    },
-   "description": "T-shirt / Shorts CB Cole Buxton : un haut sélectionné sur le canal. Les 4 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 458 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "T-shirt / Shorts CB Cole Buxton : un ensemble sélectionné sur le canal. Les 4 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 458 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7804144511&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7804144511",
@@ -11156,13 +11194,13 @@
    "id": 3462,
    "title": "T-shirt / Shorts C.P. Company",
    "brand": "C.P. Company",
-   "category": "Hauts",
-   "type": "Hauts",
+   "category": "Ensembles",
+   "type": "Ensembles",
    "weight": {
     "min": 156,
     "max": 228
    },
-   "description": "T-shirt / Shorts C.P. Company : un haut sélectionné sur le canal. Les 6 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : entre 156 g et 228 g (selon la taille ou le modèle). Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "T-shirt / Shorts C.P. Company : un ensemble sélectionné sur le canal. Les 6 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : entre 156 g et 228 g (selon la taille ou le modèle). Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7806530490&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7806530490",
@@ -11333,7 +11371,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3437/cover-sm.webp"
+   "coverSm": "images/3437/cover-sm.webp",
+   "dupOf": 5146
   },
   {
    "id": 3417,
@@ -11484,7 +11523,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3400/cover-sm.webp"
+   "coverSm": "images/3400/cover-sm.webp",
+   "dupOf": 4638
   },
   {
    "id": 3394,
@@ -11852,7 +11892,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3345/cover-sm.webp"
+   "coverSm": "images/3345/cover-sm.webp",
+   "dupOf": 3685
   },
   {
    "id": 3339,
@@ -11890,7 +11931,8 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3339/cover-sm.webp"
+   "coverSm": "images/3339/cover-sm.webp",
+   "dupOf": 3662
   },
   {
    "id": 3331,
@@ -11968,7 +12010,12 @@
    "addedAt": "2026-10-28T14:14:42.510Z",
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.13,
+    0.18,
+    0.54,
+    0.96
+   ],
    "photoRev": 2,
    "coverSm": "images/3264/cover-sm.webp"
   }
