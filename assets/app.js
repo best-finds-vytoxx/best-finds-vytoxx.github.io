@@ -417,15 +417,11 @@
           <source media="(max-width: 1100px)" srcset="${IMG.bannerMid}">
           <img src="${IMG.banner}" alt="${esc(S.name || '')} — le panda Vytoxx devant ses colis LoveGoBuy" fetchpriority="high">
         </picture>
+        <div class="wrap banner-tools"><button class="share-top" type="button" id="share-site">${icon.share}<span>Partager le site</span></button></div>
       </section>
-      <div class="wrap hero-cta">
-        <a class="buy" href="#catalogue">Voir tous les articles ${icon.right}</a>
-        <a class="sub" href="#tuto">${icon.play} Tuto pour commander</a>
-        <button class="sub" type="button" id="share-site">${icon.share} Partager le site</button>
-      </div>
 
       ${catList.length ? `<section class="wrap block reveal">
-        <div class="block-head"><h2>Catégories</h2></div>
+        <div class="block-head"><h2>Catégories</h2><a class="all-pill" href="#catalogue">Voir tous les articles ${icon.right}</a></div>
         <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}" data-c="${esc(c)}">
           <span class="cat-pic">${v.pics.map((src, k) => img(src, '', `p${k}`)).join('')}</span>
           <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
