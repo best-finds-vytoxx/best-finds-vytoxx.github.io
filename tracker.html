@@ -44,6 +44,8 @@
   .lock-card p { margin: 0; color: var(--ink-2); font-size: 14px; }
   .lock-card input { height: 48px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, .8); background: rgba(255, 255, 255, .6); padding: 0 16px; font: 500 16px var(--f-body); color: var(--ink); text-align: center; }
   .lock-card input:focus { outline: 2px solid var(--gold-2); }
+  .back { justify-self: center; padding: 8px 12px; border-radius: 12px; color: var(--ink-2); font: 600 14px var(--f-body); text-decoration: none; }
+  .back:hover { background: rgba(255, 255, 255, .5); color: var(--ink); }
   .lock-err { color: var(--bad); font-size: 13px; min-height: 18px; }
   .btn { height: 46px; border: 0; border-radius: 14px; cursor: pointer; font: 600 15px var(--f-body); color: #fff; background: var(--navy);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 10px 22px -12px rgba(30, 42, 68, .8); display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 18px; }
@@ -138,6 +140,7 @@
     <input type="password" id="pw" placeholder="Mot de passe" aria-label="Mot de passe" autocomplete="current-password" required>
     <div class="lock-err" id="lock-err"></div>
     <button class="btn" type="submit">Ouvrir le tracker</button>
+    <a class="back" href="./" id="back">← Retour au site</a>
   </form>
 </section>
 
@@ -250,6 +253,10 @@
   const frDay = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 
   // ---------- verrou ----------
+  // arrivé ici par erreur : « Retour au site » revient là où on était (ou à l'accueil)
+  $('back').addEventListener('click', (e) => {
+    if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); }
+  });
   const ub = (t) => Uint8Array.from(atob(t), (c) => c.charCodeAt(0));
   const S = crypto.subtle;
   let priv = null;
@@ -370,13 +377,16 @@
   $('relock').addEventListener('click', async () => { safe(() => localStorage.removeItem('vx-token')); await idb('readwrite', (st) => st.delete('priv')); location.reload(); });
 
   // ---------- graphiques ----------
+  const HAS_CHART = typeof window.Chart !== 'undefined'; // si les graphiques ne chargent pas, les chiffres restent visibles
+  if (HAS_CHART) {
   Chart.defaults.font.family = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif';
   Chart.defaults.font.size = 13;
   Chart.defaults.color = '#474e5c';
+  }
   const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const tooltip = { backgroundColor: 'rgba(31,37,51,.92)', padding: 10, cornerRadius: 10, titleFont: { weight: '600' }, bodyFont: { size: 13 }, displayColors: true, boxPadding: 4 };
   const charts = {};
-  function chart(id, cfg) { if (charts[id]) charts[id].destroy(); charts[id] = new Chart($(id), cfg); }
+  function chart(id, cfg) { if (!HAS_CHART) return; if (charts[id]) charts[id].destroy(); charts[id] = new Chart($(id), cfg); }
   // valeurs écrites au bout des barres (plus besoin de deviner sur l'axe)
   const valueLabels = {
     id: 'valueLabels',
@@ -395,7 +405,7 @@
       ctx.restore();
     },
   };
-  Chart.register(valueLabels);
+  if (HAS_CHART) Chart.register(valueLabels);
   const gridOpts = { color: 'rgba(31,37,51,.07)', drawTicks: false };
   // courbe douce avec un dégradé dessous (au lieu de barres)
   const fade = (hex, a) => { const n = parseInt(hex.replace('#', ''), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
