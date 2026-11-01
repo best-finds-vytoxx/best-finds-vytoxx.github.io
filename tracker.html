@@ -58,14 +58,17 @@
   .top-in { max-width: 1180px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .brand { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; color: inherit; }
   .brand img { width: 38px; height: 38px; border-radius: 11px; }
+  .brand { display: block; }
   .brand b { display: block; font: 700 18px/1 var(--f-display); letter-spacing: -.02em; }
   .brand small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; }
   .refresh .spin { width: 16px; height: 16px; }
-  .homebtn { height: 46px; padding: 0 14px 0 10px; border-radius: 14px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; color: var(--ink); font: 600 14.5px var(--f-body);
-    background: rgba(255, 255, 255, .55); box-shadow: inset 0 1px 0 #fff, 0 6px 14px -10px rgba(80, 45, 15, .5); }
-  .homebtn svg { width: 20px; height: 20px; }
-  .homebtn:hover { background: rgba(255, 255, 255, .8); }
-  @media (max-width: 520px) { .homebtn { width: 46px; padding: 0; justify-content: center; } .homebtn span { display: none; } }
+  /* même icône que l'accueil du site : le panda rond et « ACCUEIL » dessous */
+  .home { display: grid; justify-items: center; gap: 3px; text-decoration: none; flex: none; }
+  .home img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(40, 36, 28, .16)); }
+  .home span { font: 600 10px/1 var(--f-label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+  .home:hover img { animation: wiggle .6s ease; }
+  @keyframes wiggle { 30% { transform: rotate(-10deg); } 60% { transform: rotate(8deg); } }
+  @media (max-width: 520px) { .home img { width: 38px; height: 38px; } .home span { font-size: 9px; } }
   .lockbtn { width: 46px; height: 46px; border-radius: 14px; border: 0; cursor: pointer; color: var(--ink); background: rgba(255, 255, 255, .55); box-shadow: inset 0 1px 0 #fff, 0 6px 14px -10px rgba(80, 45, 15, .5); display: grid; place-items: center; }
   .lockbtn svg { width: 18px; height: 18px; }
   .refresh.busy .spin { animation: spin .9s linear infinite; }
@@ -160,8 +163,8 @@
 <div id="app" hidden>
   <header class="top">
     <div class="top-in">
-      <a class="homebtn" href="./" title="Retour au site" aria-label="Retour à l’accueil du site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Site</span></a>
-      <a class="brand" href="./"><img src="assets/img/app-icon-180.png" alt=""><span><b>Tracker Vytoxx</b><small id="updated">—</small></span></a>
+      <a class="home" href="./" title="Retour à l’accueil du site" aria-label="Retour à l’accueil du site"><img src="assets/img/logo.webp" alt=""><span>Accueil</span></a>
+      <div class="brand"><b>Tracker Vytoxx</b><small id="updated">—</small></div>
       <button class="btn refresh" id="refresh" type="button" title="Actualiser les chiffres">
         <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>
         <span>Actualiser</span>
