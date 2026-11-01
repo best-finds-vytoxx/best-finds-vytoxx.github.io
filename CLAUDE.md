@@ -41,10 +41,10 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   délais 3–7 j + 6–18 j ; prix optimaux 500 g–5 kg, le volume compte ; remboursement 8 j / 5 j, sur le solde ; stockage 60 j ;
   ligne la moins chère entre LoveGoBuy EU, DHL, DPD ; suivi : Colis › Détails › numéro de suivi, puis AfterShip en Europe). Jamais : taxe 2 €/article, 1.1, rep, Vinted, Hacoo, noms de helpers.
   Groupe de discussion : `chat` dans `assets/config.js` (t.me/LoveGoBuy_fr).
-- Statistiques : le site incrémente des compteurs anonymes par jour (`stat()` dans app.js, clés `dAAAAMMJJ-<code>` sur
-  abacus) ; `scripts/stats.mjs` les relève à chaque passage et les écrit CHIFFRÉES (un bloc par jour, RSA-OAEP + AES-GCM
-  avec la clé publique `scripts/stats-key.json`) dans `stats.enc.json` sur la branche `stats`. Le robot ne peut pas relire.
+- Statistiques : compteur privé Cloudflare (`cloudflare/worker.js`, base D1 « vytoxx-stats », secrets PASS et KEY,
+  compte Cloudflare de Léonard) à l'adresse `statsUrl` de `assets/config.js`. Le site envoie des compteurs anonymes
+  (`stat()` dans app.js → POST /hit, codes listés dans worker.js) ; seul le tracker connecté les lit (POST /login → jeton
+  90 jours, GET /stats). Le Worker se modifie dans le tableau de bord Cloudflare (Edit code), pas depuis GitHub.
   Tracker de Léonard : `tracker.html` (noindex), ouvert par une zone invisible sous « Canal Telegram » dans le menu
-  (`.dr-secret`). La clé privée y est chiffrée par le mot de passe (PBKDF2 600 000 + AES-GCM, `VAULT`), puis gardée
-  non exportable dans IndexedDB de l'appareil. Changer le mot de passe = régénérer la paire de clés (les anciens jours
-  deviennent illisibles). Bouton Actualiser : fichier chiffré + compteurs du jour en direct. Chart.js 4.4.1 (cdnjs).
+  (`.dr-secret`). Bouton Actualiser = lecture en direct. Chart.js 4.4.1 (cdnjs). Le « Top du moment » reste sur abacus
+  (clics par article, public par nature puisqu'affiché sur le site).

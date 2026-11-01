@@ -9,4 +9,4 @@ Mise en place (tableau de bord Cloudflare, compte gratuit) :
    remplacer tout le code par `worker.js`, Deploy.
 3. Worker > Settings > Bindings > Add > D1 database : nom de variable `DB`, base `vytoxx-stats`.
 4. Worker > Settings > Variables and Secrets > Add, type Secret : `PASS` (mot de passe du tracker) et `KEY` (phrase aléatoire longue).
-5. Mettre l'adresse du Worker (https://vytoxx-stats.<compte>.workers.dev) dans `statsUrl` de `assets/config.js`.
+5. Adresse du Worker : https://vytoxx-stats.jean-plouy59.workers.dev (dans `statsUrl` de `assets/config.js`).
