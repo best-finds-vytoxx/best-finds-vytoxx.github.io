@@ -6,7 +6,14 @@ const ORIGINS = ['https://best-finds-vytoxx.github.io', 'http://localhost:8765']
 const CODES = new Set(['s', 'v', 'n', 'o', 'b', 'sh', 'po', 'p', 'q', 'app', 'mob', 'pc', 'rtg', 'rig', 'rsc', 'rtt', 'rwa', 'rweb', 'rdir']);
 const enc = new TextEncoder();
 const b64u = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-const today = () => new Date().toISOString().slice(0, 10);
+// jour et heure à l'heure de Paris
+const paris = () => {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hourCycle: 'h23' })
+    .formatToParts(new Date()).map((x) => [x.type, x.value]));
+  return { day: `${p.year}-${p.month}-${p.day}`, hour: Number(p.hour) };
+};
+const today = () => paris().day;
+const isDay = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d || '');
 
 function cors(req) {
   const o = req.headers.get('Origin') || '';
@@ -31,6 +38,7 @@ async function tokenOk(env, req) {
 async function setup(env) {
   await env.DB.batch([
     env.DB.prepare('CREATE TABLE IF NOT EXISTS c (day TEXT NOT NULL, k TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, k))'),
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS h (day TEXT NOT NULL, hour INTEGER NOT NULL, k TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, hour, k))'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS fails (ip TEXT NOT NULL, hour TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (ip, hour))'),
   ]);
 }
@@ -48,8 +56,11 @@ export default {
         try { body = JSON.parse(await req.text()); } catch {}
         const ks = [...new Set([].concat(body.k || []))].filter((k) => CODES.has(k)).slice(0, 8);
         if (!ks.length) return json(req, { ok: false }, 400);
-        const d = today();
-        const run = () => env.DB.batch(ks.map((k) => env.DB.prepare('INSERT INTO c (day, k, n) VALUES (?1, ?2, 1) ON CONFLICT(day, k) DO UPDATE SET n = n + 1').bind(d, k)));
+        const { day: d, hour } = paris();
+        const run = () => env.DB.batch(ks.flatMap((k) => [
+          env.DB.prepare('INSERT INTO c (day, k, n) VALUES (?1, ?2, 1) ON CONFLICT(day, k) DO UPDATE SET n = n + 1').bind(d, k),
+          env.DB.prepare('INSERT INTO h (day, hour, k, n) VALUES (?1, ?2, ?3, 1) ON CONFLICT(day, hour, k) DO UPDATE SET n = n + 1').bind(d, hour, k),
+        ]));
         try { await run(); } catch { await setup(env); await run(); }
         return json(req, { ok: true });
       }
@@ -77,7 +88,15 @@ export default {
         const days = {};
         for (const r of results) (days[r.day] ||= { date: r.day })[r.k] = r.n;
         const first = results.length ? results[0].day : today();
-        return json(req, { ok: true, now: new Date().toISOString(), since: first, days: Object.values(days) });
+        // heure par heure sur la période demandée (au plus 93 jours)
+        let from = url.searchParams.get('from'), to = url.searchParams.get('to') || today();
+        if (!isDay(from)) from = to;
+        if (!isDay(to)) to = today();
+        if ((Date.parse(to) - Date.parse(from)) / 864e5 > 92) from = new Date(Date.parse(to) - 92 * 864e5).toISOString().slice(0, 10);
+        const hr = (await env.DB.prepare('SELECT day, hour, k, n FROM h WHERE day >= ?1 AND day <= ?2 ORDER BY day, hour').bind(from, to).all()).results;
+        const hours = {};
+        for (const r of hr) (hours[`${r.day} ${r.hour}`] ||= { date: r.day, h: r.hour })[r.k] = r.n;
+        return json(req, { ok: true, now: new Date().toISOString(), today: today(), since: first, days: Object.values(days), hours: Object.values(hours) });
       }
       return json(req, { ok: true, service: 'compteur Vytoxx' });
     } catch (e) {

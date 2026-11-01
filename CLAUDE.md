@@ -46,5 +46,6 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   (`stat()` dans app.js → POST /hit, codes listés dans worker.js) ; seul le tracker connecté les lit (POST /login → jeton
   90 jours, GET /stats). Le Worker se modifie dans le tableau de bord Cloudflare (Edit code), pas depuis GitHub.
   Tracker de Léonard : `tracker.html` (noindex), ouvert par une zone invisible sous « Canal Telegram » dans le menu
-  (`.dr-secret`). Bouton Actualiser = lecture en direct. Chart.js 4.4.1 (cdnjs). Le « Top du moment » reste sur abacus
+  (`.dr-secret`). Bouton Actualiser = lecture en direct. Jours et heures à l'heure de Paris (table `h` : heure par heure).
+  Graphiques dans le temps en courbes. « Articles les plus cliqués » = même calcul que le Top du moment du site. Chart.js 4.4.1 (cdnjs). Le « Top du moment » reste sur abacus
   (clics par article, public par nature puisqu'affiché sur le site).

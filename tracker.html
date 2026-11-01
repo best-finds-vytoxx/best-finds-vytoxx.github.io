@@ -93,6 +93,10 @@
   .card .note { margin: 4px 0 12px; font-size: 13px; color: var(--muted); }
   .chart { position: relative; height: 280px; }
   .chart.sm { height: 230px; }
+  .h-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; justify-content: space-between; }
+  .seg.mini button { height: 32px; padding: 0 11px; font-size: 13px; }
+  @media (max-width: 520px) { .seg.mini { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); overflow: visible; } .seg.mini button { padding: 0 4px; font-size: 12px; white-space: normal; line-height: 1.1; height: 36px; } }
+  #peak { margin: 10px 0 0; } #peak b { color: var(--ink); }
   .rates { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
   .rate { padding: 7px 12px; border-radius: 99px; background: rgba(255, 255, 255, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8); font-size: 13px; color: var(--ink-2); }
   .rate b { color: var(--ink); font-family: var(--f-display); }
@@ -180,6 +184,19 @@
         <p class="note" id="note-days">Chaque jour de la période. Touche une barre pour le détail.</p>
         <div class="chart"><canvas id="c-days"></canvas></div>
       </div>
+      <div class="card glass wide" id="hours-card">
+        <div class="h-head">
+          <div><h2>Heure par heure</h2><p class="note" id="note-hours">—</p></div>
+          <div class="seg glass mini" role="group" aria-label="Mesure">
+            <button type="button" data-m="v" aria-pressed="true">Visiteurs</button>
+            <button type="button" data-m="s">Visites</button>
+            <button type="button" data-m="o">Fiches</button>
+            <button type="button" data-m="b">Clics LoveGoBuy</button>
+          </div>
+        </div>
+        <div class="chart"><canvas id="c-hours"></canvas></div>
+        <p class="note" id="peak"></p>
+      </div>
       <div class="card glass">
         <h2>Parcours des visiteurs</h2>
         <p class="note">Sur la période : combien vont jusqu'au bout.</p>
@@ -228,7 +245,7 @@
   const fmt = (n) => Math.round(n).toLocaleString('fr-FR');
   const pct = (a, b) => (b ? `${Math.round((a / b) * 100)} %` : '—');
   const iso = (d) => d.toISOString().slice(0, 10);
-  const today = () => iso(new Date());
+  const today = () => { const d = new Date(); return iso(new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))); };
   const addDays = (s, k) => iso(new Date(Date.parse(s + 'T00:00:00Z') + k * 864e5));
   const frDay = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 
@@ -272,6 +289,8 @@
   }
 
   // ---------- données ----------
+  let hours = [], hoursRange = '', metric = 'v';
+  let dups = new Map();
   let stats = { days: [] }, clicks = { history: [] }, arts = new Map(), live = null, loadedAt = null;
   const getJson = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
   async function liveToday() {
@@ -287,12 +306,12 @@
     const btn = $('refresh'); btn.classList.add('busy'); btn.disabled = true;
     if (PRIV) {
       const [r, c, a] = await Promise.all([
-        fetch(`${PRIV}/stats?t=${Date.now()}`, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }).then((x) => x.json()).catch(() => null),
+        fetch(`${PRIV}/stats?from=${range()[0]}&to=${range()[1]}&t=${Date.now()}`, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }).then((x) => x.json()).catch(() => null),
         getJson(`data/clicks.json?t=${Date.now()}`), getJson(`data/articles.json?t=${Date.now()}`)]);
       if (r && r.error === 'Connexion expirée.') { safe(() => localStorage.removeItem('vx-token')); location.reload(); return; }
-      if (r && r.ok) stats = { since: r.since, days: r.days };
+      if (r && r.ok) { stats = { since: r.since, days: r.days }; hours = r.hours || []; hoursRange = range().join(' '); }
       if (c) clicks = c;
-      if (a) arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x]));
+      if (a) { arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x])); dups = new Map((a.articles || []).filter((x) => x.dupOf).map((x) => [x.id, x.dupOf])); }
       live = null; loadedAt = new Date();
       $('warn').textContent = r && r.ok ? '' : 'Impossible de joindre le compteur pour l’instant. Réessaie dans un moment.';
       $('warn').classList.toggle('on', !(r && r.ok));
@@ -307,7 +326,7 @@
       stats = { since: s.since, updatedAt: s.updatedAt, days: days.filter(Boolean) };
     }
     if (c) clicks = c;
-    if (a) arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x]));
+    if (a) { arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x])); dups = new Map((a.articles || []).filter((x) => x.dupOf).map((x) => [x.id, x.dupOf])); }
     live = l;
     loadedAt = new Date();
     const w = [];
@@ -342,10 +361,11 @@
   }
   document.querySelectorAll('.seg [data-p]').forEach((b) => b.addEventListener('click', () => {
     period = b.dataset.p; try { localStorage.setItem('vx-period', period); } catch {}
-    if (period === 'custom' && !$('from').value) { $('to').value = today(); $('from').value = addDays(today(), -13); }
-    render();
+    if (period === 'custom' && !$('from').value) { $('to').value = today(); $('from').value = today(); }
+    render(); if (PRIV && range().join(' ') !== hoursRange) load();
   }));
-  ['from', 'to'].forEach((id) => $(id).addEventListener('change', render));
+  ['from', 'to'].forEach((id) => $(id).addEventListener('change', () => { render(); if (PRIV && range().join(' ') !== hoursRange) load(); }));
+  document.querySelectorAll('[data-m]').forEach((b) => b.addEventListener('click', () => { metric = b.dataset.m; render(); }));
   $('refresh').addEventListener('click', load);
   $('relock').addEventListener('click', async () => { safe(() => localStorage.removeItem('vx-token')); await idb('readwrite', (st) => st.delete('priv')); location.reload(); });
 
@@ -377,6 +397,20 @@
   };
   Chart.register(valueLabels);
   const gridOpts = { color: 'rgba(31,37,51,.07)', drawTicks: false };
+  // courbe douce avec un dégradé dessous (au lieu de barres)
+  const fade = (hex, a) => { const n = parseInt(hex.replace('#', ''), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+  const curve = (label, data, color, fill = true, dashed = false) => ({
+    type: 'line', label, data, borderColor: color, borderWidth: 3, tension: .38, cubicInterpolationMode: 'monotone',
+    pointRadius: data.length > 16 ? 0 : 3.5, pointHoverRadius: 6, pointBackgroundColor: '#fff', pointBorderColor: color, pointBorderWidth: 2,
+    borderDash: dashed ? [6, 5] : [], fill: fill ? 'origin' : false,
+    backgroundColor: (ctx) => { const a = ctx.chart.chartArea; if (!a) return fade(color, .15); const g = ctx.chart.ctx.createLinearGradient(0, a.top, 0, a.bottom); g.addColorStop(0, fade(color, .28)); g.addColorStop(1, fade(color, 0)); return g; },
+  });
+  const lineOpts = (n, extra = {}) => ({
+    maintainAspectRatio: false, animation: { duration: 500 }, interaction: { mode: 'index', intersect: false }, layout: { padding: { top: 14 } },
+    scales: { x: { grid: { display: false }, border: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: innerWidth < 520 ? 6 : 12 } },
+      y: { beginAtZero: true, grace: '8%', grid: gridOpts, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5, padding: 8 } } },
+    plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyle: 'circle', boxWidth: 8, padding: 16, font: { weight: '600' } } }, tooltip, ...extra },
+  });
 
   function hbar(id, labels, values, colors, fmtFn) {
     chart(id, {
@@ -417,20 +451,32 @@
 
     // visiteurs et visites par jour
     chart('c-days', {
-      data: {
-        labels: cur.map((d) => frDay(d.date)),
-        datasets: [
-          { type: 'bar', label: 'Visiteurs', data: cur.map((d) => Number(d.v) || 0), backgroundColor: css('--c1'), borderRadius: 7, maxBarThickness: 38, order: 2 },
-          { type: 'line', label: 'Visites', data: cur.map((d) => Number(d.s) || 0), borderColor: css('--c2'), backgroundColor: css('--c2'), borderWidth: 3, pointRadius: cur.length > 20 ? 0 : 4, pointHoverRadius: 6, tension: 0, order: 1 },
-        ],
-      },
-      options: {
-        maintainAspectRatio: false, animation: { duration: 500 }, interaction: { mode: 'index', intersect: false },
-        layout: { padding: { top: 18 } },
-        scales: { x: { grid: { display: false }, border: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } },
-          y: { beginAtZero: true, grid: gridOpts, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5, padding: 8 } } },
-        plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyle: 'rectRounded', boxWidth: 10, padding: 16, font: { weight: '600' } } }, tooltip, valueLabels: { on: cur.length <= 14 } },
-      },
+      type: 'line',
+      data: { labels: cur.map((d) => frDay(d.date)), datasets: [curve('Visiteurs', cur.map((d) => Number(d.v) || 0), css('--c1')), curve('Visites', cur.map((d) => Number(d.s) || 0), css('--c2'), false, true)] },
+      options: lineOpts(cur.length),
+    });
+
+    // heure par heure : un jour = ses 24 heures ; plusieurs jours = total de chaque heure sur la période
+    document.querySelectorAll('[data-m]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === metric)));
+    const names = { v: 'Visiteurs', s: 'Visites', o: 'Fiches ouvertes', b: 'Clics LoveGoBuy' };
+    const perHour = Array(24).fill(0);
+    for (const r of hours) if (r.date >= from && r.date <= to) perHour[r.h] += Number(r[metric]) || 0;
+    const nowH = new Date().getHours();
+    const isToday = from === to && to === today();
+    const shown = isToday ? perHour.slice(0, nowH + 1) : perHour;
+    $('note-hours').textContent = from === to
+      ? `${names[metric]} à chaque heure${isToday ? ' aujourd’hui (jusqu’à maintenant)' : ` le ${frDay(from)}`}, heure de Paris. « Dates… » pour choisir un autre jour.`
+      : `${names[metric]} par heure de la journée, additionnés sur toute la période (heure de Paris). Pour un seul jour : « Aujourd’hui » ou « Dates… » avec la même date deux fois.`;
+    const hTot = shown.reduce((t, v) => t + v, 0);
+    const peak = shown.indexOf(Math.max(...shown));
+    $('peak').innerHTML = hTot ? `Heure la plus active : <b>${peak} h – ${peak + 1} h</b> (${fmt(shown[peak])} ${({ v: 'visiteurs', s: 'visites', o: 'fiches ouvertes', b: 'clics LoveGoBuy' })[metric]}, ${pct(shown[peak], hTot)} du total).` : 'Pas encore de données pour cette période.';
+    const hc = metric === 'b' ? css('--c2') : metric === 'o' ? css('--c3') : css('--c1');
+    const ds = curve(names[metric], shown, hc);
+    ds.pointRadius = shown.map((_, h) => (hTot && h === peak ? 6 : 0)); ds.pointBackgroundColor = hc;
+    chart('c-hours', {
+      type: 'line',
+      data: { labels: shown.map((_, h) => `${h} h`), datasets: [ds] },
+      options: lineOpts(shown.length, { legend: { display: false }, tooltip: { ...tooltip, displayColors: false, callbacks: { title: (it) => `${it[0].dataIndex} h – ${it[0].dataIndex + 1} h` } } }),
     });
 
     // parcours
@@ -456,23 +502,25 @@
     hist.forEach((h, i) => { if (i) perDay.set(h.date, Math.max(0, tot(h) - tot(hist[i - 1]))); });
     const cd = [...perDay.entries()].filter(([d]) => d >= from && d <= to);
     chart('c-clicks', {
-      type: 'bar',
-      data: { labels: cd.map(([d]) => frDay(d)), datasets: [{ label: 'Clics produits', data: cd.map(([, n]) => n), backgroundColor: css('--c2'), borderRadius: 7, maxBarThickness: 38 }] },
-      options: {
-        maintainAspectRatio: false, animation: { duration: 500 }, layout: { padding: { top: 18 } },
-        scales: { x: { grid: { display: false }, border: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }, y: { beginAtZero: true, grid: gridOpts, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5, padding: 8 } } },
-        plugins: { legend: { display: false }, tooltip, valueLabels: { on: cd.length <= 14 } },
-      },
+      type: 'line',
+      data: { labels: cd.map(([d]) => frDay(d)), datasets: [curve('Clics produits', cd.map(([, n]) => n), css('--c2'))] },
+      options: lineOpts(cd.length, { legend: { display: false } }),
     });
 
-    // articles les plus cliqués sur la période : total à la fin - total juste avant le début
+    // articles les plus cliqués : même source et même calcul que le « Top du moment » du site
+    // (fiches ouvertes + clics LoveGoBuy, une fois par personne et par jour ; un doublon compte pour l'article gardé)
+    const list = $('top-list'); list.replaceChildren();
     const end = [...hist].reverse().find((h) => h.date <= to);
     const base = [...hist].reverse().find((h) => h.date < from);
-    const list = $('top-list'); list.replaceChildren();
-    if (!end) { list.innerHTML = '<div class="empty">Pas encore de clics relevés pour cette période.</div>'; return; }
-    const counts = Object.entries(end.totals || {}).map(([id, n]) => [Number(id), (Number(n) || 0) - (Number(base?.totals?.[id]) || 0)])
-      .filter(([id, n]) => n > 0 && arts.has(id)).sort((a, b) => b[1] - a[1]).slice(0, 15);
-    $('note-top').textContent = base ? 'Fiches ouvertes et clics LoveGoBuy sur la période.' : 'Fiches ouvertes et clics LoveGoBuy depuis le début du relevé (le 28 octobre).';
+    let raw;
+    if (period === '30' && clicks.period) raw = clicks.period; // exactement le classement affiché sur le site
+    else if (end) raw = Object.fromEntries(Object.entries(end.totals || {}).map(([id, n]) => [id, (Number(n) || 0) - (Number(base?.totals?.[id]) || 0)]));
+    if (!raw) { list.innerHTML = '<div class="empty">Pas encore de clics relevés pour cette période.</div>'; return; }
+    const merged = new Map();
+    for (const [k, n] of Object.entries(raw)) { const id = dups.get(Number(k)) || Number(k); if (n > 0) merged.set(id, (merged.get(id) || 0) + Number(n)); }
+    const counts = [...merged.entries()].filter(([id]) => arts.has(id)).sort((x, y) => y[1] - x[1]).slice(0, 15);
+    $('note-top').textContent = period === '30' ? 'Exactement le classement « Top du moment » du site (30 derniers jours).'
+      : base ? 'Même calcul que le « Top du moment » du site, sur la période choisie.' : 'Même calcul que le « Top du moment » du site, depuis le début du relevé (28 octobre).';
     if (!counts.length) { list.innerHTML = '<div class="empty">Aucun clic sur un article pendant cette période.</div>'; return; }
     const max = counts[0][1];
     counts.forEach(([id, n], i) => {
