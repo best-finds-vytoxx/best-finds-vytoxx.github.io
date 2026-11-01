@@ -4,3 +4,4 @@ _site/
 models/
 scrape.log
 data/stats.json
+data/stats.enc.json

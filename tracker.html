@@ -59,6 +59,8 @@
   .brand b { display: block; font: 700 18px/1 var(--f-display); letter-spacing: -.02em; }
   .brand small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; }
   .refresh .spin { width: 16px; height: 16px; }
+  .lockbtn { width: 46px; height: 46px; border-radius: 14px; border: 0; cursor: pointer; color: var(--ink); background: rgba(255, 255, 255, .55); box-shadow: inset 0 1px 0 #fff, 0 6px 14px -10px rgba(80, 45, 15, .5); display: grid; place-items: center; }
+  .lockbtn svg { width: 18px; height: 18px; }
   .refresh.busy .spin { animation: spin .9s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -143,6 +145,7 @@
         <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>
         <span>Actualiser</span>
       </button>
+      <button class="lockbtn" id="relock" type="button" title="Verrouiller sur cet appareil" aria-label="Verrouiller"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
     </div>
   </header>
 
@@ -211,11 +214,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 (() => {
-  // Empreinte SHA-256 du mot de passe (le mot de passe lui-même n'est pas dans la page)
-  const PASS = '297b4d04afe84514adc72039c7bc18ec2c21409174ee4d862248c38628a06925';
+  // Clé privée chiffrée avec le mot de passe (PBKDF2 600 000 tours + AES-GCM) : sans le mot de passe, ni la page
+  // ni le fichier des statistiques (chiffré par le robot avec la clé publique) ne révèlent rien.
+  const VAULT = {"salt": "D1XgbcZBuCJVxlKuW0bndg==", "iv": "vfZq3XHkpr9IREfP", "it": 600000, "data": "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"};
   const NS = 'bestfinds-vytoxx';
   const API = 'https://abacus.jasoncameron.dev';
-  const STATS = 'https://raw.githubusercontent.com/best-finds-vytoxx/best-finds-vytoxx.github.io/stats/stats.json';
+  const STATS = 'https://raw.githubusercontent.com/best-finds-vytoxx/best-finds-vytoxx.github.io/stats/stats.enc.json';
   const KEYS = ['s', 'v', 'n', 'o', 'b', 'sh', 'po', 'p', 'q', 'app', 'mob', 'pc', 'rtg', 'rig', 'rsc', 'rtt', 'rwa', 'rweb', 'rdir'];
   const $ = (id) => document.getElementById(id);
   let started = false;
@@ -228,13 +232,34 @@
   const frDay = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
 
   // ---------- verrou ----------
-  const sha = async (t) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map((b) => b.toString(16).padStart(2, '0')).join('');
+  const ub = (t) => Uint8Array.from(atob(t), (c) => c.charCodeAt(0));
+  const S = crypto.subtle;
+  let priv = null;
+  async function unlock(pw) {
+    const base = await S.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    const k = await S.deriveKey({ name: 'PBKDF2', salt: ub(VAULT.salt), iterations: VAULT.it, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const pk8 = await S.decrypt({ name: 'AES-GCM', iv: ub(VAULT.iv) }, k, ub(VAULT.data)); // échoue si le mot de passe est faux
+    return S.importKey('pkcs8', pk8, { name: 'RSA-OAEP', hash: 'SHA-256' }, false, ['decrypt']); // clé non exportable
+  }
+  // la clé déverrouillée reste sur cet appareil (non exportable), pour ne pas retaper le mot de passe
+  const idb = (mode, fn) => new Promise((res) => {
+    const r = indexedDB.open('vx-tracker', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('k');
+    r.onsuccess = () => { try { const tx = r.result.transaction('k', mode); const q = fn(tx.objectStore('k')); tx.oncomplete = () => res(q && q.result); tx.onerror = () => res(null); } catch { res(null); } };
+    r.onerror = () => res(null);
+  });
   const open = () => { $('lock').hidden = true; $('app').hidden = false; start(); };
   $('lock-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    if ((await sha($('pw').value.trim())) === PASS) { safe(() => localStorage.setItem('vx-tracker', PASS)); open(); }
-    else { $('lock-err').textContent = 'Mot de passe incorrect.'; $('pw').select(); }
+    const btn = e.submitter || $('lock-form').querySelector('button'); btn.disabled = true; btn.textContent = 'Vérification…';
+    try { priv = await unlock($('pw').value.trim()); await idb('readwrite', (st) => st.put(priv, 'priv')); open(); }
+    catch { $('lock-err').textContent = 'Mot de passe incorrect.'; $('pw').select(); }
+    btn.disabled = false; btn.textContent = 'Ouvrir le tracker';
   });
+  async function openDay(box) {
+    const aes = await S.importKey('raw', await S.decrypt({ name: 'RSA-OAEP' }, priv, ub(box.k)), 'AES-GCM', false, ['decrypt']);
+    return JSON.parse(new TextDecoder().decode(await S.decrypt({ name: 'AES-GCM', iv: ub(box.iv) }, aes, ub(box.d))));
+  }
 
   // ---------- données ----------
   let stats = { days: [] }, clicks = { history: [] }, arts = new Map(), live = null, loadedAt = null;
@@ -251,7 +276,10 @@
   async function load() {
     const btn = $('refresh'); btn.classList.add('busy'); btn.disabled = true;
     const [s, c, a, l] = await Promise.all([getJson(`${STATS}?t=${Date.now()}`), getJson(`data/clicks.json?t=${Date.now()}`), getJson(`data/articles.json?t=${Date.now()}`), liveToday()]);
-    if (s) stats = s;
+    if (s) {
+      const days = await Promise.all(Object.values(s.days || {}).map((b) => openDay(b).catch(() => null)));
+      stats = { since: s.since, updatedAt: s.updatedAt, days: days.filter(Boolean) };
+    }
     if (c) clicks = c;
     if (a) arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x]));
     live = l;
@@ -293,6 +321,7 @@
   }));
   ['from', 'to'].forEach((id) => $(id).addEventListener('change', render));
   $('refresh').addEventListener('click', load);
+  $('relock').addEventListener('click', async () => { await idb('readwrite', (st) => st.delete('priv')); location.reload(); });
 
   // ---------- graphiques ----------
   Chart.defaults.font.family = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif';
@@ -438,8 +467,8 @@
 
   function start() { if (started) return; started = true; load(); }
   // déjà déverrouillé sur cet appareil : on ouvre directement
-  if (safe(() => localStorage.getItem('vx-tracker')) === PASS) open();
-  else setTimeout(() => $('pw').focus(), 100);
+  idb('readonly', (st) => st.get('priv')).then((k) => { if (k) { priv = k; open(); } else setTimeout(() => $('pw').focus(), 100); });
+  try { localStorage.removeItem('vx-tracker'); } catch {}
 })();
 </script>
 </body>

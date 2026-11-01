@@ -1306,3 +1306,5 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 }
 @media (max-height: 560px) { .promo-steps { display: none; } }
 .promo-eyebrow { padding-right: 40px; line-height: 1.3; }
+/* zone invisible sous « Canal Telegram » dans le menu : ouvre le tracker privé */
+.dr-secret { display: block; height: 44px; margin-top: -2px; background: transparent; -webkit-tap-highlight-color: transparent; cursor: default; outline: none; }

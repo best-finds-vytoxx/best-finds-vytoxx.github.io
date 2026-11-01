@@ -136,6 +136,7 @@
         <div class="dr-title">Partager et suivre</div>
         <button class="dr-link" type="button" id="dr-share">${icon.share}<span>Partager le site à un ami</span></button>
         <a class="dr-link" href="${esc(S.telegram)}" target="_blank" rel="noopener">${icon.tg}<span>Canal Telegram ${esc(S.by || '')}</span>${icon.out}</a>
+        <a class="dr-secret" href="tracker.html" tabindex="-1" aria-hidden="true"></a>
       </nav>
     </div>
     <div class="promo" id="promo" hidden>

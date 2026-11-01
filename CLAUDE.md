@@ -41,9 +41,10 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   délais 3–7 j + 6–18 j ; prix optimaux 500 g–5 kg, le volume compte ; remboursement 8 j / 5 j, sur le solde ; stockage 60 j ;
   ligne la moins chère entre LoveGoBuy EU, DHL, DPD ; suivi : Colis › Détails › numéro de suivi, puis AfterShip en Europe). Jamais : taxe 2 €/article, 1.1, rep, Vinted, Hacoo, noms de helpers.
   Groupe de discussion : `chat` dans `assets/config.js` (t.me/LoveGoBuy_fr).
-- Statistiques (tableau de bord privé de Léonard, sur claude.ai) : le site incrémente des compteurs anonymes par jour
-  (`stat()` dans app.js, clés `dAAAAMMJJ-<code>` sur abacus) ; `scripts/stats.mjs` les relève à chaque passage et les
-  pousse sur la branche `stats` (stats.json, jamais sur le site). Codes : voir l'en-tête de stats.mjs.
-  Tracker de Léonard : `tracker.html` (page cachée du site, mot de passe vérifié par empreinte SHA-256 `PASS`,
-  noindex, aucun lien depuis le site). Bouton Actualiser : relevé du robot (branche stats, raw.githubusercontent)
-  + compteurs du jour lus en direct sur abacus. Graphiques Chart.js 4.4.1 (cdnjs).
+- Statistiques : le site incrémente des compteurs anonymes par jour (`stat()` dans app.js, clés `dAAAAMMJJ-<code>` sur
+  abacus) ; `scripts/stats.mjs` les relève à chaque passage et les écrit CHIFFRÉES (un bloc par jour, RSA-OAEP + AES-GCM
+  avec la clé publique `scripts/stats-key.json`) dans `stats.enc.json` sur la branche `stats`. Le robot ne peut pas relire.
+  Tracker de Léonard : `tracker.html` (noindex), ouvert par une zone invisible sous « Canal Telegram » dans le menu
+  (`.dr-secret`). La clé privée y est chiffrée par le mot de passe (PBKDF2 600 000 + AES-GCM, `VAULT`), puis gardée
+  non exportable dans IndexedDB de l'appareil. Changer le mot de passe = régénérer la paire de clés (les anciens jours
+  deviennent illisibles). Bouton Actualiser : fichier chiffré + compteurs du jour en direct. Chart.js 4.4.1 (cdnjs).
