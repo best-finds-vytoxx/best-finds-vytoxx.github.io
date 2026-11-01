@@ -95,9 +95,17 @@
   .card .note { margin: 4px 0 12px; font-size: 13px; color: var(--muted); }
   .chart { position: relative; height: 280px; }
   .chart.sm { height: 230px; }
+  .kpi small { font-size: 12px; color: var(--muted); line-height: 1.25; margin-top: -2px; }
+  .ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 12px; border-radius: 99px; border: 0; cursor: pointer; font: 600 13px var(--f-body); color: var(--ink-2);
+    background: rgba(255, 255, 255, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .85); }
+  .chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--dot); opacity: .35; }
+  .chip[aria-pressed="true"] { color: var(--ink); background: rgba(255, 255, 255, .9); box-shadow: inset 0 0 0 1.5px var(--dot), 0 4px 10px -6px rgba(0, 0, 0, .3); }
+  .chip[aria-pressed="true"] i { opacity: 1; }
   .h-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; justify-content: space-between; }
   .seg.mini button { height: 32px; padding: 0 11px; font-size: 13px; }
-  @media (max-width: 520px) { .seg.mini { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); overflow: visible; } .seg.mini button { padding: 0 4px; font-size: 12px; white-space: normal; line-height: 1.1; height: 36px; } }
+  @media (max-width: 520px) { .seg.mini { width: 100%; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; overflow: visible; } .seg.mini button { padding: 0 4px; font-size: 12px; white-space: normal; line-height: 1.1; height: 38px; } .chip { height: 32px; font-size: 12.5px; padding: 0 10px; flex: none; } .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 2px 16px; width: calc(100% + 32px); } }
   #peak { margin: 10px 0 0; } #peak b { color: var(--ink); }
   .rates { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
   .rate { padding: 7px 12px; border-radius: 99px; background: rgba(255, 255, 255, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8); font-size: 13px; color: var(--ink-2); }
@@ -171,55 +179,42 @@
     </div>
 
     <section class="kpis">
-      <div class="kpi glass lead"><h3>Visiteurs</h3><div class="v" id="k-v">—</div><div class="d" id="d-v"></div></div>
-      <div class="kpi glass"><h3>Visites</h3><div class="v" id="k-s">—</div><div class="d" id="d-s"></div></div>
-      <div class="kpi glass"><h3>Nouveaux visiteurs</h3><div class="v" id="k-n">—</div><div class="d" id="d-n"></div></div>
-      <div class="kpi glass"><h3>Fiches ouvertes</h3><div class="v" id="k-o">—</div><div class="d" id="d-o"></div></div>
-      <div class="kpi glass lead"><h3>Clics LoveGoBuy</h3><div class="v" id="k-b">—</div><div class="d" id="d-b"></div></div>
-      <div class="kpi glass gold"><h3>Clics « 500 € »</h3><div class="v" id="k-p">—</div><div class="d" id="d-p"></div></div>
-      <div class="kpi glass"><h3>Partages</h3><div class="v" id="k-sh">—</div><div class="d" id="d-sh"></div></div>
-      <div class="kpi glass"><h3>Questions au chat bot</h3><div class="v" id="k-q">—</div><div class="d" id="d-q"></div></div>
+      <div class="kpi glass lead"><h3>Visiteurs</h3><small>Personnes différentes (1 par jour)</small><div class="v" id="k-v">—</div><div class="d" id="d-v"></div></div>
+      <div class="kpi glass"><h3>Visites</h3><small>Chaque ouverture du site</small><div class="v" id="k-s">—</div><div class="d" id="d-s"></div></div>
+      <div class="kpi glass"><h3>Nouveaux visiteurs</h3><small>Venus pour la 1re fois</small><div class="v" id="k-n">—</div><div class="d" id="d-n"></div></div>
+      <div class="kpi glass"><h3>Produits regardés</h3><small>Fiches d’articles ouvertes</small><div class="v" id="k-o">—</div><div class="d" id="d-o"></div></div>
+      <div class="kpi glass lead"><h3>Départs vers LoveGoBuy</h3><small>Clics sur « Voir sur LoveGoBuy »</small><div class="v" id="k-b">—</div><div class="d" id="d-b"></div></div>
+      <div class="kpi glass gold"><h3>Inscriptions 500 €</h3><small>Clics sur le lien d’inscription</small><div class="v" id="k-p">—</div><div class="d" id="d-p"></div></div>
+      <div class="kpi glass"><h3>Partages</h3><small>Site ou article partagé</small><div class="v" id="k-sh">—</div><div class="d" id="d-sh"></div></div>
+      <div class="kpi glass"><h3>Questions au chat bot</h3><small>Questions posées</small><div class="v" id="k-q">—</div><div class="d" id="d-q"></div></div>
     </section>
 
     <section class="grid">
-      <div class="card glass wide">
-        <h2>Visiteurs et visites</h2>
-        <p class="note" id="note-days">Chaque jour de la période. Touche une barre pour le détail.</p>
-        <div class="chart"><canvas id="c-days"></canvas></div>
-      </div>
-      <div class="card glass wide" id="hours-card">
-        <div class="h-head">
-          <div><h2>Heure par heure</h2><p class="note" id="note-hours">—</p></div>
-          <div class="seg glass mini" role="group" aria-label="Mesure">
-            <button type="button" data-m="v" aria-pressed="true">Visiteurs</button>
-            <button type="button" data-m="s">Visites</button>
-            <button type="button" data-m="o">Fiches</button>
-            <button type="button" data-m="b">Clics LoveGoBuy</button>
+      <div class="card glass wide" id="evo-card">
+        <h2>Évolution</h2>
+        <p class="note">Choisis ce que tu veux voir (plusieurs à la fois si tu veux), puis par jour ou par heure.</p>
+        <div class="ctrl">
+          <div class="chips" id="evo-metrics" role="group" aria-label="Ce que tu veux voir"></div>
+          <div class="seg glass mini" role="group" aria-label="Découpage">
+            <button type="button" data-g="day" aria-pressed="true">Par jour</button>
+            <button type="button" data-g="hour">Par heure</button>
           </div>
         </div>
-        <div class="chart"><canvas id="c-hours"></canvas></div>
-        <p class="note" id="peak"></p>
+        <div class="chart"><canvas id="c-evo"></canvas></div>
+        <p class="note" id="evo-note"></p>
       </div>
-      <div class="card glass">
-        <h2>Parcours des visiteurs</h2>
-        <p class="note">Sur la période : combien vont jusqu'au bout.</p>
+      <div class="card glass wide" id="rep-card">
+        <h2>Répartition</h2>
+        <p class="note" id="rep-sub">—</p>
+        <div class="ctrl">
+          <div class="seg glass mini" role="group" aria-label="Répartition">
+            <button type="button" data-r="path" aria-pressed="true">Du visiteur à l’achat</button>
+            <button type="button" data-r="src">D’où ils viennent</button>
+            <button type="button" data-r="dev">Téléphone ou ordinateur</button>
+          </div>
+        </div>
         <div class="rates" id="rates"></div>
-        <div class="chart sm"><canvas id="c-funnel"></canvas></div>
-      </div>
-      <div class="card glass">
-        <h2>D'où ils viennent</h2>
-        <p class="note">Visites par appli d'origine. « Lien direct » : lien collé, favori, ou appli qui ne se signale pas (souvent Telegram).</p>
-        <div class="chart sm"><canvas id="c-src"></canvas></div>
-      </div>
-      <div class="card glass">
-        <h2>Clics sur les produits</h2>
-        <p class="note">Fiches ouvertes et clics LoveGoBuy, tous articles, par jour.</p>
-        <div class="chart sm"><canvas id="c-clicks"></canvas></div>
-      </div>
-      <div class="card glass">
-        <h2>Appareils et usages</h2>
-        <p class="note">Visites sur mobile ou ordinateur, ouvertures depuis l'écran d'accueil.</p>
-        <div class="chart sm"><canvas id="c-dev"></canvas></div>
+        <div class="chart sm"><canvas id="c-rep"></canvas></div>
       </div>
       <div class="card glass wide">
         <h2>Articles les plus cliqués</h2>
@@ -296,7 +291,15 @@
   }
 
   // ---------- données ----------
-  let hours = [], hoursRange = '', metric = 'v';
+  let hours = [], hoursRange = '';
+  // mesures du graphique « Évolution » : nom clair, couleur
+  const M = {
+    v: ['Visiteurs', '#1e2a44'], s: ['Visites', '#d9ad54'], n: ['Nouveaux visiteurs', '#6b8fb8'], o: ['Produits regardés', '#c4673a'],
+    b: ['Départs vers LoveGoBuy', '#2f8a4c'], po: ['Offre 500 € affichée', '#b98a3a'], p: ['Inscriptions 500 €', '#a27bb0'], sh: ['Partages', '#8a9a5b'], q: ['Questions au chat bot', '#5f6b7a'],
+  };
+  let evo = ['v', 's'], gran = 'day', rep = 'path';
+  try { const e = JSON.parse(localStorage.getItem('vx-evo') || 'null'); if (Array.isArray(e) && e.length) evo = e.filter((k) => M[k]); gran = localStorage.getItem('vx-gran') || 'day'; rep = localStorage.getItem('vx-rep') || 'path'; } catch {}
+  const keep = () => { try { localStorage.setItem('vx-evo', JSON.stringify(evo)); localStorage.setItem('vx-gran', gran); localStorage.setItem('vx-rep', rep); } catch {} };
   let dups = new Map();
   let stats = { days: [] }, clicks = { history: [] }, arts = new Map(), live = null, loadedAt = null;
   const getJson = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
@@ -372,7 +375,15 @@
     render(); if (PRIV && range().join(' ') !== hoursRange) load();
   }));
   ['from', 'to'].forEach((id) => $(id).addEventListener('change', () => { render(); if (PRIV && range().join(' ') !== hoursRange) load(); }));
-  document.querySelectorAll('[data-m]').forEach((b) => b.addEventListener('click', () => { metric = b.dataset.m; render(); }));
+  $('evo-metrics').innerHTML = Object.entries(M).map(([k, [n, c]]) => `<button type="button" class="chip" data-k="${k}" style="--dot:${c}"><i></i>${n}</button>`).join('');
+  $('evo-metrics').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-k]'); if (!b) return;
+    const k = b.dataset.k;
+    evo = evo.includes(k) ? (evo.length > 1 ? evo.filter((x) => x !== k) : evo) : [...evo, k];
+    keep(); render();
+  });
+  document.querySelectorAll('[data-g]').forEach((b) => b.addEventListener('click', () => { gran = b.dataset.g; keep(); render(); }));
+  document.querySelectorAll('[data-r]').forEach((b) => b.addEventListener('click', () => { rep = b.dataset.r; keep(); render(); }));
   $('refresh').addEventListener('click', load);
   $('relock').addEventListener('click', async () => { safe(() => localStorage.removeItem('vx-token')); await idb('readwrite', (st) => st.delete('priv')); location.reload(); });
 
@@ -459,64 +470,55 @@
       el.classList.add(diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat');
     }
 
-    // visiteurs et visites par jour
-    chart('c-days', {
+    // ---------- Évolution : les mesures choisies, par jour ou par heure ----------
+    document.querySelectorAll('[data-k]').forEach((b) => b.setAttribute('aria-pressed', String(evo.includes(b.dataset.k))));
+    document.querySelectorAll('[data-g]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.g === gran)));
+    let labels, series, note;
+    if (gran === 'day') {
+      labels = cur.map((d) => frDay(d.date));
+      series = evo.map((k) => cur.map((d) => Number(d[k]) || 0));
+      note = cur.length < 2 ? 'Une seule journée dans la période : passe en « Par heure » pour voir le détail.' : `Chaque jour du ${frDay(from)} au ${frDay(to)}`;
+    } else {
+      const nowH = new Date().getHours(), isToday = from === to && to === today();
+      const n = isToday ? nowH + 1 : 24;
+      labels = Array.from({ length: n }, (_, h) => `${h} h`);
+      series = evo.map((k) => { const a = Array(24).fill(0); for (const r of hours) if (r.date >= from && r.date <= to) a[r.h] += Number(r[k]) || 0; return a.slice(0, n); });
+      const tot = series[0].reduce((t, v) => t + v, 0), pk = series[0].indexOf(Math.max(...series[0]));
+      note = (from === to ? `Chaque heure ${isToday ? 'd’aujourd’hui jusqu’à maintenant' : `du ${frDay(from)}`} (heure de Paris).` : 'Chaque heure de la journée, additionnée sur toute la période (heure de Paris).')
+        + (tot ? ` ${M[evo[0]][0]} : heure la plus active ${pk} h – ${pk + 1} h.` : ' Pas encore de données heure par heure pour cette période.');
+    }
+    chart('c-evo', {
       type: 'line',
-      data: { labels: cur.map((d) => frDay(d.date)), datasets: [curve('Visiteurs', cur.map((d) => Number(d.v) || 0), css('--c1')), curve('Visites', cur.map((d) => Number(d.s) || 0), css('--c2'), false, true)] },
-      options: lineOpts(cur.length),
+      data: { labels, datasets: evo.map((k, i) => curve(M[k][0], series[i], M[k][1], evo.length === 1)) },
+      options: lineOpts(labels.length, gran === 'hour' ? { tooltip: { ...tooltip, callbacks: { title: (it) => `${it[0].dataIndex} h – ${it[0].dataIndex + 1} h` } } } : {}),
     });
+    $('evo-note').textContent = note;
 
-    // heure par heure : un jour = ses 24 heures ; plusieurs jours = total de chaque heure sur la période
-    document.querySelectorAll('[data-m]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === metric)));
-    const names = { v: 'Visiteurs', s: 'Visites', o: 'Fiches ouvertes', b: 'Clics LoveGoBuy' };
-    const perHour = Array(24).fill(0);
-    for (const r of hours) if (r.date >= from && r.date <= to) perHour[r.h] += Number(r[metric]) || 0;
-    const nowH = new Date().getHours();
-    const isToday = from === to && to === today();
-    const shown = isToday ? perHour.slice(0, nowH + 1) : perHour;
-    $('note-hours').textContent = from === to
-      ? `${names[metric]} à chaque heure${isToday ? ' aujourd’hui (jusqu’à maintenant)' : ` le ${frDay(from)}`}, heure de Paris. « Dates… » pour choisir un autre jour.`
-      : `${names[metric]} par heure de la journée, additionnés sur toute la période (heure de Paris). Pour un seul jour : « Aujourd’hui » ou « Dates… » avec la même date deux fois.`;
-    const hTot = shown.reduce((t, v) => t + v, 0);
-    const peak = shown.indexOf(Math.max(...shown));
-    $('peak').innerHTML = hTot ? `Heure la plus active : <b>${peak} h – ${peak + 1} h</b> (${fmt(shown[peak])} ${({ v: 'visiteurs', s: 'visites', o: 'fiches ouvertes', b: 'clics LoveGoBuy' })[metric]}, ${pct(shown[peak], hTot)} du total).` : 'Pas encore de données pour cette période.';
-    const hc = metric === 'b' ? css('--c2') : metric === 'o' ? css('--c3') : css('--c1');
-    const ds = curve(names[metric], shown, hc);
-    ds.pointRadius = shown.map((_, h) => (hTot && h === peak ? 6 : 0)); ds.pointBackgroundColor = hc;
-    chart('c-hours', {
-      type: 'line',
-      data: { labels: shown.map((_, h) => `${h} h`), datasets: [ds] },
-      options: lineOpts(shown.length, { legend: { display: false }, tooltip: { ...tooltip, displayColors: false, callbacks: { title: (it) => `${it[0].dataIndex} h – ${it[0].dataIndex + 1} h` } } }),
-    });
+    // ---------- Répartition : parcours, provenance ou appareil ----------
+    document.querySelectorAll('[data-r]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.r === rep)));
+    const S2 = (k) => sumRows(cur, k);
+    const vis = S2('s');
+    if (rep === 'path') {
+      const o = S2('o'), bb = S2('b'), po = S2('po'), p = S2('p');
+      $('rep-sub').textContent = 'Combien de personnes vont jusqu’au bout, étape par étape, sur la période.';
+      $('rates').innerHTML = `<span class="rate">Visites qui finissent sur LoveGoBuy <b>${pct(bb, vis)}</b></span><span class="rate">Produits regardés qui finissent sur LoveGoBuy <b>${pct(bb, o)}</b></span><span class="rate">Offre 500 € vue → inscription <b>${pct(p, po)}</b></span>`;
+      hbar('c-rep', ['Visites', 'Produits regardés', 'Départs vers LoveGoBuy', 'Offre 500 € affichée', 'Inscriptions 500 €'], [vis, o, bb, po, p],
+        [M.v[1], M.o[1], M.b[1], M.po[1], M.p[1]], (v, j) => (j === 2 ? `${fmt(v)} · ${pct(v, o)}` : j === 4 ? `${fmt(v)} · ${pct(v, po)}` : fmt(v)));
+    } else if (rep === 'src') {
+      const src = [['Telegram', 'rtg'], ['Instagram', 'rig'], ['Snapchat', 'rsc'], ['TikTok', 'rtt'], ['WhatsApp', 'rwa'], ['Un autre site', 'rweb'], ['Lien direct', 'rdir']]
+        .map(([l, k]) => [l, S2(k)]).sort((a, b) => b[1] - a[1]);
+      const t = src.reduce((x, y) => x + y[1], 0);
+      $('rep-sub').textContent = 'Visites selon l’appli d’où le lien a été ouvert. « Lien direct » : lien collé, favori, ou appli qui ne dit pas d’où on vient (souvent Telegram).';
+      $('rates').innerHTML = '';
+      hbar('c-rep', src.map((x) => x[0]), src.map((x) => x[1]), src.map((_, i) => (i === 0 ? css('--c3') : css('--c4'))), (v) => `${fmt(v)} · ${pct(v, t)}`);
+    } else {
+      const mob = S2('mob'), pc = S2('pc'), app = S2('app');
+      $('rep-sub').textContent = 'Visites sur téléphone ou sur ordinateur, et visites lancées depuis l’icône Vytoxx Finds ajoutée sur l’écran du téléphone.';
+      $('rates').innerHTML = `<span class="rate">Sur téléphone <b>${pct(mob, mob + pc)}</b></span>`;
+      hbar('c-rep', ['Téléphone', 'Ordinateur', 'Depuis l’icône sur le téléphone'], [mob, pc, app], [css('--c1'), css('--c4'), css('--c5')], (v, j) => (j < 2 ? `${fmt(v)} · ${pct(v, mob + pc)}` : fmt(v)));
+    }
 
-    // parcours
-    const s = sumRows(cur, 's'), o = sumRows(cur, 'o'), bb = sumRows(cur, 'b'), po = sumRows(cur, 'po'), p = sumRows(cur, 'p');
-    $('rates').innerHTML = `<span class="rate">Visites → clic LoveGoBuy <b>${pct(bb, s)}</b></span><span class="rate">Fiche ouverte → clic LoveGoBuy <b>${pct(bb, o)}</b></span><span class="rate">Fenêtre 500 € → inscription <b>${pct(p, po)}</b></span>`;
-    hbar('c-funnel', ['Visites', 'Fiches ouvertes', 'Clics LoveGoBuy', 'Fenêtre 500 €', 'Inscriptions'], [s, o, bb, po, p],
-      [css('--c1'), css('--c1'), css('--c1'), css('--c2'), css('--c2')], (v, j) => (j === 2 ? `${fmt(v)} · ${pct(v, o)} des fiches` : j === 4 ? `${fmt(v)} · ${pct(v, po)}` : fmt(v)));
-
-    // provenance
-    const src = [['Telegram', 'rtg'], ['Instagram', 'rig'], ['Snapchat', 'rsc'], ['TikTok', 'rtt'], ['WhatsApp', 'rwa'], ['Autre site', 'rweb'], ['Lien direct', 'rdir']]
-      .map(([l, k]) => [l, sumRows(cur, k)]).sort((a, b) => b[1] - a[1]);
-    const totSrc = src.reduce((t, x) => t + x[1], 0);
-    hbar('c-src', src.map((x) => x[0]), src.map((x) => x[1]), src.map((_, i) => (i === 0 ? css('--c3') : css('--c4'))), (v) => `${fmt(v)} · ${pct(v, totSrc)}`);
-
-    // appareils
-    const mob = sumRows(cur, 'mob'), pc = sumRows(cur, 'pc'), app = sumRows(cur, 'app');
-    hbar('c-dev', ['Mobile', 'Ordinateur', 'Écran d’accueil'], [mob, pc, app], [css('--c1'), css('--c4'), css('--c5')], (v, j) => (j < 2 ? `${fmt(v)} · ${pct(v, mob + pc)}` : fmt(v)));
-
-    // clics produits par jour (relevé du classement : différence d'un jour à l'autre)
     const hist = [...(clicks.history || [])].sort((a, b) => a.date.localeCompare(b.date));
-    const tot = (h) => Object.values(h.totals || {}).reduce((t, v) => t + (Number(v) || 0), 0);
-    const perDay = new Map();
-    hist.forEach((h, i) => { if (i) perDay.set(h.date, Math.max(0, tot(h) - tot(hist[i - 1]))); });
-    const cd = [...perDay.entries()].filter(([d]) => d >= from && d <= to);
-    chart('c-clicks', {
-      type: 'line',
-      data: { labels: cd.map(([d]) => frDay(d)), datasets: [curve('Clics produits', cd.map(([, n]) => n), css('--c2'))] },
-      options: lineOpts(cd.length, { legend: { display: false } }),
-    });
-
     // articles les plus cliqués : même source et même calcul que le « Top du moment » du site
     // (fiches ouvertes + clics LoveGoBuy, une fois par personne et par jour ; un doublon compte pour l'article gardé)
     const list = $('top-list'); list.replaceChildren();
@@ -529,7 +531,7 @@
     const merged = new Map();
     for (const [k, n] of Object.entries(raw)) { const id = dups.get(Number(k)) || Number(k); if (n > 0) merged.set(id, (merged.get(id) || 0) + Number(n)); }
     const counts = [...merged.entries()].filter(([id]) => arts.has(id)).sort((x, y) => y[1] - x[1]).slice(0, 15);
-    $('note-top').textContent = period === '30' ? 'Exactement le classement « Top du moment » du site (30 derniers jours).'
+    $('note-top').textContent = period === '30' ? 'Exactement le classement « Top du moment » du site (30 derniers jours) : produits regardés + départs vers LoveGoBuy.'
       : base ? 'Même calcul que le « Top du moment » du site, sur la période choisie.' : 'Même calcul que le « Top du moment » du site, depuis le début du relevé (28 octobre).';
     if (!counts.length) { list.innerHTML = '<div class="empty">Aucun clic sur un article pendant cette période.</div>'; return; }
     const max = counts[0][1];
