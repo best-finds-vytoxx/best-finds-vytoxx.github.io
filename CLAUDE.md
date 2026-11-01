@@ -41,3 +41,6 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   délais 3–7 j + 6–18 j ; prix optimaux 500 g–5 kg, le volume compte ; remboursement 8 j / 5 j, sur le solde ; stockage 60 j ;
   ligne la moins chère entre LoveGoBuy EU, DHL, DPD ; suivi : Colis › Détails › numéro de suivi, puis AfterShip en Europe). Jamais : taxe 2 €/article, 1.1, rep, Vinted, Hacoo, noms de helpers.
   Groupe de discussion : `chat` dans `assets/config.js` (t.me/LoveGoBuy_fr).
+- Statistiques (tableau de bord privé de Léonard, sur claude.ai) : le site incrémente des compteurs anonymes par jour
+  (`stat()` dans app.js, clés `dAAAAMMJJ-<code>` sur abacus) ; `scripts/stats.mjs` les relève à chaque passage et les
+  pousse sur la branche `stats` (stats.json, jamais sur le site). Codes : voir l'en-tête de stats.mjs.

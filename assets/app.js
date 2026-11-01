@@ -162,6 +162,7 @@
   const promo = document.getElementById('promo');
   let lastFocus = null;
   const openPromo = (auto) => {
+    stat('po');
     lastFocus = document.activeElement;
     // à l'ouverture automatique (arrivée sur le site), « Plus tard » apparaît après 0,5 s, en fondu sur 2 s
     promo.classList.toggle('intro', auto === true);
@@ -257,7 +258,7 @@
     const close = () => { sh.classList.remove('on'); document.body.classList.remove('locked'); document.removeEventListener('keydown', onKey, true); setTimeout(() => sh.remove(), 200); };
     const onKey = (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(); } };
     document.addEventListener('keydown', onKey, true);
-    sh.addEventListener('click', (e) => { if (e.target.closest('[data-x]')) setTimeout(close, 50); });
+    sh.addEventListener('click', (e) => { if (e.target.closest('.sheet-btn')) stat('sh'); if (e.target.closest('[data-x]')) setTimeout(close, 50); });
     sh.querySelector('#sh-more')?.addEventListener('click', async () => {
       try { await navigator.share({ title, text, url }); close(); } catch {}
     });
@@ -290,6 +291,32 @@
     if (store.get(key)) return;
     store.set(key, '1');
     safe(() => fetch(`https://abacus.jasoncameron.dev/hit/${NS}/a${id}`, { keepalive: true, mode: 'cors' }).catch(() => {}));
+    stat(kind === 'buy' ? 'b' : 'o');
+  }
+  // ---------- statistiques internes (tracker privé de Léonard) ----------
+  // Compteurs anonymes par jour, aucune donnée personnelle : visites, visiteurs, nouveaux visiteurs, provenance,
+  // appareil, ouvertures de fiches, clics LoveGoBuy, partages, 500 € de coupons, questions au chat bot.
+  // Le robot les relève (scripts/stats.mjs) dans data/stats.json, lu par le tableau de bord privé.
+  const dayKey = () => new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  function stat(name, once) {
+    const d = dayKey();
+    if (once) { const k = `st-${name}-${d}`; if (store.get(k)) return; store.set(k, '1'); }
+    safe(() => fetch(`https://abacus.jasoncameron.dev/hit/${NS}/d${d}-${name}`, { keepalive: true, mode: 'cors' }).catch(() => {}));
+  }
+  // tout clic vers le lien d'inscription (500 € de coupons), où qu'il soit sur le site
+  document.addEventListener('click', (e) => { const l = e.target.closest('a[href]'); if (l && S.invite && l.href === new URL(S.invite, location.href).href) stat('p'); }, true);
+  function statVisit() {
+    if (store.sget('st-session')) return;
+    store.sset('st-session', '1');
+    stat('s'); // une visite
+    stat('v', true); // un visiteur (une fois par jour)
+    if (!store.get('st-first')) { store.set('st-first', dayKey()); stat('n'); } // première visite de cette personne
+    const ref = document.referrer || '', ua = navigator.userAgent, both = ref + ' ' + ua;
+    const src = /telegram|t\.me/i.test(both) ? 'tg' : /instagram/i.test(both) ? 'ig' : /snapchat/i.test(both) ? 'sc'
+      : /tiktok/i.test(both) ? 'tt' : /whatsapp|wa\.me/i.test(both) ? 'wa' : ref && !ref.includes(location.host) ? 'web' : 'dir';
+    stat('r' + src);
+    stat(/Mobi|Android|iPhone|iPad/i.test(ua) ? 'mob' : 'pc');
+    if (matchMedia('(display-mode: standalone)').matches || navigator.standalone === true) stat('app');
   }
   async function loadTop() {
     let data = window.__CLICKS || null;
@@ -704,6 +731,7 @@
       if (!text) return;
       bubble('me', esc(text));
       botLog.push(['me', text]);
+      stat('q');
       const typing = bubble('bot', '<span class="bm-typing"><i></i><i></i><i></i></span>');
       const e = BOT.find((x) => x.q === text) || botAnswer(text);
       setTimeout(() => {
@@ -1225,6 +1253,7 @@
       state.prices = {};
     }
     await loadTop();
+    statVisit();
     // Quel que soit le lien d'arrivée, la visite commence sur la page d'accueil,
     // sauf un lien partagé depuis une fiche (?p=ID) : il ouvre directement le produit
     const shared = Number(new URLSearchParams(location.search).get('p')) || 0;

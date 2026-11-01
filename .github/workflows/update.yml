@@ -61,6 +61,15 @@ jobs:
           BIREFNET: models/birefnet-general.onnx
       - name: Relever les clics sur les produits (classement Top du moment)
         run: CLICKS_EVERY_MIN=0 node scripts/clicks.mjs
+      # Statistiques du tableau de bord privé : gardées à part, sur la branche « stats » (pas sur le site, pas de mise en ligne en plus)
+      - name: Relever les statistiques du site
+        continue-on-error: true
+        run: |
+          git fetch -q origin stats 2>/dev/null && git show FETCH_HEAD:stats.json > data/stats.json 2>/dev/null || true
+          node scripts/stats.mjs 2>&1 | tee -a scrape.log
+          mkdir -p /tmp/stats && cp data/stats.json /tmp/stats/ && cd /tmp/stats && git init -q && git checkout -q -b stats
+          git add stats.json && git -c user.name=finds-bot -c user.email=finds-bot@users.noreply.github.com commit -qm "stats"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" stats
       - name: Enregistrer les nouveautés
         id: commit
         run: |
