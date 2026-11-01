@@ -47,5 +47,9 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   90 jours, GET /stats). Le Worker se modifie dans le tableau de bord Cloudflare (Edit code), pas depuis GitHub.
   Tracker de Léonard : `tracker.html` (noindex), ouvert par une zone invisible sous « Canal Telegram » dans le menu
   (`.dr-secret`). Bouton Actualiser = lecture en direct. Jours et heures à l'heure de Paris (table `h` : heure par heure).
-  Graphiques dans le temps en courbes. « Articles les plus cliqués » = même calcul que le Top du moment du site. Chart.js 4.4.1 (cdnjs). Le « Top du moment » reste sur abacus
+  Graphiques dans le temps en courbes. « Articles les plus cliqués » = même calcul que le Top du moment du site. Chart.js 4.4.1 hébergé sur le site (`assets/vendor/`), script du tracker dans `assets/tracker.js`. Le « Top du moment » reste sur abacus
   (clics par article, public par nature puisqu'affiché sur le site).
+- Sécurité : politique CSP en `<meta>` dans index.html et tracker.html (aucun script en ligne, aucun script externe ; ajouter
+  tout nouvel hôte dans `connect-src`/`img-src`). Tracker : anti-cadre, `form-action 'none'`, pas de referrer.
+  Worker : /hit refusé sans l'origine du site, 300 envois max / 10 min par appareil ; /login 8 échecs/h par appareil et 60 au total,
+  IP jamais stockées en clair ; le jeton dépend de PASS (changer PASS déconnecte tous les appareils).

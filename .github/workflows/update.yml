@@ -112,6 +112,7 @@ jobs:
           # version dans les liens du style et des scripts : les téléphones rechargent la nouvelle version à chaque mise en ligne
           v=$(git rev-parse --short HEAD)
           sed -i "s#assets/style.css\"#assets/style.css?v=$v\"#; s#assets/config.js\"#assets/config.js?v=$v\"#; s#assets/app.js\"#assets/app.js?v=$v\"#" _site/index.html
+          sed -i "s#assets/config.js\"#assets/config.js?v=$v\"#; s#assets/tracker.js\"#assets/tracker.js?v=$v\"#" _site/tracker.html
           grep -n "?v=$v" _site/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
