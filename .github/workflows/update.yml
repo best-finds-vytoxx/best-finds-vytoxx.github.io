@@ -115,7 +115,7 @@ jobs:
       - name: Préparer le site
         run: |
           mkdir _site
-          cp -r index.html manifest.webmanifest apple-touch-icon.png apple-touch-icon-precomposed.png assets data _site/
+          cp -r index.html tracker.html manifest.webmanifest apple-touch-icon.png apple-touch-icon-precomposed.png assets data _site/
           if [ -d images ]; then cp -r images _site/; fi
           touch _site/.nojekyll
           # version dans les liens du style et des scripts : les téléphones rechargent la nouvelle version à chaque mise en ligne

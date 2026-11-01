@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tracker · Vytoxx Best Finds</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#efece5">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=Jost:wght@400;500;600&display=swap">
+<style>
+  /* Tracker privé de Léonard — même identité que le site : lumière toscane floutée, verre, encre marine */
+  :root {
+    --bg: #efece5; --ink: #1f2533; --ink-2: #474e5c; --muted: #77756e; --line: rgba(31, 37, 51, .1);
+    --sun: #f0b45c; --terra: #c4673a; --gold-1: #f6dc9b; --gold-2: #d9ad54; --gold-3: #a8792b; --navy: #1e2a44; --ok: #2f8a4c; --bad: #c0442b;
+    --c1: #1e2a44; --c2: #d9ad54; --c3: #c4673a; --c4: #6b8fb8; --c5: #8a9a5b; --c6: #a27bb0; --c7: #b9b4a8;
+    --gl: linear-gradient(155deg, rgba(255, 255, 255, .66), rgba(255, 255, 255, .34) 55%, rgba(255, 255, 255, .46));
+    --gl-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 0 0 .5px rgba(255, 255, 255, .5), 0 18px 36px -24px rgba(80, 45, 15, .55);
+    --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+    --f-label: "Jost", "Futura", "Helvetica Neue", sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html::before { content: ""; position: fixed; inset: -8%; z-index: -1; background: url("assets/img/hero-glow.webp") center 30% / cover no-repeat; opacity: .32; filter: saturate(1.2); }
+  body { margin: 0; color: var(--ink); font: 15px/1.5 var(--f-body); -webkit-font-smoothing: antialiased;
+    background: radial-gradient(90% 420px at 85% -140px, rgba(240, 180, 92, .3), transparent 72%), var(--bg) no-repeat; min-height: 100vh; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)) 60px; }
+  .glass { position: relative; background: var(--gl); border-radius: 22px; box-shadow: var(--gl-shadow);
+    -webkit-backdrop-filter: blur(22px) saturate(190%); backdrop-filter: blur(22px) saturate(190%); }
+  .glass::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.3px; pointer-events: none;
+    background: linear-gradient(135deg, #fff, rgba(255, 255, 255, .2) 30%, rgba(255, 255, 255, .04) 52%, rgba(255, 255, 255, .28) 74%, rgba(255, 255, 255, .9));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  .label { font: 500 11.5px/1 var(--f-label); text-transform: uppercase; letter-spacing: .2em; color: var(--ink-2); }
+
+  /* écran de verrouillage */
+  .lock { min-height: 100vh; display: grid; place-items: center; padding: 20px; }
+  .lock-card { width: min(380px, 100%); padding: 30px 26px; display: grid; gap: 14px; text-align: center; }
+  .lock-card img { width: 64px; height: 64px; margin: 0 auto; border-radius: 18px; box-shadow: 0 10px 22px -10px rgba(60, 40, 20, .5); }
+  .lock-card h1 { margin: 0; font: 700 24px/1.1 var(--f-display); letter-spacing: -.02em; }
+  .lock-card p { margin: 0; color: var(--ink-2); font-size: 14px; }
+  .lock-card input { height: 48px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, .8); background: rgba(255, 255, 255, .6); padding: 0 16px; font: 500 16px var(--f-body); color: var(--ink); text-align: center; }
+  .lock-card input:focus { outline: 2px solid var(--gold-2); }
+  .lock-err { color: var(--bad); font-size: 13px; min-height: 18px; }
+  .btn { height: 46px; border: 0; border-radius: 14px; cursor: pointer; font: 600 15px var(--f-body); color: #fff; background: var(--navy);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 10px 22px -12px rgba(30, 42, 68, .8); display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 18px; }
+  .btn:active { transform: scale(.98); }
+
+  /* en-tête */
+  .top { position: sticky; top: 0; z-index: 10; padding: max(10px, env(safe-area-inset-top)) 0 10px; margin-bottom: 18px;
+    background: color-mix(in srgb, var(--bg) 58%, transparent); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .55), 0 10px 24px -20px rgba(80, 45, 15, .35); }
+  .top-in { max-width: 1180px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; color: inherit; }
+  .brand img { width: 38px; height: 38px; border-radius: 11px; }
+  .brand b { display: block; font: 700 18px/1 var(--f-display); letter-spacing: -.02em; }
+  .brand small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .refresh .spin { width: 16px; height: 16px; }
+  .refresh.busy .spin { animation: spin .9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* période */
+  .period { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .seg { display: inline-flex; padding: 4px; gap: 2px; border-radius: 99px; }
+  .seg button { white-space: nowrap; border: 0; background: transparent; height: 38px; padding: 0 14px; border-radius: 99px; cursor: pointer; font: 600 14px var(--f-body); color: var(--ink-2); }
+  .seg button[aria-pressed="true"] { background: var(--navy); color: #fff; box-shadow: 0 6px 14px -8px rgba(30, 42, 68, .8); }
+  .custom { display: none; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-2); }
+  .custom.on { display: inline-flex; }
+  .custom input { height: 38px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .8); background: rgba(255, 255, 255, .6); padding: 0 10px; font: 500 14px var(--f-body); color: var(--ink); }
+  .range-txt { font-size: 14px; color: var(--ink-2); }
+  .range-txt b { color: var(--ink); }
+
+  /* chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .kpi { padding: 16px 18px 14px; display: grid; gap: 4px; }
+  .kpi h3 { margin: 0; font: 500 12px/1.2 var(--f-label); text-transform: uppercase; letter-spacing: .14em; color: var(--ink-2); }
+  .kpi .v { font: 700 34px/1.05 var(--f-display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .kpi .d { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .kpi .d.up { color: var(--ok); } .kpi .d.down { color: var(--bad); }
+  .kpi.lead .v { color: var(--navy); }
+  .kpi.gold .v { background: linear-gradient(180deg, var(--gold-2), var(--gold-3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* cartes */
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
+  .card { padding: 18px 20px 16px; min-width: 0; }
+  .card.wide { grid-column: 1 / -1; }
+  .card h2 { margin: 0; font: 700 18px/1.2 var(--f-display); letter-spacing: -.015em; }
+  .card .note { margin: 4px 0 12px; font-size: 13px; color: var(--muted); }
+  .chart { position: relative; height: 280px; }
+  .chart.sm { height: 230px; }
+  .rates { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+  .rate { padding: 7px 12px; border-radius: 99px; background: rgba(255, 255, 255, .55); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8); font-size: 13px; color: var(--ink-2); }
+  .rate b { color: var(--ink); font-family: var(--f-display); }
+
+  /* articles */
+  .top-list { display: grid; gap: 8px; }
+  .art { display: grid; grid-template-columns: 26px 52px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 10px; border-radius: 14px; background: rgba(255, 255, 255, .42); text-decoration: none; color: inherit; }
+  .art:hover { background: rgba(255, 255, 255, .7); }
+  .art .r { font: 700 16px var(--f-display); color: var(--muted); text-align: center; }
+  .art:first-child .r { color: var(--gold-3); }
+  .art img { width: 52px; height: 52px; object-fit: contain; border-radius: 10px; background: rgba(255, 255, 255, .7); filter: drop-shadow(0 4px 4px rgba(60, 40, 20, .18)); }
+  .art .t { min-width: 0; }
+  .art .t b { display: block; font-weight: 600; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .art .t small { color: var(--muted); font-size: 12.5px; }
+  .art .n { text-align: right; font: 700 18px var(--f-display); font-variant-numeric: tabular-nums; }
+  .art .n small { display: block; font: 500 11.5px var(--f-body); color: var(--muted); }
+  .bar-in { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--gold-2), var(--terra)); margin-top: 5px; }
+  .empty { padding: 18px; text-align: center; color: var(--muted); font-size: 14px; }
+  .foot { margin-top: 18px; font-size: 12.5px; color: var(--muted); text-align: center; }
+  .warn { margin: 0 0 14px; padding: 10px 14px; border-radius: 14px; background: rgba(192, 68, 43, .1); color: var(--bad); font-size: 13.5px; display: none; }
+  .warn.on { display: block; }
+
+  @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 520px) {
+    .kpi .v { font-size: 28px; } .kpi { padding: 14px; } .chart { height: 240px; }
+    .seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; } .seg button { padding: 0 10px; font-size: 13px; } .brand small { display: none; }
+    .kpi .d { font-size: 12px; } .kpi h3 { font-size: 10.5px; letter-spacing: .1em; }
+    .refresh span { display: none; } .refresh { width: 46px; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<section class="lock" id="lock">
+  <form class="lock-card glass" id="lock-form" autocomplete="off">
+    <img src="assets/img/app-icon-180.png" alt="">
+    <h1>Tracker privé</h1>
+    <p>Réservé à Vytoxx. Entre ton mot de passe.</p>
+    <input type="password" id="pw" placeholder="Mot de passe" aria-label="Mot de passe" autocomplete="current-password" required>
+    <div class="lock-err" id="lock-err"></div>
+    <button class="btn" type="submit">Ouvrir le tracker</button>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <header class="top">
+    <div class="top-in">
+      <a class="brand" href="./"><img src="assets/img/app-icon-180.png" alt=""><span><b>Tracker Vytoxx</b><small id="updated">—</small></span></a>
+      <button class="btn refresh" id="refresh" type="button" title="Actualiser les chiffres">
+        <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>
+        <span>Actualiser</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="warn" id="warn"></p>
+    <div class="period">
+      <div class="seg glass" role="group" aria-label="Période">
+        <button type="button" data-p="1">Aujourd'hui</button>
+        <button type="button" data-p="7" aria-pressed="true">7 jours</button>
+        <button type="button" data-p="30">30 jours</button>
+        <button type="button" data-p="all">Tout</button>
+        <button type="button" data-p="custom">Dates…</button>
+      </div>
+      <span class="custom" id="custom">du <input type="date" id="from"> au <input type="date" id="to"></span>
+      <span class="range-txt" id="range-txt"></span>
+    </div>
+
+    <section class="kpis">
+      <div class="kpi glass lead"><h3>Visiteurs</h3><div class="v" id="k-v">—</div><div class="d" id="d-v"></div></div>
+      <div class="kpi glass"><h3>Visites</h3><div class="v" id="k-s">—</div><div class="d" id="d-s"></div></div>
+      <div class="kpi glass"><h3>Nouveaux visiteurs</h3><div class="v" id="k-n">—</div><div class="d" id="d-n"></div></div>
+      <div class="kpi glass"><h3>Fiches ouvertes</h3><div class="v" id="k-o">—</div><div class="d" id="d-o"></div></div>
+      <div class="kpi glass lead"><h3>Clics LoveGoBuy</h3><div class="v" id="k-b">—</div><div class="d" id="d-b"></div></div>
+      <div class="kpi glass gold"><h3>Clics « 500 € »</h3><div class="v" id="k-p">—</div><div class="d" id="d-p"></div></div>
+      <div class="kpi glass"><h3>Partages</h3><div class="v" id="k-sh">—</div><div class="d" id="d-sh"></div></div>
+      <div class="kpi glass"><h3>Questions au chat bot</h3><div class="v" id="k-q">—</div><div class="d" id="d-q"></div></div>
+    </section>
+
+    <section class="grid">
+      <div class="card glass wide">
+        <h2>Visiteurs et visites</h2>
+        <p class="note" id="note-days">Chaque jour de la période. Touche une barre pour le détail.</p>
+        <div class="chart"><canvas id="c-days"></canvas></div>
+      </div>
+      <div class="card glass">
+        <h2>Parcours des visiteurs</h2>
+        <p class="note">Sur la période : combien vont jusqu'au bout.</p>
+        <div class="rates" id="rates"></div>
+        <div class="chart sm"><canvas id="c-funnel"></canvas></div>
+      </div>
+      <div class="card glass">
+        <h2>D'où ils viennent</h2>
+        <p class="note">Visites par appli d'origine. « Lien direct » : lien collé, favori, ou appli qui ne se signale pas (souvent Telegram).</p>
+        <div class="chart sm"><canvas id="c-src"></canvas></div>
+      </div>
+      <div class="card glass">
+        <h2>Clics sur les produits</h2>
+        <p class="note">Fiches ouvertes et clics LoveGoBuy, tous articles, par jour.</p>
+        <div class="chart sm"><canvas id="c-clicks"></canvas></div>
+      </div>
+      <div class="card glass">
+        <h2>Appareils et usages</h2>
+        <p class="note">Visites sur mobile ou ordinateur, ouvertures depuis l'écran d'accueil.</p>
+        <div class="chart sm"><canvas id="c-dev"></canvas></div>
+      </div>
+      <div class="card glass wide">
+        <h2>Articles les plus cliqués</h2>
+        <p class="note" id="note-top">Sur la période.</p>
+        <div class="top-list" id="top-list"></div>
+      </div>
+    </section>
+    <p class="foot">Compteurs anonymes : aucun nom, aucune adresse IP. Le jour en cours est lu en direct ; les jours d'avant viennent du relevé du robot.</p>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(() => {
+  // Empreinte SHA-256 du mot de passe (le mot de passe lui-même n'est pas dans la page)
+  const PASS = '297b4d04afe84514adc72039c7bc18ec2c21409174ee4d862248c38628a06925';
+  const NS = 'bestfinds-vytoxx';
+  const API = 'https://abacus.jasoncameron.dev';
+  const STATS = 'https://raw.githubusercontent.com/best-finds-vytoxx/best-finds-vytoxx.github.io/stats/stats.json';
+  const KEYS = ['s', 'v', 'n', 'o', 'b', 'sh', 'po', 'p', 'q', 'app', 'mob', 'pc', 'rtg', 'rig', 'rsc', 'rtt', 'rwa', 'rweb', 'rdir'];
+  const $ = (id) => document.getElementById(id);
+  let started = false;
+  const safe = (fn) => { try { return fn(); } catch { return null; } };
+  const fmt = (n) => Math.round(n).toLocaleString('fr-FR');
+  const pct = (a, b) => (b ? `${Math.round((a / b) * 100)} %` : '—');
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const today = () => iso(new Date());
+  const addDays = (s, k) => iso(new Date(Date.parse(s + 'T00:00:00Z') + k * 864e5));
+  const frDay = (s) => new Date(s + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+
+  // ---------- verrou ----------
+  const sha = async (t) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map((b) => b.toString(16).padStart(2, '0')).join('');
+  const open = () => { $('lock').hidden = true; $('app').hidden = false; start(); };
+  $('lock-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if ((await sha($('pw').value.trim())) === PASS) { safe(() => localStorage.setItem('vx-tracker', PASS)); open(); }
+    else { $('lock-err').textContent = 'Mot de passe incorrect.'; $('pw').select(); }
+  });
+
+  // ---------- données ----------
+  let stats = { days: [] }, clicks = { history: [] }, arts = new Map(), live = null, loadedAt = null;
+  const getJson = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  async function liveToday() {
+    const d = today().replace(/-/g, '');
+    const vals = await Promise.all(KEYS.map((k) => fetch(`${API}/get/${NS}/d${d}-${k}`, { cache: 'no-store' })
+      .then((r) => (r.status === 404 ? { value: 0 } : r.ok ? r.json() : null)).then((j) => (j ? Number(j.value) || 0 : null)).catch(() => null)));
+    if (vals.every((v) => v == null)) return null;
+    const row = { date: today() };
+    KEYS.forEach((k, i) => { if (vals[i] != null) row[k] = vals[i]; });
+    return row;
+  }
+  async function load() {
+    const btn = $('refresh'); btn.classList.add('busy'); btn.disabled = true;
+    const [s, c, a, l] = await Promise.all([getJson(`${STATS}?t=${Date.now()}`), getJson(`data/clicks.json?t=${Date.now()}`), getJson(`data/articles.json?t=${Date.now()}`), liveToday()]);
+    if (s) stats = s;
+    if (c) clicks = c;
+    if (a) arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x]));
+    live = l;
+    loadedAt = new Date();
+    const w = [];
+    if (!s) w.push('le relevé du robot');
+    if (!l) w.push('les compteurs en direct');
+    $('warn').textContent = w.length ? `Impossible de lire ${w.join(' et ')} pour l'instant. Réessaie dans un moment.` : '';
+    $('warn').classList.toggle('on', w.length > 0);
+    $('updated').textContent = `Actualisé à ${loadedAt.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+    btn.classList.remove('busy'); btn.disabled = false;
+    render();
+  }
+
+  // un tableau de tous les jours (jours sans visite = 0), le jour en cours pris en direct
+  function allDays() {
+    const by = new Map((stats.days || []).map((d) => [d.date, d]));
+    if (live) { const r = by.get(live.date) || {}; const m = { ...r }; KEYS.forEach((k) => { m[k] = Math.max(Number(r[k]) || 0, Number(live[k]) || 0); }); by.set(live.date, m); }
+    const first = stats.since || [...by.keys()].sort()[0] || today();
+    const out = [];
+    for (let d = first; d <= today(); d = addDays(d, 1)) out.push({ date: d, ...(by.get(d) || {}) });
+    return out;
+  }
+
+  // ---------- période ----------
+  let period = '7';
+  try { period = localStorage.getItem('vx-period') || '7'; } catch {}
+  function range() {
+    const t = today();
+    if (period === 'custom') { const f = $('from').value || addDays(t, -6), to = $('to').value || t; return f <= to ? [f, to] : [to, f]; }
+    if (period === 'all') return [stats.since || t, t];
+    const n = Number(period) || 7;
+    return [addDays(t, -(n - 1)), t];
+  }
+  document.querySelectorAll('.seg [data-p]').forEach((b) => b.addEventListener('click', () => {
+    period = b.dataset.p; try { localStorage.setItem('vx-period', period); } catch {}
+    if (period === 'custom' && !$('from').value) { $('to').value = today(); $('from').value = addDays(today(), -13); }
+    render();
+  }));
+  ['from', 'to'].forEach((id) => $(id).addEventListener('change', render));
+  $('refresh').addEventListener('click', load);
+
+  // ---------- graphiques ----------
+  Chart.defaults.font.family = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif';
+  Chart.defaults.font.size = 13;
+  Chart.defaults.color = '#474e5c';
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const tooltip = { backgroundColor: 'rgba(31,37,51,.92)', padding: 10, cornerRadius: 10, titleFont: { weight: '600' }, bodyFont: { size: 13 }, displayColors: true, boxPadding: 4 };
+  const charts = {};
+  function chart(id, cfg) { if (charts[id]) charts[id].destroy(); charts[id] = new Chart($(id), cfg); }
+  // valeurs écrites au bout des barres (plus besoin de deviner sur l'axe)
+  const valueLabels = {
+    id: 'valueLabels',
+    afterDatasetsDraw(c, _, opt) {
+      if (!opt || !opt.on) return;
+      const { ctx } = c; ctx.save(); ctx.font = '600 12.5px "Instrument Sans", Arial'; ctx.fillStyle = '#1f2533';
+      c.data.datasets.forEach((ds, i) => {
+        if (ds.type === 'line' || c.getDatasetMeta(i).hidden) return;
+        c.getDatasetMeta(i).data.forEach((el, j) => {
+          const v = ds.data[j]; if (!v) return;
+          const txt = opt.fmt ? opt.fmt(v, j, ds) : fmt(v);
+          if (c.options.indexAxis === 'y') { ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(txt, el.x + 6, el.y); }
+          else { ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(txt, el.x, el.y - 4); }
+        });
+      });
+      ctx.restore();
+    },
+  };
+  Chart.register(valueLabels);
+  const gridOpts = { color: 'rgba(31,37,51,.07)', drawTicks: false };
+
+  function hbar(id, labels, values, colors, fmtFn) {
+    chart(id, {
+      type: 'bar',
+      data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 8, barThickness: 22 }] },
+      options: {
+        indexAxis: 'y', maintainAspectRatio: false, animation: { duration: 500 },
+        layout: { padding: { right: 96 } },
+        scales: { x: { display: false, beginAtZero: true, suggestedMax: Math.max(1, ...values) }, y: { grid: { display: false }, border: { display: false }, ticks: { font: { size: innerWidth < 520 ? 12.5 : 13.5, weight: '500' }, color: '#1f2533' } } },
+        plugins: { legend: { display: false }, tooltip: { ...tooltip, displayColors: false }, valueLabels: { on: true, fmt: fmtFn } },
+      },
+    });
+  }
+
+  // ---------- affichage ----------
+  const sumRows = (rows, k) => rows.reduce((t, r) => t + (Number(r[k]) || 0), 0);
+  function render() {
+    document.querySelectorAll('.seg [data-p]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.p === period)));
+    $('custom').classList.toggle('on', period === 'custom');
+    const days = allDays();
+    const [from, to] = range();
+    const cur = days.filter((d) => d.date >= from && d.date <= to);
+    const len = Math.round((Date.parse(to) - Date.parse(from)) / 864e5) + 1;
+    const pFrom = addDays(from, -len), pTo = addDays(from, -1);
+    const prev = days.filter((d) => d.date >= pFrom && d.date <= pTo);
+    const hasPrev = prev.length > 0 && (stats.since || today()) <= pFrom;
+    $('range-txt').innerHTML = from === to ? `<b>${frDay(from)}</b>` : `du <b>${frDay(from)}</b> au <b>${frDay(to)}</b>`;
+
+    for (const k of ['v', 's', 'n', 'o', 'b', 'p', 'sh', 'q']) {
+      const a = sumRows(cur, k), b = sumRows(prev, k);
+      $('k-' + k).textContent = fmt(a);
+      const el = $('d-' + k); el.className = 'd';
+      if (!hasPrev) { el.textContent = 'comparaison bientôt'; continue; }
+      const diff = a - b;
+      el.textContent = b ? `${diff >= 0 ? '+' : '−'}${Math.abs(Math.round((diff / b) * 100))} % vs période d'avant` : diff ? `+${fmt(diff)} vs période d'avant` : 'stable';
+      el.classList.add(diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat');
+    }
+
+    // visiteurs et visites par jour
+    chart('c-days', {
+      data: {
+        labels: cur.map((d) => frDay(d.date)),
+        datasets: [
+          { type: 'bar', label: 'Visiteurs', data: cur.map((d) => Number(d.v) || 0), backgroundColor: css('--c1'), borderRadius: 7, maxBarThickness: 38, order: 2 },
+          { type: 'line', label: 'Visites', data: cur.map((d) => Number(d.s) || 0), borderColor: css('--c2'), backgroundColor: css('--c2'), borderWidth: 3, pointRadius: cur.length > 20 ? 0 : 4, pointHoverRadius: 6, tension: 0, order: 1 },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false, animation: { duration: 500 }, interaction: { mode: 'index', intersect: false },
+        layout: { padding: { top: 18 } },
+        scales: { x: { grid: { display: false }, border: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } },
+          y: { beginAtZero: true, grid: gridOpts, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5, padding: 8 } } },
+        plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyle: 'rectRounded', boxWidth: 10, padding: 16, font: { weight: '600' } } }, tooltip, valueLabels: { on: cur.length <= 14 } },
+      },
+    });
+
+    // parcours
+    const s = sumRows(cur, 's'), o = sumRows(cur, 'o'), bb = sumRows(cur, 'b'), po = sumRows(cur, 'po'), p = sumRows(cur, 'p');
+    $('rates').innerHTML = `<span class="rate">Visites → clic LoveGoBuy <b>${pct(bb, s)}</b></span><span class="rate">Fiche ouverte → clic LoveGoBuy <b>${pct(bb, o)}</b></span><span class="rate">Fenêtre 500 € → inscription <b>${pct(p, po)}</b></span>`;
+    hbar('c-funnel', ['Visites', 'Fiches ouvertes', 'Clics LoveGoBuy', 'Fenêtre 500 €', 'Inscriptions'], [s, o, bb, po, p],
+      [css('--c1'), css('--c1'), css('--c1'), css('--c2'), css('--c2')], (v, j) => (j === 2 ? `${fmt(v)} · ${pct(v, o)} des fiches` : j === 4 ? `${fmt(v)} · ${pct(v, po)}` : fmt(v)));
+
+    // provenance
+    const src = [['Telegram', 'rtg'], ['Instagram', 'rig'], ['Snapchat', 'rsc'], ['TikTok', 'rtt'], ['WhatsApp', 'rwa'], ['Autre site', 'rweb'], ['Lien direct', 'rdir']]
+      .map(([l, k]) => [l, sumRows(cur, k)]).sort((a, b) => b[1] - a[1]);
+    const totSrc = src.reduce((t, x) => t + x[1], 0);
+    hbar('c-src', src.map((x) => x[0]), src.map((x) => x[1]), src.map((_, i) => (i === 0 ? css('--c3') : css('--c4'))), (v) => `${fmt(v)} · ${pct(v, totSrc)}`);
+
+    // appareils
+    const mob = sumRows(cur, 'mob'), pc = sumRows(cur, 'pc'), app = sumRows(cur, 'app');
+    hbar('c-dev', ['Mobile', 'Ordinateur', 'Écran d’accueil'], [mob, pc, app], [css('--c1'), css('--c4'), css('--c5')], (v, j) => (j < 2 ? `${fmt(v)} · ${pct(v, mob + pc)}` : fmt(v)));
+
+    // clics produits par jour (relevé du classement : différence d'un jour à l'autre)
+    const hist = [...(clicks.history || [])].sort((a, b) => a.date.localeCompare(b.date));
+    const tot = (h) => Object.values(h.totals || {}).reduce((t, v) => t + (Number(v) || 0), 0);
+    const perDay = new Map();
+    hist.forEach((h, i) => { if (i) perDay.set(h.date, Math.max(0, tot(h) - tot(hist[i - 1]))); });
+    const cd = [...perDay.entries()].filter(([d]) => d >= from && d <= to);
+    chart('c-clicks', {
+      type: 'bar',
+      data: { labels: cd.map(([d]) => frDay(d)), datasets: [{ label: 'Clics produits', data: cd.map(([, n]) => n), backgroundColor: css('--c2'), borderRadius: 7, maxBarThickness: 38 }] },
+      options: {
+        maintainAspectRatio: false, animation: { duration: 500 }, layout: { padding: { top: 18 } },
+        scales: { x: { grid: { display: false }, border: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } }, y: { beginAtZero: true, grid: gridOpts, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5, padding: 8 } } },
+        plugins: { legend: { display: false }, tooltip, valueLabels: { on: cd.length <= 14 } },
+      },
+    });
+
+    // articles les plus cliqués sur la période : total à la fin - total juste avant le début
+    const end = [...hist].reverse().find((h) => h.date <= to);
+    const base = [...hist].reverse().find((h) => h.date < from);
+    const list = $('top-list'); list.replaceChildren();
+    if (!end) { list.innerHTML = '<div class="empty">Pas encore de clics relevés pour cette période.</div>'; return; }
+    const counts = Object.entries(end.totals || {}).map(([id, n]) => [Number(id), (Number(n) || 0) - (Number(base?.totals?.[id]) || 0)])
+      .filter(([id, n]) => n > 0 && arts.has(id)).sort((a, b) => b[1] - a[1]).slice(0, 15);
+    $('note-top').textContent = base ? 'Fiches ouvertes et clics LoveGoBuy sur la période.' : 'Fiches ouvertes et clics LoveGoBuy depuis le début du relevé (le 28 octobre).';
+    if (!counts.length) { list.innerHTML = '<div class="empty">Aucun clic sur un article pendant cette période.</div>'; return; }
+    const max = counts[0][1];
+    counts.forEach(([id, n], i) => {
+      const a = arts.get(id);
+      const row = document.createElement('a'); row.className = 'art'; row.href = `./#article-${id}`; row.target = '_blank'; row.rel = 'noopener';
+      const r = document.createElement('span'); r.className = 'r'; r.textContent = i + 1;
+      const img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''; img.src = a.coverSm || a.cover || (a.photos || [])[0] || '';
+      const t = document.createElement('span'); t.className = 't';
+      const b = document.createElement('b'); b.textContent = a.title;
+      const sm = document.createElement('small'); sm.textContent = [a.brand, a.category].filter(Boolean).join(' · ');
+      const bar = document.createElement('div'); bar.className = 'bar-in'; bar.style.width = `${Math.max(6, (n / max) * 100)}%`;
+      t.append(b, sm, bar);
+      const v = document.createElement('span'); v.className = 'n'; v.textContent = fmt(n);
+      const vs = document.createElement('small'); vs.textContent = n > 1 ? 'clics' : 'clic'; v.appendChild(vs);
+      row.append(r, img, t, v); list.appendChild(row);
+    });
+  }
+
+  function start() { if (started) return; started = true; load(); }
+  // déjà déverrouillé sur cet appareil : on ouvre directement
+  if (safe(() => localStorage.getItem('vx-tracker')) === PASS) open();
+  else setTimeout(() => $('pw').focus(), 100);
+})();
+</script>
+</body>
+</html>

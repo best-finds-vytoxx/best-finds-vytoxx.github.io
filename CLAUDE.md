@@ -44,3 +44,6 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 - Statistiques (tableau de bord privé de Léonard, sur claude.ai) : le site incrémente des compteurs anonymes par jour
   (`stat()` dans app.js, clés `dAAAAMMJJ-<code>` sur abacus) ; `scripts/stats.mjs` les relève à chaque passage et les
   pousse sur la branche `stats` (stats.json, jamais sur le site). Codes : voir l'en-tête de stats.mjs.
+  Tracker de Léonard : `tracker.html` (page cachée du site, mot de passe vérifié par empreinte SHA-256 `PASS`,
+  noindex, aucun lien depuis le site). Bouton Actualiser : relevé du robot (branche stats, raw.githubusercontent)
+  + compteurs du jour lus en direct sur abacus. Graphiques Chart.js 4.4.1 (cdnjs).
