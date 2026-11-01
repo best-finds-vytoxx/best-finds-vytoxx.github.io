@@ -207,10 +207,11 @@
         <div class="top-list" id="top-list"></div>
       </div>
     </section>
-    <p class="foot">Compteurs anonymes : aucun nom, aucune adresse IP. Le jour en cours est lu en direct ; les jours d'avant viennent du relevé du robot.</p>
+    <p class="foot">Compteurs anonymes : aucun nom, aucune adresse IP. Lus en direct à chaque actualisation.</p>
   </main>
 </div>
 
+<script src="assets/config.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 (() => {
@@ -235,6 +236,8 @@
   const ub = (t) => Uint8Array.from(atob(t), (c) => c.charCodeAt(0));
   const S = crypto.subtle;
   let priv = null;
+  const PRIV = ((window.SITE || {}).statsUrl || '').replace(/\/$/, '');
+  let token = PRIV ? safe(() => localStorage.getItem('vx-token')) : null;
   async function unlock(pw) {
     const base = await S.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
     const k = await S.deriveKey({ name: 'PBKDF2', salt: ub(VAULT.salt), iterations: VAULT.it, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
@@ -252,8 +255,15 @@
   $('lock-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = e.submitter || $('lock-form').querySelector('button'); btn.disabled = true; btn.textContent = 'Vérification…';
-    try { priv = await unlock($('pw').value.trim()); await idb('readwrite', (st) => st.put(priv, 'priv')); open(); }
-    catch { $('lock-err').textContent = 'Mot de passe incorrect.'; $('pw').select(); }
+    if (PRIV) {
+      // compteur privé : le serveur vérifie le mot de passe et renvoie un jeton valable 90 jours sur cet appareil
+      const r = await fetch(`${PRIV}/login`, { method: 'POST', body: JSON.stringify({ pw: $('pw').value.trim() }) }).then((x) => x.json()).catch(() => ({ error: 'Serveur injoignable. Réessaie.' }));
+      if (r.ok) { token = r.token; safe(() => localStorage.setItem('vx-token', token)); open(); }
+      else { $('lock-err').textContent = r.error || 'Mot de passe incorrect.'; $('pw').select(); }
+    } else {
+      try { priv = await unlock($('pw').value.trim()); await idb('readwrite', (st) => st.put(priv, 'priv')); open(); }
+      catch { $('lock-err').textContent = 'Mot de passe incorrect.'; $('pw').select(); }
+    }
     btn.disabled = false; btn.textContent = 'Ouvrir le tracker';
   });
   async function openDay(box) {
@@ -275,6 +285,22 @@
   }
   async function load() {
     const btn = $('refresh'); btn.classList.add('busy'); btn.disabled = true;
+    if (PRIV) {
+      const [r, c, a] = await Promise.all([
+        fetch(`${PRIV}/stats?t=${Date.now()}`, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }).then((x) => x.json()).catch(() => null),
+        getJson(`data/clicks.json?t=${Date.now()}`), getJson(`data/articles.json?t=${Date.now()}`)]);
+      if (r && r.error === 'Connexion expirée.') { safe(() => localStorage.removeItem('vx-token')); location.reload(); return; }
+      if (r && r.ok) stats = { since: r.since, days: r.days };
+      if (c) clicks = c;
+      if (a) arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x]));
+      live = null; loadedAt = new Date();
+      $('warn').textContent = r && r.ok ? '' : 'Impossible de joindre le compteur pour l’instant. Réessaie dans un moment.';
+      $('warn').classList.toggle('on', !(r && r.ok));
+      $('updated').textContent = `Actualisé à ${loadedAt.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+      btn.classList.remove('busy'); btn.disabled = false;
+      render();
+      return;
+    }
     const [s, c, a, l] = await Promise.all([getJson(`${STATS}?t=${Date.now()}`), getJson(`data/clicks.json?t=${Date.now()}`), getJson(`data/articles.json?t=${Date.now()}`), liveToday()]);
     if (s) {
       const days = await Promise.all(Object.values(s.days || {}).map((b) => openDay(b).catch(() => null)));
@@ -321,7 +347,7 @@
   }));
   ['from', 'to'].forEach((id) => $(id).addEventListener('change', render));
   $('refresh').addEventListener('click', load);
-  $('relock').addEventListener('click', async () => { await idb('readwrite', (st) => st.delete('priv')); location.reload(); });
+  $('relock').addEventListener('click', async () => { safe(() => localStorage.removeItem('vx-token')); await idb('readwrite', (st) => st.delete('priv')); location.reload(); });
 
   // ---------- graphiques ----------
   Chart.defaults.font.family = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif';
@@ -467,7 +493,8 @@
 
   function start() { if (started) return; started = true; load(); }
   // déjà déverrouillé sur cet appareil : on ouvre directement
-  idb('readonly', (st) => st.get('priv')).then((k) => { if (k) { priv = k; open(); } else setTimeout(() => $('pw').focus(), 100); });
+  if (PRIV) { if (token) open(); else setTimeout(() => $('pw').focus(), 100); }
+  else idb('readonly', (st) => st.get('priv')).then((k) => { if (k) { priv = k; open(); } else setTimeout(() => $('pw').focus(), 100); });
   try { localStorage.removeItem('vx-tracker'); } catch {}
 })();
 </script>

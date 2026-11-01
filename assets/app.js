@@ -299,9 +299,23 @@
   // appareil, ouvertures de fiches, clics LoveGoBuy, partages, 500 € de coupons, questions au chat bot.
   // Le robot les relève (scripts/stats.mjs) dans data/stats.json, lu par le tableau de bord privé.
   const dayKey = () => new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  // Compteur privé (Cloudflare, S.statsUrl) : envoi groupé, illisible sans le mot de passe du tracker.
+  // Tant qu'il n'est pas branché, repli sur l'ancien compteur public.
+  const statQ = [];
+  let statT = null;
+  const statFlush = () => {
+    clearTimeout(statT); statT = null;
+    if (!statQ.length) return;
+    const body = JSON.stringify({ k: statQ.splice(0, 8) });
+    const url = `${S.statsUrl.replace(/\/$/, '')}/hit`;
+    if (!safe(() => navigator.sendBeacon && navigator.sendBeacon(url, new Blob([body], { type: 'text/plain' })))) safe(() => fetch(url, { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'text/plain' } }).catch(() => {}));
+    if (statQ.length) statFlush();
+  };
+  addEventListener('pagehide', statFlush);
   function stat(name, once) {
     const d = dayKey();
     if (once) { const k = `st-${name}-${d}`; if (store.get(k)) return; store.set(k, '1'); }
+    if (S.statsUrl) { statQ.push(name); if (!statT) statT = setTimeout(statFlush, 400); return; }
     safe(() => fetch(`https://abacus.jasoncameron.dev/hit/${NS}/d${d}-${name}`, { keepalive: true, mode: 'cors' }).catch(() => {}));
   }
   // tout clic vers le lien d'inscription (500 € de coupons), où qu'il soit sur le site
