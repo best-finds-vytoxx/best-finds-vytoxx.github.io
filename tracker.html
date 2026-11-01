@@ -61,6 +61,11 @@
   .brand b { display: block; font: 700 18px/1 var(--f-display); letter-spacing: -.02em; }
   .brand small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; }
   .refresh .spin { width: 16px; height: 16px; }
+  .homebtn { height: 46px; padding: 0 14px 0 10px; border-radius: 14px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; color: var(--ink); font: 600 14.5px var(--f-body);
+    background: rgba(255, 255, 255, .55); box-shadow: inset 0 1px 0 #fff, 0 6px 14px -10px rgba(80, 45, 15, .5); }
+  .homebtn svg { width: 20px; height: 20px; }
+  .homebtn:hover { background: rgba(255, 255, 255, .8); }
+  @media (max-width: 520px) { .homebtn { width: 46px; padding: 0; justify-content: center; } .homebtn span { display: none; } }
   .lockbtn { width: 46px; height: 46px; border-radius: 14px; border: 0; cursor: pointer; color: var(--ink); background: rgba(255, 255, 255, .55); box-shadow: inset 0 1px 0 #fff, 0 6px 14px -10px rgba(80, 45, 15, .5); display: grid; place-items: center; }
   .lockbtn svg { width: 18px; height: 18px; }
   .refresh.busy .spin { animation: spin .9s linear infinite; }
@@ -155,6 +160,7 @@
 <div id="app" hidden>
   <header class="top">
     <div class="top-in">
+      <a class="homebtn" href="./" title="Retour au site" aria-label="Retour à l’accueil du site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>Site</span></a>
       <a class="brand" href="./"><img src="assets/img/app-icon-180.png" alt=""><span><b>Tracker Vytoxx</b><small id="updated">—</small></span></a>
       <button class="btn refresh" id="refresh" type="button" title="Actualiser les chiffres">
         <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>
