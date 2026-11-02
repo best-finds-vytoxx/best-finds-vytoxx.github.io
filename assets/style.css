@@ -1329,3 +1329,16 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 .help-go { opacity: .9; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .help-shine::before { background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .22) 50%, transparent 80%); } }
 @media (prefers-reduced-motion: reduce) { .help-tile, .help-shine::before, .help-ic svg { animation: none; } }
+
+/* contour vivant : une lumière dorée fait le tour de chaque tuile (décalée d'une tuile à l'autre) */
+@property --hb { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.help-tile.lg::after {
+  padding: 2.5px; opacity: 1;
+  background:
+    conic-gradient(from var(--hb), transparent 0deg 220deg, rgba(214, 140, 40, .25) 240deg, rgba(214, 140, 40, 1) 290deg, #fff3d6 318deg, rgba(214, 140, 40, 1) 334deg, transparent 356deg),
+    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, .3) 28%, rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .35) 72%, rgba(255, 255, 255, .95));
+  animation: help-ring 4.8s linear infinite; animation-delay: calc(var(--i, 0) * -1.6s);
+}
+@keyframes help-ring { to { --hb: 360deg; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .help-tile.lg::after { opacity: .9; } }
+@media (prefers-reduced-motion: reduce) { .help-tile.lg::after { animation: none; } }
