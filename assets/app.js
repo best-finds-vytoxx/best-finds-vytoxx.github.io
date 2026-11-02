@@ -471,9 +471,9 @@
           <div class="help">
             <span class="help-title">Aide pour commander</span>
             <div class="help-row">
-              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>10 étapes illustrées</small><span class="help-go">${icon.right}</span><span class="help-shine" aria-hidden="true"></span></a>
-              <a class="help-tile lg" href="#ecran"><span class="help-ic ic-navy">${icon.phone}</span><b>Le site sur ton écran</b><small>iPhone et Android</small><span class="help-go">${icon.right}</span><span class="help-shine" aria-hidden="true"></span></a>
-              <a class="help-tile lg" href="#aide"><span class="help-ic ic-terra">${icon.chat}</span><b>Chat bot</b><small>Pose ta question</small><span class="help-go">${icon.right}</span><span class="help-shine" aria-hidden="true"></span></a>
+              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>10 étapes illustrées</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#ecran"><span class="help-ic ic-navy">${icon.phone}</span><b>Le site sur ton écran</b><small>iPhone et Android</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#aide"><span class="help-ic ic-terra">${icon.chat}</span><b>Chat bot</b><small>Pose ta question</small><span class="help-go">${icon.right}</span></a>
             </div>
           </div>
         </div>
