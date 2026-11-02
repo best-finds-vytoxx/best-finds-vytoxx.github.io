@@ -6,7 +6,7 @@ window.SITE = {
   telegram: 'https://t.me/lovegobuy_france',
   chat: 'https://t.me/LoveGoBuy_fr', // groupe de discussion (questions, liens introuvables)
   statsUrl: 'https://vytoxx-stats.jean-plouy59.workers.dev', // compteur privé (Cloudflare Worker, voir cloudflare/worker.js) ; vide = ancien compteur public
-  invite: 'https://www.lovegobuy.com/?invite_code=EPHDII', // lien d'inscription (pop-up + boutons)
+  invite: 'https://www.lovegobuy.com/login/signup/?invite_code=EPHDII', // lien d'inscription (pop-up + boutons)
   coupon: '500 €', // montant affiché dans le pop-up
   newForHours: 48, // badge « Nouveau » pendant 48 h
 
