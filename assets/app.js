@@ -471,7 +471,7 @@
           <div class="help">
             <span class="help-title">Aide pour commander</span>
             <div class="help-row">
-              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>10 étapes illustrées</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>9 étapes illustrées</small><span class="help-go">${icon.right}</span></a>
               <a class="help-tile lg" href="#ecran"><span class="help-ic ic-navy">${icon.phone}</span><b>Le site sur ton écran</b><small>iPhone et Android</small><span class="help-go">${icon.right}</span></a>
               <a class="help-tile lg" href="#aide"><span class="help-ic ic-terra">${icon.chat}</span><b>Chat bot</b><small>Pose ta question</small><span class="help-go">${icon.right}</span></a>
             </div>
@@ -539,10 +539,8 @@
   // Tuto illustré pour commander : mêmes iPhones dessinés que le tuto « écran d'accueil »
   const lgbTop = (title) => `<div class="mk-lgb-top"><b>LoveGoBuy</b><span>${title}</span></div>`;
   const orderSteps = () => [
-    ['Crée ton compte avec le lien', `Touche <b>Créer mon compte</b> (le bouton doré du site) : tu arrives sur LoveGoBuy. Inscris-toi avec ton e-mail. C'est ce lien qui te donne droit aux <b>${coupon} de coupons</b>.`,
+    ['Crée ton compte avec le lien', `Touche <b>Créer mon compte</b> (le bouton doré du site) : tu arrives sur LoveGoBuy. Inscris-toi avec ton e-mail. Grâce à ce lien, tes <b>${coupon} de coupons</b> sont ajoutés à ton compte dès l'inscription : rien d'autre à faire.`,
       phone(`${lgbTop('Inscription')}<div class="mk-form"><div class="mk-gold">${coupon} de coupons offerts</div><span class="mk-field">E-mail</span><span class="mk-field">Mot de passe</span><span class="mk-btn hl">S'inscrire</span></div>`)],
-    ['Récupère tes coupons', `Dans ton compte, ouvre les coupons et touche <b>Recevoir</b>. Ils servent plus tard à payer <b>moins cher la livraison</b>.`,
-      phone(`${lgbTop('Mes coupons')}<div class="mk-coupons">${['1,43', '1,43', '2,85', '4,28'].map((v, i) => `<div class="mk-cpn"><b>€${v}</b><small>Réduction livraison</small><span class="${i === 0 ? 'hl' : ''}">Recevoir</span></div>`).join('')}</div>`)],
     ["Choisis ton article sur Vytoxx Best Finds", `Sur la fiche de l'article qui te plaît, touche <b>Copier le lien LoveGoBuy</b> (ou <b>Voir sur LoveGoBuy</b> pour l'ouvrir directement).`,
       phone(`<div class="mk-site">${miniHero}</div><div class="mk-fiche"><b>Nike Tech</b><span class="mk-price">20,46 €</span><span class="mk-btn">Voir sur LoveGoBuy</span><span class="mk-btn ghost hl">Copier le lien LoveGoBuy</span></div>`)],
     ['Colle le lien dans LoveGoBuy', `Dans l'appli ou le site LoveGoBuy, colle le lien dans la <b>barre de recherche</b> en haut, puis touche <b>Rechercher</b>.`,
@@ -572,13 +570,13 @@
     view.innerHTML = `
       <section class="wrap tuto">
         <header class="tuto-head">
-          <span class="eyebrow">Tuto · 10 étapes + 1 conseil</span>
+          <span class="eyebrow">Tuto · 9 étapes + 1 conseil</span>
           <h1>Commander sur LoveGoBuy, de A à Z</h1>
           <p class="lead">De l'inscription au paiement de la livraison, étape par étape. Le bouton à toucher est entouré en rouge sur chaque écran.</p>
         </header>
-        <ol class="hs-steps od-steps">${orderSteps().map(([title, txt, pic], k) => `<li class="hs-step reveal ${title.startsWith('Conseil') ? 'od-tip' : ''}">
+        <ol class="hs-steps od-steps">${orderSteps().map(([title, txt, pic], k, all) => `<li class="hs-step reveal ${title.startsWith('Conseil') ? 'od-tip' : ''}">
           <div class="hs-pic">${pic}</div>
-          <div class="hs-txt"><span class="hs-n">${title.startsWith('Conseil') ? '★' : title.startsWith("C'est tout") ? '✓' : k + 1 - (k > 7 ? 1 : 0)}</span><h2>${title}</h2><p>${txt}</p></div>
+          <div class="hs-txt"><span class="hs-n">${title.startsWith('Conseil') ? '★' : title.startsWith("C'est tout") ? '✓' : k + 1 - (k > all.findIndex((x) => x[0].startsWith('Conseil')) ? 1 : 0)}</span><h2>${title}</h2><p>${txt}</p></div>
         </li>`).join('')}</ol>
         <div class="tuto-cta">
           <a class="buy" href="${esc(S.invite)}" target="_blank" rel="noopener">${icon.gift} Créer mon compte · ${coupon} offerts</a>
