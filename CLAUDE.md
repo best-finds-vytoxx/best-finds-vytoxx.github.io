@@ -37,7 +37,9 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   Liquid glass sur tout le site : variables `--gl-*` et bloc « LIQUID GLASS SUR TOUT LE SITE » en fin de style.css ;
   la lumière floutée reste derrière chaque page (`html::before`). Pas d’italique, pas de police de code.
 - Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face.
-- Chat bot (`#aide`) : tableau `BOT` dans `assets/app.js`, réponses validées par Léonard (coupons 485 € ≈ 500 €, un coupon par colis ;
+- Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
+  sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`
+  (ajouter un cas à chaque question mal comprise). Réponses validées par Léonard (coupons 485 € ≈ 500 €, un coupon par colis ;
   délais 3–7 j + 6–18 j ; prix optimaux 500 g–5 kg, le volume compte ; remboursement 8 j / 5 j, sur le solde ; stockage 60 j ;
   ligne la moins chère entre LoveGoBuy EU, DHL, DPD ; suivi : Colis › Détails › numéro de suivi, puis AfterShip en Europe). Jamais : taxe 2 €/article, 1.1, rep, Vinted, Hacoo, noms de helpers.
   Groupe de discussion : `chat` dans `assets/config.js` (t.me/LoveGoBuy_fr).

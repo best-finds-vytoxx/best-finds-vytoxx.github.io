@@ -1337,3 +1337,7 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 @keyframes help-ring { to { --hb: 360deg; } }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .help-tile.lg::after { opacity: .9; } }
 @media (prefers-reduced-motion: reduce) { .help-tile.lg::after { animation: none; } }
+
+/* chat bot : quand la question est floue, le bot propose 2 ou 3 questions à toucher */
+.bm-picks { display: grid; gap: 8px; margin-top: 10px; }
+.bm-picks .chip { height: auto; min-height: 38px; padding: 8px 14px; white-space: normal; text-align: left; line-height: 1.25; justify-content: flex-start; background: var(--bg); border: 1px solid var(--line-strong); }
