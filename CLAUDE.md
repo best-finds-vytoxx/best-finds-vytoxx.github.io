@@ -14,6 +14,8 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 ## Fonctionnement
 
 - `.github/workflows/update.yml` : toutes les 15 min → tests → `scripts/scrape.mjs` → `scripts/clicks.mjs` → commit → déploiement Pages.
+  Toutes les 6 h (`SWEEP_HOURS`, date `sweptAt` dans articles.json), le robot relit tout le canal : un post supprimé du canal
+  est retiré du site avec ses photos (seulement si la lecture est complète et a trouvé au moins 60 % des articles).
 - `scripts/parse.mjs` : lecture des pages t.me/s, catégories (`detectCategory` puis `MERGE`), description, lien LoveGoBuy
   (le lien intitulé « lien LoveGoBuy », pas celui de l'emoji 🔗).
 - `scripts/scrape.mjs` : téléchargement des photos (originaux du canal, sans recompression, `PHOTO_REV`), choix de la

@@ -21,6 +21,7 @@ import { promptFor } from './vision.mjs';
 const CHANNEL = process.env.CHANNEL || 'lovegobuy_france';
 const RECENT_PAGES = Number(process.env.RECENT_PAGES || 3); // une fois l'historique complet, les dernières pages suffisent
 const MAX_PAGES = Number(process.env.MAX_PAGES || 400); // garde-fou pour la lecture de l'historique
+const SWEEP_HOURS = Number(process.env.SWEEP_HOURS || 6); // relecture complète du canal : les posts supprimés quittent le site
 const BATCH = Number(process.env.BATCH || 1000); // nouveaux articles traités au maximum par passage (limités aussi par BUDGET_MIN)
 const MAX_PHOTOS = 10;
 const CUTOUT_TRIES = Number(process.env.CUTOUT_TRIES ?? 4); // 0 = pas de détourage
@@ -66,17 +67,19 @@ async function readChannel(maxPages) {
   pages.push(html);
   const channel = parseChannel(html);
   let before = minId(parseMessages(html));
+  let complete = !before || before <= 1; // vrai seulement si on est remonté jusqu'au tout premier post
   for (let i = 1; i < maxPages && before && before > 1; i++) {
     await sleep(700);
     html = await get(`https://t.me/s/${CHANNEL}?before=${before}`);
     const msgs = parseMessages(html);
-    if (!msgs.length) break;
+    if (!msgs.length) { complete = true; break; }
     pages.push(html);
     const next = minId(msgs);
-    if (next >= before) break;
+    if (next >= before) { complete = true; break; }
     before = next;
+    if (before <= 1) complete = true;
   }
-  return { channel, messages: pages.flatMap(parseMessages), pages: pages.length };
+  return { channel, messages: pages.flatMap(parseMessages), pages: pages.length, complete };
 }
 
 /** Télécharge les photos d'un article (version web + original gardé pour le détourage). */
@@ -218,9 +221,28 @@ async function main() {
   // 1. Lire le canal
   const photosStale = [...known.values()].some((a) => a.photoRev !== PHOTO_REV);
   if (photosStale) console.log('Photos à récupérer à nouveau depuis le canal, en qualité d\'origine : lecture de tout le canal');
-  const { channel, messages, pages } = await readChannel(historyDone && !photosStale ? RECENT_PAGES : MAX_PAGES);
+  const sweepDue = !existing.sweptAt || Date.now() - Date.parse(existing.sweptAt) > SWEEP_HOURS * 36e5;
+  const full = !historyDone || photosStale || sweepDue;
+  const { channel, messages, pages, complete } = await readChannel(full ? MAX_PAGES : RECENT_PAGES);
   const found = toArticles(messages, CHANNEL);
   console.log(`${found.length} articles lus sur ${pages} page(s) ; ${known.size} déjà sur le site`);
+
+  // Posts supprimés du canal → retirés du site (seulement après une lecture complète et réussie du canal)
+  let sweptAt = existing.sweptAt || null;
+  if (full && complete && historyDone) {
+    const onChannel = new Set(messages.map((m) => m.id));
+    const gone = [...known.keys()].filter((id) => !onChannel.has(id));
+    if (gone.length && found.length < known.size * 0.6) {
+      console.warn(`Lecture du canal incomplète (${found.length} articles lus) : aucune suppression cette fois.`);
+    } else {
+      for (const id of gone) {
+        console.log(`- ${id} ${known.get(id).title} : supprimé du canal, retiré du site`);
+        known.delete(id);
+        await rm(path.join(IMAGES, String(id)), { recursive: true, force: true });
+      }
+      sweptAt = new Date().toISOString();
+    }
+  }
 
   // Corrections faites à la main (data/overrides.json) : { "id": { "cover": n°photo, "category": "Bas", "kind": "shoe", "hide": true } }
   const overrides = await readJson(OVERRIDES_FILE, {});
@@ -252,7 +274,7 @@ async function main() {
   const save = async (historyComplete) => {
     const kept = [...known.values()].map(({ price, ...a }) => a).sort((x, y) => y.id - x.id);
     await mkdir(path.dirname(DATA), { recursive: true });
-    await writeFile(DATA, JSON.stringify({ updatedAt: new Date().toISOString(), channel: CHANNEL, historyComplete, articles: kept }, null, 1));
+    await writeFile(DATA, JSON.stringify({ updatedAt: new Date().toISOString(), channel: CHANNEL, historyComplete, sweptAt, articles: kept }, null, 1));
     return kept;
   };
 
@@ -341,7 +363,7 @@ async function main() {
   const historyComplete = historyDone || remaining === 0;
   const kept = [...known.values()].map(({ price, ...a }) => a).sort((x, y) => y.id - x.id);
   const noViews = (list) => JSON.stringify(list.map(({ views, ...rest }) => rest));
-  if (noViews(kept) === noViews(existing.articles) && historyComplete === existing.historyComplete) {
+  if (noViews(kept) === noViews(existing.articles) && historyComplete === existing.historyComplete && sweptAt === (existing.sweptAt || null)) {
     console.log('Rien de nouveau.');
     return;
   }
