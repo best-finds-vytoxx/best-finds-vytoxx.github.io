@@ -46,6 +46,10 @@ async function tryCut(job, n) {
       const { width: W, height: H } = await sharp(await img.clone().toBuffer()).metadata();
       const [x0, y0, x1, y1] = job.crop;
       buf = await img.extract({ left: Math.round(x0 * W), top: Math.round(y0 * H), width: Math.round((x1 - x0) * W), height: Math.round((y1 - y0) * H) }).png().toBuffer();
+      // bord de fond ajouté autour du recadrage : un produit qui touche le bord de la photo n'est pas coupé au détourage
+      const { data: px } = await sharp(buf).extract({ left: 0, top: 0, width: 4, height: 4 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+      const pad = Math.round(Math.max(W, H) * 0.05);
+      buf = await sharp(buf).extend({ top: pad, bottom: pad, left: pad, right: pad, background: { r: px[0], g: px[1], b: px[2] } }).png().toBuffer();
     }
     const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear', prompt: job.prompt || null });
     if (!out) { console.log(`  ${job.id} : détourage de la photo ${n} jugé raté`); return null; }
