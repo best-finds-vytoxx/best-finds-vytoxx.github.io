@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-03T08:27:33.297Z",
+ "updatedAt": "2026-11-03T09:34:48.015Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-03T08:27:33.287Z",
@@ -20,7 +20,7 @@
    "shop": "weidian",
    "productId": "7886818003",
    "date": "2026-11-02T07:41:58+00:00",
-   "views": "305",
+   "views": "310",
    "telegram": "https://t.me/lovegobuy_france/5545",
    "photos": [
     "images/5545/1.jpg",
@@ -59,7 +59,7 @@
    "shop": "weidian",
    "productId": "7889858094",
    "date": "2026-11-02T07:41:50+00:00",
-   "views": "299",
+   "views": "304",
    "telegram": "https://t.me/lovegobuy_france/5538",
    "photos": [
     "images/5538/1.jpg",
@@ -98,7 +98,7 @@
    "shop": "weidian",
    "productId": "7886875901",
    "date": "2026-11-02T07:41:44+00:00",
-   "views": "247",
+   "views": "251",
    "telegram": "https://t.me/lovegobuy_france/5532",
    "photos": [
     "images/5532/1.jpg",
@@ -136,7 +136,7 @@
    "shop": "weidian",
    "productId": "7889868086",
    "date": "2026-11-02T07:41:40+00:00",
-   "views": "265",
+   "views": "270",
    "telegram": "https://t.me/lovegobuy_france/5526",
    "photos": [
     "images/5526/1.jpg",
@@ -173,7 +173,7 @@
    "shop": "weidian",
    "productId": "7888472404",
    "date": "2026-10-30T09:44:51+00:00",
-   "views": "874",
+   "views": "877",
    "telegram": "https://t.me/lovegobuy_france/5510",
    "photos": [
     "images/5510/1.jpg",
@@ -214,7 +214,7 @@
    "shop": "weidian",
    "productId": "7888541940",
    "date": "2026-10-30T09:42:31+00:00",
-   "views": "720",
+   "views": "723",
    "telegram": "https://t.me/lovegobuy_france/5502",
    "photos": [
     "images/5502/1.jpg",
@@ -254,7 +254,7 @@
    "shop": "weidian",
    "productId": "7888478042",
    "date": "2026-10-30T09:42:25+00:00",
-   "views": "592",
+   "views": "595",
    "telegram": "https://t.me/lovegobuy_france/5496",
    "photos": [
     "images/5496/1.jpg",
@@ -292,7 +292,7 @@
    "shop": "weidian",
    "productId": "7881113385",
    "date": "2026-10-29T15:36:09+00:00",
-   "views": "669",
+   "views": "671",
    "telegram": "https://t.me/lovegobuy_france/5490",
    "photos": [
     "images/5490/1.jpg",
@@ -330,7 +330,7 @@
    "shop": "weidian",
    "productId": "7881190429",
    "date": "2026-10-29T15:36:02+00:00",
-   "views": "661",
+   "views": "663",
    "telegram": "https://t.me/lovegobuy_france/5484",
    "photos": [
     "images/5484/1.jpg",
@@ -373,7 +373,7 @@
    "shop": "weidian",
    "productId": "7881162669",
    "date": "2026-10-29T15:35:58+00:00",
-   "views": "615",
+   "views": "617",
    "telegram": "https://t.me/lovegobuy_france/5475",
    "photos": [
     "images/5475/1.jpg",
@@ -387,7 +387,7 @@
     "images/5475/9.jpg"
    ],
    "cover": "images/5475/cover.webp",
-   "coverFrom": 2,
+   "coverFrom": 9,
    "front": 2,
    "coverRev": 5,
    "coverPick": null,
@@ -397,7 +397,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5475/cover-sm.webp"
+   "coverSm": "images/5475/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5467,
@@ -427,7 +429,7 @@
     "images/5467/8.jpg"
    ],
    "cover": "images/5467/cover.webp",
-   "coverFrom": 2,
+   "coverFrom": 8,
    "front": 2,
    "coverRev": 5,
    "coverPick": 2,
@@ -437,7 +439,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5467/cover-sm.webp"
+   "coverSm": "images/5467/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5452,
@@ -1698,7 +1702,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5205/cover-sm.webp"
+   "coverSm": "images/5205/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5196,
@@ -1771,7 +1777,7 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -1779,7 +1785,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5187/cover-sm.webp"
+   "coverSm": "images/5187/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5179,
@@ -1849,7 +1857,7 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 6,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -1857,7 +1865,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5172/cover-sm.webp"
+   "coverSm": "images/5172/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5164,
@@ -1889,7 +1899,7 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -1897,7 +1907,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5164/cover-sm.webp"
+   "coverSm": "images/5164/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5146,
@@ -1929,7 +1941,7 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -1937,7 +1949,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5146/cover-sm.webp"
+   "coverSm": "images/5146/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5138,
@@ -1969,7 +1983,7 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -1977,7 +1991,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5138/cover-sm.webp"
+   "coverSm": "images/5138/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5127,
@@ -2444,7 +2460,7 @@
    "addedAt": "2026-10-27T23:06:36.737Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -2452,7 +2468,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5037/cover-sm.webp"
+   "coverSm": "images/5037/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5028,
@@ -2484,7 +2502,7 @@
    "addedAt": "2026-10-27T23:06:36.737Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -2492,7 +2510,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5028/cover-sm.webp"
+   "coverSm": "images/5028/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5020,
@@ -2524,7 +2544,7 @@
    "addedAt": "2026-10-27T23:06:36.737Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -2532,7 +2552,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/5020/cover-sm.webp"
+   "coverSm": "images/5020/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 5012,
@@ -2720,7 +2742,7 @@
    "addedAt": "2026-10-27T23:06:36.737Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 9,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -2728,7 +2750,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4982/cover-sm.webp"
+   "coverSm": "images/4982/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4973,
@@ -2761,7 +2785,7 @@
    "addedAt": "2026-10-27T23:06:36.737Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 9,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -2769,7 +2793,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4973/cover-sm.webp"
+   "coverSm": "images/4973/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4953,
@@ -3192,7 +3218,7 @@
    "addedAt": "2026-10-27T23:06:36.737Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -3200,7 +3226,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4854/cover-sm.webp"
+   "coverSm": "images/4854/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4848,
@@ -3399,7 +3427,7 @@
    "addedAt": "2026-10-27T23:06:36.738Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 7,
    "coverRev": 5,
    "coverPick": null,
    "kindPick": null,
@@ -3407,7 +3435,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4818/cover-sm.webp"
+   "coverSm": "images/4818/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4811,
@@ -3438,7 +3468,7 @@
    "addedAt": "2026-10-27T23:06:36.738Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 7,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -3446,7 +3476,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4811/cover-sm.webp"
+   "coverSm": "images/4811/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4805,
@@ -3558,7 +3590,7 @@
    "addedAt": "2026-10-28T01:40:49.933Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": "shoe",
@@ -3566,7 +3598,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4787/cover-sm.webp"
+   "coverSm": "images/4787/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4779,
@@ -3598,7 +3632,7 @@
    "addedAt": "2026-10-28T01:40:49.933Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -3606,7 +3640,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4779/cover-sm.webp"
+   "coverSm": "images/4779/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4771,
@@ -4315,7 +4351,7 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
    "front": 3,
-   "coverFrom": 3,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
@@ -4328,7 +4364,9 @@
     0.93
    ],
    "photoRev": 2,
-   "coverSm": "images/4622/cover-sm.webp"
+   "coverSm": "images/4622/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4614,
@@ -4360,7 +4398,7 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -4368,7 +4406,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4614/cover-sm.webp"
+   "coverSm": "images/4614/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4606,
@@ -4520,7 +4560,7 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -4528,7 +4568,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4581/cover-sm.webp"
+   "coverSm": "images/4581/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4572,
@@ -4561,7 +4603,7 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
    "front": 3,
-   "coverFrom": 3,
+   "coverFrom": 9,
    "coverRev": 5,
    "coverPick": 3,
    "kindPick": null,
@@ -4569,7 +4611,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4572/cover-sm.webp"
+   "coverSm": "images/4572/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4563,
@@ -4602,7 +4646,7 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
    "front": 8,
-   "coverFrom": 8,
+   "coverFrom": 9,
    "coverRev": 5,
    "coverPick": 8,
    "kindPick": null,
@@ -4610,7 +4654,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4563/cover-sm.webp"
+   "coverSm": "images/4563/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4555,
@@ -4986,7 +5032,7 @@
    "addedAt": "2026-10-28T01:40:49.934Z",
    "type": "Chaussures",
    "front": 4,
-   "coverFrom": 4,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 4,
    "kindPick": null,
@@ -4994,7 +5040,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4495/cover-sm.webp"
+   "coverSm": "images/4495/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4487,
@@ -5288,7 +5336,7 @@
    "addedAt": "2026-10-28T07:34:23.852Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 8,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -5296,7 +5344,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4444/cover-sm.webp"
+   "coverSm": "images/4444/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4435,
@@ -5329,7 +5379,7 @@
    "addedAt": "2026-10-28T07:34:23.852Z",
    "type": "Chaussures",
    "front": 1,
-   "coverFrom": 1,
+   "coverFrom": 9,
    "coverRev": 5,
    "coverPick": 1,
    "kindPick": null,
@@ -5337,7 +5387,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4435/cover-sm.webp"
+   "coverSm": "images/4435/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4427,
@@ -5931,7 +5983,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4336/cover-sm.webp"
+   "coverSm": "images/4336/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4330,
@@ -6071,7 +6125,7 @@
    "cover": "images/4315/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 7,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6080,7 +6134,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4315/cover-sm.webp"
+   "coverSm": "images/4315/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4308,
@@ -6110,7 +6166,7 @@
    "cover": "images/4308/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 7,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6119,7 +6175,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4308/cover-sm.webp"
+   "coverSm": "images/4308/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4300,
@@ -6150,7 +6208,7 @@
    "cover": "images/4300/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 8,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6159,7 +6217,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4300/cover-sm.webp"
+   "coverSm": "images/4300/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4287,
@@ -6230,7 +6290,7 @@
    "cover": "images/4279/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 8,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6239,7 +6299,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4279/cover-sm.webp"
+   "coverSm": "images/4279/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4275,
@@ -6266,7 +6328,7 @@
    "cover": "images/4275/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6275,7 +6337,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4275/cover-sm.webp"
+   "coverSm": "images/4275/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4261,
@@ -6344,7 +6408,7 @@
    "cover": "images/4256/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6353,7 +6417,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4256/cover-sm.webp"
+   "coverSm": "images/4256/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4249,
@@ -6456,7 +6522,7 @@
    "cover": "images/4227/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6465,7 +6531,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4227/cover-sm.webp"
+   "coverSm": "images/4227/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4220,
@@ -7030,7 +7098,7 @@
    "cover": "images/4113/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 7,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -7039,7 +7107,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4113/cover-sm.webp"
+   "coverSm": "images/4113/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4105,
@@ -7070,7 +7140,7 @@
    "cover": "images/4105/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 8,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -7079,7 +7149,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4105/cover-sm.webp"
+   "coverSm": "images/4105/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4098,
@@ -7109,7 +7181,7 @@
    "cover": "images/4098/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 7,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -7118,7 +7190,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4098/cover-sm.webp"
+   "coverSm": "images/4098/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4092,
@@ -7146,7 +7220,7 @@
    "cover": "images/4092/cover.webp",
    "addedAt": "2026-10-28T13:38:42.045Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -7155,7 +7229,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4092/cover-sm.webp"
+   "coverSm": "images/4092/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4087,
@@ -7335,7 +7411,7 @@
    "cover": "images/4062/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Chaussures",
-   "coverFrom": 1,
+   "coverFrom": 8,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -7344,7 +7420,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4062/cover-sm.webp"
+   "coverSm": "images/4062/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4050,
@@ -7446,7 +7524,7 @@
    "cover": "images/4011/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Chaussures",
-   "coverFrom": 2,
+   "coverFrom": 5,
    "front": 2,
    "coverRev": 5,
    "coverPick": 2,
@@ -7455,7 +7533,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/4011/cover-sm.webp"
+   "coverSm": "images/4011/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 4006,
@@ -7557,7 +7637,7 @@
    "cover": "images/3995/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Chaussures",
-   "coverFrom": 2,
+   "coverFrom": 7,
    "front": 2,
    "coverRev": 5,
    "coverPick": 2,
@@ -7566,7 +7646,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3995/cover-sm.webp"
+   "coverSm": "images/3995/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3990,
@@ -7633,7 +7715,7 @@
    "cover": "images/3982/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Chaussures",
-   "coverFrom": 4,
+   "coverFrom": 8,
    "front": 4,
    "coverRev": 5,
    "coverPick": 4,
@@ -7642,7 +7724,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3982/cover-sm.webp"
+   "coverSm": "images/3982/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3973,
@@ -7905,7 +7989,7 @@
    "cover": "images/3932/cover.webp",
    "addedAt": "2026-10-28T13:38:42.046Z",
    "type": "Chaussures",
-   "coverFrom": 2,
+   "coverFrom": 7,
    "front": 2,
    "coverRev": 5,
    "coverPick": 2,
@@ -7914,7 +7998,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3932/cover-sm.webp"
+   "coverSm": "images/3932/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3927,
@@ -8014,7 +8100,7 @@
     "images/3917/6.jpg"
    ],
    "cover": "images/3917/cover.webp",
-   "coverFrom": 2,
+   "coverFrom": 6,
    "front": 2,
    "coverRev": 5,
    "coverPick": 2,
@@ -8024,7 +8110,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3917/cover-sm.webp"
+   "coverSm": "images/3917/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3912,
@@ -8051,7 +8139,7 @@
     "images/3912/5.jpg"
    ],
    "cover": "images/3912/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -8061,7 +8149,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3912/cover-sm.webp"
+   "coverSm": "images/3912/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3906,
@@ -8089,7 +8179,7 @@
     "images/3906/6.jpg"
    ],
    "cover": "images/3906/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 6,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -8099,7 +8189,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3906/cover-sm.webp"
+   "coverSm": "images/3906/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3898,
@@ -8139,7 +8231,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3898/cover-sm.webp"
+   "coverSm": "images/3898/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3894,
@@ -8346,7 +8440,7 @@
     "images/3861/4.jpg"
    ],
    "cover": "images/3861/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -8356,7 +8450,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3861/cover-sm.webp"
+   "coverSm": "images/3861/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3837,
@@ -8384,7 +8480,7 @@
     "images/3837/6.jpg"
    ],
    "cover": "images/3837/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 6,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -8394,7 +8490,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3837/cover-sm.webp"
+   "coverSm": "images/3837/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3824,
@@ -8572,7 +8670,7 @@
     "images/3790/8.jpg"
    ],
    "cover": "images/3790/cover.webp",
-   "coverFrom": 3,
+   "coverFrom": 8,
    "front": 3,
    "coverRev": 5,
    "coverPick": 3,
@@ -8582,7 +8680,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3790/cover-sm.webp"
+   "coverSm": "images/3790/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3786,
@@ -8618,7 +8718,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3786/cover-sm.webp"
+   "coverSm": "images/3786/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3781,
@@ -8878,7 +8980,7 @@
     "images/3734/6.jpg"
    ],
    "cover": "images/3734/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 6,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -8888,7 +8990,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3734/cover-sm.webp"
+   "coverSm": "images/3734/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3728,
@@ -8993,7 +9097,7 @@
     "images/3720/4.jpg"
    ],
    "cover": "images/3720/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9003,7 +9107,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3720/cover-sm.webp"
+   "coverSm": "images/3720/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3714,
@@ -9115,7 +9221,7 @@
     "images/3699/6.jpg"
    ],
    "cover": "images/3699/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 6,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9125,7 +9231,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3699/cover-sm.webp"
+   "coverSm": "images/3699/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3693,
@@ -9153,7 +9261,7 @@
     "images/3693/6.jpg"
    ],
    "cover": "images/3693/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 6,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9163,7 +9271,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3693/cover-sm.webp"
+   "coverSm": "images/3693/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3685,
@@ -9226,7 +9336,7 @@
     "images/3680/5.jpg"
    ],
    "cover": "images/3680/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9236,7 +9346,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3680/cover-sm.webp"
+   "coverSm": "images/3680/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3676,
@@ -9631,7 +9743,7 @@
     "images/3604/5.jpg"
    ],
    "cover": "images/3604/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9641,7 +9753,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3604/cover-sm.webp"
+   "coverSm": "images/3604/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3600,
@@ -9815,7 +9929,7 @@
     "images/3581/5.jpg"
    ],
    "cover": "images/3581/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9825,7 +9939,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3581/cover-sm.webp"
+   "coverSm": "images/3581/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3575,
@@ -9928,7 +10044,7 @@
     "images/3564/6.jpg"
    ],
    "cover": "images/3564/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 6,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9938,7 +10054,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3564/cover-sm.webp"
+   "coverSm": "images/3564/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3559,
@@ -9965,7 +10083,7 @@
     "images/3559/5.jpg"
    ],
    "cover": "images/3559/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 5,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -9975,7 +10093,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3559/cover-sm.webp"
+   "coverSm": "images/3559/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3555,
@@ -10001,7 +10121,7 @@
     "images/3555/4.jpg"
    ],
    "cover": "images/3555/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -10011,7 +10131,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3555/cover-sm.webp"
+   "coverSm": "images/3555/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3550,
@@ -10074,7 +10196,7 @@
     "images/3536/4.jpg"
    ],
    "cover": "images/3536/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -10084,7 +10206,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3536/cover-sm.webp"
+   "coverSm": "images/3536/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3532,
@@ -10853,7 +10977,7 @@
     "images/3390/4.jpg"
    ],
    "cover": "images/3390/cover.webp",
-   "coverFrom": 2,
+   "coverFrom": 4,
    "front": 2,
    "coverRev": 5,
    "coverPick": 2,
@@ -10863,7 +10987,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3390/cover-sm.webp"
+   "coverSm": "images/3390/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3384,
@@ -11037,7 +11163,7 @@
     "images/3366/4.jpg"
    ],
    "cover": "images/3366/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -11047,7 +11173,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3366/cover-sm.webp"
+   "coverSm": "images/3366/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3362,
@@ -11073,7 +11201,7 @@
     "images/3362/4.jpg"
    ],
    "cover": "images/3362/cover.webp",
-   "coverFrom": 1,
+   "coverFrom": 4,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -11083,7 +11211,9 @@
    "rescueRev": 1,
    "cropPick": null,
    "photoRev": 2,
-   "coverSm": "images/3362/cover-sm.webp"
+   "coverSm": "images/3362/cover-sm.webp",
+   "sideRev": 1,
+   "sidePick": null
   },
   {
    "id": 3349,
