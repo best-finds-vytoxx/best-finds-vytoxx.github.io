@@ -41,7 +41,7 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 - Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face ;
   dernière photo = une chaussure seule de profil, sur sa boîte et la balance.
 - Chaussures : couverture vue de côté, bout à gauche, talon à droite (demande de Léonard). `cutout-worker.mjs` essaie d'abord la
-  dernière photo, la garde si la silhouette est large (largeur/hauteur ≥ 1,45) et la retourne si `toeSide` (`shoe-side.mjs`)
+  dernière photo, la garde si la silhouette est large (largeur/hauteur ≥ 1,35) et la retourne si `toeSide` (`shoe-side.mjs`)
   voit le bout à droite. Sinon, ancienne logique (vue de face). Overrides : `side` (n° photo ou false), `flip` (true/false).
   `SIDE_REV` dans scrape.mjs refait toutes les chaussures.
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,

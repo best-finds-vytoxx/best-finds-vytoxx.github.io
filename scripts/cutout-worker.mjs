@@ -27,7 +27,7 @@ async function shape(webp) {
   return { ratio: (x1 - x0) / (y1 - y0), fill: n / (((x1 - x0) / 2 + 1) * ((y1 - y0) / 2 + 1)) };
 }
 // Chaussures vues de côté : une chaussure seule de profil est nettement plus large que haute
-const SIDE_RATIO = 1.45;
+const SIDE_RATIO = 1.35;
 // Un haut plié forme un bloc large et plein ; posé à plat bras écartés, il est large aussi mais laisse des vides
 const folded = (c) => c.ratio > 1.2 && c.fill > 0.8;
 

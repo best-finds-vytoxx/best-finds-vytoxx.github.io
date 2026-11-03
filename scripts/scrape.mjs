@@ -182,7 +182,8 @@ function makeCovers(items, tmp) {
     // chaussures : la photo de profil d'abord (sur le canal, la dernière : la chaussure seule, posée sur sa boîte et la balance)
     const last = Math.max(...it.inputs.map((i) => i.n));
     const side = kind !== 'shoe' || it.side === false ? [] : typeof it.side === 'number' ? [it.side] : last > 2 ? [last] : [];
-    const openBack = /slides|sandals/.test(nk.noun) || /mule|sabot|clog|claquette|tasman/i.test(it.title || '');
+    // ouvertes derrière : claquettes, sandales, sabots (les mules UGG Tasman ont un talon fermé)
+    const openBack = (/slides|sandals/.test(nk.noun) || /sabot|clog|claquette/i.test(it.title || '')) && !/ugg|tasman/i.test(it.title || '');
     return { it, kind, noun: nk.noun, box: !!nk.box, scores, order, side, openBack, exclude: [], done: false };
   });
   for (let round = 1; round <= 3; round++) {
