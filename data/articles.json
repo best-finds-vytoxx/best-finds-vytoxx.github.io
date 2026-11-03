@@ -1,9 +1,94 @@
 {
- "updatedAt": "2026-11-03T09:34:48.015Z",
+ "updatedAt": "2026-11-03T09:43:50.892Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-03T08:27:33.287Z",
  "articles": [
+  {
+   "id": 5561,
+   "title": "Ensemble Nike Trail 9073+0856",
+   "brand": "Nike",
+   "category": "Ensembles",
+   "type": "Ensembles",
+   "weight": {
+    "min": 512,
+    "max": null
+   },
+   "extra": null,
+   "description": "Ensemble Nike Trail 9073+0856 : un ensemble sélectionné sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 512 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7889122023&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7889122023",
+   "date": "2026-11-03T09:38:38+00:00",
+   "views": "8",
+   "telegram": "https://t.me/lovegobuy_france/5561",
+   "photos": [
+    "images/5561/1.jpg",
+    "images/5561/2.jpg",
+    "images/5561/3.jpg",
+    "images/5561/4.jpg",
+    "images/5561/5.jpg",
+    "images/5561/6.jpg",
+    "images/5561/7.jpg",
+    "images/5561/8.jpg",
+    "images/5561/9.jpg"
+   ],
+   "cover": "images/5561/cover.webp",
+   "coverSm": "images/5561/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 1,
+   "sidePick": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-03T09:43:50.565Z"
+  },
+  {
+   "id": 5553,
+   "title": "Baskets Valentino Rockstud",
+   "brand": "Valentino",
+   "category": "Chaussures",
+   "type": "Chaussures",
+   "weight": {
+    "min": 1270,
+    "max": null
+   },
+   "extra": null,
+   "description": "Baskets Valentino Rockstud : une paire de chaussures sélectionnée sur le canal. Les 8 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 1,27 kg. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7889197735&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7889197735",
+   "date": "2026-11-03T09:38:30+00:00",
+   "views": "8",
+   "telegram": "https://t.me/lovegobuy_france/5553",
+   "photos": [
+    "images/5553/1.jpg",
+    "images/5553/2.jpg",
+    "images/5553/3.jpg",
+    "images/5553/4.jpg",
+    "images/5553/5.jpg",
+    "images/5553/6.jpg",
+    "images/5553/7.jpg",
+    "images/5553/8.jpg"
+   ],
+   "cover": "images/5553/cover.webp",
+   "coverSm": "images/5553/cover-sm.webp",
+   "coverFrom": 8,
+   "front": 2,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 1,
+   "sidePick": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-03T09:43:50.620Z"
+  },
   {
    "id": 5545,
    "title": "Casquette Supreme Stone Island Heat Reactive 6-Panel",
@@ -20,7 +105,7 @@
    "shop": "weidian",
    "productId": "7886818003",
    "date": "2026-11-02T07:41:58+00:00",
-   "views": "310",
+   "views": "315",
    "telegram": "https://t.me/lovegobuy_france/5545",
    "photos": [
     "images/5545/1.jpg",
@@ -59,7 +144,7 @@
    "shop": "weidian",
    "productId": "7889858094",
    "date": "2026-11-02T07:41:50+00:00",
-   "views": "304",
+   "views": "308",
    "telegram": "https://t.me/lovegobuy_france/5538",
    "photos": [
     "images/5538/1.jpg",
@@ -98,7 +183,7 @@
    "shop": "weidian",
    "productId": "7886875901",
    "date": "2026-11-02T07:41:44+00:00",
-   "views": "251",
+   "views": "254",
    "telegram": "https://t.me/lovegobuy_france/5532",
    "photos": [
     "images/5532/1.jpg",
@@ -136,7 +221,7 @@
    "shop": "weidian",
    "productId": "7889868086",
    "date": "2026-11-02T07:41:40+00:00",
-   "views": "270",
+   "views": "274",
    "telegram": "https://t.me/lovegobuy_france/5526",
    "photos": [
     "images/5526/1.jpg",
@@ -173,7 +258,7 @@
    "shop": "weidian",
    "productId": "7888472404",
    "date": "2026-10-30T09:44:51+00:00",
-   "views": "877",
+   "views": "881",
    "telegram": "https://t.me/lovegobuy_france/5510",
    "photos": [
     "images/5510/1.jpg",
@@ -214,7 +299,7 @@
    "shop": "weidian",
    "productId": "7888541940",
    "date": "2026-10-30T09:42:31+00:00",
-   "views": "723",
+   "views": "727",
    "telegram": "https://t.me/lovegobuy_france/5502",
    "photos": [
     "images/5502/1.jpg",
@@ -254,7 +339,7 @@
    "shop": "weidian",
    "productId": "7888478042",
    "date": "2026-10-30T09:42:25+00:00",
-   "views": "595",
+   "views": "597",
    "telegram": "https://t.me/lovegobuy_france/5496",
    "photos": [
     "images/5496/1.jpg",
@@ -1694,7 +1779,7 @@
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
    "front": 2,
-   "coverFrom": 2,
+   "coverFrom": 9,
    "coverRev": 5,
    "coverPick": 2,
    "kindPick": null,
@@ -1704,7 +1789,7 @@
    "photoRev": 2,
    "coverSm": "images/5205/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": null
+   "sidePick": "[9,null]"
   },
   {
    "id": 5196,
@@ -1909,7 +1994,7 @@
    "photoRev": 2,
    "coverSm": "images/5164/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": null
+   "sidePick": "[null,false]"
   },
   {
    "id": 5146,
@@ -1993,7 +2078,7 @@
    "photoRev": 2,
    "coverSm": "images/5138/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": null
+   "sidePick": "[null,false]"
   },
   {
    "id": 5127,
@@ -6408,7 +6493,7 @@
    "cover": "images/4256/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 5,
+   "coverFrom": 1,
    "front": 1,
    "coverRev": 5,
    "coverPick": 1,
@@ -6419,7 +6504,7 @@
    "photoRev": 2,
    "coverSm": "images/4256/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": null
+   "sidePick": "[false,null]"
   },
   {
    "id": 4249,
@@ -8000,7 +8085,7 @@
    "photoRev": 2,
    "coverSm": "images/3932/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": null
+   "sidePick": "[null,true]"
   },
   {
    "id": 3927,
