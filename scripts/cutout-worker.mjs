@@ -8,7 +8,7 @@ import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import sharp from 'sharp';
 import { cutout } from './cutout.mjs';
 import { stopVision } from './vision.mjs';
-import { toeSide } from './shoe-side.mjs';
+import { toeSide, levelShoe } from './shoe-side.mjs';
 
 // L'ordre d'essai vient du modèle de reconnaissance (voir pick.mjs) : la photo la plus pertinente d'abord
 // (vêtement de face, chaussures de face, le produit plutôt que son emballage).
@@ -65,10 +65,11 @@ async function sideCut(job) {
     const c = await tryCut(job, n);
     if (!c) continue;
     if (c.ratio < SIDE_RATIO) { console.log(`  ${job.id} : photo ${n} pas vue de côté (largeur/hauteur ${c.ratio.toFixed(2)})`); continue; }
-    const score = await toeSide(c.out, job.openBack);
+    const { buf, angle } = await levelShoe(c.out); // chaussure penchée : remise à plat
+    const score = await toeSide(buf, job.openBack);
     const flip = typeof job.flip === 'boolean' ? job.flip : score < -0.08;
-    console.log(`  ${job.id} : vue de côté, photo ${n} (bout ${score >= 0 ? 'à gauche' : 'à droite'}, ${score.toFixed(2)})${flip ? ' : retournée' : ''}`);
-    return { ...c, out: flip ? await sharp(c.out).flop().webp({ quality: 92, alphaQuality: 95 }).toBuffer() : c.out, side: true };
+    console.log(`  ${job.id} : vue de côté, photo ${n} (bout ${score >= 0 ? 'à gauche' : 'à droite'}, ${score.toFixed(2)})${angle ? `, redressée de ${angle.toFixed(1)}°` : ''}${flip ? ' : retournée' : ''}`);
+    return { ...c, out: flip ? await sharp(buf).flop().webp({ quality: 92, alphaQuality: 100 }).toBuffer() : buf, side: true };
   }
   return null;
 }
