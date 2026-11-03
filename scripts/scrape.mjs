@@ -28,6 +28,7 @@ const CUTOUT_TRIES = Number(process.env.CUTOUT_TRIES ?? 4); // 0 = pas de détou
 const RANK_PHOTOS = 9; // photos examinées pour choisir la couverture
 const COVER_REV = 5; // version de la règle de choix de la couverture ; les anciennes couvertures sont refaites
 const PHOTO_REV = 2; // version du stockage des photos : 2 = fichier d'origine du canal, sans recompression
+const SIDE_REV = 1; // chaussures : couverture vue de côté, bout à gauche ; changer ce numéro refait toutes les chaussures
 const RESCUE_REV = 1; // version du détourage de secours : les articles restés sans photo détourée sont retentés
 const RECOVER = Number(process.env.RECOVER || 400); // couvertures anciennes refaites au plus par passage
 const CHUNK = 40; // articles traités ensemble ; le site est enregistré après chaque groupe
@@ -178,12 +179,16 @@ function makeCovers(items, tmp) {
     let order = (scores ? candidateOrder(scores, kind, front) : FALLBACK[kind]).filter((n) => it.inputs.some((i) => i.n === n));
     // photo choisie à la main (data/overrides.json) : essayée en premier, quelle qu'elle soit
     if (it.forced && it.inputs.some((i) => i.n === it.forced)) order = [it.forced, ...order.filter((n) => n !== it.forced)];
-    return { it, kind, noun: nk.noun, box: !!nk.box, scores, order, exclude: [], done: false };
+    // chaussures : la photo de profil d'abord (sur le canal, la dernière : la chaussure seule, posée sur sa boîte et la balance)
+    const last = Math.max(...it.inputs.map((i) => i.n));
+    const side = kind !== 'shoe' || it.side === false ? [] : typeof it.side === 'number' ? [it.side] : last > 2 ? [last] : [];
+    const openBack = /slides|sandals/.test(nk.noun) || /mule|sabot|clog|claquette|tasman/i.test(it.title || '');
+    return { it, kind, noun: nk.noun, box: !!nk.box, scores, order, side, openBack, exclude: [], done: false };
   });
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
     if (!todo.length) break;
-    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
     console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
     const cut = runCutouts(jobs, tmp, round);
     const made = todo.filter((s) => cut.get(s.it.id));
@@ -195,7 +200,8 @@ function makeCovers(items, tmp) {
       const v = checks && checks[s.it.id];
       const source = s.scores ? s.scores[n - 1] : 0;
       // photo imposée à la main : on garde son détourage (les contrôles de qualité du détourage restent appliqués)
-      const ok = !v || s.it.forced === n || ((s.box || v.packaging[0] < 0.5) && v.scores[0] >= Math.min(0.25, source * 0.5));
+      // vue de côté d'une chaussure : le modèle juge mal une chaussure seule de profil, seul l'emballage compte
+      const ok = !v || s.it.forced === n || (s.side.includes(n) && v.packaging[0] < 0.5) || ((s.box || v.packaging[0] < 0.5) && v.scores[0] >= Math.min(0.25, source * 0.5));
       if (ok) {
         s.done = true;
         result.set(s.it.id, { n, file: path.join(tmp, `cover-${s.it.id}-${round}.webp`) });
@@ -278,10 +284,13 @@ async function main() {
     return kept;
   };
 
+  // chaussures : couverture vue de côté (réglages à la main : « side » = n° de la photo de profil ou false, « flip » = true/false)
+  const isShoe = (a) => (ov(a.id).kind || nounFor(a.title, a.type || a.category).kind) === 'shoe';
+  const sideKey = (id) => (ov(id).side !== undefined || ov(id).flip !== undefined ? JSON.stringify([ov(id).side ?? null, ov(id).flip ?? null]) : null);
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
-  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && (a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
+  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && ((isShoe(a) && ((a.sideRev || 0) !== SIDE_REV || (a.sidePick || null) !== sideKey(a.id))) || a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
   const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
   // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
   // puis couverture refaite à partir de ces originaux
@@ -310,10 +319,10 @@ async function main() {
         const { photos, sources } = await downloadPhotos(a, tmp);
         if (!photos.length) { console.warn(`- ${a.id} ${a.title} : aucune photo récupérée, réessai au prochain passage`); continue; }
         downloaded.push({ a, photos, refresh: !!isRefresh });
-        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null });
+        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null });
       } else {
         const inputs = a.photos.slice(0, RANK_PHOTOS).map((p, i) => ({ n: i + 1, path: path.join(ROOT, p) })).filter((i) => existsSync(i.path));
-        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, redo: true });
+        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, redo: true });
       }
     }
     console.log(`Choix des couvertures pour ${items.length} article(s) (groupe ${g / CHUNK + 1})…`);
@@ -331,7 +340,7 @@ async function main() {
         await rm(dest, { force: true });
         await rm(destSm, { force: true });
       }
-      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null };
+      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null, sideRev: SIDE_REV, sidePick: sideKey(id) };
     };
     for (const { a, photos, refresh: isRefresh } of downloaded) {
       const { photosRemote, ...info } = a;

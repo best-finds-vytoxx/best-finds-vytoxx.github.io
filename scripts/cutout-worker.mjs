@@ -8,6 +8,7 @@ import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import sharp from 'sharp';
 import { cutout } from './cutout.mjs';
 import { stopVision } from './vision.mjs';
+import { toeSide } from './shoe-side.mjs';
 
 // L'ordre d'essai vient du modèle de reconnaissance (voir pick.mjs) : la photo la plus pertinente d'abord
 // (vêtement de face, chaussures de face, le produit plutôt que son emballage).
@@ -25,6 +26,8 @@ async function shape(webp) {
   if (x1 <= x0 || y1 <= y0) return { ratio: 1, fill: 0 };
   return { ratio: (x1 - x0) / (y1 - y0), fill: n / (((x1 - x0) / 2 + 1) * ((y1 - y0) / 2 + 1)) };
 }
+// Chaussures vues de côté : une chaussure seule de profil est nettement plus large que haute
+const SIDE_RATIO = 1.45;
 // Un haut plié forme un bloc large et plein ; posé à plat bras écartés, il est large aussi mais laisse des vides
 const folded = (c) => c.ratio > 1.2 && c.fill > 0.8;
 
@@ -55,9 +58,25 @@ async function tryCut(job, n) {
   }
 }
 
+// Chaussures : la photo de profil (posée sur la boîte et la balance) est essayée d'abord ;
+// la couverture est retournée si besoin pour que le bout soit à gauche et le talon à droite.
+async function sideCut(job) {
+  for (const n of (job.side || []).filter((m) => !(job.exclude || []).includes(m))) {
+    const c = await tryCut(job, n);
+    if (!c) continue;
+    if (c.ratio < SIDE_RATIO) { console.log(`  ${job.id} : photo ${n} pas vue de côté (largeur/hauteur ${c.ratio.toFixed(2)})`); continue; }
+    const score = await toeSide(c.out, job.openBack);
+    const flip = typeof job.flip === 'boolean' ? job.flip : score < -0.08;
+    console.log(`  ${job.id} : vue de côté, photo ${n} (bout ${score >= 0 ? 'à gauche' : 'à droite'}, ${score.toFixed(2)})${flip ? ' : retournée' : ''}`);
+    return { ...c, out: flip ? await sharp(c.out).flop().webp({ quality: 92, alphaQuality: 95 }).toBuffer() : c.out, side: true };
+  }
+  return null;
+}
+
 async function choose(job) {
+  if (job.side?.length) { const c = await sideCut(job); if (c) return c; }
   const top = TOPS.has(job.type) && job.kind === 'wear';
-  const order = (job.order || [1, 3, 4]).filter((n) => !(job.exclude || []).includes(n));
+  const order = (job.order || [1, 3, 4]).filter((n) => !(job.exclude || []).includes(n) && !(job.side || []).includes(n));
   let foldedPick = null;
   for (const n of order.slice(0, 4)) {
     const c = await tryCut(job, n);
@@ -80,7 +99,7 @@ for (const job of jobs) {
   const pick = await choose(job);
   if (pick) await writeFile(job.out, pick.out);
   else console.log(`  ${job.id} : aucune photo de face détourable, la photo 1 d'origine sera affichée`);
-  await appendFile(doneFile, pick ? `${job.id}:ok:${pick.n}\n` : `${job.id}:none\n`);
+  await appendFile(doneFile, pick ? `${job.id}:ok:${pick.n}${pick.side ? ':side' : ''}\n` : `${job.id}:none\n`);
 }
 // Sortie immédiate : évite certains plantages du moteur à la fermeture du processus
 process.exit(0);

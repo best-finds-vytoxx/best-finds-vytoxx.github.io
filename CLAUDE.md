@@ -38,7 +38,12 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   de la bannière (`hero-glow.webp`), puis les 3 aides pour commander. Couleurs d’identité : `--sun --terra --linen --navy --lgb`.
   Liquid glass sur tout le site : variables `--gl-*` et bloc « LIQUID GLASS SUR TOUT LE SITE » en fin de style.css ;
   la lumière floutée reste derrière chaque page (`html::before`). Pas d’italique, pas de police de code.
-- Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face.
+- Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face ;
+  dernière photo = une chaussure seule de profil, sur sa boîte et la balance.
+- Chaussures : couverture vue de côté, bout à gauche, talon à droite (demande de Léonard). `cutout-worker.mjs` essaie d'abord la
+  dernière photo, la garde si la silhouette est large (largeur/hauteur ≥ 1,45) et la retourne si `toeSide` (`shoe-side.mjs`)
+  voit le bout à droite. Sinon, ancienne logique (vue de face). Overrides : `side` (n° photo ou false), `flip` (true/false).
+  `SIDE_REV` dans scrape.mjs refait toutes les chaussures.
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
   sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`
   (ajouter un cas à chaque question mal comprise). Réponses validées par Léonard (coupons 485 € ≈ 500 €, un coupon par colis ;
