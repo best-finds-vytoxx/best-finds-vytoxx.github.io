@@ -63,8 +63,10 @@ def main():
             q = json.loads(line)
             im = ImageOps.exif_transpose(Image.open(q['in'])).convert('RGB')
             W, H = im.size
-            boxes = detect(proc, det, torch, im, q.get('prompt') or 'object.')
-            c = crop_for(boxes, W, H)
+            # « __full__ » : photo déjà recadrée à la main sur le produit, pas de repérage
+            full = q.get('prompt') == '__full__'
+            boxes = [] if full else detect(proc, det, torch, im, q.get('prompt') or 'object.')
+            c = [0, 0, W, H] if full else crop_for(boxes, W, H)
             m = segment(seg, im.crop(c))
             full = Image.new('L', (W, H), 0)
             full.paste(m, (c[0], c[1]))

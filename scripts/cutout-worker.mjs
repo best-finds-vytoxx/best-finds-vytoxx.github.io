@@ -51,7 +51,8 @@ async function tryCut(job, n) {
       const pad = Math.round(Math.max(W, H) * 0.05);
       buf = await sharp(buf).extend({ top: pad, bottom: pad, left: pad, right: pad, background: { r: px[0], g: px[1], b: px[2] } }).png().toBuffer();
     }
-    const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear', prompt: job.prompt || null });
+    const manual = !!(job.crop && n === job.forced);
+    const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear', prompt: manual ? '__full__' : job.prompt || null });
     if (!out) { console.log(`  ${job.id} : détourage de la photo ${n} jugé raté`); return null; }
     const sh = await shape(out);
     if (process.env.DEBUG_CUT) console.log(`  ${job.id} photo ${n} : largeur/hauteur ${sh.ratio.toFixed(2)}, remplissage ${sh.fill.toFixed(2)}`);
