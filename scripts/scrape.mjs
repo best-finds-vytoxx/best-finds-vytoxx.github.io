@@ -184,7 +184,7 @@ function makeCovers(items, tmp) {
     const side = kind !== 'shoe' || it.side === false ? [] : typeof it.side === 'number' ? [it.side] : last > 2 ? [last] : [];
     // ouvertes derrière : claquettes, sandales, sabots (les mules UGG Tasman ont un talon fermé)
     const openBack = (/slides|sandals/.test(nk.noun) || /sabot|clog|claquette/i.test(it.title || '')) && !/ugg|tasman/i.test(it.title || '');
-    return { it, kind, noun: nk.noun, box: !!nk.box, scores, order, side, openBack, exclude: [], done: false };
+    return { it, kind, noun: nk.noun, box: !!nk.box || !!it.keep, scores, order, side, openBack, exclude: [], done: false };
   });
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
@@ -287,7 +287,7 @@ async function main() {
 
   // chaussures : couverture vue de côté (réglages à la main : « side » = n° de la photo de profil ou false, « flip » = true/false)
   const isShoe = (a) => (ov(a.id).kind || nounFor(a.title, a.type || a.category).kind) === 'shoe';
-  const sideKey = (id) => (ov(id).side !== undefined || ov(id).flip !== undefined || ov(id).rotate ? JSON.stringify([ov(id).side ?? null, ov(id).flip ?? null, ...(ov(id).rotate ? [ov(id).rotate] : [])]) : null);
+  const sideKey = (id) => (ov(id).side !== undefined || ov(id).flip !== undefined || ov(id).rotate || ov(id).keep ? JSON.stringify([ov(id).side ?? null, ov(id).flip ?? null, ...(ov(id).rotate ? [ov(id).rotate] : []), ...(ov(id).keep ? ['keep'] : [])]) : null);
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
@@ -320,10 +320,10 @@ async function main() {
         const { photos, sources } = await downloadPhotos(a, tmp);
         if (!photos.length) { console.warn(`- ${a.id} ${a.title} : aucune photo récupérée, réessai au prochain passage`); continue; }
         downloaded.push({ a, photos, refresh: !!isRefresh });
-        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0 });
+        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep });
       } else {
         const inputs = a.photos.slice(0, RANK_PHOTOS).map((p, i) => ({ n: i + 1, path: path.join(ROOT, p) })).filter((i) => existsSync(i.path));
-        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, redo: true });
+        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, redo: true });
       }
     }
     console.log(`Choix des couvertures pour ${items.length} article(s) (groupe ${g / CHUNK + 1})…`);
