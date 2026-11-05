@@ -27,7 +27,7 @@
   "3720": {"cover": 1},
   "3724": {"cover": 4, "crop": [0.36, 0.63, 0.82, 0.77]},
   "3734": {"cover": 1, "kind": "shoe"},
-  "3786": {"cover": 2, "side": false, "crop": [0.478, 0.45, 0.75, 0.962], "rotate": -90, "keep": true},
+  "3786": {"cover": 2, "side": false, "crop": [0.492, 0.45, 0.75, 0.962], "rotate": -90, "keep": true},
   "3790": {"cover": 3, "flip": true},
   "3798": {"cover": 3},
   "3837": {"cover": 1},
