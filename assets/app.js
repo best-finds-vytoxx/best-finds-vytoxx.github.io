@@ -484,7 +484,7 @@
 
       ${catList.length ? `<section class="wrap block reveal">
         <div class="block-head"><h2>Catégories</h2><a class="more-link" href="#catalogue">Voir tous les articles ${icon.right}</a></div>
-        <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}" data-c="${esc(c)}">
+        <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}${c === 'Chaussures' ? ' cat-shoes' : ''}" data-c="${esc(c)}">
           <span class="cat-pic">${v.pics.map((src, k) => img(src, '', `p${k}`)).join('')}</span>
           <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
         </button>`).join('')}</div>

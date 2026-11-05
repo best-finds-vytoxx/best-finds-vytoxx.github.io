@@ -189,7 +189,7 @@ function makeCovers(items, tmp) {
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
     if (!todo.length) break;
-    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, rotate: Number(s.it.rotate) || 0, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
     console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
     const cut = runCutouts(jobs, tmp, round);
     const made = todo.filter((s) => cut.get(s.it.id));
@@ -287,7 +287,7 @@ async function main() {
 
   // chaussures : couverture vue de côté (réglages à la main : « side » = n° de la photo de profil ou false, « flip » = true/false)
   const isShoe = (a) => (ov(a.id).kind || nounFor(a.title, a.type || a.category).kind) === 'shoe';
-  const sideKey = (id) => (ov(id).side !== undefined || ov(id).flip !== undefined ? JSON.stringify([ov(id).side ?? null, ov(id).flip ?? null]) : null);
+  const sideKey = (id) => (ov(id).side !== undefined || ov(id).flip !== undefined || ov(id).rotate ? JSON.stringify([ov(id).side ?? null, ov(id).flip ?? null, ...(ov(id).rotate ? [ov(id).rotate] : [])]) : null);
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
@@ -320,10 +320,10 @@ async function main() {
         const { photos, sources } = await downloadPhotos(a, tmp);
         if (!photos.length) { console.warn(`- ${a.id} ${a.title} : aucune photo récupérée, réessai au prochain passage`); continue; }
         downloaded.push({ a, photos, refresh: !!isRefresh });
-        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null });
+        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0 });
       } else {
         const inputs = a.photos.slice(0, RANK_PHOTOS).map((p, i) => ({ n: i + 1, path: path.join(ROOT, p) })).filter((i) => existsSync(i.path));
-        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, redo: true });
+        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, redo: true });
       }
     }
     console.log(`Choix des couvertures pour ${items.length} article(s) (groupe ${g / CHUNK + 1})…`);

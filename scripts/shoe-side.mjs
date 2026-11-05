@@ -59,3 +59,15 @@ export async function levelShoe(webp, { margin = 0.07 } = {}) {
     .composite([{ input: fitted, gravity: 'center' }]).webp({ quality: 92, alphaQuality: 100, smartSubsample: true, effort: 5 }).toBuffer();
   return { buf, angle };
 }
+
+// Tourne la couverture d'un angle donné (degrés, sens des aiguilles d'une montre) et la recentre sur la même toile.
+// Sert aux vues de dessus (bout vers le haut ou le bas) que l'on veut voir à l'horizontale, bout à gauche.
+export async function turnCover(webp, deg, { margin = 0.07 } = {}) {
+  const { width: W, height: H } = await sharp(webp).metadata();
+  const turned = await sharp(webp).rotate(deg, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+  const trimmed = await sharp(turned).trim({ threshold: 1 }).png().toBuffer();
+  const innerW = Math.round(W * (1 - 2 * margin)), innerH = Math.round(H * (1 - 2 * margin));
+  const fitted = await sharp(trimmed).resize({ width: innerW, height: innerH, fit: 'inside', kernel: 'lanczos3' }).png().toBuffer();
+  return sharp({ create: { width: W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+    .composite([{ input: fitted, gravity: 'center' }]).webp({ quality: 92, alphaQuality: 100, smartSubsample: true, effort: 5 }).toBuffer();
+}

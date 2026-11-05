@@ -42,7 +42,7 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   dernière photo = une chaussure seule de profil, sur sa boîte et la balance.
 - Chaussures : couverture vue de côté, bout à gauche, talon à droite (demande de Léonard). `cutout-worker.mjs` essaie d'abord la
   dernière photo, la garde si la silhouette est large (largeur/hauteur ≥ 1,35) et la retourne si `toeSide` (`shoe-side.mjs`)
-  voit le bout à droite. Sinon, ancienne logique (vue de face). Overrides : `side` (n° photo ou false), `flip` (true/false).
+  voit le bout à droite. Sinon, ancienne logique (vue de face). Overrides : `side` (n° photo ou false), `flip` (true/false, miroir), `rotate` (degrés, ex. -90 pour une vue de dessus).
   `SIDE_REV` dans scrape.mjs refait toutes les chaussures.
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
   sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`

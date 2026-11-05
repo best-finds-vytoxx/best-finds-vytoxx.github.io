@@ -1341,3 +1341,11 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 /* chat bot : quand la question est floue, le bot propose 2 ou 3 questions à toucher */
 .bm-picks { display: grid; gap: 8px; margin-top: 10px; }
 .bm-picks .chip { height: auto; min-height: 38px; padding: 8px 14px; white-space: normal; text-align: left; line-height: 1.25; justify-content: flex-start; background: var(--bg); border: 1px solid var(--line-strong); }
+
+/* Catégorie « Chaussures » : chaussures vues de côté, rangées en trois étages décalés (comme sur une étagère) au lieu de l'éventail */
+.cat-shoes .cat-pic img { width: 46%; height: 31%; object-fit: cover; object-position: 50% 50%; opacity: 1; inset: auto; }
+.cat-shoes .cat-pic .p0 { top: 3%; left: 14%; z-index: 1; transform: none; }
+.cat-shoes .cat-pic .p1 { top: 35%; right: 14%; left: auto; z-index: 2; transform: none; }
+.cat-shoes .cat-pic .p2 { top: 67%; left: 20%; right: auto; z-index: 3; transform: none; }
+.cat-shoes:hover .p0 { transform: translateX(4px); } .cat-shoes:hover .p1 { transform: translateX(-4px); } .cat-shoes:hover .p2 { transform: translateX(4px); }
+@media (max-width: 900px) { .cat-shoes .cat-pic img { width: 74%; height: 30%; } .cat-shoes .cat-pic .p0 { top: 3%; left: 4%; } .cat-shoes .cat-pic .p1 { top: 35%; right: 4%; } .cat-shoes .cat-pic .p2 { top: 67%; left: 10%; } }

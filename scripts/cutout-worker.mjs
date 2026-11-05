@@ -8,7 +8,7 @@ import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import sharp from 'sharp';
 import { cutout } from './cutout.mjs';
 import { stopVision } from './vision.mjs';
-import { toeSide, levelShoe } from './shoe-side.mjs';
+import { toeSide, levelShoe, turnCover } from './shoe-side.mjs';
 
 // L'ordre d'essai vient du modèle de reconnaissance (voir pick.mjs) : la photo la plus pertinente d'abord
 // (vêtement de face, chaussures de face, le produit plutôt que son emballage).
@@ -103,6 +103,9 @@ for (const job of jobs) {
   // marquer « en cours » : si le processus plante sur cet article, il ne sera pas retenté indéfiniment
   await appendFile(doneFile, `${job.id}:start\n`);
   const pick = await choose(job);
+  // réglage à la main : couverture tournée (rotate, en degrés) et/ou mise en miroir (flip, hors vue de côté)
+  if (pick && job.rotate) pick.out = await turnCover(pick.out, job.rotate);
+  if (pick && !pick.side && job.flip === true) pick.out = await sharp(pick.out).flop().webp({ quality: 92, alphaQuality: 100 }).toBuffer();
   if (pick) await writeFile(job.out, pick.out);
   else console.log(`  ${job.id} : aucune photo de face détourable, la photo 1 d'origine sera affichée`);
   await appendFile(doneFile, pick ? `${job.id}:ok:${pick.n}${pick.side ? ':side' : ''}\n` : `${job.id}:none\n`);

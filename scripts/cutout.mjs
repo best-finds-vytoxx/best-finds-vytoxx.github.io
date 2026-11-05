@@ -81,7 +81,8 @@ export async function cutout(input, { width = 900, height = 1200, margin = 0.07,
   }
   // vignette du canal (panda + « VYTOXX ») effacée du détourage si elle y est restée
   let wm = null;
-  try { wm = await watermarkMask(png); } catch (e) { if (process.env.DEBUG_CUT) console.log('  vignette non cherchée :', e.message); }
+  // photo recadrée à la main (« __full__ ») : la vignette est déjà hors du cadre, on ne la cherche pas (fausse alerte possible sur le produit)
+  if (prompt !== '__full__') try { wm = await watermarkMask(png); } catch (e) { if (process.env.DEBUG_CUT) console.log('  vignette non cherchée :', e.message); }
   if (wm) {
     const { data, info } = await sharp(cutPng).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     if (info.width * info.height === wm.length) {
