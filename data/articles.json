@@ -1,9 +1,92 @@
 {
- "updatedAt": "2026-11-05T11:25:24.185Z",
+ "updatedAt": "2026-11-05T14:52:11.345Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-05T10:39:06.793Z",
  "articles": [
+  {
+   "id": 5594,
+   "title": "Bracelet Hermès Tournis Tressé",
+   "brand": "Hermès",
+   "category": "Accessoires",
+   "type": "Accessoires",
+   "weight": {
+    "min": 130,
+    "max": null
+   },
+   "extra": null,
+   "description": "Bracelet Hermès Tournis Tressé : un accessoire sélectionné sur le canal. Les 6 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 130 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7893894604&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7893894604",
+   "date": "2026-11-05T14:41:42+00:00",
+   "views": "15",
+   "telegram": "https://t.me/lovegobuy_france/5594",
+   "photos": [
+    "images/5594/1.jpg",
+    "images/5594/2.jpg",
+    "images/5594/3.jpg",
+    "images/5594/4.jpg",
+    "images/5594/5.jpg",
+    "images/5594/6.jpg"
+   ],
+   "cover": "images/5594/cover.webp",
+   "coverSm": "images/5594/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 3,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 1,
+   "sidePick": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-05T14:52:11.028Z"
+  },
+  {
+   "id": 5585,
+   "title": "Veste lululemon Define Jacket",
+   "brand": "Lululemon",
+   "category": "Hauts",
+   "type": "Vestes",
+   "weight": {
+    "min": 286,
+    "max": null
+   },
+   "extra": null,
+   "description": "Veste lululemon Define Jacket : une veste sélectionnée sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 286 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7893800886&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7893800886",
+   "date": "2026-11-05T14:41:39+00:00",
+   "views": "11",
+   "telegram": "https://t.me/lovegobuy_france/5585",
+   "photos": [
+    "images/5585/1.jpg",
+    "images/5585/2.jpg",
+    "images/5585/3.jpg",
+    "images/5585/4.jpg",
+    "images/5585/5.jpg",
+    "images/5585/6.jpg",
+    "images/5585/7.jpg",
+    "images/5585/8.jpg",
+    "images/5585/9.jpg"
+   ],
+   "cover": "images/5585/cover.webp",
+   "coverSm": "images/5585/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 1,
+   "sidePick": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-05T14:52:11.094Z"
+  },
   {
    "id": 5570,
    "title": "Sneakers Golden Goose True-Star",
@@ -20,7 +103,7 @@
    "shop": "weidian",
    "productId": "7889773971",
    "date": "2026-11-04T10:14:13+00:00",
-   "views": "384",
+   "views": "416",
    "telegram": "https://t.me/lovegobuy_france/5570",
    "photos": [
     "images/5570/1.jpg",
@@ -63,7 +146,7 @@
    "shop": "weidian",
    "productId": "7889122023",
    "date": "2026-11-03T09:38:38+00:00",
-   "views": "586",
+   "views": "616",
    "telegram": "https://t.me/lovegobuy_france/5561",
    "photos": [
     "images/5561/1.jpg",
@@ -106,7 +189,7 @@
    "shop": "weidian",
    "productId": "7889197735",
    "date": "2026-11-03T09:38:30+00:00",
-   "views": "546",
+   "views": "570",
    "telegram": "https://t.me/lovegobuy_france/5553",
    "photos": [
     "images/5553/1.jpg",
@@ -148,7 +231,7 @@
    "shop": "weidian",
    "productId": "7886818003",
    "date": "2026-11-02T07:41:58+00:00",
-   "views": "650",
+   "views": "667",
    "telegram": "https://t.me/lovegobuy_france/5545",
    "photos": [
     "images/5545/1.jpg",
@@ -187,7 +270,7 @@
    "shop": "weidian",
    "productId": "7889858094",
    "date": "2026-11-02T07:41:50+00:00",
-   "views": "610",
+   "views": "657",
    "telegram": "https://t.me/lovegobuy_france/5538",
    "photos": [
     "images/5538/1.jpg",
@@ -226,7 +309,7 @@
    "shop": "weidian",
    "productId": "7886875901",
    "date": "2026-11-02T07:41:44+00:00",
-   "views": "550",
+   "views": "566",
    "telegram": "https://t.me/lovegobuy_france/5532",
    "photos": [
     "images/5532/1.jpg",
@@ -264,7 +347,7 @@
    "shop": "weidian",
    "productId": "7889868086",
    "date": "2026-11-02T07:41:40+00:00",
-   "views": "585",
+   "views": "602",
    "telegram": "https://t.me/lovegobuy_france/5526",
    "photos": [
     "images/5526/1.jpg",
@@ -1828,11 +1911,16 @@
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.21,
+    0.36,
+    0.52,
+    0.97
+   ],
    "photoRev": 2,
    "coverSm": "images/5205/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": "[false,null,-90]"
+   "sidePick": "[false,true,90]"
   },
   {
    "id": 5196,
@@ -6536,14 +6624,19 @@
    "cover": "images/4256/cover.webp",
    "addedAt": "2026-10-28T07:34:23.853Z",
    "type": "Chaussures",
-   "coverFrom": 1,
-   "front": 1,
+   "coverFrom": 4,
+   "front": 4,
    "coverRev": 5,
-   "coverPick": 1,
+   "coverPick": 4,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.28,
+    0.13,
+    0.585,
+    0.97
+   ],
    "photoRev": 2,
    "coverSm": "images/4256/cover-sm.webp",
    "sideRev": 1,
@@ -8836,19 +8929,24 @@
     "images/3786/4.jpg"
    ],
    "cover": "images/3786/cover.webp",
-   "coverFrom": 1,
-   "front": 1,
+   "coverFrom": 2,
+   "front": 2,
    "coverRev": 5,
-   "coverPick": 1,
+   "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:02:15.300Z",
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.478,
+    0.45,
+    0.75,
+    0.962
+   ],
    "photoRev": 2,
    "coverSm": "images/3786/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": "[false,null,-90]"
+   "sidePick": "[false,null,-90,\"keep\"]"
   },
   {
    "id": 3781,
@@ -11290,19 +11388,24 @@
     "images/3362/4.jpg"
    ],
    "cover": "images/3362/cover.webp",
-   "coverFrom": 1,
-   "front": 1,
+   "coverFrom": 2,
+   "front": 2,
    "coverRev": 5,
-   "coverPick": 1,
+   "coverPick": 2,
    "kindPick": null,
    "addedAt": "2026-10-28T14:14:42.507Z",
    "extra": null,
    "rescueRev": 1,
-   "cropPick": null,
+   "cropPick": [
+    0.15,
+    0.18,
+    0.42,
+    0.95
+   ],
    "photoRev": 2,
    "coverSm": "images/3362/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": "[false,null,-90]"
+   "sidePick": "[false,true,90]"
   },
   {
    "id": 3349,
