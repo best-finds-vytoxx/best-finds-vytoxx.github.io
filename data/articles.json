@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-05T11:06:57.279Z",
+ "updatedAt": "2026-11-05T11:15:20.894Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-05T10:39:06.793Z",
@@ -1837,7 +1837,7 @@
    "photoRev": 2,
    "coverSm": "images/5205/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": "[9,null]"
+   "sidePick": "[9,null,\"keep\"]"
   },
   {
    "id": 5196,
