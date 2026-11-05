@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-05T11:15:20.894Z",
+ "updatedAt": "2026-11-05T11:25:24.185Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-05T10:39:06.793Z",
@@ -20,7 +20,7 @@
    "shop": "weidian",
    "productId": "7889773971",
    "date": "2026-11-04T10:14:13+00:00",
-   "views": "381",
+   "views": "384",
    "telegram": "https://t.me/lovegobuy_france/5570",
    "photos": [
     "images/5570/1.jpg",
@@ -63,7 +63,7 @@
    "shop": "weidian",
    "productId": "7889122023",
    "date": "2026-11-03T09:38:38+00:00",
-   "views": "585",
+   "views": "586",
    "telegram": "https://t.me/lovegobuy_france/5561",
    "photos": [
     "images/5561/1.jpg",
@@ -106,7 +106,7 @@
    "shop": "weidian",
    "productId": "7889197735",
    "date": "2026-11-03T09:38:30+00:00",
-   "views": "545",
+   "views": "546",
    "telegram": "https://t.me/lovegobuy_france/5553",
    "photos": [
     "images/5553/1.jpg",
@@ -148,7 +148,7 @@
    "shop": "weidian",
    "productId": "7886818003",
    "date": "2026-11-02T07:41:58+00:00",
-   "views": "649",
+   "views": "650",
    "telegram": "https://t.me/lovegobuy_france/5545",
    "photos": [
     "images/5545/1.jpg",
@@ -187,7 +187,7 @@
    "shop": "weidian",
    "productId": "7889858094",
    "date": "2026-11-02T07:41:50+00:00",
-   "views": "609",
+   "views": "610",
    "telegram": "https://t.me/lovegobuy_france/5538",
    "photos": [
     "images/5538/1.jpg",
@@ -226,7 +226,7 @@
    "shop": "weidian",
    "productId": "7886875901",
    "date": "2026-11-02T07:41:44+00:00",
-   "views": "549",
+   "views": "550",
    "telegram": "https://t.me/lovegobuy_france/5532",
    "photos": [
     "images/5532/1.jpg",
@@ -264,7 +264,7 @@
    "shop": "weidian",
    "productId": "7889868086",
    "date": "2026-11-02T07:41:40+00:00",
-   "views": "584",
+   "views": "585",
    "telegram": "https://t.me/lovegobuy_france/5526",
    "photos": [
     "images/5526/1.jpg",
@@ -342,7 +342,7 @@
    "shop": "weidian",
    "productId": "7888541940",
    "date": "2026-10-30T09:42:31+00:00",
-   "views": "921",
+   "views": "922",
    "telegram": "https://t.me/lovegobuy_france/5502",
    "photos": [
     "images/5502/1.jpg",
@@ -1821,23 +1821,18 @@
    "cover": "images/5205/cover.webp",
    "addedAt": "2026-10-27T22:46:40.756Z",
    "type": "Chaussures",
-   "front": 9,
-   "coverFrom": 9,
+   "front": 4,
+   "coverFrom": 4,
    "coverRev": 5,
-   "coverPick": 9,
+   "coverPick": 4,
    "kindPick": null,
    "extra": null,
    "rescueRev": 1,
-   "cropPick": [
-    0,
-    0,
-    1,
-    0.56
-   ],
+   "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5205/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": "[9,null,\"keep\"]"
+   "sidePick": "[false,null,-90]"
   },
   {
    "id": 5196,
