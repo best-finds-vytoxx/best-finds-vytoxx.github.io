@@ -228,7 +228,9 @@ async function main() {
   // 1. Lire le canal
   const photosStale = [...known.values()].some((a) => a.photoRev !== PHOTO_REV);
   if (photosStale) console.log('Photos à récupérer à nouveau depuis le canal, en qualité d\'origine : lecture de tout le canal');
-  const sweepDue = !existing.sweptAt || Date.now() - Date.parse(existing.sweptAt) > SWEEP_HOURS * 36e5;
+  // relecture complète demandée à la main (data/sweep.json : { "requestedAt": date }) : posts modifiés ou supprimés pris en compte tout de suite
+  const asked = await readFile(path.join(path.dirname(DATA), 'sweep.json'), 'utf8').then((t) => JSON.parse(t).requestedAt).catch(() => null);
+  const sweepDue = !existing.sweptAt || Date.now() - Date.parse(existing.sweptAt) > SWEEP_HOURS * 36e5 || (asked && Date.parse(asked) > Date.parse(existing.sweptAt));
   const full = !historyDone || photosStale || sweepDue;
   const { channel, messages, pages, complete } = await readChannel(full ? MAX_PAGES : RECENT_PAGES);
   const found = toArticles(messages, CHANNEL);
