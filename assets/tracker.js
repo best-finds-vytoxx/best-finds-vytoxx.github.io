@@ -210,9 +210,13 @@
     document.querySelectorAll('[data-r]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.r === rep)));
     document.querySelectorAll('[data-u]').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.u === '1') === uniq)));
     // « Visiteurs uniques » : chaque personne compte une fois par jour à chaque étape ; « Visites » : chaque passage compte
-    const S2 = (k) => sumRows(cur, uniq ? (k === 's' ? 'v' : 'u' + k) : k);
+    // les compteurs « par personne » n'existent que depuis le 5 novembre 2026 (12 h) : en mode Visiteurs uniques,
+    // toutes les étapes sont comptées sur les mêmes jours, à partir de cette date, pour rester comparables
+    const U_START = '2026-11-05';
+    const rows = uniq ? cur.filter((d) => d.date >= U_START) : cur;
+    const S2 = (k) => sumRows(rows, uniq ? (k === 's' ? 'v' : 'u' + k) : k);
     const who = uniq ? 'Visiteurs' : 'Visites', per = uniq ? 'personnes' : 'visites';
-    const since = uniq ? ' Visiteurs uniques : relevés depuis le 5 novembre (une personne compte une fois par jour).' : '';
+    const since = uniq && from < U_START ? ` Compté à partir du ${frDay(U_START)} (début de ce relevé) ; une personne compte une fois par jour.` : uniq ? ' Une personne compte une fois par jour.' : '';
     const vis = S2('s');
     if (rep === 'path') {
       const o = S2('o'), bb = S2('b'), po = S2('po'), p = S2('p');
