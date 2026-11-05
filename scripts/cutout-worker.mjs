@@ -45,7 +45,17 @@ async function tryCut(job, n) {
       const img = sharp(buf).rotate();
       const { width: W, height: H } = await sharp(await img.clone().toBuffer()).metadata();
       const [x0, y0, x1, y1] = job.crop;
-      buf = await img.extract({ left: Math.round(x0 * W), top: Math.round(y0 * H), width: Math.round((x1 - x0) * W), height: Math.round((y1 - y0) * H) }).png().toBuffer();
+      // zones à effacer (en fractions de la photo) : un morceau de la 2e chaussure qui dépasse dans le recadrage
+      let src = img;
+      if (job.erase?.length) {
+        const full = await img.clone().png().toBuffer();
+        const { data: bg } = await sharp(full).extract({ left: Math.round(x0 * W) + 2, top: Math.round(y0 * H) + 2, width: 4, height: 4 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+        const rects = job.erase.map(([a, b, c, d]) => ({
+          input: { create: { width: Math.max(1, Math.round((c - a) * W)), height: Math.max(1, Math.round((d - b) * H)), channels: 3, background: { r: bg[0], g: bg[1], b: bg[2] } } },
+          left: Math.round(a * W), top: Math.round(b * H) }));
+        src = sharp(await sharp(full).composite(rects).png().toBuffer());
+      }
+      buf = await src.extract({ left: Math.round(x0 * W), top: Math.round(y0 * H), width: Math.round((x1 - x0) * W), height: Math.round((y1 - y0) * H) }).png().toBuffer();
       // bord de fond ajouté autour du recadrage : un produit qui touche le bord de la photo n'est pas coupé au détourage
       const { data: px } = await sharp(buf).extract({ left: 0, top: 0, width: 4, height: 4 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
       const pad = Math.round(Math.max(W, H) * 0.05);

@@ -55,7 +55,7 @@
   "4180": {"cover": 1},
   "4227": {"cover": 1},
   "4231": {"cover": 1},
-  "4256": {"cover": 4, "side": false, "crop": [0.28, 0.13, 0.585, 0.97], "rotate": -90},
+  "4256": {"cover": 4, "side": false, "crop": [0.28, 0.13, 0.645, 0.96], "erase": [[0.624, 0.505, 0.66, 0.97]], "rotate": -90},
   "4261": {"category": "Bas", "kind": "wear", "cover": 1},
   "4275": {"cover": 1},
   "4279": {"cover": 1},
@@ -119,5 +119,5 @@
   "5490": {"cover": 2},
   "5502": {"cover": 4},
   "5510": {"cover": 4},
-  "_aide": "Corrections faites à la main, appliquées par le robot à chaque passage. cover = numéro de la photo à mettre en couverture (1 = première photo du post) ; category = Hauts, Bas, Chaussures, Ensembles, Électronique ou Accessoires ; kind = wear (vêtement), shoe (chaussures) ou acc (accessoire) ; crop = [gauche, haut, droite, bas] en fractions de la photo choisie, pour isoler le produit ; hide = true pour retirer l'article du site ; chaussures (couverture vue de côté, bout à gauche) : side = numéro de la photo de profil (par défaut la dernière) ou false pour garder une vue de face, flip = true/false pour forcer le retournement (miroir), keep = true pour ne pas retirer de « boîte » au détourage, rotate = angle en degrés pour tourner la couverture (-90 : une vue de dessus bout vers le haut passe bout à gauche)."
+  "_aide": "Corrections faites à la main, appliquées par le robot à chaque passage. cover = numéro de la photo à mettre en couverture (1 = première photo du post) ; category = Hauts, Bas, Chaussures, Ensembles, Électronique ou Accessoires ; kind = wear (vêtement), shoe (chaussures) ou acc (accessoire) ; crop = [gauche, haut, droite, bas] en fractions de la photo choisie, pour isoler le produit ; hide = true pour retirer l'article du site ; chaussures (couverture vue de côté, bout à gauche) : side = numéro de la photo de profil (par défaut la dernière) ou false pour garder une vue de face, flip = true/false pour forcer le retournement (miroir), erase = [[g,h,d,b], …] zones de la photo à effacer avant détourage (ex. bout de la 2e chaussure), keep = true pour ne pas retirer de « boîte » au détourage, rotate = angle en degrés pour tourner la couverture (-90 : une vue de dessus bout vers le haut passe bout à gauche)."
 }
