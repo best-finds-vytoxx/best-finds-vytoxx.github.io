@@ -38,8 +38,8 @@
     v: ['Visiteurs', '#1e2a44'], s: ['Visites', '#d9ad54'], n: ['Nouveaux visiteurs', '#6b8fb8'], o: ['Produits regardés', '#c4673a'],
     b: ['Départs vers LoveGoBuy', '#2f8a4c'], po: ['Offre 500 € affichée', '#b98a3a'], p: ['Inscriptions 500 €', '#a27bb0'], sh: ['Partages', '#8a9a5b'], q: ['Questions au chat bot', '#5f6b7a'],
   };
-  let evo = ['v', 's'], gran = 'day', rep = 'path';
-  try { const e = JSON.parse(localStorage.getItem('vx-evo') || 'null'); if (Array.isArray(e) && e.length) evo = e.filter((k) => M[k]); gran = localStorage.getItem('vx-gran') || 'day'; rep = localStorage.getItem('vx-rep') || 'path'; } catch {}
+  let evo = ['v', 's'], gran = 'day', rep = 'path', uniq = true;
+  try { const e = JSON.parse(localStorage.getItem('vx-evo') || 'null'); if (Array.isArray(e) && e.length) evo = e.filter((k) => M[k]); gran = localStorage.getItem('vx-gran') || 'day'; rep = localStorage.getItem('vx-rep') || 'path'; uniq = localStorage.getItem('vx-uniq') !== '0'; } catch {}
   const keep = () => { try { localStorage.setItem('vx-evo', JSON.stringify(evo)); localStorage.setItem('vx-gran', gran); localStorage.setItem('vx-rep', rep); } catch {} };
   let dups = new Map();
   let stats = { days: [] }, clicks = { history: [] }, arts = new Map(), loadedAt = null;
@@ -95,6 +95,7 @@
   });
   document.querySelectorAll('[data-g]').forEach((b) => b.addEventListener('click', () => { gran = b.dataset.g; keep(); render(); }));
   document.querySelectorAll('[data-r]').forEach((b) => b.addEventListener('click', () => { rep = b.dataset.r; keep(); render(); }));
+  document.querySelectorAll('[data-u]').forEach((b) => b.addEventListener('click', () => { uniq = b.dataset.u === '1'; try { localStorage.setItem('vx-uniq', uniq ? '1' : '0'); } catch {} render(); }));
   $('refresh').addEventListener('click', load);
   $('relock').addEventListener('click', () => { safe(() => localStorage.removeItem('vx-token')); location.reload(); });
 
@@ -207,24 +208,28 @@
 
     // ---------- Répartition : parcours, provenance ou appareil ----------
     document.querySelectorAll('[data-r]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.r === rep)));
-    const S2 = (k) => sumRows(cur, k);
+    document.querySelectorAll('[data-u]').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.u === '1') === uniq)));
+    // « Visiteurs uniques » : chaque personne compte une fois par jour à chaque étape ; « Visites » : chaque passage compte
+    const S2 = (k) => sumRows(cur, uniq ? (k === 's' ? 'v' : 'u' + k) : k);
+    const who = uniq ? 'Visiteurs' : 'Visites', per = uniq ? 'personnes' : 'visites';
+    const since = uniq ? ' Visiteurs uniques : relevés depuis le 5 novembre (une personne compte une fois par jour).' : '';
     const vis = S2('s');
     if (rep === 'path') {
       const o = S2('o'), bb = S2('b'), po = S2('po'), p = S2('p');
-      $('rep-sub').textContent = 'Combien de personnes vont jusqu’au bout, étape par étape, sur la période.';
-      $('rates').innerHTML = `<span class="rate">Visites qui finissent sur LoveGoBuy <b>${pct(bb, vis)}</b></span><span class="rate">Produits regardés qui finissent sur LoveGoBuy <b>${pct(bb, o)}</b></span><span class="rate">Offre 500 € vue → inscription <b>${pct(p, po)}</b></span>`;
-      hbar('c-rep', ['Visites', 'Produits regardés', 'Départs vers LoveGoBuy', 'Offre 500 € affichée', 'Inscriptions 500 €'], [vis, o, bb, po, p],
+      $('rep-sub').textContent = (uniq ? 'Combien de personnes vont jusqu’au bout, étape par étape, sur la période.' : 'Combien de visites vont jusqu’au bout, étape par étape (une personne peut compter plusieurs fois).') + since;
+      $('rates').innerHTML = `<span class="rate">${who} qui finissent sur LoveGoBuy <b>${pct(bb, vis)}</b></span><span class="rate">${uniq ? 'Personnes qui regardent un produit puis vont sur LoveGoBuy' : 'Produits regardés qui finissent sur LoveGoBuy'} <b>${pct(bb, o)}</b></span><span class="rate">Offre 500 € vue → inscription <b>${pct(p, po)}</b></span>`;
+      hbar('c-rep', [who, uniq ? 'Ont regardé un produit' : 'Produits regardés', uniq ? 'Sont allés sur LoveGoBuy' : 'Départs vers LoveGoBuy', uniq ? 'Ont vu l’offre 500 €' : 'Offre 500 € affichée', uniq ? 'Ont cliqué sur l’inscription 500 €' : 'Inscriptions 500 €'], [vis, o, bb, po, p],
         [M.v[1], M.o[1], M.b[1], M.po[1], M.p[1]], (v, j) => (j === 2 ? `${fmt(v)} · ${pct(v, o)}` : j === 4 ? `${fmt(v)} · ${pct(v, po)}` : fmt(v)));
     } else if (rep === 'src') {
       const src = [['Telegram', 'rtg'], ['Instagram', 'rig'], ['Snapchat', 'rsc'], ['TikTok', 'rtt'], ['WhatsApp', 'rwa'], ['Un autre site', 'rweb'], ['Lien direct', 'rdir']]
         .map(([l, k]) => [l, S2(k)]).sort((a, b) => b[1] - a[1]);
       const t = src.reduce((x, y) => x + y[1], 0);
-      $('rep-sub').textContent = 'Visites selon l’appli d’où le lien a été ouvert. « Lien direct » : lien collé, favori, ou appli qui ne dit pas d’où on vient (souvent Telegram).';
+      $('rep-sub').textContent = `${who} selon l’appli d’où le lien a été ouvert. « Lien direct » : lien collé, favori, ou appli qui ne dit pas d’où on vient (souvent Telegram).` + since;
       $('rates').innerHTML = '';
       hbar('c-rep', src.map((x) => x[0]), src.map((x) => x[1]), src.map((_, i) => (i === 0 ? css('--c3') : css('--c4'))), (v) => `${fmt(v)} · ${pct(v, t)}`);
     } else {
       const mob = S2('mob'), pc = S2('pc'), app = S2('app');
-      $('rep-sub').textContent = 'Visites sur téléphone ou sur ordinateur, et visites lancées depuis l’icône Vytoxx Finds ajoutée sur l’écran du téléphone.';
+      $('rep-sub').textContent = `${who} sur téléphone ou sur ordinateur, et ${per} venues depuis l’icône Vytoxx Finds ajoutée sur l’écran du téléphone.` + since;
       $('rates').innerHTML = `<span class="rate">Sur téléphone <b>${pct(mob, mob + pc)}</b></span>`;
       hbar('c-rep', ['Téléphone', 'Ordinateur', 'Depuis l’icône sur le téléphone'], [mob, pc, app], [css('--c1'), css('--c4'), css('--c5')], (v, j) => (j < 2 ? `${fmt(v)} · ${pct(v, mob + pc)}` : fmt(v)));
     }

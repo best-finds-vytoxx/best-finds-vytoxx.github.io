@@ -312,7 +312,10 @@
     if (statQ.length) statFlush();
   };
   addEventListener('pagehide', statFlush);
+  // compteurs aussi relevés « par personne » (une fois par jour et par appareil, code préfixé de u) pour le tracker
+  const STAT_U = new Set(['o', 'b', 'po', 'p', 'rtg', 'rig', 'rsc', 'rtt', 'rwa', 'rweb', 'rdir', 'mob', 'pc', 'app']);
   function stat(name, once) {
+    if (!once && STAT_U.has(name)) stat('u' + name, true);
     const d = dayKey();
     if (once) { const k = `st-${name}-${d}`; if (store.get(k)) return; store.set(k, '1'); }
     if (S.statsUrl) { statQ.push(name); if (!statT) statT = setTimeout(statFlush, 400); return; }

@@ -3,7 +3,9 @@
 //   PASS : le mot de passe du tracker      KEY : une longue phrase aléatoire (signe les connexions)
 // Le site envoie des compteurs anonymes (POST /hit) ; seul le tracker connecté peut les lire (GET /stats).
 const ORIGINS = ['https://best-finds-vytoxx.github.io', 'http://localhost:8765'];
-const CODES = new Set(['s', 'v', 'n', 'o', 'b', 'sh', 'po', 'p', 'q', 'app', 'mob', 'pc', 'rtg', 'rig', 'rsc', 'rtt', 'rwa', 'rweb', 'rdir']);
+const CODES = new Set(['s', 'v', 'n', 'o', 'b', 'sh', 'po', 'p', 'q', 'app', 'mob', 'pc', 'rtg', 'rig', 'rsc', 'rtt', 'rwa', 'rweb', 'rdir',
+  // les mêmes, comptés une fois par personne et par jour
+  'uo', 'ub', 'upo', 'up', 'urtg', 'urig', 'ursc', 'urtt', 'urwa', 'urweb', 'urdir', 'umob', 'upc', 'uapp']);
 const enc = new TextEncoder();
 const b64u = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 // jour et heure à l'heure de Paris
@@ -66,7 +68,7 @@ export default {
         if (tooMany(req.headers.get('CF-Connecting-IP') || '?')) return json(req, { ok: false }, 429);
         let body = {};
         try { body = JSON.parse((await req.text()).slice(0, 1000)); } catch {}
-        const ks = [...new Set([].concat(body.k || []))].filter((k) => CODES.has(k)).slice(0, 8);
+        const ks = [...new Set([].concat(body.k || []))].filter((k) => CODES.has(k)).slice(0, 16);
         if (!ks.length) return json(req, { ok: false }, 400);
         const { day: d, hour } = paris();
         const run = () => env.DB.batch(ks.flatMap((k) => [
