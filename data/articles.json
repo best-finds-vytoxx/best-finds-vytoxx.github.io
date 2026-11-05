@@ -1,9 +1,51 @@
 {
- "updatedAt": "2026-11-05T15:02:33.196Z",
+ "updatedAt": "2026-11-05T15:17:48.418Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-05T10:39:06.793Z",
  "articles": [
+  {
+   "id": 5600,
+   "title": "Jean Momotaro Syutujin",
+   "brand": null,
+   "category": "Bas",
+   "type": "Bas",
+   "weight": {
+    "min": 870,
+    "max": null
+   },
+   "extra": null,
+   "description": "Jean Momotaro Syutujin : un bas sélectionné sur le canal. Les 8 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 870 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7893771468&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7893771468",
+   "date": "2026-11-05T15:06:15+00:00",
+   "views": "1",
+   "telegram": "https://t.me/lovegobuy_france/5600",
+   "photos": [
+    "images/5600/1.jpg",
+    "images/5600/2.jpg",
+    "images/5600/3.jpg",
+    "images/5600/4.jpg",
+    "images/5600/5.jpg",
+    "images/5600/6.jpg",
+    "images/5600/7.jpg",
+    "images/5600/8.jpg"
+   ],
+   "cover": "images/5600/cover.webp",
+   "coverSm": "images/5600/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 1,
+   "sidePick": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-05T15:17:48.309Z"
+  },
   {
    "id": 5594,
    "title": "Bracelet Hermès Tournis Tressé",
@@ -146,7 +188,7 @@
    "shop": "weidian",
    "productId": "7889122023",
    "date": "2026-11-03T09:38:38+00:00",
-   "views": "617",
+   "views": "647",
    "telegram": "https://t.me/lovegobuy_france/5561",
    "photos": [
     "images/5561/1.jpg",
@@ -6634,13 +6676,13 @@
    "cropPick": [
     0.28,
     0.13,
-    0.585,
-    0.97
+    0.645,
+    0.96
    ],
    "photoRev": 2,
    "coverSm": "images/4256/cover-sm.webp",
    "sideRev": 1,
-   "sidePick": "[false,null,-90]"
+   "sidePick": "[false,null,-90,[[0.624,0.505,0.66,0.97]]]"
   },
   {
    "id": 4249,
