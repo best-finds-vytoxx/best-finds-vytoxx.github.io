@@ -1349,3 +1349,10 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 .cat-shoes .cat-pic .p2 { top: 67%; left: 20%; right: auto; z-index: 3; transform: none; }
 .cat-shoes:hover .p0 { transform: translateX(4px); } .cat-shoes:hover .p1 { transform: translateX(-4px); } .cat-shoes:hover .p2 { transform: translateX(4px); }
 @media (max-width: 900px) { .cat-shoes .cat-pic img { width: 74%; height: 30%; } .cat-shoes .cat-pic .p0 { top: 3%; left: 4%; } .cat-shoes .cat-pic .p1 { top: 35%; right: 4%; } .cat-shoes .cat-pic .p2 { top: 67%; left: 10%; } }
+
+/* Avertissement de l'accueil : ce site ne vend rien, c'est un répertoire de liens */
+.hero-warn { display: flex; gap: 8px; align-items: flex-start; margin: 8px 0 0; max-width: 46ch; padding: 8px 12px; border-radius: 12px;
+  font: 500 12.5px/1.35 var(--f-body); color: var(--ink); background: color-mix(in srgb, var(--surface, #fff) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+.hero-warn svg { flex: 0 0 16px; width: 16px; height: 16px; margin-top: 1px; color: var(--ink); }
+.hero-warn b { font-weight: 700; }

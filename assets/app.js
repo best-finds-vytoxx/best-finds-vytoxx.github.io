@@ -113,7 +113,7 @@
     <main id="view"></main>
     <footer class="foot">
       <div class="wrap foot-in">
-        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Vytoxx Best Finds')}</b><p>Les meilleurs finds de Vytoxx, réunis ici et photographiés par notre équipe pour garantir la qualité.</p><p class="foot-note">Vytoxx n'est pas un fournisseur : il sélectionne les meilleurs produits du marché.</p></div>
+        <div class="foot-brand">${logo()}<b>${esc(S.name || 'Vytoxx Best Finds')}</b><p>Les meilleurs finds de Vytoxx, réunis ici et photographiés par notre équipe pour garantir la qualité.</p><p class="foot-note">Ce site n'est pas un site de vente, uniquement un répertoire de liens. Vytoxx n'est pas un fournisseur : il sélectionne les meilleurs produits du marché.</p></div>
         <nav class="foot-col" aria-label="Le site"><h3>Le site</h3><a href="#catalogue">Tous les articles</a><a href="#tuto">Tuto pour commander</a><a href="#ecran">Ajouter le site sur l'écran d'accueil</a><a href="#aide">Chat bot : pose ta question</a><button type="button" id="foot-promo">${coupon} de coupons offerts</button><button type="button" id="foot-share">Partager le site à un ami</button></nav>
         <nav class="foot-col" aria-label="Ailleurs"><h3>Ailleurs</h3><a href="${esc(S.telegram)}" target="_blank" rel="noopener">Canal Telegram</a><a href="${esc(S.invite)}" target="_blank" rel="noopener">LoveGoBuy</a></nav>
       </div>
@@ -464,6 +464,7 @@
             <div class="hero-txt">
               <p class="hero-lead">Les meilleurs finds de Vytoxx, réunis ici et photographiés par notre équipe pour garantir la qualité.</p>
               <p class="hero-note">Vytoxx n'est pas un fournisseur : il sélectionne les meilleurs produits du marché.</p>
+              <p class="hero-warn" role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4.5M12 17.2v.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span><b>Ce site n'est pas un site de vente</b>, uniquement un répertoire de liens.</span></p>
               <p class="hero-meta"><b>${arts.length.toLocaleString('fr-FR')}</b> articles</p>
             </div>
             <div class="hero-pic" aria-hidden="true">
