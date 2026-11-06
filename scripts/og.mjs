@@ -35,16 +35,31 @@ function wrap(text, max, lines = 3) {
 const render = (svg) => new Resvg(svg, { fitTo: { mode: 'width', value: W }, font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: 'Instrument Sans' } }).render().asPng();
 const jpeg = (png) => sharp(png).jpeg({ quality: 86, mozjpeg: true }).toBuffer();
 
-// fond uni ivoire, sobre ; texte encre presque noire ; bouton noir « Voir l'article »
-const INK = '#141414', IVORY = '#f4f1ea', MUTED = '#77736b';
-const backdrop = () => `<rect width="${W}" height="${H}" fill="${IVORY}"/>
-  <line x1="660" y1="96" x2="1140" y2="96" stroke="${INK}" stroke-opacity=".14" stroke-width="1.5"/>`;
+// fond ivoire luxe : halo de lumière blanche derrière le produit (comme un projecteur de vitrine), socle ovale,
+// grand monogramme V en filigrane, fin cadre doré, texte encre presque noire, bouton noir avec flèche dorée
+const INK = '#141414', IVORY = '#f2eee6', MUTED = '#77736b', GOLD = '#b8954f';
+const backdrop = (cx = 330, cy = 300) => `
+  <defs>
+    <radialGradient id="spot" cx="${cx}" cy="${cy}" r="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset=".55" stop-color="#ffffff" stop-opacity=".45"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="vign" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".05"/></linearGradient>
+    <linearGradient id="gline" x1="0" x2="1"><stop offset="0" stop-color="${GOLD}" stop-opacity="0"/><stop offset=".15" stop-color="${GOLD}"/><stop offset=".85" stop-color="${GOLD}"/><stop offset="1" stop-color="${GOLD}" stop-opacity="0"/></linearGradient>
+    <radialGradient id="ped" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#d9d2c4" stop-opacity=".9"/><stop offset=".7" stop-color="#e6e0d4" stop-opacity=".5"/><stop offset="1" stop-color="#e6e0d4" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="${W}" height="${H}" fill="${IVORY}"/>
+  <text x="${cx}" y="${cy + 250}" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="640" fill="${INK}" fill-opacity=".035">V</text>
+  <rect width="${W}" height="${H}" fill="url(#spot)"/>
+  <ellipse cx="${cx}" cy="${H - 34}" rx="300" ry="34" fill="url(#ped)"/>
+  <rect width="${W}" height="${H}" fill="url(#vign)"/>
+  <rect x="18" y="18" width="${W - 36}" height="${H - 36}" rx="6" fill="none" stroke="${GOLD}" stroke-opacity=".55" stroke-width="1.2"/>
+  <line x1="660" y1="96" x2="1140" y2="96" stroke="url(#gline)" stroke-width="1.5"/>`;
 const label = (x, y) => `<text x="${x}" y="${y}" font-family="Instrument Sans" font-weight="700" font-size="17" letter-spacing="6" fill="${INK}">VYTOXX  BEST  FINDS</text>`;
 const cta = (x, y, text) => {
-  const w = 74 + text.length * 12.6;
-  return `<g><rect x="${x}" y="${y}" width="${w}" height="66" rx="33" fill="${INK}"/>
+  const w = 96 + text.length * 12.6;
+  return `<g><rect x="${x}" y="${y + 6}" width="${w}" height="66" rx="33" fill="#000" fill-opacity=".14"/>
+    <rect x="${x}" y="${y}" width="${w}" height="66" rx="33" fill="${INK}"/>
     <text x="${x + 32}" y="${y + 42}" font-family="Instrument Sans" font-weight="700" font-size="24" fill="#ffffff">${esc(text)}</text>
-    <path d="M${x + w - 44} ${y + 33} h20 m-8 -8 l8 8 l-8 8" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+    <circle cx="${x + w - 36}" cy="${y + 33}" r="22" fill="${GOLD}"/>
+    <path d="M${x + w - 46} ${y + 33} h20 m-8 -8 l8 8 l-8 8" stroke="${INK}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`;
 };
 
 // produit détouré (ou photo arrondie si pas de détourage), avec une ombre douce posée dessous
@@ -85,13 +100,24 @@ async function articleCard(a, price) {
 }
 
 async function homeCard(articles) {
-  const panda = await sharp('assets/img/panda-hero.webp').trim({ threshold: 1 }).resize({ height: 560, fit: 'inside' }).png().toBuffer();
+  const panda = await sharp('assets/img/panda-hero.webp').trim({ threshold: 1 }).resize({ height: 540, fit: 'inside' }).png().toBuffer();
   const pm = await sharp(panda).metadata();
+  // les plus cliqués du moment : une veste derrière le panda à gauche, un bas à droite, une paire de chaussures à ses pieds
+  const top = await readFile('data/clicks.json', 'utf8').then((t) => JSON.parse(t)).catch(() => ({}));
+  const score = (a) => Number((top.period || top.total || {})[a.id] || 0);
+  const ranked = articles.filter((a) => a.cover).sort((x, y) => score(y) - score(x));
+  const pick = (c) => ranked.find((a) => a.category === c);
+  const items = [
+    [pick('Hauts'), { x: 40, y: 70, w: 250, h: 320 }],
+    [pick('Bas'), { x: 400, y: 120, w: 210, h: 280 }],
+    [pick('Chaussures'), { x: 330, y: 420, w: 280, h: 170 }],
+  ].filter(([a]) => a);
+  let back = '';
+  for (const [a, box] of items) back += await productLayer(a, box);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-    ${backdrop()}
-    <defs><radialGradient id="psh" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
-    <ellipse cx="330" cy="${H - 22}" rx="170" ry="18" fill="url(#psh)"/>
-    <image href="${await dataUri(panda)}" x="${330 - pm.width / 2}" y="${H - pm.height - 22}" width="${pm.width}" height="${pm.height}"/>
+    ${backdrop(320, 310)}
+    ${back}
+    <image href="${await dataUri(panda)}" x="${300 - pm.width / 2}" y="${H - pm.height - 30}" width="${pm.width}" height="${pm.height}"/>
     ${label(660, 72)}
     <text x="656" y="210" font-family="Bricolage Grotesque" font-weight="700" font-size="84" fill="${INK}">Vytoxx</text>
     <text x="656" y="300" font-family="Bricolage Grotesque" font-weight="700" font-size="84" fill="${INK}">Best Finds</text>
