@@ -103,9 +103,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Aperçus de partage (image et petite page par article)
+        run: |
+          mkdir -p /tmp/og && cd /tmp/og && npm init -y >/dev/null && npm install --no-audit --no-fund sharp@0.32.6 @resvg/resvg-js@2.6.2 >/dev/null
+          cp -r "$GITHUB_WORKSPACE/scripts/og.mjs" "$GITHUB_WORKSPACE/scripts/fonts" /tmp/og/
+          cd "$GITHUB_WORKSPACE" && mkdir -p _site && (node /tmp/og/og.mjs _site https://best-finds-vytoxx.github.io || echo "aperçus non générés")
       - name: Préparer le site
         run: |
-          mkdir _site
+          mkdir -p _site
           cp -r index.html tracker.html manifest.webmanifest apple-touch-icon.png apple-touch-icon-precomposed.png assets data _site/
           if [ -d images ]; then cp -r images _site/; fi
           touch _site/.nojekyll
