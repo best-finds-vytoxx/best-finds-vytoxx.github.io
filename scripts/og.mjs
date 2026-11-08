@@ -121,8 +121,8 @@ async function homeCard(articles) {
     ${label(660, 72)}
     <text x="656" y="210" font-family="Bricolage Grotesque" font-weight="700" font-size="84" fill="${INK}">Vytoxx</text>
     <text x="656" y="300" font-family="Bricolage Grotesque" font-weight="700" font-size="84" fill="${INK}">Best Finds</text>
-    <text x="660" y="362" font-family="Instrument Sans" font-weight="500" font-size="24" fill="${MUTED}">${articles.length} pièces sélectionnées et photographiées</text>
-    <text x="660" y="394" font-family="Instrument Sans" font-weight="500" font-size="24" fill="${MUTED}">par notre équipe, lien direct pour commander.</text>
+    <text x="660" y="362" font-family="Instrument Sans" font-weight="500" font-size="24" fill="${MUTED}">Les meilleurs finds, sélectionnés et</text>
+    <text x="660" y="394" font-family="Instrument Sans" font-weight="500" font-size="24" fill="${MUTED}">photographiés par notre équipe.</text>
     ${cta(660, 470, 'Voir les finds')}
   </svg>`;
   return jpeg(render(svg));
@@ -144,9 +144,14 @@ const page = (a, desc, img) => `<!doctype html>
 <meta property="og:image:alt" content="${esc(a.title)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${img}">
-<meta http-equiv="refresh" content="0; url=${SITE}/?p=${a.id}">
-</head><body style="font-family:system-ui,sans-serif;background:#f7f1e7;color:#1e2a44;display:grid;place-items:center;min-height:100vh;margin:0">
-<a href="${SITE}/?p=${a.id}" style="color:inherit">Voir ${esc(a.title)} sur Vytoxx Best Finds</a>
+</head>
+<body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#f2eee6;color:#141414;font-family:system-ui,-apple-system,sans-serif;text-align:center">
+<main style="padding:24px;max-width:640px">
+<img src="${img}" alt="" style="width:100%;border-radius:14px;display:block">
+<p><a href="${SITE}/?p=${a.id}" style="display:inline-block;margin-top:18px;padding:14px 26px;border-radius:999px;background:#141414;color:#fff;text-decoration:none;font-weight:700">Voir l’article</a></p>
+</main>
+<!-- renvoi vers la fiche par JavaScript (et non par « refresh ») : les applis qui fabriquent l'aperçu restent sur cette page -->
+<script>location.replace(${JSON.stringify(`${SITE}/?p=${a.id}`)});</script>
 </body></html>
 `;
 

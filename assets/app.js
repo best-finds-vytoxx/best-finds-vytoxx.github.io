@@ -1006,7 +1006,7 @@
     const shareItem = () => shareThis({
       title: 'Partage ce produit à un pote',
       text: `Regarde ça : ${a.title}${lgb ? ` à ${eur(lgb.eur)}` : ''} sur ${S.name || 'Vytoxx Best Finds'}`,
-      url: `${location.origin}/p/${a.id}/`, // petite page avec l'aperçu (photo, prix), qui ouvre la fiche
+      url: `${location.origin}/p/${a.id}/?v=2`, // ?v : nouvelle adresse pour les applis qui gardent l'ancien aperçu en mémoire ; petite page avec l'aperçu (photo, prix), qui ouvre la fiche
     });
     view.querySelector('#share-item').addEventListener('click', shareItem);
     bar.querySelector('#bar-share').addEventListener('click', shareItem);
