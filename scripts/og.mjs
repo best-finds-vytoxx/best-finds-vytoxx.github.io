@@ -132,6 +132,8 @@ const page = (a, desc, img) => `<!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
 <title>${esc(a.title)} · Vytoxx Best Finds</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src ${SITE}/p/go.js; img-src ${SITE}; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex">
 <meta name="description" content="${esc(desc)}">
 <meta property="og:type" content="website">
@@ -151,7 +153,7 @@ const page = (a, desc, img) => `<!doctype html>
 <p><a href="${SITE}/?p=${a.id}" style="display:inline-block;margin-top:18px;padding:14px 26px;border-radius:999px;background:#141414;color:#fff;text-decoration:none;font-weight:700">Voir l’article</a></p>
 </main>
 <!-- renvoi vers la fiche par JavaScript (et non par « refresh ») : les applis qui fabriquent l'aperçu restent sur cette page -->
-<script>location.replace(${JSON.stringify(`${SITE}/?p=${a.id}`)});</script>
+<script src="${SITE}/p/go.js" data-to="${SITE}/?p=${a.id}"></script>
 </body></html>
 `;
 
@@ -163,6 +165,9 @@ const visible = all.filter((a) => !a.hidden && !a.dupOf);
 const priceOf = (a) => { const p = prices[a.id]; return p && p.eur && (!p.pid || p.pid === a.productId) ? p.eur : null; };
 
 await mkdir(path.join(OUT, 'og'), { recursive: true });
+await mkdir(path.join(OUT, 'p'), { recursive: true });
+// renvoi vers la fiche : seulement vers une adresse du site (jamais ailleurs, même si la page était modifiée)
+await writeFile(path.join(OUT, 'p', 'go.js'), `(() => { const s = document.currentScript; const to = s && s.dataset.to; if (to && to.startsWith(${JSON.stringify(SITE + '/')})) location.replace(to); })();\n`);
 const v = Date.now().toString(36);
 await writeFile(path.join(OUT, 'og', 'home.jpg'), await homeCard(visible));
 // page de partage du site : même principe que les articles (aperçu = image d'accueil, puis renvoi vers l'accueil) ;
@@ -175,6 +180,8 @@ await writeFile(path.join(OUT, 'og', 'home.jpg'), await homeCard(visible));
 <html lang="fr"><head><meta charset="utf-8">
 <title>Vytoxx Best Finds</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src ${SITE}/p/go.js; img-src ${SITE}; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="noindex">
 <meta name="description" content="${esc(desc)}">
 <meta property="og:type" content="website">
@@ -190,7 +197,7 @@ await writeFile(path.join(OUT, 'og', 'home.jpg'), await homeCard(visible));
 <body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#f2eee6;color:#141414;font-family:system-ui,-apple-system,sans-serif;text-align:center">
 <main style="padding:24px;max-width:640px"><img src="${img}" alt="" style="width:100%;border-radius:14px;display:block">
 <p><a href="${SITE}/" style="display:inline-block;margin-top:18px;padding:14px 26px;border-radius:999px;background:#141414;color:#fff;text-decoration:none;font-weight:700">Voir les finds</a></p></main>
-<script>location.replace(${JSON.stringify(`${SITE}/`)});</script>
+<script src="${SITE}/p/go.js" data-to="${SITE}/"></script>
 </body></html>
 `);
 }
