@@ -185,7 +185,7 @@
     closePromo();
   });
   document.getElementById('open-promo').addEventListener('click', () => openPromo());
-  document.getElementById('share-site').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
+  document.getElementById('share-site').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: `${location.origin}/s/` }));
   document.getElementById('foot-promo').addEventListener('click', () => openPromo());
   // ---------- menu déroulant (bouton en haut à gauche) ----------
   const drawer = document.getElementById('drawer');
@@ -213,13 +213,13 @@
     if (e.target.closest('[data-dx]')) closeMenu();
   });
   document.getElementById('dr-promo').addEventListener('click', () => { closeMenu(); setTimeout(() => openPromo(), 120); });
-  document.getElementById('dr-share').addEventListener('click', () => { closeMenu(); setTimeout(() => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }), 120); });
+  document.getElementById('dr-share').addEventListener('click', () => { closeMenu(); setTimeout(() => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: `${location.origin}/s/` }), 120); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) closeMenu(); });
   // glisser vers la gauche pour fermer (téléphone)
   let dx0 = null;
   drawer.addEventListener('pointerdown', (e) => { dx0 = e.clientX; });
   drawer.addEventListener('pointerup', (e) => { if (dx0 != null && dx0 - e.clientX > 70) closeMenu(); dx0 = null; });
-  document.getElementById('foot-share').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: siteUrl() }));
+  document.getElementById('foot-share').addEventListener('click', () => shareThis({ title: 'Partage ce site à un ami', text: `Regarde ce site : toutes les trouvailles LoveGoBuy du canal ${S.by || ''}, avec les vraies photos et les prix 👀`, url: `${location.origin}/s/` }));
   document.addEventListener('keydown', (e) => {
     if (promo.hidden) return;
     if (e.key === 'Escape') closePromo();

@@ -165,6 +165,35 @@ const priceOf = (a) => { const p = prices[a.id]; return p && p.eur && (!p.pid ||
 await mkdir(path.join(OUT, 'og'), { recursive: true });
 const v = Date.now().toString(36);
 await writeFile(path.join(OUT, 'og', 'home.jpg'), await homeCard(visible));
+// page de partage du site : même principe que les articles (aperçu = image d'accueil, puis renvoi vers l'accueil) ;
+// une adresse à part évite l'ancien aperçu que les applis gardent en mémoire pour l'adresse du site
+{
+  const img = `${SITE}/og/home.jpg?v=${v}`;
+  const desc = 'Les meilleurs finds LoveGoBuy, sélectionnés et photographiés par notre équipe. Photos réelles et lien direct pour commander.';
+  await mkdir(path.join(OUT, 's'), { recursive: true });
+  await writeFile(path.join(OUT, 's', 'index.html'), `<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Vytoxx Best Finds</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="description" content="${esc(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vytoxx Best Finds">
+<meta property="og:title" content="Vytoxx Best Finds">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${SITE}/s/">
+<meta property="og:image" content="${img}">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${img}">
+</head>
+<body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#f2eee6;color:#141414;font-family:system-ui,-apple-system,sans-serif;text-align:center">
+<main style="padding:24px;max-width:640px"><img src="${img}" alt="" style="width:100%;border-radius:14px;display:block">
+<p><a href="${SITE}/" style="display:inline-block;margin-top:18px;padding:14px 26px;border-radius:999px;background:#141414;color:#fff;text-decoration:none;font-weight:700">Voir les finds</a></p></main>
+<script>location.replace(${JSON.stringify(`${SITE}/`)});</script>
+</body></html>
+`);
+}
 let n = 0;
 const only = process.env.OG_ONLY ? new Set(process.env.OG_ONLY.split(',').map(Number)) : null;
 for (const a of all) {
