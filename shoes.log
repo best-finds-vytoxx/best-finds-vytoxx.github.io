@@ -1,0 +1,8 @@
+[0;93m2026-11-10 16:08:39.440118721 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+Loading weights:   0%|          | 0/978 [00:00<?, ?it/s]Loading weights:  50%|█████     | 493/978 [00:00<00:00, 4897.97it/s]Loading weights: 100%|██████████| 978/978 [00:00<00:00, 4697.93it/s]
+5553 Baskets Valentino Rockstud candidates 10 pick 8 255 s
+5028 Chaussures d'entraînement On Cloud X 4 candidates 10 pick 6 250 s
+4581 Nike Air Max Plus TN candidates 12 pick 8 289 s
+4279 Sneaker LV Skate tout noir avec cristaux Swarovski TOP candidates 10 pick 8 282 s
+3995 New Balance NB 9060 candidates 8 pick 7 207 s
+3699 Shoes Prada candidates 8 pick 6 199 s
