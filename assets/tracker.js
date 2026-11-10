@@ -262,7 +262,7 @@
       const img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''; img.src = a.coverSm || a.cover || (a.photos || [])[0] || '';
       const t = document.createElement('span'); t.className = 't';
       const b = document.createElement('b'); b.textContent = a.title;
-      const sm = document.createElement('small'); sm.textContent = [a.brand, a.category].filter(Boolean).join(' · ');
+      const sm = document.createElement('small'); sm.textContent = [a.brand, a.category === 'Accessoires' ? 'Autres' : a.category].filter(Boolean).join(' · ');
       const bar = document.createElement('div'); bar.className = 'bar-in'; bar.style.width = `${Math.max(6, (n / max) * 100)}%`;
       t.append(b, sm, bar);
       const v = document.createElement('span'); v.className = 'n'; v.textContent = fmt(n);

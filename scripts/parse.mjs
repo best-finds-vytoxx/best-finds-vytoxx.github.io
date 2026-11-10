@@ -111,7 +111,7 @@ const CATEGORIES = [
   ['Hauts', /t-?shirt|\btee\b|polo\b|chemise|shirt|maillot|débardeur|\btop\b|\bhaut\b|dri-fit/i],
   ['Bas', /pantalon|jogging|jogger|short|jeans?\b|pants?\b|legging|cargo|caleçons?|boxers?/i],
   ['Ensembles', /ensemble|survêtement|tracksuit|\bsets?\b|sportswear|running|run division/i],
-  ['Chaussures', /chaussure|sneakers?|baskets?|shoes?\b|boots?\b|botte|\btn\b|air max|air force|shox|p6000|jordan|dunk|samba|claquette|slide|sabot|crocs|9060|1906|jumpman|escarpins?|sandales?|mules?|mocassins?|runner|trainer|tennis walk|golden goose|yeezy \d|dior b\d|cloud\w*|gel-|kayano|xt-6|saucony|asics|numeris/i],
+  ['Chaussures', /chaussure|crampons?|football boots?|sneakers?|baskets?|shoes?\b|boots?\b|botte|\btn\b|air max|air force|shox|p6000|jordan|dunk|samba|claquette|slide|sabot|crocs|9060|1906|jumpman|escarpins?|sandales?|mules?|mocassins?|runner|trainer|tennis walk|golden goose|yeezy \d|dior b\d|cloud\w*|gel-|kayano|xt-6|saucony|asics|numeris/i],
   ['Électronique', /casque(?!tte)|airpods|écouteurs?|ecouteurs?|enceinte|bluetooth|\bjbl\b|\bbeats\b|chargeur|power ?bank|batterie externe|console|manette|apple watch|montre connectée|iphone|ipad|sèche-cheveux|seche-cheveux|dyson|lisseur|boucleur|rasoir|tondeuse/i],
   ['Accessoires', /bonnet|écharpe|echarpe|scarf|casquette|\bcaps?\b|\bhat\b|beanie|gants?|ceinture|lunettes|glasses|sacs?\b|\bbags?\b|bowling|cisalpin|sprayground|portefeuille|porte-cartes|wallet|bracelet|collier|bague|montres?\b|watch|chrono|gourde|tumbler|quencher|chaussettes|socks|coque|goyard/i],
 ];

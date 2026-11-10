@@ -189,7 +189,7 @@ function makeCovers(items, tmp) {
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
     if (!todo.length) break;
-    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, rotate: Number(s.it.rotate) || 0, erase: s.it.erase || null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, sideForced: typeof s.it.side === 'number', openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, rotate: Number(s.it.rotate) || 0, erase: s.it.erase || null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
     console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
     const cut = runCutouts(jobs, tmp, round);
     const made = todo.filter((s) => cut.get(s.it.id));

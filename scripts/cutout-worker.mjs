@@ -79,7 +79,7 @@ async function sideCut(job) {
   for (const n of (job.side || []).filter((m) => !(job.exclude || []).includes(m))) {
     const c = await tryCut(job, n);
     if (!c) continue;
-    if (c.ratio < SIDE_RATIO) { console.log(`  ${job.id} : photo ${n} pas vue de côté (largeur/hauteur ${c.ratio.toFixed(2)})`); continue; }
+    if (c.ratio < SIDE_RATIO && !job.sideForced) { console.log(`  ${job.id} : photo ${n} pas vue de côté (largeur/hauteur ${c.ratio.toFixed(2)})`); continue; }
     const { buf, angle } = await levelShoe(c.out); // chaussure penchée : remise à plat
     const score = await toeSide(buf, job.openBack);
     const flip = typeof job.flip === 'boolean' ? job.flip : score < -0.08;

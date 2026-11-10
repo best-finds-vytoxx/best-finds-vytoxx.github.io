@@ -193,7 +193,7 @@
   const fillDrawer = () => {
     const n = {}; state.articles.forEach((a) => (n[a.category] = (n[a.category] || 0) + 1));
     document.getElementById('dr-n').textContent = state.articles.length || '';
-    document.getElementById('dr-cats').innerHTML = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires']
+    document.getElementById('dr-cats').innerHTML = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Autres']
       .map((c) => `<a class="dr-cat" href="#catalogue" data-dx data-cat="${esc(c)}"><span>${esc(c)}</span><small>${n[c] || 0}</small></a>`).join('');
   };
   const openMenu = () => {
@@ -449,7 +449,7 @@
     const latest = arts.slice(0, 4);
     const cats = {};
     arts.forEach((a) => { if (!cats[a.category]) cats[a.category] = { n: 0, pics: [] }; cats[a.category].n++; if (a.cover && cats[a.category].pics.length < 3) cats[a.category].pics.push(small(a)); });
-    const ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires'];
+    const ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Autres'];
     // les 6 catégories sont toujours affichées, dans cet ordre (même si l'une est momentanément vide)
     const catList = ORDER.map((c) => [c, cats[c] || { n: 0, pics: [] }]);
     const byId = new Map(arts.map((a) => [a.id, a]));
@@ -828,7 +828,7 @@
     const arts = state.articles;
     const cats = {};
     arts.forEach((a) => (cats[a.category] = (cats[a.category] || 0) + 1));
-    const CAT_ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Accessoires'];
+    const CAT_ORDER = ['Hauts', 'Bas', 'Chaussures', 'Ensembles', 'Électronique', 'Autres'];
     const rank = (c) => (CAT_ORDER.includes(c) ? CAT_ORDER.indexOf(c) : 99);
     const catList = Object.entries(cats).sort((a, b) => rank(a[0]) - rank(b[0]) || b[1] - a[1]);
     const brandCount = {};
@@ -1209,7 +1209,8 @@
     try {
       const data = window.__DATA || (await (await fetch('data/articles.json', { cache: 'no-cache' })).json());
       // Par sécurité, aucun champ de prix n'est jamais lu
-      const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', 'Vestes & sweats': 'Hauts', Doudounes: 'Hauts', Autres: 'Accessoires' };
+      // « Accessoires » s'affiche « Autres » sur le site (demande de Léonard)
+      const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', 'Vestes & sweats': 'Hauts', Doudounes: 'Hauts', Accessoires: 'Autres' };
       const all = (data.articles || []).filter((a) => a && a.id);
       // doublons (même lien LoveGoBuy reposté) : seul le post le plus récent est affiché
       state.dups = new Map(all.filter((a) => a.dupOf).map((a) => [a.id, a.dupOf]));
