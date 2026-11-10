@@ -59,6 +59,9 @@ jobs:
         env:
           BUDGET_MIN: 200   # temps de travail maximal ; ce qui reste est fait au passage suivant
           BIREFNET: models/birefnet-general.onnx
+      # Prix : relevés chez le vendeur (Weidian, même prix que LoveGoBuy), convertis au taux de LoveGoBuy ; n'arrête jamais le passage
+      - name: Relever les prix
+        run: node scripts/prices.mjs 2>&1 | tee -a scrape.log
       - name: Relever les clics sur les produits (classement Top du moment)
         run: CLICKS_EVERY_MIN=0 node scripts/clicks.mjs
       - name: Enregistrer les nouveautés

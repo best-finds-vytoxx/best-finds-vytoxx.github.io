@@ -132,7 +132,7 @@ export function detectCategory(title) {
   return best ? best.name : 'Autres';
 }
 
-// Catégories regroupées sur le site : Hauts, Bas, Chaussures, Ensembles, Électronique, Accessoires
+// Catégories regroupées sur le site : Hauts, Bas, Chaussures, Ensembles, Électronique, Accessoires (affiché « Autres »)
 export const MERGE = { Vestes: 'Hauts', Sweats: 'Hauts', Doudounes: 'Hauts', Autres: 'Accessoires' };
 
 const num = (s) => Number(String(s).replace(',', '.'));
@@ -296,9 +296,48 @@ export function markDuplicates(known) {
     const winner = k ? keep.get(k) : null;
     const dupOf = winner && winner !== a.id ? winner : null;
     if (dupOf) n++;
-    if ((a.dupOf || null) !== dupOf) {
-      const { dupOf: _, ...rest } = a;
+    // les versions moins chères (markVersions) sont recalculées juste après
+    if ((a.dupOf || null) !== dupOf || a.lesser) {
+      const { dupOf: _, lesser: __, ...rest } = a;
       known.set(id, dupOf ? { ...rest, dupOf } : rest);
+    }
+  }
+  return n;
+}
+
+const foldTxt = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+// Qualité annoncée dans le titre : « … TOP », « … TOP quality », « best quality », « haute qualité »
+// (« Top d'entraînement » en début de titre est un vêtement, pas une qualité)
+const QUALITY = /\s(?:top|best)(?:\s+(?:quality|qualite))?\s*$|\b(?:top|best|high|premium|haute|meilleure?)\s+(?:quality|qualite)\b/;
+export const hasQuality = (title) => QUALITY.test(foldTxt(title));
+export const baseTitle = (title) => foldTxt(title).replace(QUALITY, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+
+/**
+ * Versions d'un même modèle : quand un article est posté en version normale et en version « TOP quality »,
+ * seule la version de qualité, la plus chère, reste sur le site (règle de Léonard pour les Dior B22 et B30).
+ * La version normale reçoit dupOf = id de la version gardée et lesser = true. À lancer après markDuplicates.
+ * prices = items de data/prices.json (id → { cny, pid }). Renvoie le nombre de versions masquées.
+ */
+export function markVersions(known, prices = {}) {
+  const cny = (a) => { const p = prices[a.id]; return p && p.pid === a.productId && p.cny ? p.cny : null; };
+  const off = (a) => { const p = prices[a.id]; return !!(p && p.off && p.pid === a.productId); }; // indisponible chez le vendeur
+  const groups = new Map();
+  for (const a of known.values()) {
+    if (a.dupOf || a.hidden || off(a)) continue;
+    const k = baseTitle(a.title);
+    if (k) groups.set(k, [...(groups.get(k) || []), a]);
+  }
+  let n = 0;
+  for (const list of groups.values()) {
+    const top = list.filter((a) => hasQuality(a.title));
+    if (!top.length || top.length === list.length) continue;
+    const best = top.slice().sort((x, y) => (cny(y) ?? 0) - (cny(x) ?? 0) || y.id - x.id)[0];
+    for (const a of list) {
+      if (top.includes(a)) continue;
+      // version normale plus chère que la version « TOP » : cas douteux, les deux restent
+      if (cny(a) != null && cny(best) != null && cny(a) > cny(best)) continue;
+      known.set(a.id, { ...a, dupOf: best.id, lesser: true });
+      n++;
     }
   }
   return n;

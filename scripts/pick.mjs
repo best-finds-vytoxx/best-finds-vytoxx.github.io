@@ -113,3 +113,42 @@ export function candidateOrder(scores, kind, front = null) {
     .sort((a, b) => b.s - a.s)
     .map((c) => c.n);
 }
+
+// Catégorie devinée d'après les photos, quand le titre ne contient aucun mot de catégorie (« Maison Margiela »,
+// « Canada Goose ») : [description proposée au modèle, type d'article]. Essai sur les 266 articles du site
+// (novembre 2026) : famille (chaussure / vêtement / accessoire) juste 219 fois sur 220 au seuil retenu ;
+// chaussures 64/64, hauts 95/110 (les erreurs sont des ensembles), accessoires 33/35.
+// Le modèle confond pantalons et ensembles : ces réponses-là ne sont pas retenues.
+export const CAT_LABELS = [
+  ['a photo of a pair of sneakers', 'Chaussures'], ['a photo of shoes', 'Chaussures'], ['a photo of boots', 'Chaussures'], ['a photo of sandals or slides', 'Chaussures'],
+  ['a photo of a jacket', 'Vestes'], ['a photo of a puffer jacket', 'Vestes'], ['a photo of a vest', 'Vestes'],
+  ['a photo of a hoodie', 'Sweats'], ['a photo of a sweater', 'Sweats'],
+  ['a photo of a t-shirt', 'Hauts'], ['a photo of a shirt', 'Hauts'], ['a photo of a polo shirt', 'Hauts'], ['a photo of a football jersey', 'Hauts'],
+  ['a photo of pants', 'Bas'], ['a photo of shorts', 'Bas'], ['a photo of jeans', 'Bas'], ['a photo of sweatpants or joggers', 'Bas'],
+  ['a photo of a tracksuit, a matching jacket and pants', 'Ensembles'], ['a photo of a matching hoodie and sweatpants set', 'Ensembles'],
+  ['a photo of a bag', 'Accessoires'], ['a photo of a wristwatch', 'Accessoires'], ['a photo of jewelry', 'Accessoires'], ['a photo of a cap or a hat', 'Accessoires'],
+  ['a photo of a beanie or a scarf', 'Accessoires'], ['a photo of a belt', 'Accessoires'], ['a photo of sunglasses', 'Accessoires'], ['a photo of a wallet', 'Accessoires'],
+  ['a photo of socks', 'Accessoires'], ['a photo of a water bottle', 'Accessoires'], ['a photo of gloves', 'Accessoires'],
+  ['a photo of headphones or earbuds', 'Électronique'], ['a photo of an electronic device', 'Électronique'],
+];
+const SITE_CAT = { Vestes: 'Hauts', Sweats: 'Hauts' };
+const TRUSTED = new Set(['Chaussures', 'Hauts', 'Accessoires', 'Électronique']);
+
+/**
+ * per = une entrée par photo (photos 1 à 4) : { description: probabilité }.
+ * Renvoie { type, share, margin } (type précis : Chaussures, Vestes, Sweats, Hauts, Accessoires, Électronique)
+ * ou null si le modèle hésite (moins de 50 %, ou moins de 15 points d'avance sur la 2e catégorie).
+ */
+export function guessCategory(per, { min = 0.5, margin = 0.15 } = {}) {
+  if (!per?.length) return null;
+  const site = {}, fine = {};
+  for (const r of per) for (const [label, type] of CAT_LABELS) {
+    const v = (r[label] || 0) / per.length;
+    site[SITE_CAT[type] || type] = (site[SITE_CAT[type] || type] || 0) + v;
+    fine[type] = (fine[type] || 0) + v;
+  }
+  const [first, second = [null, 0]] = Object.entries(site).sort((x, y) => y[1] - x[1]);
+  if (first[1] < min || first[1] - second[1] < margin || !TRUSTED.has(first[0])) return null;
+  const type = Object.entries(fine).filter(([t]) => (SITE_CAT[t] || t) === first[0]).sort((x, y) => y[1] - x[1])[0][0];
+  return { type, share: Math.round(first[1] * 100) / 100, margin: Math.round((first[1] - second[1]) * 100) / 100 };
+}

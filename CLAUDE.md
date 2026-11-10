@@ -5,7 +5,7 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 
 ## Règles
 
-- Ne jamais afficher le prix des posts Telegram. Seul prix affiché : celui relevé sur LoveGoBuy (`data/prices.json`).
+- Ne jamais afficher le prix des posts Telegram. Seul prix affiché : celui de LoveGoBuy (`data/prices.json`, relevé automatiquement).
 - Toujours lancer `npm test` avant de pousser. Le workflow relance aussi les tests avant de toucher au site.
 - Après chaque push : attendre la fin du workflow (onglet Actions) puis contrôler le site en ligne.
 - Ne pas modifier `data/articles.json`, `data/clicks.json` ni `images/` à la main : c'est le robot qui les écrit.
@@ -13,10 +13,16 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 
 ## Fonctionnement
 
-- `.github/workflows/update.yml` : toutes les 15 min → tests → `scripts/scrape.mjs` → `scripts/clicks.mjs` → commit → déploiement Pages.
-  Toutes les 6 h (`SWEEP_HOURS`, date `sweptAt` dans articles.json), le robot relit tout le canal : un post supprimé du canal
-  est retiré du site avec ses photos (seulement si la lecture est complète et a trouvé au moins 60 % des articles).
-  Relecture immédiate : mettre la date du moment dans `data/sweep.json` (`requestedAt`) et pousser.
+- `.github/workflows/update.yml` : toutes les 15 min → tests → `scripts/scrape.mjs` → `scripts/prices.mjs` → `scripts/clicks.mjs` → commit → déploiement Pages.
+  Posts supprimés du canal, retirés du site avec leurs photos sans intervention : à chaque passage pour les posts récents
+  (article connu entre le plus petit et le plus grand numéro lus, absent des pages ; rien si plus de la moitié manque),
+  et toutes les 2 h (`SWEEP_HOURS`, date `sweptAt`) par une relecture complète du canal (seulement si elle est complète
+  et a trouvé au moins 60 % des articles). Relecture immédiate : date du moment dans `data/sweep.json` (`requestedAt`), pousser.
+- Corrections automatiques (à ne plus faire à la main) :
+  prix (`prices.mjs`) ; catégorie d'un titre sans mot-clé devinée d'après les photos (`autoCat`, `guessCategory` dans pick.mjs,
+  modèle CLIP de rank-worker ; pantalons/ensembles jamais devinés) ; couverture refaite si la famille ou l'objet change
+  (`coverFor` = « kind:noun ») ; bottes acceptées de profil dès largeur/hauteur ≥ 1 (`minRatio`) ; même modèle en version normale
+  et « TOP quality » → seule la plus chère reste (`markVersions` dans parse.mjs : `dupOf` + `lesser`, recalculé à chaque passage).
 - `scripts/parse.mjs` : lecture des pages t.me/s, catégories (`detectCategory` puis `MERGE`), description, lien LoveGoBuy
   (le lien intitulé « lien LoveGoBuy », pas celui de l'emoji 🔗).
 - `scripts/scrape.mjs` : téléchargement des photos (originaux du canal, sans recompression, `PHOTO_REV`), choix de la
@@ -33,8 +39,16 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 - Catégorie « Accessoires » affichée « Autres » sur le site (MERGE dans app.js). Crampons = Chaussures.
 - `data/overrides.json` : `{ "id": { "cover": n°photo, "category": "Bas", "kind": "wear|shoe|acc", "crop": [g,h,d,b], "hide": true } }`
   (`hide` retire l’article du site : lien mort, article plus disponible).
-- `data/prices.json` : `{ checkedAt, items: { id: { cny, eur, pid } } }`, relevé dans le navigateur de Léonard sur les
-  pages LoveGoBuy (le site LoveGoBuy bloque les robots). Le prix n'est affiché que si `pid` = lien actuel de l'article.
+- `data/prices.json` : `{ checkedAt, rate: { eurPerCny, k, usd, at }, items: { id: { cny, eur, pid, at, checked, offSeen?, off? } } }`,
+  écrit par `scripts/prices.mjs` à chaque passage. CNY = prix Weidian (`thor.weidian.com/detail/getItemSkuInfo`, champ
+  `itemDiscountLowPrice` / 100), identique à LoveGoBuy (270 relevés sur 275 ; les 5 autres avaient changé chez le vendeur).
+  Euros comme LoveGoBuy : taux à 4 décimales = cours CNY→USD du jour (frankfurter, sinon open.er-api) × `k` (0,9729,
+  mesuré sur les pages LoveGoBuy les 30/10 et 10/11/2026 : leur taux suit le dollar), centimes arrondis vers le bas.
+  Si un relevé manuel sur LoveGoBuy montre un écart, recalculer `k` (taux LoveGoBuy ÷ cours USD du même jour).
+  Nouvel article ou lien changé : relevé au passage suivant ; chaque prix revérifié environ toutes les 20 h.
+  Article introuvable ou stock 0 chez le vendeur à deux relevés espacés de 20 h : `off` → masqué du site et des aperçus,
+  réaffiché dès qu'il revient (rien n'est marqué si le relevé échoue pour la majorité des produits).
+  Le prix n'est affiché que si `pid` = lien actuel de l'article. Le site LoveGoBuy bloque les robots : ne pas l'interroger.
 - Site : `index.html` + `assets/app.js` (routage par #, accueil à chaque arrivée) + `assets/style.css` + `assets/config.js`.
   Accueil : carte « liquid glass » (classe `.lg`) avec le panda détouré `assets/img/panda-hero.webp` sur la lumière floutée
   de la bannière (`hero-glow.webp`), puis les 3 aides pour commander. Couleurs d’identité : `--sun --terra --linen --navy --lgb`.

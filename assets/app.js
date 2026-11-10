@@ -1227,6 +1227,8 @@
     } catch {
       state.prices = {};
     }
+    // Article épuisé ou supprimé chez le vendeur (relevé automatique des prix, « off ») : retiré du site jusqu'à son retour
+    state.articles = state.articles.filter((a) => { const p = state.prices[a.id]; return !(p && p.off && (!p.pid || p.pid === a.productId)); });
     await loadTop();
     statVisit();
     // Quel que soit le lien d'arrivée, la visite commence sur la page d'accueil,

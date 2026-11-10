@@ -161,7 +161,9 @@ const { articles: all } = JSON.parse(await readFile('data/articles.json', 'utf8'
 const prices = (JSON.parse(await readFile('data/prices.json', 'utf8').catch(() => '{}')).items) || {};
 const cfg = await readFile('assets/config.js', 'utf8');
 const coupon = (cfg.match(/coupon:\s*'([^']+)'/) || [])[1] || '500 €';
-const visible = all.filter((a) => !a.hidden && !a.dupOf);
+// article indisponible chez le vendeur (relevé automatique des prix, « off ») : retiré du site comme un article masqué
+const isOff = (a) => { const p = prices[a.id]; return !!(p && p.off && (!p.pid || p.pid === a.productId)); };
+const visible = all.filter((a) => !a.hidden && !a.dupOf && !isOff(a));
 const priceOf = (a) => { const p = prices[a.id]; return p && p.eur && (!p.pid || p.pid === a.productId) ? p.eur : null; };
 
 await mkdir(path.join(OUT, 'og'), { recursive: true });
@@ -207,7 +209,7 @@ for (const a of all) {
   if (only && !only.has(a.id)) continue;
   // un doublon renvoie vers l'article gardé ; un article masqué n'a pas d'aperçu produit
   const target = a.dupOf ? all.find((x) => x.id === a.dupOf) : a;
-  if (!target || target.hidden) continue;
+  if (!target || target.hidden || isOff(target)) continue;
   try {
     const p = priceOf(target);
     if (!a.dupOf) await writeFile(path.join(OUT, 'og', `${a.id}.jpg`), await articleCard(target, p));

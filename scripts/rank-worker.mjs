@@ -1,15 +1,16 @@
 // Note chaque photo selon sa pertinence comme couverture (modèle CLIP), dans un processus séparé
 // (le modèle de reconnaissance et celui du détourage ne peuvent pas être chargés dans le même processus).
 // Usage : node scripts/rank-worker.mjs entree.json sortie.json
-// entree.json = [{ key, title, type, images: [chemins], verify? }]
+// entree.json = [{ key, title, type, images: [chemins], verify?, classify? }]
 // sortie.json = { key: { scores: [note de chaque image], front: [avant photo 1, avant photo 2] (chaussures),
-//                        packaging: [part « emballage » de chaque image] (mode vérification) } }
+//                        packaging: [part « emballage » de chaque image] (mode vérification),
+//                        cat: { type, share, margin } (classify : catégorie devinée d'après les photos, ou null) } }
 // Mode vérification (verify: true) : on contrôle une photo détourée — le produit est-il bien là, sans son emballage ?
 // Les images transparentes (photos détourées) sont posées sur fond blanc avant d'être notées.
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pipeline, env, RawImage } from '@huggingface/transformers';
-import { nounFor, labelsFor, SHOE_FRONT } from './pick.mjs';
+import { nounFor, labelsFor, SHOE_FRONT, CAT_LABELS, guessCategory } from './pick.mjs';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 env.cacheDir = path.join(ROOT, '.cache', 'models'); // téléchargé au premier besoin (quelques secondes sur GitHub)
@@ -36,9 +37,19 @@ async function load(file) {
 
 const out = {};
 const score = (res, label) => Math.round((res.find((r) => r.label === label)?.score || 0) * 1000) / 1000;
+const CAT = CAT_LABELS.map((x) => x[0]);
 for (const job of jobs) {
-  const nk = nounFor(job.title, job.type);
   const r = { scores: [] };
+  // titre sans mot de catégorie : la catégorie est devinée d'abord, la note des photos en tient compte
+  if (job.classify && !job.verify) {
+    const per = [];
+    for (const file of job.images.slice(0, 4)) {
+      try { per.push(Object.fromEntries((await clf(await load(file), CAT)).map((x) => [x.label, x.score]))); } catch {}
+    }
+    r.cat = guessCategory(per);
+    if (r.cat) job.type = r.cat.type;
+  }
+  const nk = nounFor(job.title, job.type);
   if (job.verify) {
     const labels = [labelsFor(nk)[0], 'a cardboard box or product packaging', 'a close-up of a label, tag or barcode', 'an empty white background'];
     r.packaging = [];

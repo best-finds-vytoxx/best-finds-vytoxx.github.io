@@ -14,14 +14,14 @@ const require_readFileSync = (f) => { try { return readFileSync(f, 'utf8'); } ca
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates } from './parse.mjs';
+import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates, markVersions } from './parse.mjs';
 import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
 import { promptFor } from './vision.mjs';
 
 const CHANNEL = process.env.CHANNEL || 'lovegobuy_france';
 const RECENT_PAGES = Number(process.env.RECENT_PAGES || 3); // une fois l'historique complet, les dernières pages suffisent
 const MAX_PAGES = Number(process.env.MAX_PAGES || 400); // garde-fou pour la lecture de l'historique
-const SWEEP_HOURS = Number(process.env.SWEEP_HOURS || 6); // relecture complète du canal : les posts supprimés quittent le site
+const SWEEP_HOURS = Number(process.env.SWEEP_HOURS || 2); // relecture complète du canal : les posts supprimés quittent le site
 const BATCH = Number(process.env.BATCH || 1000); // nouveaux articles traités au maximum par passage (limités aussi par BUDGET_MIN)
 const MAX_PHOTOS = 10;
 const CUTOUT_TRIES = Number(process.env.CUTOUT_TRIES ?? 4); // 0 = pas de détourage
@@ -169,8 +169,13 @@ const FALLBACK = { wear: [1, 3, 4], shoe: [2, 1, 3, 4], acc: [1, 3, 4, 2] };
 function makeCovers(items, tmp) {
   const result = new Map();
   if (!items.length || CUTOUT_TRIES === 0) return result;
-  const ranks = runRank(items.map((it) => ({ key: it.id, title: it.title, type: it.type, images: it.inputs.map((i) => i.path) })), tmp, 'rank');
+  const ranks = runRank(items.map((it) => ({ key: it.id, title: it.title, type: it.type, classify: !!it.classify, images: it.inputs.map((i) => i.path) })), tmp, 'rank');
   const state = items.map((it) => {
+    // titre sans mot de catégorie : catégorie devinée d'après les photos (null si le modèle hésite)
+    if (it.classify) {
+      it.autoCat = ranks?.[it.id]?.cat?.type || null;
+      if (it.autoCat) { it.type = it.autoCat; console.log(`  ${it.id} ${it.title} : catégorie devinée d'après les photos, ${it.autoCat} (${ranks[it.id].cat.share})`); }
+    }
     const nk = nounFor(it.title, it.type);
     const kind = it.kind || nk.kind;
     const r = ranks && ranks[it.id];
@@ -184,12 +189,14 @@ function makeCovers(items, tmp) {
     const side = kind !== 'shoe' || it.side === false ? [] : typeof it.side === 'number' ? [it.side] : last > 2 ? [last] : [];
     // ouvertes derrière : claquettes, sandales, sabots (les mules UGG Tasman ont un talon fermé)
     const openBack = (/slides|sandals/.test(nk.noun) || /sabot|clog|claquette/i.test(it.title || '')) && !/ugg|tasman/i.test(it.title || '');
-    return { it, kind, noun: nk.noun, box: !!nk.box || !!it.keep, scores, order, side, openBack, exclude: [], done: false };
+    // bottes : de profil, une botte est à peine plus large que haute (tige haute) ; seuil de largeur/hauteur abaissé
+    const boot = /\bbottes?\b|\bboots?\b|bottines?|chelsea|timberland|toronto/i.test(it.title || '') && !/football|crampon/i.test(it.title || '');
+    return { it, kind, noun: nk.noun, box: !!nk.box || !!it.keep, scores, order, side, openBack, minRatio: boot ? 1 : null, exclude: [], done: false };
   });
   for (let round = 1; round <= 3; round++) {
     const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
     if (!todo.length) break;
-    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, sideForced: typeof s.it.side === 'number', openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, rotate: Number(s.it.rotate) || 0, erase: s.it.erase || null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, sideForced: typeof s.it.side === 'number', minRatio: s.minRatio, openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, rotate: Number(s.it.rotate) || 0, erase: s.it.erase || null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
     console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
     const cut = runCutouts(jobs, tmp, round);
     const made = todo.filter((s) => cut.get(s.it.id));
@@ -215,6 +222,7 @@ function makeCovers(items, tmp) {
   for (const s of state) {
     const r = result.get(s.it.id) || { n: 0 };
     r.front = s.it.forced || s.order[0] || 1; // meilleure photo d'origine, affichée si aucune couverture détourée
+    if (s.it.classify) r.autoCat = s.it.autoCat ?? null;
     result.set(s.it.id, r);
   }
   return result;
@@ -252,6 +260,21 @@ async function main() {
       sweptAt = new Date().toISOString();
     }
   }
+  // Posts récents supprimés du canal : retirés dès le passage suivant, sans attendre la relecture complète.
+  // Les pages lues couvrent sans trou tous les posts entre le plus petit et le plus grand numéro lus :
+  // un article connu dans cette plage et absent des pages a été supprimé du canal.
+  if (!full && historyDone && messages.length) {
+    const onChannel = new Set(messages.map((m) => m.id));
+    const lo = minId(messages), hi = Math.max(...onChannel);
+    const inRange = [...known.keys()].filter((id) => id >= lo && id <= hi);
+    const gone = inRange.filter((id) => !onChannel.has(id));
+    if (gone.length > Math.max(3, inRange.length / 2)) console.warn(`${gone.length} posts récents introuvables sur ${inRange.length} : vérifié à la prochaine relecture complète.`);
+    else for (const id of gone) {
+      console.log(`- ${id} ${known.get(id).title} : supprimé du canal, retiré du site`);
+      known.delete(id);
+      await rm(path.join(IMAGES, String(id)), { recursive: true, force: true });
+    }
+  }
 
   // Corrections faites à la main (data/overrides.json) : { "id": { "cover": n°photo, "category": "Bas", "kind": "shoe", "hide": true } }
   const overrides = await readJson(OVERRIDES_FILE, {});
@@ -261,8 +284,10 @@ async function main() {
   const fixCat = (a) => {
     const o = ov(a.id);
     const precise = detectCategory(a.title || '');
-    const cat = o.category || (o.kind === 'shoe' ? 'Chaussures' : MERGE[precise] || precise);
-    const type = o.category || o.kind === 'shoe' ? cat : precise;
+    // titre sans mot de catégorie (« Maison Margiela ») : catégorie devinée d'après les photos (autoCat, modèle CLIP)
+    const auto = precise === 'Autres' && a.autoCat ? a.autoCat : null;
+    const cat = o.category || (o.kind === 'shoe' ? 'Chaussures' : MERGE[auto || precise] || auto || precise);
+    const type = o.category || o.kind === 'shoe' ? cat : auto || precise;
     const extra = a.extra ?? extraFrom(a.description);
     const description = describe({ title: a.title, brand: a.brand, category: type, weight: a.weight, photoCount: (a.photos || []).length, extra });
     // "hide": true dans overrides.json → article retiré du site (lien mort, article plus disponible…)
@@ -278,6 +303,12 @@ async function main() {
     known.set(a.id, fixCat({ ...old, ...info, photos: old.photos, cover: old.cover, front: old.front }));
   }
   for (const [id, a] of known) known.set(id, fixCat(a));
+  // Famille et objet de chaque couverture (chaussure, vêtement, accessoire…) : s'ils changent (catégorie corrigée,
+  // titre modifié sur le canal, catégorie devinée), la couverture est refaite automatiquement
+  const keyFor = (a) => { const nk = nounFor(a.title, a.type || a.category); return `${ov(a.id).kind || nk.kind}:${nk.noun}`; };
+  for (const [id, a] of known) if (a.coverRev && a.coverFor === undefined) known.set(id, { ...a, coverFor: keyFor(a) });
+  // titre sans mot de catégorie et sans correction à la main : catégorie à deviner d'après les photos
+  const toClassify = (a) => detectCategory(a.title || '') === 'Autres' && !ov(a.id).category && !ov(a.id).kind;
 
   const t0 = Date.now();
   const save = async (historyComplete) => {
@@ -293,7 +324,7 @@ async function main() {
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
-  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && ((isShoe(a) && ((a.sideRev || 0) !== SIDE_REV || (a.sidePick || null) !== sideKey(a.id))) || a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
+  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && ((a.coverFor !== undefined && a.coverFor !== keyFor(a)) || (toClassify(a) && a.autoCat === undefined) || (isShoe(a) && ((a.sideRev || 0) !== SIDE_REV || (a.sidePick || null) !== sideKey(a.id))) || a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
   const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
   // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
   // puis couverture refaite à partir de ces originaux
@@ -322,16 +353,17 @@ async function main() {
         const { photos, sources } = await downloadPhotos(a, tmp);
         if (!photos.length) { console.warn(`- ${a.id} ${a.title} : aucune photo récupérée, réessai au prochain passage`); continue; }
         downloaded.push({ a, photos, refresh: !!isRefresh });
-        if (sources.length) items.push({ id: a.id, title: a.title, type: a.type, inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, erase: o.erase || null });
+        if (sources.length) items.push({ id: a.id, title: a.title, type: fixCat(a).type, classify: toClassify(a), inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, erase: o.erase || null });
       } else {
         const inputs = a.photos.slice(0, RANK_PHOTOS).map((p, i) => ({ n: i + 1, path: path.join(ROOT, p) })).filter((i) => existsSync(i.path));
-        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, erase: o.erase || null, redo: true });
+        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, classify: toClassify(a) && a.autoCat === undefined, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, erase: o.erase || null, redo: true });
       }
     }
     console.log(`Choix des couvertures pour ${items.length} article(s) (groupe ${g / CHUNK + 1})…`);
     const covers = makeCovers(items, tmp);
-    const place = async (id) => {
+    const place = async (id, art) => {
       const c = covers.get(id) || { n: 0, front: ov(id).cover || 1 };
+      const auto = c.autoCat !== undefined ? { autoCat: c.autoCat } : {};
       const dest = path.join(IMAGES, String(id), 'cover.webp');
       const destSm = path.join(IMAGES, String(id), 'cover-sm.webp');
       if (c.n) {
@@ -343,12 +375,12 @@ async function main() {
         await rm(dest, { force: true });
         await rm(destSm, { force: true });
       }
-      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null, sideRev: SIDE_REV, sidePick: sideKey(id) };
+      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null, sideRev: SIDE_REV, sidePick: sideKey(id), ...auto, coverFor: keyFor(fixCat({ ...art, ...auto })) };
     };
     for (const { a, photos, refresh: isRefresh } of downloaded) {
       const { photosRemote, ...info } = a;
-      const c = await place(a.id);
       const prev = known.get(a.id) || {};
+      const c = await place(a.id, { ...prev, ...info, photos });
       known.set(a.id, fixCat({ ...prev, ...info, photos, ...c, photoRev: PHOTO_REV, addedAt: prev.addedAt || new Date().toISOString() }));
       if (isRefresh) { console.log(`↻ ${a.id} ${a.title} : photos d'origine récupérées (${photos.length}), couverture refaite`); continue; }
       doneNew++;
@@ -356,8 +388,8 @@ async function main() {
     }
     for (const it of items.filter((x) => x.redo)) {
       const old = known.get(it.id);
-      const c = await place(it.id);
-      known.set(it.id, { ...old, ...c });
+      const c = await place(it.id, old);
+      known.set(it.id, fixCat({ ...old, ...c }));
       console.log(`~ ${it.id} ${old.title} : couverture refaite (${c.cover ? `photo ${c.coverFrom}` : `photo ${c.front} d'origine`})`);
     }
     await rm(tmp, { recursive: true, force: true });
@@ -370,6 +402,11 @@ async function main() {
   // Doublons : un même lien LoveGoBuy posté plusieurs fois (article repartagé). Seul le post le plus récent est
   // affiché ; les anciens restent en mémoire (dupOf = id du post gardé) pour ne pas être réimportés.
   markDuplicates(known);
+  // Même modèle posté en version normale et en version « TOP quality » : seule la plus chère reste (prix relevés
+  // au passage précédent, data/prices.json ; un article indisponible chez le vendeur ne compte pas)
+  const priceItems = (await readJson(path.join(ROOT, 'data', 'prices.json'), {})).items || {};
+  const masked = markVersions(known, priceItems);
+  if (masked) console.log(`${masked} version(s) moins chère(s) d'un même modèle masquée(s)`);
 
   // 4. Enregistrer (les vues seules ne déclenchent pas de mise à jour du site)
   const historyComplete = historyDone || remaining === 0;
