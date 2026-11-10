@@ -1,0 +1,51 @@
+seuil 0 écart 0 : 266/266 décidés, 220 justes (82.7 %)
+seuil 0.4 écart 0.1 : 239/266 décidés, 205 justes (85.8 %)
+seuil 0.5 écart 0.15 : 220/266 décidés, 196 justes (89.1 %)
+seuil 0.5 écart 0.2 : 215/266 décidés, 191 justes (88.8 %)
+seuil 0.6 écart 0.25 : 175/266 décidés, 166 justes (94.9 %)
+seuil 0.7 écart 0.4 : 126/266 décidés, 124 justes (98.4 %)
+seuil 0.5/0.15 : famille juste 219/220 ; par catégorie devinée Chaussures 64/64, Hauts 95/110, Accessoires 33/35, Électronique 1/1, Ensembles 3/10
+seuil 0.6/0.25 : famille juste 174/175 ; par catégorie devinée Chaussures 59/59, Hauts 82/89, Accessoires 24/25, Électronique 1/1, Ensembles 0/1
+--- erreurs (seuil 0.5 / 0.2)
+5484 Enceinte bluetooth JBL Boombox 4 noire : site Électronique, deviné Accessoires 0.56 (2e 0.24) photo1 Électronique 0.53
+5409 Pantalon On Core Pants : site Bas, deviné Ensembles 0.69 (2e 0.15) photo1 Ensembles 0.83
+4913 233 Pantalon de running Nike : site Bas, deviné Ensembles 0.56 (2e 0.25) photo1 Ensembles 0.68
+4862 Ensemble de sport ASICS : site Ensembles, deviné Hauts 0.68 (2e 0.15) photo1 Hauts 0.96
+4698 Fear of God Essentials 1977 : site Ensembles, deviné Hauts 0.55 (2e 0.22) photo1 Hauts 0.96
+4646 Nike 2-piece sportswear set : site Ensembles, deviné Hauts 0.61 (2e 0.21) photo1 Ensembles 0.48
+4638 Nike 2-piece sportswear set : site Ensembles, deviné Hauts 0.72 (2e 0.16) photo1 Hauts 0.93
+4511 Nike Run Division : site Ensembles, deviné Hauts 0.70 (2e 0.21) photo1 Ensembles 0.54
+4427 Nike Run Division : site Ensembles, deviné Hauts 0.64 (2e 0.33) photo1 Ensembles 0.64
+4405 Ensemble bonnet et écharpe LV : site Ensembles, deviné Accessoires 0.62 (2e 0.23) photo1 Accessoires 0.71
+4326 Pant Canada Goose : site Bas, deviné Ensembles 0.52 (2e 0.16) photo1 Ensembles 0.36
+4287 Ensemble de running Nike Run Division : site Ensembles, deviné Hauts 0.55 (2e 0.32) photo1 Hauts 0.72
+4261 Nike Phenome Élite 1.1 : site Bas, deviné Ensembles 0.52 (2e 0.18) photo1 Ensembles 0.82
+4187 Pantalon de running Nike Phenom Elite : site Bas, deviné Ensembles 0.53 (2e 0.17) photo1 Ensembles 0.81
+4137 Ensemble Casablanca : site Ensembles, deviné Hauts 0.56 (2e 0.24) photo1 Hauts 0.80
+3967 Pants Essentials : site Bas, deviné Ensembles 0.55 (2e 0.22) photo1 Ensembles 0.78
+3763 Nike running : site Ensembles, deviné Hauts 0.63 (2e 0.23) photo1 Hauts 0.81
+3746 Nike running : site Ensembles, deviné Hauts 0.80 (2e 0.15) photo1 Hauts 0.82
+3626 Sets Denim Tears : site Ensembles, deviné Hauts 0.55 (2e 0.27) photo1 Hauts 0.93
+3575 Ensemble Casablanca : site Ensembles, deviné Hauts 0.58 (2e 0.14) photo1 Accessoires 0.43
+3462 T-shirt / Shorts C.P. Company : site Ensembles, deviné Hauts 0.55 (2e 0.25) photo1 Hauts 0.94
+3394 Ensemble ESSENTIALS : site Ensembles, deviné Hauts 0.50 (2e 0.30) photo1 Hauts 0.92
+3378 Running Nike : site Ensembles, deviné Hauts 0.51 (2e 0.29) photo1 Hauts 0.87
+3331 Shorts Burberry : site Bas, deviné Ensembles 0.55 (2e 0.25) photo1 Bas 0.44
+--- articles corrigés à la main (overrides)
+5671 Crampon nike Mercurial Vapor 17 Elite FG : site Chaussures, deviné Chaussures 0.81 (2e 0.11) fin Chaussures
+5105 Nike Dri-FIT running : site Bas, deviné Ensembles 0.46 (2e 0.24) fin Ensembles
+4787 Ermenegildo Zegna Triple Stitch : site Chaussures, deviné Chaussures 0.75 (2e 0.15) fin Chaussures
+4698 Fear of God Essentials 1977 : site Ensembles, deviné Hauts 0.55 (2e 0.22) fin Hauts
+4692 Sweet Pants Home Run Leo Peony : site Accessoires, deviné Accessoires 0.55 (2e 0.30) fin Accessoires
+4663 4615 Nike Dri-Fit : site Bas, deviné Ensembles 0.46 (2e 0.22) fin Ensembles
+4656 Nike Trail DX0856 : site Bas, deviné Ensembles 0.42 (2e 0.37) fin Ensembles
+4630 Nike Pro Therma-FIT Hood : site Accessoires, deviné Hauts 0.46 (2e 0.29) fin Ensembles
+4515 3361 Nike Dri-Fit : site Bas, deviné Ensembles 0.44 (2e 0.19) fin Ensembles
+4349 C.P. Company Chrome-R : site Hauts, deviné Hauts 0.79 (2e 0.12) fin Vestes
+4336 Hermès Bouncing : site Chaussures, deviné Chaussures 0.71 (2e 0.19) fin Chaussures
+4261 Nike Phenome Élite 1.1 : site Bas, deviné Ensembles 0.52 (2e 0.18) fin Ensembles
+3973 Hoodies Pants Supreme : site Ensembles, deviné Ensembles 0.47 (2e 0.45) fin Ensembles
+3734 Asics : site Chaussures, deviné Chaussures 0.90 (2e 0.04) fin Chaussures
+3714 Canada Goose : site Hauts, deviné Hauts 0.53 (2e 0.23) fin Hauts
+3604 Maison Margiela : site Chaussures, deviné Chaussures 0.76 (2e 0.18) fin Chaussures
+3390 Chrono Dior : site Chaussures, deviné Chaussures 0.79 (2e 0.12) fin Chaussures
