@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-10T10:31:48.184Z",
+ "updatedAt": "2026-11-10T14:40:15.352Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-10T10:31:48.164Z",
@@ -20,7 +20,7 @@
    "shop": "weidian",
    "productId": "7894053149",
    "date": "2026-11-09T15:53:31+00:00",
-   "views": "238",
+   "views": "271",
    "telegram": "https://t.me/lovegobuy_france/5688",
    "photos": [
     "images/5688/1.jpg",
@@ -34,7 +34,7 @@
    ],
    "cover": "images/5688/cover.webp",
    "coverSm": "images/5688/cover-sm.webp",
-   "coverFrom": 2,
+   "coverFrom": 8,
    "front": 2,
    "coverRev": 5,
    "rescueRev": 1,
@@ -42,7 +42,7 @@
    "kindPick": null,
    "cropPick": null,
    "sideRev": 1,
-   "sidePick": null,
+   "sidePick": "[8,null]",
    "photoRev": 2,
    "addedAt": "2026-11-09T20:13:13.887Z"
   },
@@ -62,7 +62,7 @@
    "shop": "weidian",
    "productId": "7893981535",
    "date": "2026-11-09T15:53:21+00:00",
-   "views": "233",
+   "views": "261",
    "telegram": "https://t.me/lovegobuy_france/5679",
    "photos": [
     "images/5679/1.jpg",
@@ -93,19 +93,19 @@
    "id": 5671,
    "title": "Crampon nike Mercurial Vapor 17 Elite FG",
    "brand": "Nike",
-   "category": "Accessoires",
-   "type": "Autres",
+   "category": "Chaussures",
+   "type": "Chaussures",
    "weight": {
     "min": 596,
     "max": null
    },
    "extra": null,
-   "description": "Crampon nike Mercurial Vapor 17 Elite FG : un article sélectionné sur le canal. Les 8 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 596 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "description": "Crampon nike Mercurial Vapor 17 Elite FG : une paire de chaussures sélectionnée sur le canal. Les 8 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 596 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
    "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7897095198&invite_code=V4LTTW",
    "shop": "weidian",
    "productId": "7897095198",
    "date": "2026-11-09T15:53:12+00:00",
-   "views": "190",
+   "views": "248",
    "telegram": "https://t.me/lovegobuy_france/5671",
    "photos": [
     "images/5671/1.jpg",
@@ -147,7 +147,7 @@
    "shop": "weidian",
    "productId": "7853826318",
    "date": "2026-11-07T18:22:28+00:00",
-   "views": "481",
+   "views": "529",
    "telegram": "https://t.me/lovegobuy_france/5638",
    "photos": [
     "images/5638/1.jpg",
@@ -189,7 +189,7 @@
    "shop": "weidian",
    "productId": "7892399983",
    "date": "2026-11-06T20:07:07+00:00",
-   "views": "574",
+   "views": "619",
    "telegram": "https://t.me/lovegobuy_france/5624",
    "photos": [
     "images/5624/1.jpg",
@@ -229,7 +229,7 @@
    "shop": "weidian",
    "productId": "7823989426",
    "date": "2026-11-06T20:07:02+00:00",
-   "views": "488",
+   "views": "503",
    "telegram": "https://t.me/lovegobuy_france/5616",
    "photos": [
     "images/5616/1.jpg",
@@ -271,7 +271,7 @@
    "shop": "weidian",
    "productId": "7892340285",
    "date": "2026-11-06T20:06:57+00:00",
-   "views": "513",
+   "views": "556",
    "telegram": "https://t.me/lovegobuy_france/5608",
    "photos": [
     "images/5608/1.jpg",
@@ -313,7 +313,7 @@
    "shop": "weidian",
    "productId": "7893771468",
    "date": "2026-11-05T15:06:15+00:00",
-   "views": "723",
+   "views": "735",
    "telegram": "https://t.me/lovegobuy_france/5600",
    "photos": [
     "images/5600/1.jpg",
@@ -355,7 +355,7 @@
    "shop": "weidian",
    "productId": "7893894604",
    "date": "2026-11-05T14:41:42+00:00",
-   "views": "754",
+   "views": "767",
    "telegram": "https://t.me/lovegobuy_france/5594",
    "photos": [
     "images/5594/1.jpg",
