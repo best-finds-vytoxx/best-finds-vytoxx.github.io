@@ -44,6 +44,34 @@
   let dups = new Map();
   let stats = { days: [] }, clicks = { history: [] }, arts = new Map(), loadedAt = null;
   const getJson = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  // État du site : le robot contrôle lui-même prix, détourages, titres et liens à chaque passage (scripts/audit.mjs)
+  function health(h) {
+    const el = $('health');
+    if (!h || !h.counts) { el.hidden = true; return; }
+    el.hidden = false; el.replaceChildren();
+    const voir = h.issues.filter((i) => i.level === 'voir'), auto = h.issues.filter((i) => i.level !== 'voir');
+    el.className = `health glass ${voir.length ? 'voir' : auto.length ? 'auto' : ''}`;
+    const head = document.createElement('div');
+    const dot = document.createElement('span'); dot.className = 'dot';
+    const b = document.createElement('b');
+    b.textContent = voir.length ? `${voir.length} point${voir.length > 1 ? 's' : ''} à voir sur le site` : auto.length ? 'Site en ordre, le robot finit quelques corrections' : 'Site en ordre';
+    const when = new Date(h.checkedAt).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    head.append(dot, b, ` · ${h.counts.articles} articles contrôlés par le robot (prix, photos, titres, liens), dernier changement le ${when}`);
+    el.append(head);
+    const list = [...voir, ...auto].slice(0, 8);
+    if (list.length) {
+      const ul = document.createElement('ul');
+      for (const i of list) {
+        const li = document.createElement('li');
+        if (i.id) { const a = document.createElement('a'); a.href = `./#article-${i.id}`; a.textContent = i.title; li.append(a); } else li.append(i.title);
+        li.append(` : ${i.text}${i.level === 'voir' ? '' : ' (corrigé tout seul au prochain passage)'}`);
+        ul.append(li);
+      }
+      if (h.issues.length > list.length) { const li = document.createElement('li'); li.textContent = `et ${h.issues.length - list.length} autre(s)`; ul.append(li); }
+      el.append(ul);
+    }
+  }
+
   async function load() {
     const btn = $('refresh'); btn.classList.add('busy'); btn.disabled = true;
     const [r, c, a] = await Promise.all([
@@ -53,6 +81,7 @@
     if (r && r.ok) { stats = { since: r.since, days: r.days }; hours = r.hours || []; hoursRange = range().join(' '); }
     if (c) clicks = c;
     if (a) { arts = new Map((a.articles || []).filter((x) => !x.dupOf && !x.hidden).map((x) => [x.id, x])); dups = new Map((a.articles || []).filter((x) => x.dupOf).map((x) => [x.id, x.dupOf])); }
+    health(await getJson(`data/health.json?t=${Date.now()}`));
     loadedAt = new Date();
     $('warn').textContent = r && r.ok ? '' : 'Impossible de joindre le compteur pour l’instant. Réessaie dans un moment.';
     $('warn').classList.toggle('on', !(r && r.ok));

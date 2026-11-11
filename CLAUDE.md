@@ -73,6 +73,11 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 - Limite connue : un titre vague (« Nike running », « Nike Run Division ») est rangé dans Ensembles même si le post ne montre
   qu'un haut ou un bas. Essai de vérification par photos (`guessOutfit`, `lab/outfit.mjs`) non concluant le 11/11/2026 (un
   pantalon seul pris pour une tenue) : pas en service. Corriger par `category` dans overrides.json en attendant.
+- Contrôle qualité automatique : `scripts/audit.mjs`, à chaque passage après les prix. Il relit tout le site (prix valable,
+  détourage, fichiers, titre, lien, catégorie, fraîcheur des relevés) et écrit `data/health.json` (réécrit seulement si le
+  résultat change), affiché en haut du tracker (`health()` dans tracker.js) et dans le compte rendu. Niveau `auto` = le robot
+  corrige seul au passage suivant ; `voir` = a résisté (ex. détourage raté 3 fois : `coverTries`, un essai par jour dans
+  scrape.mjs). Tout nouveau type de problème signalé par Léonard : ajouter le contrôle ici ET la correction dans le robot.
 - Titres : nettoyés à chaque passage (`cleanTitle` : caractères pleine largeur « （NFC） » des vendeurs → « (NFC) »).
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
   sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`

@@ -135,3 +135,32 @@ console.log('robot : prix, versions et catégories OK');
   assert.equal(shoeTraits('Crampon nike Mercurial').boot, false);
   console.log('OK chaussures : coupe nette, sens de la semelle, chaussures séparées');
 }
+
+// --- contrôle qualité (audit.mjs)
+{
+  const { audit } = await import('../scripts/audit.mjs');
+  const now = Date.parse('2026-11-11T12:00:00Z'), old = '2026-11-01T00:00:00Z', fresh = '2026-11-11T11:00:00Z';
+  const base = { link: 'x', category: 'Hauts', photos: ['images/1/1.jpg'], cover: 'images/1/cover.webp', addedAt: old };
+  const articles = [
+    { ...base, id: 1, title: 'Polo', productId: 'p1' },
+    { ...base, id: 2, title: 'Veste （NFC）', productId: 'p2' },
+    { ...base, id: 3, title: 'Short', productId: 'p3', cover: null, coverTries: 1 },
+    { ...base, id: 4, title: 'Jean', productId: 'p4', cover: null, coverTries: 3 },
+    { ...base, id: 5, title: 'Nouveau', productId: 'p5', addedAt: fresh },
+    { ...base, id: 6, title: 'Sans prix', productId: 'p6' },
+    { ...base, id: 7, title: 'Masqué', productId: 'p7', hidden: true, cover: null },
+  ];
+  const ok = (pid) => ({ cny: 100, eur: 14.59, pid, checked: '2026-11-11T08:00:00Z' });
+  const prices = { items: { 1: ok('p1'), 2: ok('p2'), 3: ok('p3'), 4: ok('p4'), 6: ok('ancien') } };
+  const r = await audit({ articles, sweptAt: '2026-11-11T10:00:00Z', prices, exists: async () => true, now });
+  const of = (id) => r.issues.filter((i) => i.id === id).map((i) => `${i.type}:${i.level}`).join();
+  assert.equal(of(1), '', 'article sain : rien');
+  assert.equal(of(2), 'titre:auto');
+  assert.equal(of(3), 'photo:auto', 'détourage raté : le robot retente');
+  assert.equal(of(4), 'photo:voir', 'trois essais ratés : signalé');
+  assert.equal(of(5), '', 'article tout neuf : le prix arrive au passage suivant');
+  assert.equal(of(6), 'prix:voir', 'prix d’un ancien lien : pas de prix valable');
+  assert.equal(of(7), '', 'article masqué : pas contrôlé');
+  assert.equal((await audit({ articles: [articles[0]], sweptAt: '2026-11-10T10:00:00Z', prices, exists: async () => true, now })).issues[0].type, 'robot');
+  console.log('OK contrôle qualité');
+}

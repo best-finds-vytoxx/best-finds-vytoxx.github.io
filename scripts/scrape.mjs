@@ -329,7 +329,7 @@ async function main() {
   // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
   //    tant que le temps du passage le permet
   const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
-  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && ((a.coverFor !== undefined && a.coverFor !== keyFor(a)) || (toClassify(a) && a.autoCat === undefined) || (isShoe(a) && ((a.sideRev || 0) !== SIDE_REV || (a.sidePick || null) !== sideKey(a.id))) || a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
+  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && ((a.coverFor !== undefined && a.coverFor !== keyFor(a)) || (toClassify(a) && a.autoCat === undefined) || (isShoe(a) && ((a.sideRev || 0) !== SIDE_REV || (a.sidePick || null) !== sideKey(a.id))) || a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (!a.cover && (a.coverTries || 0) < 3 && Date.now() - (Date.parse(a.coverTriedAt || 0) || 0) > 20 * 36e5) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
   const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
   // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
   // puis couverture refaite à partir de ces originaux
@@ -385,7 +385,10 @@ async function main() {
         await rm(dest, { force: true });
         await rm(destSm, { force: true });
       }
-      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, ...revs };
+      // détourage raté : retenté au plus 3 fois, à un jour d'écart (un raté vient souvent d'un passage chargé), puis signalé
+      // par le contrôle qualité (audit.mjs)
+      const tries = c.n ? { coverTries: 0, coverTriedAt: null } : { coverTries: (art?.coverTries || 0) + 1, coverTriedAt: new Date().toISOString() };
+      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, ...revs, ...tries };
     };
     for (const { a, photos, refresh: isRefresh } of downloaded) {
       const { photosRemote, ...info } = a;
