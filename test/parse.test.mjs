@@ -1,6 +1,12 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import assert from 'node:assert/strict';
-import { parseMessages, toArticles, parseChannel, minId, PRICE_NOTE, SHIPPING_NOTE, extraFrom, markDuplicates } from '../scripts/parse.mjs';
+import { parseMessages, toArticles, parseChannel, minId, PRICE_NOTE, SHIPPING_NOTE, extraFrom, markDuplicates, cleanTitle } from '../scripts/parse.mjs';
+
+// 0. Titres : caractères pleine largeur des vendeurs remplacés
+assert.equal(cleanTitle('Cardigan Moncler （NFC）'), 'Cardigan Moncler (NFC)');
+assert.equal(cleanTitle('Le blouson de duvet Moncler Violier（NFC）'), 'Le blouson de duvet Moncler Violier (NFC)');
+assert.equal(cleanTitle('Veste（noire）cool'), 'Veste (noire) cool');
+assert.equal(cleanTitle('Short Nike (Dri-FIT)'), 'Short Nike (Dri-FIT)');
 
 // 1. Pages réelles capturées : chaque article vu dans le navigateur doit être retrouvé
 const pages = readdirSync('test/fixtures').filter((f) => f.endsWith('.html')).map((f) => readFileSync('test/fixtures/' + f, 'utf8'));

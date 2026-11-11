@@ -56,10 +56,19 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   la lumière floutée reste derrière chaque page (`html::before`). Pas d’italique, pas de police de code.
 - Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face ;
   dernière photo = une chaussure seule de profil, sur sa boîte et la balance.
-- Chaussures : couverture vue de côté, bout à gauche, talon à droite (demande de Léonard). `cutout-worker.mjs` essaie d'abord la
-  dernière photo, la garde si la silhouette est large (largeur/hauteur ≥ 1,35) et la retourne si `toeSide` (`shoe-side.mjs`)
-  voit le bout à droite. Sinon, ancienne logique (vue de face). Overrides : `side` (n° photo ou false), `flip` (true/false, miroir), `rotate` (degrés, ex. -90 pour une vue de dessus).
-  `SIDE_REV` dans scrape.mjs refait toutes les chaussures.
+- Chaussures : couverture = UNE chaussure, vue de côté, bout à gauche, talon à droite, à plat (demande de Léonard), choisie
+  automatiquement par `scripts/shoe-cover.mjs` (`autoShoe`, appelé par `cutout-worker.mjs`) : Grounding DINO repère chaque
+  chaussure (`visionBoxes`, requête `detect` de vision.py), l'autre chaussure est effacée, détourage, puis orientation
+  (quart de tour pour une chaussure couchée photographiée d'en haut, miroir si le bout est à droite, remise à plat).
+  Priorité à la dernière photo (chaussure debout sur sa boîte) ; elle frôle souvent le cadre sans être coupée. Une vraie
+  coupe = bord parfaitement droit aligné sur le cadre au bout du pied ou en haut (`cutEdges`) ; le talon est droit par nature.
+  Si la dernière photo ne va pas, les autres sont essayées : vue debout d'abord, sinon la chaussure sur sa boîte même un peu
+  coupée, en dernier recours une vue de dessus tournée. Rien de bon : ancienne logique (`sideCut`, puis vue de face).
+  Réglages à la main (`data/overrides.json`, priorité sur l'automatique) : `side` (n° photo ou false), `flip`, `rotate`,
+  `crop`, `erase` (zones à effacer), `keep`. `SIDE_REV` dans scrape.mjs refait toutes les chaussures (groupes de 12,
+  ancienne couverture gardée si le nouvel essai échoue). Labo : branche `lab` (`lab/shoes.mjs`, 10 machines, résultats
+  sur `lab-out-N`) pour essayer une règle sur toutes les chaussures avant de la mettre en service.
+- Titres : nettoyés à chaque passage (`cleanTitle` : caractères pleine largeur « （NFC） » des vendeurs → « (NFC) »).
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
   sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`
   (ajouter un cas à chaque question mal comprise). Réponses validées par Léonard (coupons 485 € ≈ 500 €, un coupon par colis ;

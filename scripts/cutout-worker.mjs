@@ -9,6 +9,7 @@ import sharp from 'sharp';
 import { cutout } from './cutout.mjs';
 import { stopVision } from './vision.mjs';
 import { toeSide, levelShoe, turnCover } from './shoe-side.mjs';
+import { autoShoe } from './shoe-cover.mjs';
 
 // L'ordre d'essai vient du modèle de reconnaissance (voir pick.mjs) : la photo la plus pertinente d'abord
 // (vêtement de face, chaussures de face, le produit plutôt que son emballage).
@@ -90,7 +91,15 @@ async function sideCut(job) {
   return null;
 }
 
+// Réglage fait à la main pour cette chaussure (data/overrides.json) : il passe avant le choix automatique
+// (un ancien choix de photo « cover » seul, fait pour une vue de face, ne bloque pas le choix automatique de la vue de côté)
+const manual = (job) => job.sideForced || job.crop || job.rotate || typeof job.flip === 'boolean' || job.erase?.length;
+
 async function choose(job) {
+  // chaussures : une seule chaussure, de côté, bout à gauche, choisie automatiquement parmi toutes les photos (shoe-cover.mjs)
+  if (job.kind === 'shoe' && job.side?.length && !manual(job)) {
+    try { const c = await autoShoe(job); if (c) return c; } catch (e) { console.warn(`  ${job.id} : choix automatique de la vue de côté impossible (${e.message})`); }
+  }
   if (job.side?.length) { const c = await sideCut(job); if (c) return c; }
   const top = TOPS.has(job.type) && job.kind === 'wear';
   const order = (job.order || [1, 3, 4]).filter((n) => !(job.exclude || []).includes(n) && !(job.side || []).includes(n));

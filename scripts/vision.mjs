@@ -53,4 +53,17 @@ export async function visionMask(inPath, outPath, prompt) {
   return res;
 }
 
+/** Repérage seul (sans détourage) : { size: [W, H], boxes: [[x0, y0, x1, y1, score], …] } ou null. */
+export async function visionBoxes(inPath, prompt) {
+  const ok = await start();
+  if (!ok || !proc) return null;
+  const res = await new Promise((resolve) => {
+    const t = setTimeout(() => { broken = true; proc?.kill('SIGKILL'); resolve({ ok: false, error: 'trop long' }); }, 3 * 60e3);
+    waiting.push((r) => { clearTimeout(t); resolve(r); });
+    proc.stdin.write(JSON.stringify({ in: inPath, prompt, detect: true }) + '\n');
+  });
+  if (!res.ok) { console.warn(`  repérage impossible : ${res.error}`); return null; }
+  return res;
+}
+
 export function stopVision() { if (proc) proc.stdin.end(); }

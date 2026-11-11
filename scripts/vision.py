@@ -4,6 +4,8 @@
 # Processus permanent : une requête JSON par ligne sur l'entrée standard, une réponse JSON par ligne en sortie.
 #   requête  : {"in": "photo.png", "out": "masque.png", "prompt": "shoe."}
 #   réponse  : {"ok": true, "boxes": [[x0, y0, x1, y1, score], ...], "crop": [x0, y0, x1, y1]}
+#   repérage seul (sans détourage, ~2 s) : {"in": "photo.jpg", "prompt": "shoe.", "detect": true}
+#   réponse  : {"ok": true, "size": [largeur, hauteur], "boxes": [[x0, y0, x1, y1, score], ...]}
 # Le masque est en niveaux de gris, de la taille de la photo : 255 = produit, 0 = fond.
 import json, os, sys
 import numpy as np
@@ -63,6 +65,10 @@ def main():
             q = json.loads(line)
             im = ImageOps.exif_transpose(Image.open(q['in'])).convert('RGB')
             W, H = im.size
+            if q.get('detect'):
+                boxes = detect(proc, det, torch, im, q.get('prompt') or 'object.')
+                print(json.dumps({'ok': True, 'size': [W, H], 'boxes': [[round(v, 1) for v in b[:4]] + [round(b[4], 3)] for b in boxes[:8]]}), flush=True)
+                continue
             # « __full__ » : photo déjà recadrée à la main sur le produit, pas de repérage
             full = q.get('prompt') == '__full__'
             boxes = [] if full else detect(proc, det, torch, im, q.get('prompt') or 'object.')

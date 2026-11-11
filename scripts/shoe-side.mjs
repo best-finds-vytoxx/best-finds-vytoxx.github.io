@@ -1,5 +1,14 @@
 import sharp from 'sharp';
 
+/** Particularités d'un modèle d'après son titre : ouvert derrière (claquettes, sandales, sabots), botte (tige haute). */
+export function shoeTraits(title = '', noun = '') {
+  const t = String(title);
+  const openBack = (/slides|sandals/.test(noun) || /sabot|clog|claquette|sandale|mule|slide|crocs/i.test(t)) && !/ugg|tasman|toronto/i.test(t);
+  const boot = /\bbottes?\b|\bboots?\b|bottines?|chelsea|timberland|toronto|ugg/i.test(t) && !/football|crampon|mule|tasman/i.test(t);
+  return { openBack, boot };
+}
+
+
 // Côté du bout de la chaussure, d'après sa silhouette (photo détourée) :
 // - le bout est le côté le plus bas (le talon et le col montent plus haut), sauf pour les modèles ouverts derrière
 //   (claquettes, mules, sandales, sabots) où c'est l'inverse ;

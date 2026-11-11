@@ -95,3 +95,32 @@ assert.equal(guessCategory([one('Chaussures', 0.4)]), null, 'modèle hésitant :
 assert.equal(guessCategory([]), null);
 
 console.log('robot : prix, versions et catégories OK');
+
+// --- chaussures : vue de côté automatique (shoe-cover.mjs)
+{
+  const { cutEdges, profileOf, rotateMask, singleShoes } = await import('../scripts/shoe-cover.mjs');
+  const { shoeTraits } = await import('../scripts/shoe-side.mjs');
+  // silhouette de basket simplifiée (bout arrondi à gauche, talon droit à droite, semelle plate en bas)
+  const w = 200, h = 90, mask = (cutTop = false) => {
+    const m = new Uint8Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const topAt = 12 + 0.004 * (x - 150) ** 2; // pointe basse à gauche, col arrondi plus haut vers le talon
+      const inToe = x > 8 || (y - 70) ** 2 / 400 + (x - 8) ** 2 / 64 <= 1;
+      if (y >= Math.min(topAt, 80) && y <= 85 && x >= 3 && x <= 190 && inToe && !(cutTop && y < 22)) m[y * w + x] = 1;
+    }
+    return { m, w, h };
+  };
+  const whole = cutEdges(mask(), 0.02), cut = cutEdges(mask(true), 0.02);
+  assert.ok(whole.top < 0.35 && cut.top > 0.35, `haut coupé net repéré (entière ${whole.top}, coupée ${cut.top})`);
+  assert.ok(whole.left < 0.3, `bout arrondi non pris pour une coupe (${whole.left})`);
+  const p = profileOf(mask());
+  assert.ok(p.ratio > 1.35 && p.upright > 0, 'vue de côté, semelle en bas');
+  assert.ok(profileOf(rotateMask(mask(), 180)).upright < p.upright, 'semelle en haut repérée après un demi-tour');
+  // repérage : la paire entière et les doublons sont écartés, chaque chaussure gardée seule
+  const boxes = [[0, 0, 1000, 600, 0.6], [20, 40, 480, 560, 0.55], [520, 30, 980, 580, 0.5], [22, 42, 478, 556, 0.4]];
+  assert.equal(singleShoes(boxes, 1000, 600).length, 2, 'deux chaussures séparées, sans la paire ni le doublon');
+  assert.deepEqual(shoeTraits('Claquettes Nike'), { openBack: true, boot: false });
+  assert.deepEqual(shoeTraits('Bottes canada goose Toronto Boot'), { openBack: false, boot: true });
+  assert.equal(shoeTraits('Crampon nike Mercurial').boot, false);
+  console.log('OK chaussures : coupe nette, sens de la semelle, chaussures séparées');
+}

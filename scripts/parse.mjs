@@ -148,7 +148,11 @@ export function parseWeight(text) {
 
 /** Titre propre : espaces, &nbsp;, majuscule initiale */
 export function cleanTitle(raw) {
-  const t = raw.replace(/^🔍\s*/, '').replace(/[\u2010-\u2013]/g, '-').replace(/❗️|‼️|❗/g, '').replace(/[ \s]+/g, ' ').replace(/\s*([/])\s*/g, ' $1 ').replace(/\s+/g, ' ').trim();
+  // caractères « pleine largeur » des vendeurs chinois (« （NFC） ») : remplacés par les caractères ordinaires,
+  // sinon le titre s'affiche avec des espaces et des parenthèses de travers
+  const t = raw.replace(/[\uFF01-\uFF5E]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/\u3000/g, ' ')
+    .replace(/([^\s(])\(/g, '$1 (').replace(/\)([^\s).,!?])/g, ') $1')
+    .replace(/^🔍\s*/, '').replace(/[\u2010-\u2013]/g, '-').replace(/❗️|‼️|❗/g, '').replace(/[ \s]+/g, ' ').replace(/\s*([/])\s*/g, ' $1 ').replace(/\s+/g, ' ').trim();
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
