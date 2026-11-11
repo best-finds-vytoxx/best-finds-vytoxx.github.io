@@ -9,6 +9,17 @@ assert.equal(euros(750, 0.1459), 109.42);
 assert.equal(euros(300, 0.1459), 43.77);
 assert.equal(euros(50, 0.1459), 7.29);
 
+// --- taux LoveGoBuy d'après le cours du marché (relevés du 11 novembre 2026 : 0,1465 sur 9 produits)
+{
+  const { updatePrices: up, K_BY_SOURCE } = await import('../scripts/prices.mjs');
+  const { prices: p1 } = await up({ articles: [], prices: { items: {} }, wait: 0, log: () => {}, fetchUsd: async () => ({ usd: 0.149528, source: 'er-api' }), fetchItem: async () => ({ error: 'x' }) });
+  assert.equal(p1.rate.eurPerCny, 0.1465, 'cours du marché × k = taux LoveGoBuy');
+  const { prices: p2 } = await up({ articles: [], prices: { items: {} }, wait: 0, log: () => {}, fetchUsd: async () => ({ usd: 0.14991, source: 'frankfurter' }), fetchItem: async () => ({ error: 'x' }) });
+  assert.equal(p2.rate.eurPerCny, 0.1465, 'cours BCE × k = même taux');
+  for (const [cny, eur] of [[900, 131.85], [750, 109.87], [700, 102.55], [510, 74.71], [270, 39.55], [180, 26.36], [21, 3.07], [10, 1.46], [5.2, 0.76]]) assert.equal(euros(cny, 0.1465), eur, `${cny} CNY = ${eur} € sur LoveGoBuy`);
+  assert.ok(K_BY_SOURCE['er-api'] && K_BY_SOURCE.frankfurter);
+}
+
 // --- relevé des prix
 const H = 36e5, T0 = Date.parse('2026-11-10T12:00:00Z');
 const art = (id, pid, more = {}) => ({ id, title: `Article ${id}`, productId: pid, shop: 'weidian', ...more });

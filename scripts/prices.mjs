@@ -4,8 +4,8 @@
 // - Prix en CNY : celui du vendeur Weidian, le même que sur la page LoveGoBuy de l'article
 //   (vérifié sur 270 relevés faits à la main sur LoveGoBuy : identiques).
 // - Prix en euros : calculé comme LoveGoBuy, avec son taux (4 décimales, centimes arrondis vers le bas).
-//   Le taux de LoveGoBuy suit le dollar : taux = (CNY → USD du jour) × k, avec k mesuré sur les pages LoveGoBuy
-//   (prices.json → rate.k). Si le cours du jour ne peut pas être lu, le dernier taux connu est gardé.
+//   Le taux de LoveGoBuy suit le dollar au cours du marché : taux = (CNY → USD du jour) × k, avec k mesuré sur les pages
+//   LoveGoBuy pour chaque source de cours (K_BY_SOURCE). Si le cours du jour ne peut pas être lu, le dernier taux est gardé.
 // - Chaque prix est revérifié environ une fois par jour ; un nouvel article (ou un lien changé) est relevé tout de suite.
 // - Article introuvable ou épuisé chez le vendeur à deux relevés espacés d'au moins 20 h : « off », il quitte le site
 //   jusqu'à son retour (le site le réaffiche dès qu'il est de nouveau disponible).
@@ -23,23 +23,35 @@ const OFF_H = 20; // écart minimal entre deux relevés « indisponible » avant
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** Prix en euros affiché par LoveGoBuy : CNY × taux, centimes arrondis vers le bas (750 CNY × 0,1459 = 109,42 €). */
-export const euros = (cny, rate) => Math.floor(cny * rate * 100 + 1e-6) / 100;
+/**
+ * Prix en euros affiché par LoveGoBuy : CNY × taux, centimes arrondis vers le bas, calcul fait comme sur leur site
+ * (nombres à virgule de JavaScript : 180 CNY × 0,1465 = 26,36 €, pas 26,37). Vérifié sur 22 relevés faits à la main.
+ */
+export const euros = (cny, rate) => Math.floor(cny * rate * 100) / 100;
 /** Date du jour à Paris, AAAA-MM-JJ. */
 export const parisDay = (t = Date.now()) => new Date(t).toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
 
-/** Cours CNY → USD du jour (banque centrale européenne, sinon un second service). null si illisible. */
+/**
+ * Coefficient entre le cours CNY → USD d'une source et le taux « EUR » affiché par LoveGoBuy, par source.
+ * Mesure du 11/11/2026 (9 produits relevés à la main sur LoveGoBuy, tous au taux 0,1465) :
+ *   open.er-api 0,149528 × 0,98 = 0,14654 → 0,1465 (exact) ; frankfurter (BCE) 0,14991 × 0,97725 = 0,1465.
+ * Le cours BCE n'a pas bougé du 10 au 11/11 alors que LoveGoBuy est passé de 0,1459 à 0,1465 : LoveGoBuy suit le cours
+ * du marché, d'où open.er-api en premier. En cas d'écart relevé à la main : k = taux LoveGoBuy ÷ cours de la source.
+ */
+export const K_BY_SOURCE = { 'er-api': 0.98, frankfurter: 0.97725 };
+
+/** Cours CNY → USD du jour : { usd, source } (cours du marché, sinon banque centrale européenne). null si illisible. */
 export async function usdPerCny() {
   const sources = [
-    ['https://api.frankfurter.app/latest?from=CNY&to=USD', (j) => j?.rates?.USD],
-    ['https://open.er-api.com/v6/latest/CNY', (j) => j?.rates?.USD],
+    ['er-api', 'https://open.er-api.com/v6/latest/CNY', (j) => j?.rates?.USD],
+    ['frankfurter', 'https://api.frankfurter.app/latest?from=CNY&to=USD', (j) => j?.rates?.USD],
   ];
-  for (const [url, pick] of sources) {
+  for (const [source, url, pick] of sources) {
     try {
       const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
       if (!r.ok) continue;
       const v = Number(pick(await r.json()));
-      if (v > 0.05 && v < 0.5) return v;
+      if (v > 0.05 && v < 0.5) return { usd: v, source };
     } catch {}
   }
   return null;
@@ -71,11 +83,14 @@ export async function updatePrices({ articles, prices, now = Date.now(), fetchIt
   const day = parisDay(now), iso = new Date(now).toISOString();
 
   // 1. Taux du jour
-  const usd = await fetchUsd();
+  const got = await fetchUsd();
+  const usd = typeof got === 'number' ? got : got?.usd;
   if (usd) {
-    const r = Math.round(usd * rate.k * 1e4) / 1e4;
+    const source = typeof got === 'object' ? got.source : rate.source || null;
+    const k = (source && K_BY_SOURCE[source]) || rate.k;
+    const r = Math.round(usd * k * 1e4) / 1e4;
     if (r !== rate.eurPerCny) log(`Taux LoveGoBuy : ${rate.eurPerCny} → ${r} € pour 1 CNY`);
-    Object.assign(rate, { eurPerCny: r, usd, at: day });
+    Object.assign(rate, { eurPerCny: r, usd, k, ...(source ? { source } : {}), at: day });
   } else log(`Cours du jour illisible : taux gardé (${rate.eurPerCny} € pour 1 CNY)`);
 
   // 2. Produits à relever : articles affichés (et versions moins chères, pour comparer), un appel par produit

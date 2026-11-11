@@ -42,9 +42,11 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 - `data/prices.json` : `{ checkedAt, rate: { eurPerCny, k, usd, at }, items: { id: { cny, eur, pid, at, checked, offSeen?, off? } } }`,
   écrit par `scripts/prices.mjs` à chaque passage. CNY = prix Weidian (`thor.weidian.com/detail/getItemSkuInfo`, champ
   `itemDiscountLowPrice` / 100), identique à LoveGoBuy (270 relevés sur 275 ; les 5 autres avaient changé chez le vendeur).
-  Euros comme LoveGoBuy : taux à 4 décimales = cours CNY→USD du jour (frankfurter, sinon open.er-api) × `k` (0,9729,
-  mesuré sur les pages LoveGoBuy les 30/10 et 10/11/2026 : leur taux suit le dollar), centimes arrondis vers le bas.
-  Si un relevé manuel sur LoveGoBuy montre un écart, recalculer `k` (taux LoveGoBuy ÷ cours USD du même jour).
+  Euros comme LoveGoBuy : taux à 4 décimales = cours CNY→USD du marché (open.er-api, sinon BCE via frankfurter) × k propre
+  à la source (`K_BY_SOURCE` : 0,98 et 0,97725, mesurés le 11/11/2026 sur 9 pages LoveGoBuy, toutes au taux 0,1465 ;
+  le cours BCE ne suit pas LoveGoBuy d'un jour à l'autre), puis `Math.floor(cny × taux × 100) / 100` sans correctif
+  (comme leur site : 180 CNY → 26,36 €), vérifié sur 22 relevés à la main. Écart relevé à la main → recalculer k
+  (taux LoveGoBuy ÷ cours de la source le même jour). Ne jamais faire lire LoveGoBuy par le robot (il bloque les robots).
   Nouvel article ou lien changé : relevé au passage suivant ; chaque prix revérifié environ toutes les 20 h.
   Article introuvable ou stock 0 chez le vendeur à deux relevés espacés de 20 h : `off` → masqué du site et des aperçus,
   réaffiché dès qu'il revient (rien n'est marqué si le relevé échoue pour la majorité des produits).
