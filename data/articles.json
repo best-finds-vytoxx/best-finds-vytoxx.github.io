@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-11T18:01:53.309Z",
+ "updatedAt": "2026-11-11T19:36:35.244Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
  "sweptAt": "2026-11-11T18:01:53.291Z",
@@ -20,7 +20,7 @@
    "shop": "weidian",
    "productId": "7804436165",
    "date": "2026-11-10T16:54:03+00:00",
-   "views": "310",
+   "views": "340",
    "telegram": "https://t.me/lovegobuy_france/5724",
    "photos": [
     "images/5724/1.jpg",
@@ -63,7 +63,7 @@
    "shop": "weidian",
    "productId": "7898220462",
    "date": "2026-11-10T16:53:50+00:00",
-   "views": "293",
+   "views": "323",
    "telegram": "https://t.me/lovegobuy_france/5718",
    "photos": [
     "images/5718/1.jpg",
@@ -187,7 +187,7 @@
    "shop": "weidian",
    "productId": "7895188429",
    "date": "2026-11-10T16:53:33+00:00",
-   "views": "241",
+   "views": "271",
    "telegram": "https://t.me/lovegobuy_france/5696",
    "photos": [
     "images/5696/1.jpg",
@@ -252,7 +252,7 @@
    "coverPick": null,
    "kindPick": null,
    "cropPick": null,
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[8,null]",
    "photoRev": 2,
    "addedAt": "2026-11-09T20:13:13.887Z",
@@ -296,7 +296,7 @@
    "coverPick": null,
    "kindPick": null,
    "cropPick": null,
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "photoRev": 2,
    "addedAt": "2026-11-09T20:13:13.958Z",
@@ -339,7 +339,7 @@
    "coverPick": null,
    "kindPick": null,
    "cropPick": null,
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[8,null]",
    "photoRev": 2,
    "addedAt": "2026-11-09T20:13:14.028Z",
@@ -681,7 +681,7 @@
    "coverPick": null,
    "kindPick": null,
    "cropPick": null,
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "photoRev": 2,
    "addedAt": "2026-11-04T17:52:13.627Z",
@@ -768,7 +768,7 @@
    "coverPick": null,
    "kindPick": null,
    "cropPick": null,
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "photoRev": 2,
    "addedAt": "2026-11-03T09:43:50.620Z",
@@ -934,7 +934,7 @@
   },
   {
    "id": 5510,
-   "title": "Veste Stone Island Soft Shell-R （nfc）",
+   "title": "Veste Stone Island Soft Shell-R (nfc)",
    "brand": "Stone Island",
    "category": "Hauts",
    "type": "Vestes",
@@ -1138,7 +1138,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5475/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -1181,7 +1181,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5467/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -1714,7 +1714,7 @@
   },
   {
    "id": 5334,
-   "title": "Doudoune Parajumpers Pjs（Sans capuche）",
+   "title": "Doudoune Parajumpers Pjs (Sans capuche)",
    "brand": "Parajumpers",
    "category": "Hauts",
    "weight": {
@@ -2325,7 +2325,7 @@
    ],
    "photoRev": 2,
    "coverSm": "images/5205/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[false,true,90]",
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -2410,7 +2410,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5187/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -2492,7 +2492,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5172/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:boots"
   },
@@ -2535,7 +2535,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5164/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[null,false]",
    "coverFor": "shoe:slides"
   },
@@ -2578,7 +2578,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5146/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -2621,7 +2621,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5138/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[null,false]",
    "coverFor": "shoe:slides"
   },
@@ -2710,7 +2710,7 @@
   },
   {
    "id": 5111,
-   "title": "Stanley Quencher H2.0 FlowState（1.18L）",
+   "title": "Stanley Quencher H2.0 FlowState (1.18L)",
    "brand": "Stanley",
    "category": "Accessoires",
    "weight": {
@@ -2788,7 +2788,7 @@
   },
   {
    "id": 5095,
-   "title": "Doudoune Parajumpers Pjs（Sans capuche）",
+   "title": "Doudoune Parajumpers Pjs (Sans capuche)",
    "brand": "Parajumpers",
    "category": "Hauts",
    "weight": {
@@ -2911,7 +2911,7 @@
   },
   {
    "id": 5070,
-   "title": "Cardigan Moncler （NFC）",
+   "title": "Cardigan Moncler (NFC)",
    "brand": "Moncler",
    "category": "Hauts",
    "weight": {
@@ -3110,7 +3110,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5037/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -3153,7 +3153,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5028/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -3196,7 +3196,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/5020/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -3399,7 +3399,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4982/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -3443,7 +3443,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4973/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -4058,7 +4058,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4818/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -4100,7 +4100,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4811/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:loafers"
   },
@@ -4225,7 +4225,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4787/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -4268,13 +4268,13 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4779/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
   {
    "id": 4771,
-   "title": "Le blouson de duvet Moncler Violier （NFC）",
+   "title": "Le blouson de duvet Moncler Violier (NFC)",
    "brand": "Moncler",
    "category": "Hauts",
    "weight": {
@@ -4923,7 +4923,7 @@
    ],
    "photoRev": 2,
    "coverSm": "images/4622/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -4966,7 +4966,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4614/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -5132,7 +5132,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4581/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -5176,7 +5176,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4572/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -5220,7 +5220,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4563/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -5343,7 +5343,7 @@
   },
   {
    "id": 4535,
-   "title": "Canada Goose MacMillan（plumes）",
+   "title": "Canada Goose MacMillan (plumes)",
    "brand": "Canada Goose",
    "category": "Hauts",
    "weight": {
@@ -5616,7 +5616,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4495/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -5928,7 +5928,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4444/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -5972,7 +5972,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4435/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6054,7 +6054,7 @@
   },
   {
    "id": 4411,
-   "title": "Écharpe Louis Vuitton（NFC）",
+   "title": "Écharpe Louis Vuitton (NFC)",
    "brand": "Louis Vuitton",
    "category": "Accessoires",
    "weight": {
@@ -6509,7 +6509,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4336/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6627,7 +6627,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4315/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6669,7 +6669,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4308/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6712,7 +6712,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4300/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6796,7 +6796,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4279/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6835,7 +6835,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4275/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -6922,7 +6922,7 @@
    ],
    "photoRev": 2,
    "coverSm": "images/4256/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[false,null,-90,[[0.624,0.505,0.66,0.97]]]",
    "coverFor": "shoe:sandals"
   },
@@ -7039,7 +7039,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4227/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:sandals"
   },
@@ -7591,7 +7591,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4113/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -7634,7 +7634,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4105/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -7676,7 +7676,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4098/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -7716,7 +7716,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4092/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:high heel shoes"
   },
@@ -7912,7 +7912,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4062/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8029,7 +8029,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/4011/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8108,7 +8108,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3995/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8188,7 +8188,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3982/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8469,13 +8469,13 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3932/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[null,false]",
    "coverFor": "shoe:a pair of sneakers"
   },
   {
    "id": 3927,
-   "title": "Polo Ralph Lauren （Stripes）",
+   "title": "Polo Ralph Lauren (Stripes)",
    "brand": "Ralph Lauren",
    "category": "Hauts",
    "type": "Hauts",
@@ -8584,7 +8584,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3917/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8624,7 +8624,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3912/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8665,7 +8665,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3906/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -8853,7 +8853,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3861/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:sandals"
   },
@@ -8974,7 +8974,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3790/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[null,true]",
    "coverFor": "shoe:high heel shoes"
   },
@@ -9018,7 +9018,7 @@
    ],
    "photoRev": 2,
    "coverSm": "images/3786/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[false,null,-90,\"keep\"]",
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -9183,7 +9183,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3734/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -9349,7 +9349,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3699/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -9390,7 +9390,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3693/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -9467,7 +9467,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3680/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -9848,7 +9848,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3604/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -10002,7 +10002,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3581/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -10201,7 +10201,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3555/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -10278,7 +10278,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3536/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a pair of sneakers"
   },
@@ -10890,7 +10890,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3390/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:a wristwatch"
   },
@@ -11081,7 +11081,7 @@
    "cropPick": null,
    "photoRev": 2,
    "coverSm": "images/3366/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": null,
    "coverFor": "shoe:slides"
   },
@@ -11125,7 +11125,7 @@
    ],
    "photoRev": 2,
    "coverSm": "images/3362/cover-sm.webp",
-   "sideRev": 1,
+   "sideRev": 2,
    "sidePick": "[false,true,90]",
    "coverFor": "shoe:slides"
   },
