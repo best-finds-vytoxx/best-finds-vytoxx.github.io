@@ -14,7 +14,7 @@ const require_readFileSync = (f) => { try { return readFileSync(f, 'utf8'); } ca
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates, markVersions, cleanTitle } from './parse.mjs';
+import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates, markVersions, cleanTitle, vagueSet } from './parse.mjs';
 import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
 import { promptFor } from './vision.mjs';
 import { shoeTraits } from './shoe-side.mjs';
@@ -172,7 +172,7 @@ const FALLBACK = { wear: [1, 3, 4], shoe: [2, 1, 3, 4], acc: [1, 3, 4, 2] };
 function makeCovers(items, tmp) {
   const result = new Map();
   if (!items.length || CUTOUT_TRIES === 0) return result;
-  const ranks = runRank(items.map((it) => ({ key: it.id, title: it.title, type: it.type, classify: !!it.classify, images: it.inputs.map((i) => i.path) })), tmp, 'rank');
+  const ranks = runRank(items.map((it) => ({ key: it.id, title: it.title, type: it.type, classify: !!it.classify, outfit: !!it.classify && vagueSet(it.title || ''), images: it.inputs.map((i) => i.path) })), tmp, 'rank');
   const state = items.map((it) => {
     // titre sans mot de catégorie : catégorie devinée d'après les photos (null si le modèle hésite)
     if (it.classify) {
@@ -286,8 +286,9 @@ async function main() {
   const fixCat = (a) => {
     const o = ov(a.id);
     const precise = detectCategory(a.title || '');
-    // titre sans mot de catégorie (« Maison Margiela ») : catégorie devinée d'après les photos (autoCat, modèle CLIP)
-    const auto = precise === 'Autres' && a.autoCat ? a.autoCat : null;
+    // titre sans mot de catégorie (« Maison Margiela ») : catégorie devinée d'après les photos (autoCat, modèle CLIP) ;
+    // titre « running » ambigu : tenue, haut ou bas d'après les photos
+    const auto = (precise === 'Autres' || vagueSet(a.title || '')) && a.autoCat ? a.autoCat : null;
     const cat = o.category || (o.kind === 'shoe' ? 'Chaussures' : MERGE[auto || precise] || auto || precise);
     const type = o.category || o.kind === 'shoe' ? cat : auto || precise;
     const extra = a.extra ?? extraFrom(a.description);
@@ -311,7 +312,7 @@ async function main() {
   const keyFor = (a) => { const nk = nounFor(a.title, a.type || a.category); return `${ov(a.id).kind || nk.kind}:${nk.noun}`; };
   for (const [id, a] of known) if (a.coverRev && a.coverFor === undefined) known.set(id, { ...a, coverFor: keyFor(a) });
   // titre sans mot de catégorie et sans correction à la main : catégorie à deviner d'après les photos
-  const toClassify = (a) => detectCategory(a.title || '') === 'Autres' && !ov(a.id).category && !ov(a.id).kind;
+  const toClassify = (a) => (detectCategory(a.title || '') === 'Autres' || vagueSet(a.title || '')) && !ov(a.id).category && !ov(a.id).kind;
 
   const t0 = Date.now();
   const save = async (historyComplete) => {

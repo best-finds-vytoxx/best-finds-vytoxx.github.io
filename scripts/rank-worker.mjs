@@ -1,7 +1,7 @@
 // Note chaque photo selon sa pertinence comme couverture (modèle CLIP), dans un processus séparé
 // (le modèle de reconnaissance et celui du détourage ne peuvent pas être chargés dans le même processus).
 // Usage : node scripts/rank-worker.mjs entree.json sortie.json
-// entree.json = [{ key, title, type, images: [chemins], verify?, classify? }]
+// entree.json = [{ key, title, type, images: [chemins], verify?, classify?, outfit? }] (outfit : tenue, haut ou bas ?)
 // sortie.json = { key: { scores: [note de chaque image], front: [avant photo 1, avant photo 2] (chaussures),
 //                        packaging: [part « emballage » de chaque image] (mode vérification),
 //                        cat: { type, share, margin } (classify : catégorie devinée d'après les photos, ou null) } }
@@ -10,7 +10,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pipeline, env, RawImage } from '@huggingface/transformers';
-import { nounFor, labelsFor, SHOE_FRONT, CAT_LABELS, guessCategory } from './pick.mjs';
+import { nounFor, labelsFor, SHOE_FRONT, CAT_LABELS, guessCategory, guessOutfit } from './pick.mjs';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 env.cacheDir = path.join(ROOT, '.cache', 'models'); // téléchargé au premier besoin (quelques secondes sur GitHub)
@@ -43,10 +43,15 @@ for (const job of jobs) {
   // titre sans mot de catégorie : la catégorie est devinée d'abord, la note des photos en tient compte
   if (job.classify && !job.verify) {
     const per = [];
-    for (const file of job.images.slice(0, 4)) {
+    // titre « running » ambigu : toutes les photos sont regardées (le bas d'une tenue est souvent en fin de post)
+    for (const file of job.images.slice(0, job.outfit ? 9 : 4)) {
       try { per.push(Object.fromEntries((await clf(await load(file), CAT)).map((x) => [x.label, x.score]))); } catch {}
     }
-    r.cat = guessCategory(per);
+    if (job.outfit) {
+      if (job.debug) r.per = per;
+      const type = guessOutfit(per);
+      r.cat = type ? { type, share: 1, margin: 1 } : null;
+    } else r.cat = guessCategory(per);
     if (r.cat) job.type = r.cat.type;
   }
   const nk = nounFor(job.title, job.type);
