@@ -70,6 +70,9 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   `crop`, `erase` (zones à effacer), `keep`. `SIDE_REV` dans scrape.mjs refait toutes les chaussures (groupes de 12,
   ancienne couverture gardée si le nouvel essai échoue). Labo : branche `lab` (`lab/shoes.mjs`, 10 machines, résultats
   sur `lab-out-N`) pour essayer une règle sur toutes les chaussures avant de la mettre en service.
+- Limite connue : un titre vague (« Nike running », « Nike Run Division ») est rangé dans Ensembles même si le post ne montre
+  qu'un haut ou un bas. Essai de vérification par photos (`guessOutfit`, `lab/outfit.mjs`) non concluant le 11/11/2026 (un
+  pantalon seul pris pour une tenue) : pas en service. Corriger par `category` dans overrides.json en attendant.
 - Titres : nettoyés à chaque passage (`cleanTitle` : caractères pleine largeur « （NFC） » des vendeurs → « (NFC) »).
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
   sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`

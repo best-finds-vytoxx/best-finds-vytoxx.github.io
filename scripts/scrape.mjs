@@ -14,7 +14,7 @@ const require_readFileSync = (f) => { try { return readFileSync(f, 'utf8'); } ca
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates, markVersions, cleanTitle } from './parse.mjs';
+import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates, markVersions, cleanTitle, vagueSet } from './parse.mjs';
 import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
 import { promptFor } from './vision.mjs';
 import { shoeTraits } from './shoe-side.mjs';
@@ -286,7 +286,8 @@ async function main() {
   const fixCat = (a) => {
     const o = ov(a.id);
     const precise = detectCategory(a.title || '');
-    // titre sans mot de catégorie (« Maison Margiela ») : catégorie devinée d'après les photos (autoCat, modèle CLIP)
+    // titre sans mot de catégorie (« Maison Margiela ») : catégorie devinée d'après les photos (autoCat, modèle CLIP) ;
+    // titre « running » ambigu : tenue, haut ou bas d'après les photos
     const auto = precise === 'Autres' && a.autoCat ? a.autoCat : null;
     const cat = o.category || (o.kind === 'shoe' ? 'Chaussures' : MERGE[auto || precise] || auto || precise);
     const type = o.category || o.kind === 'shoe' ? cat : auto || precise;
@@ -311,6 +312,7 @@ async function main() {
   const keyFor = (a) => { const nk = nounFor(a.title, a.type || a.category); return `${ov(a.id).kind || nk.kind}:${nk.noun}`; };
   for (const [id, a] of known) if (a.coverRev && a.coverFor === undefined) known.set(id, { ...a, coverFor: keyFor(a) });
   // titre sans mot de catégorie et sans correction à la main : catégorie à deviner d'après les photos
+  // (les titres « running » ambigus, vagueSet, ne sont pas encore vérifiés d'après les photos : essai au labo non concluant)
   const toClassify = (a) => detectCategory(a.title || '') === 'Autres' && !ov(a.id).category && !ov(a.id).kind;
 
   const t0 = Date.now();

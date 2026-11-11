@@ -120,6 +120,10 @@ export function detectCategory(title) {
   // Le mot-clé le plus proche du début du titre désigne le type d'article
   // ("Short Nocta Tech Fleece" = un short, "Écharpe Polo Ralph Lauren" = une écharpe)
   const t = title.toLowerCase().replace(/[\u2010-\u2013]/g, '-').replace(/sweet pants/g, ' '); // « Sweet Pants » : une marque
+  // ensemble d'accessoires (« Ensemble bonnet et écharpe ») : un accessoire, pas une tenue
+  const accRe = CATEGORIES.find(([n]) => n === 'Accessoires')[1];
+  const wear = CATEGORIES.slice(0, 5).some(([, re]) => re.test(t.replace(/ensemble|survêtement|\bsets?\b|sportswear|running|run division/g, ' ')));
+  if (/ensemble|\bsets?\b|coffret|\bpack\b/.test(t) && accRe.test(t) && !wear) return 'Accessoires';
   if (/hooded and pant|hoodie and pant|\bset\b/i.test(t)) return 'Ensembles';
   // haut ET bas proposés ensemble (« Veste / Pantalon », « T-shirt / Shorts », « t-shirt shorts suit ») : un ensemble
   const top = CATEGORIES.slice(0, 4).some(([, re]) => re.test(t)), bottom = CATEGORIES[4][1].test(t);
@@ -130,6 +134,16 @@ export function detectCategory(title) {
     if (m && (!best || m.index < best.index)) best = { name, index: m.index };
   }
   return best ? best.name : 'Autres';
+}
+
+/**
+ * Titre classé « Ensembles » seulement à cause d'un mot de sport (« Nike running », « Nike Run Division ») : rien ne dit
+ * s'il s'agit d'une tenue complète, d'un haut ou d'un bas. Le robot vérifie alors d'après les photos (guessOutfit).
+ */
+export function vagueSet(title = '') {
+  const t = String(title).toLowerCase();
+  if (detectCategory(t) !== 'Ensembles') return false;
+  return !/ensemble|survêtement|tracksuit|\bsets?\b|\bsuit\b|2-piece|two-piece|hooded and pant|hoodie and pant|\/|\+/.test(t);
 }
 
 // Catégories regroupées sur le site : Hauts, Bas, Chaussures, Ensembles, Électronique, Accessoires (affiché « Autres »)

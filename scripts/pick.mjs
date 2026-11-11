@@ -132,6 +132,31 @@ export const CAT_LABELS = [
   ['a photo of headphones or earbuds', 'Électronique'], ['a photo of an electronic device', 'Électronique'],
 ];
 const SITE_CAT = { Vestes: 'Hauts', Sweats: 'Hauts' };
+
+/**
+ * Tenue complète, haut ou bas ? per = une entrée par photo du post (toutes les photos) : { description: probabilité }.
+ * Chaque photo est classée haut (veste, sweat, t-shirt…), bas (pantalon, short…) ou ensemble si le modèle est net.
+ * Ensemble : au moins une photo d'ensemble, ou des hauts ET des bas ; Bas : au moins deux photos de bas et aucun haut ;
+ * Hauts : au moins deux photos de haut et aucun bas. Sinon null (le mot du titre décide).
+ */
+export function guessOutfit(per) {
+  if (!per?.length) return null;
+  let tops = 0, bottoms = 0, sets = 0;
+  for (const r of per) {
+    const g = { top: 0, bottom: 0, set: 0 };
+    for (const [label, type] of CAT_LABELS) {
+      const k = ['Vestes', 'Sweats', 'Hauts'].includes(type) ? 'top' : type === 'Bas' ? 'bottom' : type === 'Ensembles' ? 'set' : null;
+      if (k) g[k] += r[label] || 0;
+    }
+    if (g.set >= 0.5) sets++;
+    else if (g.top >= 0.5 && g.top >= 2 * g.bottom) tops++;
+    else if (g.bottom >= 0.5 && g.bottom >= 2 * g.top) bottoms++;
+  }
+  if (sets || (tops && bottoms)) return 'Ensembles';
+  if (bottoms >= 2 && !tops) return 'Bas';
+  if (tops >= 2 && !bottoms) return 'Hauts';
+  return null;
+}
 const TRUSTED = new Set(['Chaussures', 'Hauts', 'Accessoires', 'Électronique']);
 
 /**
