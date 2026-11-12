@@ -1356,3 +1356,6 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
   border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
 .hero-warn svg { flex: 0 0 16px; width: 16px; height: 16px; margin-top: 1px; color: var(--ink); }
 .hero-warn b { font-weight: 700; }
+
+/* photo recadrée au plus près de la chaussure par app.js : affichée entière */
+.cat-shoes .cat-pic img.fit { object-fit: contain; }

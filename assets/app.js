@@ -523,6 +523,26 @@
 
     reveal();
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });
+    // Tuile « Chaussures » : chaque photo est recadrée au plus près de la chaussure (zone non transparente) puis affichée
+    // entière ; sans cela une botte haute est coupée par la bande large de la tuile
+    view.querySelectorAll('.cat-shoes .cat-pic img').forEach((el) => {
+      const fit = () => safe(() => {
+        if (el.dataset.fit || !el.naturalWidth) return;
+        const w = 160, h = Math.round((el.naturalHeight / el.naturalWidth) * w);
+        const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+        const cx = cv.getContext('2d', { willReadFrequently: true }); cx.drawImage(el, 0, 0, w, h);
+        const d = cx.getImageData(0, 0, w, h).data;
+        let x0 = w, x1 = -1, y0 = h, y1 = -1;
+        for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] > 40) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+        if (x1 < x0) return;
+        const k = el.naturalWidth / w, sx = x0 * k, sy = y0 * k, sw = (x1 - x0 + 1) * k, sh = (y1 - y0 + 1) * k;
+        const out = document.createElement('canvas'); out.width = Math.round(sw); out.height = Math.round(sh);
+        out.getContext('2d').drawImage(el, sx, sy, sw, sh, 0, 0, out.width, out.height);
+        el.dataset.fit = '1';
+        out.toBlob((b) => { if (b) { el.src = URL.createObjectURL(b); el.classList.add('fit'); } }, 'image/webp', 0.9);
+      });
+      if (el.complete) fit(); else el.addEventListener('load', fit, { once: true });
+    });
     view.querySelectorAll('.cat-tile').forEach((b) => b.addEventListener('click', () => {
       state.cat = b.dataset.c; state.q = ''; state.brand = ''; catScroll = 0;
       location.hash = 'catalogue';
