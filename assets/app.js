@@ -1234,7 +1234,15 @@
       const all = (data.articles || []).filter((a) => a && a.id);
       // doublons (même lien LoveGoBuy reposté) : seul le post le plus récent est affiché
       state.dups = new Map(all.filter((a) => a.dupOf).map((a) => [a.id, a.dupOf]));
-      state.articles = all.filter((a) => !a.dupOf && !a.hidden).map(({ price, ...a }) => ({ ...a, category: MERGE[a.category] || a.category }));
+      // Même produit posté plusieurs fois (même lien LoveGoBuy, par exemple une autre couleur) : une seule annonce,
+      // avec les photos de tous les posts à la suite (celles du post le plus récent d'abord).
+      // Les versions « normale / TOP » ont des liens différents (lesser) : elles ne sont pas fusionnées.
+      const extra = new Map();
+      for (const d of all) {
+        const t = d.dupOf && !d.lesser && !d.hidden && all.find((x) => x.id === d.dupOf);
+        if (t && t.productId && t.productId === d.productId) extra.set(t.id, [...(extra.get(t.id) || []), ...(d.photos || [])]);
+      }
+      state.articles = all.filter((a) => !a.dupOf && !a.hidden).map(({ price, ...a }) => ({ ...a, photos: [...(a.photos || []), ...(extra.get(a.id) || [])], category: MERGE[a.category] || a.category }));
       state.updatedAt = data.updatedAt;
     } catch {
       state.articles = [];

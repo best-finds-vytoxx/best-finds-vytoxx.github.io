@@ -78,6 +78,9 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   résultat change), affiché en haut du tracker (`health()` dans tracker.js) et dans le compte rendu. Niveau `auto` = le robot
   corrige seul au passage suivant ; `voir` = a résisté (ex. détourage raté 3 fois : `coverTries`, un essai par jour dans
   scrape.mjs). Tout nouveau type de problème signalé par Léonard : ajouter le contrôle ici ET la correction dans le robot.
+- Doublons (même lien LoveGoBuy, souvent une autre couleur) : `markDuplicates` garde le post le plus récent (`dupOf` sur les autres) ;
+  le site (chargement dans app.js) ajoute les photos des posts en double à la suite de celles de l'annonce gardée.
+  Jamais pour les versions normale/TOP (`lesser`, liens différents).
 - Titres : nettoyés à chaque passage (`cleanTitle` : caractères pleine largeur « （NFC） » des vendeurs → « (NFC) »).
 - Chat bot (`#aide`) : `assets/bot.js` (réponses `BOT`, tournures `P` par identifiant, langage SMS `SMS`, politesse `TALK`,
   sujets écartés `ASIDE` → renvoi au groupe ; question floue → le bot propose 2-3 questions). Tests : `test/bot.test.mjs`
