@@ -1,0 +1,40 @@
+passage: 191 (schedule)
+résultat: success
+date: 2026-11-14T11:06:04Z
+commit: 897f96730a10b144704d5768cca0026e0988aff9
+
+287 articles lus sur 83 page(s) ; 284 déjà sur le site
+Choix des couvertures pour 3 article(s) (groupe 1/1)…
+  5760 Soutien-gorge Alo Yoga : catégorie devinée d'après les photos, Vestes (0.65)
+Détourage, essai 1 : 3 article(s)…
+[0;93m2026-11-14 11:00:07.290517132 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+Loading weights:   0%|          | 0/978 [00:00<?, ?it/s]Loading weights:  88%|████████▊ | 863/978 [00:00<00:00, 8627.70it/s]Loading weights: 100%|██████████| 978/978 [00:00<00:00, 8710.80it/s]
++ 5765 Doudoune Parajumpers Pjs (9 photos, détourée depuis la photo 1)
++ 5760 Soutien-gorge Alo Yoga (5 photos, détourée depuis la photo 1)
++ 5753 Pantalon Alo Yoga (7 photos, détourée depuis la photo 1)
+Site mis à jour : 287 articles.
+Prix : 60 produit(s) vérifié(s) sur Weidian, 60 lu(s), 3 nouveau(x) ; taux 0.1466 € pour 1 CNY
+Contrôle qualité : 272 articles, 1 point(s) que le robot corrige seul, 1 à voir
+  · 5746 Bague Hermès Kelly Ring : détourage à refaire
+  ! 4842 Bracelet Vintage Alhambra 5 motifs TOP : détourage impossible, photo d’origine affichée
+From https://github.com/best-finds-vytoxx/best-finds-vytoxx.github.io
+ * [new branch]      lab            -> origin/lab
+ * [new branch]      lab-out        -> origin/lab-out
+ * [new branch]      lab-out-0      -> origin/lab-out-0
+ * [new branch]      lab-out-1      -> origin/lab-out-1
+ * [new branch]      lab-out-2      -> origin/lab-out-2
+ * [new branch]      lab-out-3      -> origin/lab-out-3
+ * [new branch]      lab-out-4      -> origin/lab-out-4
+ * [new branch]      lab-out-5      -> origin/lab-out-5
+ * [new branch]      lab-out-6      -> origin/lab-out-6
+ * [new branch]      lab-out-7      -> origin/lab-out-7
+ * [new branch]      lab-out-8      -> origin/lab-out-8
+ * [new branch]      lab-out-9      -> origin/lab-out-9
+ * [new branch]      lab-out-outfit -> origin/lab-out-outfit
+ * [new branch]      refonte        -> origin/refonte
+ * [new branch]      robot-status   -> origin/robot-status
+ * [new branch]      stats          -> origin/stats
+ * [new branch]      test-push      -> origin/test-push
+Current branch main is up to date.
+To https://github.com/best-finds-vytoxx/best-finds-vytoxx.github.io
+   897f967..528d130  main -> main
