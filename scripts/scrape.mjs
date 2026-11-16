@@ -1,0 +1,449 @@
+// Récupère les articles du canal Telegram et met à jour data/articles.json + images/.
+// Lancé automatiquement par GitHub Actions (.github/workflows/update.yml), ou à la main : npm run scrape
+//
+// - 1er passage : lit tout l'historique du canal, puis traite les articles par lots (les plus récents d'abord)
+//   pour que chaque passage reste court ; les passages suivants terminent l'historique.
+// - Ensuite : lit les dernières pages et ajoute chaque nouvel article.
+// - Pour chaque article : photos téléchargées et compressées, photo principale détourée (fond supprimé).
+// - Aucun prix n'est jamais enregistré.
+import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { writeFileSync as require_writeFileSync, readFileSync } from 'node:fs';
+const require_readFileSync = (f) => { try { return readFileSync(f, 'utf8'); } catch { return ''; } };
+import os from 'node:os';
+import path from 'node:path';
+import sharp from 'sharp';
+import { parseMessages, parseChannel, toArticles, minId, detectCategory, MERGE, describe, extraFrom, markDuplicates, markVersions, cleanTitle, vagueSet } from './parse.mjs';
+import { nounFor, candidateOrder, shoeFront } from './pick.mjs';
+import { promptFor } from './vision.mjs';
+import { shoeTraits } from './shoe-side.mjs';
+
+const CHANNEL = process.env.CHANNEL || 'lovegobuy_france';
+const RECENT_PAGES = Number(process.env.RECENT_PAGES || 3); // une fois l'historique complet, les dernières pages suffisent
+const MAX_PAGES = Number(process.env.MAX_PAGES || 400); // garde-fou pour la lecture de l'historique
+const SWEEP_HOURS = Number(process.env.SWEEP_HOURS || 2); // relecture complète du canal : les posts supprimés quittent le site
+const BATCH = Number(process.env.BATCH || 1000); // nouveaux articles traités au maximum par passage (limités aussi par BUDGET_MIN)
+const MAX_PHOTOS = 10;
+const CUTOUT_TRIES = Number(process.env.CUTOUT_TRIES ?? 4); // 0 = pas de détourage
+const RANK_PHOTOS = 9; // photos examinées pour choisir la couverture
+const COVER_REV = 5; // version de la règle de choix de la couverture ; les anciennes couvertures sont refaites
+const PHOTO_REV = 2; // version du stockage des photos : 2 = fichier d'origine du canal, sans recompression
+const SIDE_REV = 2; // chaussures : couverture vue de côté, bout à gauche ; changer ce numéro refait toutes les chaussures
+const RESCUE_REV = 1; // version du détourage de secours : les articles restés sans photo détourée sont retentés
+const RECOVER = Number(process.env.RECOVER || 400); // couvertures anciennes refaites au plus par passage
+const CHUNK = 40; // articles traités ensemble ; le site est enregistré après chaque groupe
+const SHOE_CHUNK = 12; // chaussures refaites ensemble (vue de côté automatique : plusieurs photos détourées par paire)
+const BUDGET = Number(process.env.BUDGET_MIN || 35) * 60e3; // temps de travail maximal par passage
+const OVERRIDES_FILE = path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'data', 'overrides.json');
+
+const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const DATA = path.join(ROOT, 'data', 'articles.json');
+const CHANNEL_FILE = path.join(ROOT, 'data', 'channel.json');
+const IMAGES = path.join(ROOT, 'images');
+
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function get(url, as = 'text', tries = 4) {
+  for (let i = 1; i <= tries; i++) {
+    try {
+      const r = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'fr-FR,fr;q=0.9' } });
+      if (r.status === 429) throw new Error('HTTP 429 (trop de requêtes)');
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return as === 'buffer' ? Buffer.from(await r.arrayBuffer()) : await r.text();
+    } catch (e) {
+      if (i === tries) throw new Error(`${url} → ${e.message}`);
+      await sleep(2000 * i);
+    }
+  }
+}
+
+async function readJson(file, fallback) {
+  try { return JSON.parse(await readFile(file, 'utf8')); } catch { return fallback; }
+}
+
+/** Lit le canal page par page (du plus récent au plus ancien). */
+async function readChannel(maxPages) {
+  const pages = [];
+  let html = await get(`https://t.me/s/${CHANNEL}`);
+  pages.push(html);
+  const channel = parseChannel(html);
+  let before = minId(parseMessages(html));
+  let complete = !before || before <= 1; // vrai seulement si on est remonté jusqu'au tout premier post
+  for (let i = 1; i < maxPages && before && before > 1; i++) {
+    await sleep(700);
+    html = await get(`https://t.me/s/${CHANNEL}?before=${before}`);
+    const msgs = parseMessages(html);
+    if (!msgs.length) { complete = true; break; }
+    pages.push(html);
+    const next = minId(msgs);
+    if (next >= before) { complete = true; break; }
+    before = next;
+    if (before <= 1) complete = true;
+  }
+  return { channel, messages: pages.flatMap(parseMessages), pages: pages.length, complete };
+}
+
+/** Télécharge les photos d'un article (version web + original gardé pour le détourage). */
+async function downloadPhotos(a, tmp) {
+  const dir = path.join(IMAGES, String(a.id));
+  await mkdir(dir, { recursive: true });
+  const photos = [];
+  const sources = [];
+  for (const [i, url] of a.photosRemote.slice(0, MAX_PHOTOS).entries()) {
+    try {
+      const buf = await get(url, 'buffer');
+      // Photo gardée telle que publiée sur le canal (aucune recompression : pas de perte de qualité)
+      const meta = await sharp(buf).metadata();
+      const ext = meta.format === 'jpeg' ? 'jpg' : meta.format === 'png' ? 'png' : 'webp';
+      const file = `${i + 1}.${ext}`;
+      if (ext === 'webp' && meta.format !== 'webp') await sharp(buf).rotate().webp({ quality: 92 }).toFile(path.join(dir, file));
+      else await writeFile(path.join(dir, file), buf);
+      for (const old of ['webp', 'jpg', 'png']) if (old !== ext) await rm(path.join(dir, `${i + 1}.${old}`), { force: true });
+      photos.push(`images/${a.id}/${file}`);
+      if (i < RANK_PHOTOS) { // originaux gardés le temps du passage pour choisir et détourer la couverture
+        const src = path.join(tmp, `${a.id}_${i + 1}.img`);
+        await writeFile(src, buf);
+        sources.push({ n: i + 1, path: src });
+      }
+    } catch (e) {
+      console.warn(`  photo ignorée (${a.id} #${i + 1}) : ${e.message}`);
+    }
+  }
+  return { photos, sources };
+}
+
+/**
+ * Détoure les articles dans un processus séparé. Si ce processus plante, on le relance
+ * pour les articles restants ; l'article sur lequel il a planté est passé (il garde ses photos d'origine).
+ */
+function runCutouts(jobs, tmp, round = 1) {
+  const result = new Map();
+  if (!jobs.length || CUTOUT_TRIES === 0) return result;
+  const jobsFile = path.join(tmp, `jobs-${round}.json`);
+  require_writeFileSync(jobsFile, JSON.stringify(jobs));
+  const worker = path.join(path.dirname(new URL(import.meta.url).pathname), 'cutout-worker.mjs');
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    // jusqu'à ~4 min par chaussure (plusieurs photos essayées), 40 min au moins
+    const r = spawnSync(process.execPath, [worker, jobsFile], { stdio: 'inherit', timeout: Math.max(40, jobs.length * 4) * 60e3 });
+    const lines = require_readFileSync(`${jobsFile}.done`).split('\n').filter(Boolean);
+    const state = new Map();
+    for (const l of lines) { const [id, st, n] = l.split(':'); state.set(Number(id), { st, n: Number(n) || null }); }
+    for (const [id, { st, n }] of state) if (st === 'ok' || st === 'none') result.set(id, st === 'ok' ? n || 1 : 0);
+    const pending = jobs.filter((j) => !result.has(j.id));
+    if (!pending.length) break;
+    // l'article « en cours » au moment du plantage est abandonné pour le détourage
+    for (const [id, { st }] of state) if (st === 'start' && !result.has(id)) { result.set(id, 0); console.warn(`  ${id} : le détourage a planté, photos d'origine conservées`); }
+    if (r.status === 0 && !jobs.some((j) => !result.has(j.id))) break;
+    console.warn(`  détourage interrompu (code ${r.status ?? r.signal}), reprise ${attempt}/3…`);
+  }
+  for (const j of jobs) if (!result.has(j.id)) result.set(j.id, 0);
+  return result; // id → numéro de la photo détourée retenue (0 = aucune)
+}
+
+/** Lance le modèle de reconnaissance (processus séparé). Renvoie null s'il n'a pas pu tourner. */
+function runRank(items, tmp, name) {
+  if (!items.length) return {};
+  if (process.env.RANK_FIXTURE) { // tests hors ligne : notes enregistrées à l'avance
+    if (name !== 'rank') return null;
+    const fx = JSON.parse(readFileSync(process.env.RANK_FIXTURE, 'utf8'));
+    return Object.fromEntries(items.map((it) => [it.key, fx[it.key] || { scores: it.images.map(() => 0.5) }]));
+  }
+  const inFile = path.join(tmp, `${name}.json`), outFile = path.join(tmp, `${name}-out.json`);
+  require_writeFileSync(inFile, JSON.stringify(items));
+  const worker = path.join(path.dirname(new URL(import.meta.url).pathname), 'rank-worker.mjs');
+  const r = spawnSync(process.execPath, [worker, inFile, outFile], { stdio: 'inherit', timeout: 30 * 60e3 });
+  const out = require_readFileSync(outFile);
+  if (!out) { console.warn(`  reconnaissance d'images indisponible (code ${r.status ?? r.signal}), choix par position`); return null; }
+  return JSON.parse(out);
+}
+
+// Ordre par défaut si le modèle de reconnaissance ne tourne pas
+const FALLBACK = { wear: [1, 3, 4], shoe: [2, 1, 3, 4], acc: [1, 3, 4, 2] };
+
+/**
+ * Choisit et détoure la couverture de chaque article :
+ * 1. le modèle note chaque photo (le produit de face, pas son emballage, son étiquette ou son dos) ;
+ * 2. la photo la mieux placée est détourée (contrôles de qualité du détourage, carton retiré pour les accessoires) ;
+ * 3. le résultat est vérifié par le modèle : le produit doit être reconnu, sans emballage. Sinon, photo suivante.
+ * items = [{ id, title, type, inputs: [{ n, path }] }] → Map id → { n: photo détourée (0 = aucune), front: meilleure photo }
+ */
+function makeCovers(items, tmp) {
+  const result = new Map();
+  if (!items.length || CUTOUT_TRIES === 0) return result;
+  const ranks = runRank(items.map((it) => ({ key: it.id, title: it.title, type: it.type, classify: !!it.classify, images: it.inputs.map((i) => i.path) })), tmp, 'rank');
+  const state = items.map((it) => {
+    // titre sans mot de catégorie : catégorie devinée d'après les photos (null si le modèle hésite)
+    if (it.classify) {
+      it.autoCat = ranks?.[it.id]?.cat?.type || null;
+      if (it.autoCat) { it.type = it.autoCat; console.log(`  ${it.id} ${it.title} : catégorie devinée d'après les photos, ${it.autoCat} (${ranks[it.id].cat.share})`); }
+    }
+    const nk = nounFor(it.title, it.type);
+    const kind = it.kind || nk.kind;
+    const r = ranks && ranks[it.id];
+    const scores = r ? r.scores : null;
+    const front = r && r.front && r.front.length === 2 ? shoeFront(r.front[0], r.front[1]) : null;
+    let order = (scores ? candidateOrder(scores, kind, front) : FALLBACK[kind]).filter((n) => it.inputs.some((i) => i.n === n));
+    // photo choisie à la main (data/overrides.json) : essayée en premier, quelle qu'elle soit
+    if (it.forced && it.inputs.some((i) => i.n === it.forced)) order = [it.forced, ...order.filter((n) => n !== it.forced)];
+    // chaussures : la photo de profil d'abord (sur le canal, la dernière : la chaussure seule, posée sur sa boîte et la balance)
+    const last = Math.max(...it.inputs.map((i) => i.n));
+    const side = kind !== 'shoe' || it.side === false ? [] : typeof it.side === 'number' ? [it.side] : last > 2 ? [last] : [];
+    // ouvertes derrière (claquettes, sandales, sabots, mules) : le bout est la partie haute ; bottes : tige haute,
+    // une botte de profil est à peine plus large que haute (seuil de largeur/hauteur abaissé)
+    const { openBack, boot } = shoeTraits(it.title, nk.noun);
+    return { it, kind, noun: nk.noun, box: !!nk.box || !!it.keep, scores, order, side, openBack, minRatio: boot ? 1 : null, exclude: [], done: false };
+  });
+  for (let round = 1; round <= 3; round++) {
+    const todo = state.filter((s) => !s.done && s.order.some((n) => !s.exclude.includes(n)));
+    if (!todo.length) break;
+    const jobs = todo.map((s) => ({ id: s.it.id, type: s.it.type, kind: s.kind, box: s.box, prompt: promptFor(s.noun, s.kind), forced: s.it.forced || null, crop: s.it.crop || null, order: s.order, side: s.side, sideForced: typeof s.it.side === 'number', minRatio: s.minRatio, openBack: s.openBack, flip: typeof s.it.flip === 'boolean' ? s.it.flip : null, rotate: Number(s.it.rotate) || 0, erase: s.it.erase || null, exclude: s.exclude, inputs: s.it.inputs, out: path.join(tmp, `cover-${s.it.id}-${round}.webp`) }));
+    console.log(`Détourage, essai ${round} : ${jobs.length} article(s)…`);
+    const cut = runCutouts(jobs, tmp, round);
+    const made = todo.filter((s) => cut.get(s.it.id));
+    // vérification du résultat par le modèle
+    const checks = ranks ? runRank(made.map((s) => ({ key: s.it.id, title: s.it.title, type: s.it.type, verify: true, images: [path.join(tmp, `cover-${s.it.id}-${round}.webp`)] })), tmp, `verify-${round}`) : null;
+    for (const s of todo) {
+      const n = cut.get(s.it.id) || 0;
+      if (!n) { s.done = true; continue; } // aucune photo détourable dans l'ordre proposé
+      const v = checks && checks[s.it.id];
+      const source = s.scores ? s.scores[n - 1] : 0;
+      // photo imposée à la main : on garde son détourage (les contrôles de qualité du détourage restent appliqués)
+      // vue de côté d'une chaussure : le modèle juge mal une chaussure seule de profil, seul l'emballage compte
+      const ok = !v || s.it.forced === n || (s.side.includes(n) && v.packaging[0] < 0.5) || ((s.box || v.packaging[0] < 0.5) && v.scores[0] >= Math.min(0.25, source * 0.5));
+      if (ok) {
+        s.done = true;
+        result.set(s.it.id, { n, file: path.join(tmp, `cover-${s.it.id}-${round}.webp`) });
+      } else {
+        console.log(`  ${s.it.id} : détourage de la photo ${n} refusé à la vérification (produit ${v.scores[0]}, emballage ${v.packaging[0]})`);
+        s.exclude.push(n);
+      }
+    }
+  }
+  for (const s of state) {
+    const r = result.get(s.it.id) || { n: 0 };
+    r.front = s.it.forced || s.order[0] || 1; // meilleure photo d'origine, affichée si aucune couverture détourée
+    if (s.it.classify) r.autoCat = s.it.autoCat ?? null;
+    result.set(s.it.id, r);
+  }
+  return result;
+}
+
+async function main() {
+  const existing = await readJson(DATA, { articles: [] });
+  const known = new Map(existing.articles.map((a) => [a.id, a]));
+  const historyDone = existing.historyComplete === true;
+
+  // 1. Lire le canal
+  const photosStale = [...known.values()].some((a) => a.photoRev !== PHOTO_REV);
+  if (photosStale) console.log('Photos à récupérer à nouveau depuis le canal, en qualité d\'origine : lecture de tout le canal');
+  // relecture complète demandée à la main (data/sweep.json : { "requestedAt": date }) : posts modifiés ou supprimés pris en compte tout de suite
+  const asked = await readFile(path.join(path.dirname(DATA), 'sweep.json'), 'utf8').then((t) => JSON.parse(t).requestedAt).catch(() => null);
+  const sweepDue = !existing.sweptAt || Date.now() - Date.parse(existing.sweptAt) > SWEEP_HOURS * 36e5 || (asked && Date.parse(asked) > Date.parse(existing.sweptAt));
+  const full = !historyDone || photosStale || sweepDue;
+  const { channel, messages, pages, complete } = await readChannel(full ? MAX_PAGES : RECENT_PAGES);
+  const found = toArticles(messages, CHANNEL);
+  console.log(`${found.length} articles lus sur ${pages} page(s) ; ${known.size} déjà sur le site`);
+
+  // Posts supprimés du canal → retirés du site (seulement après une lecture complète et réussie du canal)
+  let sweptAt = existing.sweptAt || null;
+  if (full && complete && historyDone) {
+    const onChannel = new Set(messages.map((m) => m.id));
+    const gone = [...known.keys()].filter((id) => !onChannel.has(id));
+    if (gone.length && found.length < known.size * 0.6) {
+      console.warn(`Lecture du canal incomplète (${found.length} articles lus) : aucune suppression cette fois.`);
+    } else {
+      for (const id of gone) {
+        console.log(`- ${id} ${known.get(id).title} : supprimé du canal, retiré du site`);
+        known.delete(id);
+        await rm(path.join(IMAGES, String(id)), { recursive: true, force: true });
+      }
+      sweptAt = new Date().toISOString();
+    }
+  }
+  // Posts récents supprimés du canal : retirés dès le passage suivant, sans attendre la relecture complète.
+  // Les pages lues couvrent sans trou tous les posts entre le plus petit et le plus grand numéro lus :
+  // un article connu dans cette plage et absent des pages a été supprimé du canal.
+  if (!full && historyDone && messages.length) {
+    const onChannel = new Set(messages.map((m) => m.id));
+    const lo = minId(messages), hi = Math.max(...onChannel);
+    const inRange = [...known.keys()].filter((id) => id >= lo && id <= hi);
+    const gone = inRange.filter((id) => !onChannel.has(id));
+    if (gone.length > Math.max(3, inRange.length / 2)) console.warn(`${gone.length} posts récents introuvables sur ${inRange.length} : vérifié à la prochaine relecture complète.`);
+    else for (const id of gone) {
+      console.log(`- ${id} ${known.get(id).title} : supprimé du canal, retiré du site`);
+      known.delete(id);
+      await rm(path.join(IMAGES, String(id)), { recursive: true, force: true });
+    }
+  }
+
+  // Corrections faites à la main (data/overrides.json) : { "id": { "cover": n°photo, "category": "Bas", "kind": "shoe", "hide": true } }
+  const overrides = await readJson(OVERRIDES_FILE, {});
+  const ov = (id) => overrides[String(id)] || {};
+  // Catégorie et description de chaque article, recalculées à chaque passage (y compris les anciens articles) :
+  // catégorie d'après le titre (ou corrigée à la main), mot de la description assorti, mention des prix sur LoveGoBuy
+  const fixCat = (a) => {
+    const o = ov(a.id);
+    const precise = detectCategory(a.title || '');
+    // titre sans mot de catégorie (« Maison Margiela ») : catégorie devinée d'après les photos (autoCat, modèle CLIP) ;
+    // titre « running » ambigu : tenue, haut ou bas d'après les photos
+    const auto = precise === 'Autres' && a.autoCat ? a.autoCat : null;
+    const cat = o.category || (o.kind === 'shoe' ? 'Chaussures' : MERGE[auto || precise] || auto || precise);
+    const type = o.category || o.kind === 'shoe' ? cat : auto || precise;
+    const extra = a.extra ?? extraFrom(a.description);
+    const description = describe({ title: a.title, brand: a.brand, category: type, weight: a.weight, photoCount: (a.photos || []).length, extra });
+    // "hide": true dans overrides.json → article retiré du site (lien mort, article plus disponible…)
+    const { hidden, ...rest } = a;
+    // titre nettoyé à chaque passage (caractères pleine largeur « （NFC） » des vendeurs, espaces), même sans relire le post
+    return { ...rest, title: cleanTitle(a.title || ''), category: cat, type, extra: extra || null, description, ...(o.hide ? { hidden: true } : {}) };
+  };
+
+  // 2. Articles déjà connus : mise à jour du texte si le post a été modifié (les images ne bougent pas)
+  for (const a of found) {
+    const old = known.get(a.id);
+    if (!old) continue;
+    const { photosRemote, ...info } = a;
+    known.set(a.id, fixCat({ ...old, ...info, photos: old.photos, cover: old.cover, front: old.front }));
+  }
+  for (const [id, a] of known) known.set(id, fixCat(a));
+  // Famille et objet de chaque couverture (chaussure, vêtement, accessoire…) : s'ils changent (catégorie corrigée,
+  // titre modifié sur le canal, catégorie devinée), la couverture est refaite automatiquement
+  const keyFor = (a) => { const nk = nounFor(a.title, a.type || a.category); return `${ov(a.id).kind || nk.kind}:${nk.noun}`; };
+  for (const [id, a] of known) if (a.coverRev && a.coverFor === undefined) known.set(id, { ...a, coverFor: keyFor(a) });
+  // titre sans mot de catégorie et sans correction à la main : catégorie à deviner d'après les photos
+  // (les titres « running » ambigus, vagueSet, ne sont pas encore vérifiés d'après les photos : essai au labo non concluant)
+  const toClassify = (a) => detectCategory(a.title || '') === 'Autres' && !ov(a.id).category && !ov(a.id).kind;
+
+  const t0 = Date.now();
+  const save = async (historyComplete) => {
+    const kept = [...known.values()].map(({ price, ...a }) => a).sort((x, y) => y.id - x.id);
+    await mkdir(path.dirname(DATA), { recursive: true });
+    await writeFile(DATA, JSON.stringify({ updatedAt: new Date().toISOString(), channel: CHANNEL, historyComplete, sweptAt, articles: kept }, null, 1));
+    return kept;
+  };
+
+  // chaussures : couverture vue de côté (réglages à la main : « side » = n° de la photo de profil ou false, « flip » = true/false)
+  const isShoe = (a) => (ov(a.id).kind || nounFor(a.title, a.type || a.category).kind) === 'shoe';
+  const sideKey = (id) => (ov(id).side !== undefined || ov(id).flip !== undefined || ov(id).rotate || ov(id).keep || ov(id).erase ? JSON.stringify([ov(id).side ?? null, ov(id).flip ?? null, ...(ov(id).rotate ? [ov(id).rotate] : []), ...(ov(id).keep ? ['keep'] : []), ...(ov(id).erase ? [ov(id).erase] : [])]) : null);
+  // 3. Nouveaux articles (les plus récents d'abord), puis couvertures à refaire, par groupes,
+  //    tant que le temps du passage le permet
+  const todo = found.filter((a) => !known.has(a.id)).sort((x, y) => y.id - x.id).slice(0, BATCH);
+  const needsRedo = (a) => a.photos?.length && !a.dupOf && !a.hidden && ((a.coverFor !== undefined && a.coverFor !== keyFor(a)) || (toClassify(a) && a.autoCat === undefined) || (isShoe(a) && ((a.sideRev || 0) !== SIDE_REV || (a.sidePick || null) !== sideKey(a.id))) || a.coverRev !== COVER_REV || (!a.cover && (a.rescueRev || 0) < RESCUE_REV) || (!a.cover && (a.coverTries || 0) < 3 && Date.now() - (Date.parse(a.coverTriedAt || 0) || 0) > 20 * 36e5) || (ov(a.id).cover || null) !== (a.coverPick || null) || (ov(a.id).kind || null) !== (a.kindPick || null) || JSON.stringify(ov(a.id).crop || null) !== JSON.stringify(a.cropPick || null));
+  const redoList = [...known.values()].filter(needsRedo).sort((x, y) => y.id - x.id).slice(0, RECOVER);
+  // Articles déjà en ligne dont les photos ont été recompressées : téléchargées de nouveau depuis le canal,
+  // puis couverture refaite à partir de ces originaux
+  const foundById = new Map(found.map((a) => [a.id, a]));
+  const refresh = [...known.values()].filter((a) => a.photoRev !== PHOTO_REV && foundById.get(a.id)?.photosRemote?.length).sort((x, y) => y.id - x.id);
+  const refreshIds = new Set(refresh.map((a) => a.id));
+  // post retiré du canal : ses photos ne peuvent plus être récupérées, on garde celles du site
+  const fullRead = known.size && minId(messages) <= Math.min(...known.keys()); // tout le canal a bien été lu
+  if (photosStale && fullRead) for (const [id, a] of known) if (a.photoRev !== PHOTO_REV && !foundById.has(id)) known.set(id, { ...a, photoRev: PHOTO_REV });
+  const work = [
+    ...todo.map((a) => ({ a, isNew: true })),
+    ...refresh.map((a) => ({ a: foundById.get(a.id), isNew: true, refresh: true })),
+    ...redoList.filter((a) => !refreshIds.has(a.id)).map((a) => ({ a, isNew: false })),
+  ];
+  let doneNew = 0;
+  // groupes plus petits pour les chaussures à refaire : le site est enregistré plus souvent
+  const groups = [];
+  for (let i = 0; i < work.length;) { const size = !work[i].isNew && isShoe(work[i].a) ? SHOE_CHUNK : CHUNK; groups.push([i, work.slice(i, i + size)]); i += size; }
+  for (const [g, group] of groups) {
+    if (Date.now() - t0 > BUDGET) { console.log('Temps du passage écoulé : la suite au prochain passage.'); break; }
+    const tmp = path.join(os.tmpdir(), `bestfinds-${process.pid}-${g}`);
+    await mkdir(tmp, { recursive: true });
+    const downloaded = [];
+    const items = [];
+    for (const { a, isNew, refresh: isRefresh } of group) {
+      const o = ov(a.id);
+      if (isNew) {
+        const { photos, sources } = await downloadPhotos(a, tmp);
+        if (!photos.length) { console.warn(`- ${a.id} ${a.title} : aucune photo récupérée, réessai au prochain passage`); continue; }
+        downloaded.push({ a, photos, refresh: !!isRefresh });
+        if (sources.length) items.push({ id: a.id, title: a.title, type: fixCat(a).type, classify: toClassify(a), inputs: sources, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, erase: o.erase || null });
+      } else {
+        const inputs = a.photos.slice(0, RANK_PHOTOS).map((p, i) => ({ n: i + 1, path: path.join(ROOT, p) })).filter((i) => existsSync(i.path));
+        if (inputs.length) items.push({ id: a.id, title: a.title, type: a.type || a.category, classify: toClassify(a) && a.autoCat === undefined, inputs, forced: o.cover || null, kind: o.kind || null, crop: o.crop || null, side: o.side ?? null, flip: o.flip ?? null, rotate: o.rotate || 0, keep: !!o.keep, erase: o.erase || null, redo: true });
+      }
+    }
+    console.log(`Choix des couvertures pour ${items.length} article(s) (groupe ${groups.findIndex((x) => x[0] === g) + 1}/${groups.length})…`);
+    const covers = makeCovers(items, tmp);
+    const place = async (id, art, redo = false) => {
+      const c = covers.get(id) || { n: 0, front: ov(id).cover || 1 };
+      const auto = c.autoCat !== undefined ? { autoCat: c.autoCat } : {};
+      const revs = { coverRev: COVER_REV, rescueRev: RESCUE_REV, coverPick: ov(id).cover || null, kindPick: ov(id).kind || null, cropPick: ov(id).crop || null, sideRev: SIDE_REV, sidePick: sideKey(id), ...auto, coverFor: keyFor(fixCat({ ...art, ...auto })) };
+      // couverture à refaire mais nouvel essai raté (détourage planté, trop long…) : l'ancienne couverture reste en place
+      if (redo && !c.n && art?.cover) { console.warn(`  ${id} : nouvelle couverture impossible, l'ancienne est gardée`); return { cover: art.cover, coverSm: art.coverSm, coverFrom: art.coverFrom, front: art.front ?? c.front, ...revs }; }
+      const dest = path.join(IMAGES, String(id), 'cover.webp');
+      const destSm = path.join(IMAGES, String(id), 'cover-sm.webp');
+      if (c.n) {
+        const buf = await readFile(c.file);
+        await writeFile(dest, buf);
+        // miniature légère pour les grilles du site (cartes, catégories, classement)
+        await writeFile(destSm, await sharp(buf).resize({ width: 480, kernel: 'lanczos3' }).webp({ quality: 86, alphaQuality: 90, smartSubsample: true }).toBuffer());
+      } else {
+        await rm(dest, { force: true });
+        await rm(destSm, { force: true });
+      }
+      // détourage raté : retenté au plus 3 fois, à un jour d'écart (un raté vient souvent d'un passage chargé), puis signalé
+      // par le contrôle qualité (audit.mjs)
+      const tries = c.n ? { coverTries: 0, coverTriedAt: null } : { coverTries: (art?.coverTries || 0) + 1, coverTriedAt: new Date().toISOString() };
+      return { cover: c.n ? `images/${id}/cover.webp` : null, coverSm: c.n ? `images/${id}/cover-sm.webp` : null, coverFrom: c.n || null, front: c.front, ...revs, ...tries };
+    };
+    for (const { a, photos, refresh: isRefresh } of downloaded) {
+      const { photosRemote, ...info } = a;
+      const prev = known.get(a.id) || {};
+      const c = await place(a.id, { ...prev, ...info, photos });
+      known.set(a.id, fixCat({ ...prev, ...info, photos, ...c, photoRev: PHOTO_REV, addedAt: prev.addedAt || new Date().toISOString() }));
+      if (isRefresh) { console.log(`↻ ${a.id} ${a.title} : photos d'origine récupérées (${photos.length}), couverture refaite`); continue; }
+      doneNew++;
+      console.log(`+ ${a.id} ${a.title} (${photos.length} photos, ${c.cover ? `détourée depuis la photo ${c.coverFrom}` : `photo ${c.front} d'origine en couverture`})`);
+    }
+    for (const it of items.filter((x) => x.redo)) {
+      const old = known.get(it.id);
+      const c = await place(it.id, old, true);
+      known.set(it.id, fixCat({ ...old, ...c }));
+      console.log(`~ ${it.id} ${old.title} : couverture refaite (${c.cover ? `photo ${c.coverFrom}` : `photo ${c.front} d'origine`})`);
+    }
+    await rm(tmp, { recursive: true, force: true });
+    await save(historyDone || found.every((a) => known.has(a.id)));
+  }
+  const remaining = found.filter((a) => !known.has(a.id)).length;
+  if (remaining > 0) console.log(`${remaining} article(s) restant(s), traités aux prochains passages`);
+  void doneNew;
+
+  // Doublons : un même lien LoveGoBuy posté plusieurs fois (article repartagé). Seul le post le plus récent est
+  // affiché ; les anciens restent en mémoire (dupOf = id du post gardé) pour ne pas être réimportés.
+  markDuplicates(known);
+  // Même modèle posté en version normale et en version « TOP quality » : seule la plus chère reste (prix relevés
+  // au passage précédent, data/prices.json ; un article indisponible chez le vendeur ne compte pas)
+  const priceItems = (await readJson(path.join(ROOT, 'data', 'prices.json'), {})).items || {};
+  const masked = markVersions(known, priceItems);
+  if (masked) console.log(`${masked} version(s) moins chère(s) d'un même modèle masquée(s)`);
+
+  // 4. Enregistrer (les vues seules ne déclenchent pas de mise à jour du site)
+  const historyComplete = historyDone || remaining === 0;
+  const kept = [...known.values()].map(({ price, ...a }) => a).sort((x, y) => y.id - x.id);
+  const noViews = (list) => JSON.stringify(list.map(({ views, ...rest }) => rest));
+  if (noViews(kept) === noViews(existing.articles) && historyComplete === existing.historyComplete && sweptAt === (existing.sweptAt || null)) {
+    console.log('Rien de nouveau.');
+    return;
+  }
+  await save(historyComplete);
+
+  // Avatar et nom du canal
+  if (channel.avatar && !existsSync(path.join(IMAGES, 'avatar.webp'))) {
+    try {
+      await mkdir(IMAGES, { recursive: true });
+      await sharp(await get(channel.avatar, 'buffer')).resize(256, 256).webp().toFile(path.join(IMAGES, 'avatar.webp'));
+    } catch (e) { console.warn('avatar ignoré :', e.message); }
+  }
+  const ch = await readJson(CHANNEL_FILE, {});
+  await writeFile(CHANNEL_FILE, JSON.stringify({ ...ch, title: channel.title, subscribers: channel.subscribers, username: CHANNEL }, null, 1));
+  console.log(`Site mis à jour : ${kept.length} articles${historyComplete ? '' : ' (historique en cours)'}.`);
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

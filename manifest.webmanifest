@@ -1,0 +1,28 @@
+{
+  "name": "Vytoxx Finds",
+  "short_name": "Vytoxx Finds",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#2e3236",
+  "theme_color": "#efece5",
+  "icons": [
+    {
+      "src": "assets/img/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/app-icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

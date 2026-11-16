@@ -1,0 +1,27 @@
+{
+ "checkedAt": "2026-11-14T16:59:54.590Z",
+ "ok": false,
+ "counts": {
+  "articles": 272,
+  "auto": 0,
+  "voir": 2
+ },
+ "issues": [
+  {
+   "id": 5746,
+   "title": "Bague Hermès Kelly Ring",
+   "type": "photo",
+   "text": "détourage impossible, photo d’origine affichée",
+   "level": "voir",
+   "since": "2026-11-14T16:59:54.557Z"
+  },
+  {
+   "id": 4842,
+   "title": "Bracelet Vintage Alhambra 5 motifs TOP",
+   "type": "photo",
+   "text": "détourage impossible, photo d’origine affichée",
+   "level": "voir",
+   "since": "2026-11-13T18:12:15.969Z"
+  }
+ ]
+}

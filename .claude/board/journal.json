@@ -1,0 +1,14 @@
+[
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Contrôle du board (six agents et commande /board)", "verdict": "NO-GO", "minutes": 1},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Recontrôle du board après corrections", "verdict": "NO-GO", "minutes": 1},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Carte des agents, version 1", "verdict": "NO-GO", "minutes": 6},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Carte des agents, version 2 (style de la vidéo)", "verdict": "NO-GO", "minutes": 2},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Carte des agents, version 3 (tout visible à l'ouverture)", "verdict": "NO-GO", "minutes": 3},
+  {"date": "2026-11-16", "agent": "moneymaker", "objet": "Board : quoi améliorer sur le site (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Board : quoi améliorer sur le site (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "stratege", "objet": "Board : quoi améliorer sur le site (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "cmo", "objet": "Board : quoi améliorer sur le site (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "avocat-du-diable", "objet": "Board : quoi améliorer sur le site (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "cto", "objet": "Board : quoi améliorer sur le site (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Carte des agents version 6 et journal des passages", "verdict": "GO", "minutes": 2}
+]

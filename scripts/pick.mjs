@@ -1,0 +1,179 @@
+// Choix de la photo de couverture : à partir du titre de l'article, on décrit en anglais ce que doit montrer
+// la bonne photo (« une gourde, le produit lui-même bien visible »), et ce qu'elle ne doit PAS montrer
+// (emballage, étiquette, dos du vêtement, semelle…). Un modèle de reconnaissance d'images (CLIP) note ensuite
+// chaque photo : la mieux notée devient la couverture.
+// Fonctions pures, partagées par le robot (scripts/rank-worker.mjs et scripts/scrape.mjs).
+
+const fold = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+// [motif dans le titre, objet en anglais, famille] — le mot trouvé le plus tôt dans le titre l'emporte
+// (« Veste … Windrunner » est une veste, « Veste … avec lunettes » aussi)
+const RULES = [
+  [/gourde|tumbler|quencher|bouteille/, 'a water bottle', 'acc'],
+  [/bracelet/, 'a bracelet', 'acc'],
+  [/bague|serpenti/, 'a ring', 'acc'],
+  [/collier|necklace|alhambra/, 'a necklace', 'acc'],
+  [/montre|watch|chrono|rolex/, 'a wristwatch', 'acc'],
+  [/bonnet|beanie/, 'a beanie hat', 'acc'],
+  [/echarpe|scarf/, 'a scarf', 'acc'],
+  [/casquette|\bcaps?\b|\bhat\b/, 'a baseball cap', 'acc'],
+  [/lunettes|glasses/, 'sunglasses', 'acc'],
+  [/ceinture|belt/, 'a belt', 'acc'],
+  [/porte-?cartes|wallet|portefeuille|carte/, 'a card holder wallet', 'acc'],
+  [/\bsacs?\b|\bbag|bowling|cisalpin|sprayground/, 'a bag', 'acc'],
+  [/chaussettes|socks/, 'socks', 'acc'],
+  [/coque/, 'a phone case', 'acc'],
+  [/airpods max|casque(?!tte)/, 'over-ear headphones', 'acc'],
+  [/airpods|ecouteur/, 'wireless earbuds', 'acc'],
+  [/enceinte|jbl|boombox/, 'a bluetooth speaker', 'acc'],
+  [/seche-cheveux|dyson|supersonic/, 'a hair dryer', 'acc'],
+  [/mocassin/, 'loafers', 'shoe'],
+  [/sandale/, 'sandals', 'shoe'],
+  [/mules|claquette|slide|sabot|crocs|birkenstock/, 'slides', 'shoe'],
+  [/escarpin/, 'high heel shoes', 'shoe'],
+  [/boots?\b|botte/, 'boots', 'shoe'],
+  [/chaussure|sneaker|basket|shoes?\b|\btn\b|air max|air force|jordan|dunk|9060|1906|shox|p6000|runner|trainer|cloud|gel-|kayano|xt-6|saucony|yeezy|dior b\d|golden goose|mizuno|asics|numeris/, 'a pair of sneakers', 'shoe'],
+  [/ensemble|survetement|tracksuit|\bsets?\b|hooded and pant/, 'a tracksuit set with jacket and pants', 'wear'],
+  [/short/, 'shorts', 'wear'],
+  [/jean/, 'jeans', 'wear'],
+  [/pantalon|pants?\b|jogging|jogger|legging|cargo|calecon/, 'pants', 'wear'],
+  [/doudoune|pjs|puffer|parka|macmillan/, 'a puffer jacket', 'wear'],
+  [/gilet/, 'a vest', 'wear'],
+  [/veste|jacket|coupe[\s-]?vent|windrunner|blouson|manteau/, 'a jacket', 'wear'],
+  [/hoodie|capuche|\bhood\b|sweat|tech fleece|nike tech/, 'a hoodie', 'wear'],
+  [/pull|cardigan|crewneck/, 'a sweater', 'wear'],
+  [/maillot/, 'a football jersey', 'wear'],
+  [/polo\b/, 'a polo shirt', 'wear'],
+  [/t-?shirt|\btee\b/, 'a t-shirt', 'wear'],
+  [/chemise|shirt/, 'a shirt', 'wear'],
+];
+const BY_TYPE = {
+  Doudounes: ['a puffer jacket', 'wear'], Vestes: ['a jacket', 'wear'], Sweats: ['a hoodie', 'wear'], Hauts: ['a t-shirt', 'wear'],
+  Bas: ['pants', 'wear'], Ensembles: ['a clothing set', 'wear'], Chaussures: ['a pair of sneakers', 'shoe'], Accessoires: ['an accessory', 'acc'],
+};
+
+/** Ce que représente l'article : { noun: objet en anglais, kind: 'wear' | 'shoe' | 'acc' } */
+export function nounFor(title, type) {
+  // « Sweet Pants » est une marque (casquettes), pas un pantalon
+  const t = fold(title).replace(/sweet pants/g, ' ');
+  // l'article est lui-même une boîte (ex. « Rolex Watch Box ») : la boîte est le produit, on ne la retire pas
+  if (/watch box|boite a montre|coffret/.test(t)) return { noun: 'a watch presentation box', kind: 'acc', box: true };
+  let best = null;
+  for (const [re, noun, kind] of RULES) {
+    const m = re.exec(t);
+    if (m && (!best || m.index < best.index)) best = { index: m.index, noun, kind };
+  }
+  if (best) return { noun: best.noun, kind: best.kind };
+  const [noun, kind] = BY_TYPE[type] || ['a product', 'acc'];
+  return { noun, kind };
+}
+
+/** Descriptions proposées au modèle : la première est la bonne photo, les autres sont à éviter. */
+export function labelsFor({ noun, kind }) {
+  const pos = kind === 'shoe' ? `a photo of ${noun}, the whole pair of shoes clearly visible on a table`
+    : kind === 'wear' ? `a photo of ${noun} laid flat, the whole garment seen from the front`
+    : `a photo of ${noun}, the product itself clearly visible`;
+  const neg = ['a cardboard box or product packaging', 'a close-up of a label, tag or barcode', 'a paper shopping bag', 'a measuring ruler'];
+  if (kind === 'wear') neg.push(`the back of ${noun}`, `a folded ${noun}`, 'a close-up of fabric or stitching detail');
+  if (kind === 'shoe') neg.push('shoes inside an open shoe box', 'the sole of a shoe seen from below', 'the inside of a shoe');
+  if (kind === 'acc') neg.push('a close-up of fabric or stitching detail');
+  return [pos, ...neg];
+}
+
+/**
+ * Ordre d'essai des photos pour la couverture, de la plus pertinente à la moins pertinente.
+ * scores[i] = note (0 à 1) de la photo i+1.
+ * - Vêtements : sur le canal, la photo 1 est la face, la 2 le dos, les suivantes d'autres vues ou des détails.
+ *   On suit cet ordre (1, 3, 4, 5…), jamais la 2, en écartant les photos que le modèle juge hors sujet
+ *   (étiquette, gros plan du tissu, emballage).
+ * - Chaussures et accessoires : la photo la mieux notée d'abord (le produit lui-même, pas sa boîte),
+ *   avec une légère préférence pour la photo 1 à note quasi égale.
+ */
+// Chaussures : sur le canal, la photo 1 montre presque toujours l'arrière (talons) et la photo 2 l'avant.
+// Le modèle compare les deux ; on ne garde la photo 1 que s'il y voit nettement mieux l'avant.
+export const SHOE_FRONT = ['shoes viewed from the front with laces and tongue visible', 'shoes viewed from the back with heel tabs visible'];
+export const shoeFront = (front1, front2) => (front1 - front2 >= 0.1 ? 1 : 2);
+
+export function candidateOrder(scores, kind, front = null) {
+  const max = Math.max(0, ...scores);
+  if (kind === 'shoe' && front && scores[front - 1] >= max * 0.45) {
+    const other = front === 1 ? 2 : 1;
+    const rest = scores.map((s, i) => ({ n: i + 1, s })).filter((c) => c.n !== front && c.n !== other && c.s >= max * 0.5).sort((a, b) => b.s - a.s);
+    return [front, other, ...rest.map((c) => c.n)].filter((n) => n <= scores.length);
+  }
+  if (kind === 'wear') {
+    const base = scores.map((s, i) => ({ n: i + 1, s })).filter((c) => c.n !== 2);
+    // seules les photos nettement hors sujet sont écartées (étiquette, gros plan : note très basse)
+    const ok = base.filter((c) => c.s >= Math.min(0.1, max * 0.3));
+    return (ok.length ? ok : base).map((c) => c.n);
+  }
+  return scores
+    .map((s, i) => ({ n: i + 1, s: s + (i === 0 ? 0.04 : 0) }))
+    .filter((c) => c.s >= Math.min(0.15, max * 0.5))
+    .sort((a, b) => b.s - a.s)
+    .map((c) => c.n);
+}
+
+// Catégorie devinée d'après les photos, quand le titre ne contient aucun mot de catégorie (« Maison Margiela »,
+// « Canada Goose ») : [description proposée au modèle, type d'article]. Essai sur les 266 articles du site
+// (novembre 2026) : famille (chaussure / vêtement / accessoire) juste 219 fois sur 220 au seuil retenu ;
+// chaussures 64/64, hauts 95/110 (les erreurs sont des ensembles), accessoires 33/35.
+// Le modèle confond pantalons et ensembles : ces réponses-là ne sont pas retenues.
+export const CAT_LABELS = [
+  ['a photo of a pair of sneakers', 'Chaussures'], ['a photo of shoes', 'Chaussures'], ['a photo of boots', 'Chaussures'], ['a photo of sandals or slides', 'Chaussures'],
+  ['a photo of a jacket', 'Vestes'], ['a photo of a puffer jacket', 'Vestes'], ['a photo of a vest', 'Vestes'],
+  ['a photo of a hoodie', 'Sweats'], ['a photo of a sweater', 'Sweats'],
+  ['a photo of a t-shirt', 'Hauts'], ['a photo of a shirt', 'Hauts'], ['a photo of a polo shirt', 'Hauts'], ['a photo of a football jersey', 'Hauts'],
+  ['a photo of pants', 'Bas'], ['a photo of shorts', 'Bas'], ['a photo of jeans', 'Bas'], ['a photo of sweatpants or joggers', 'Bas'],
+  ['a photo of a tracksuit, a matching jacket and pants', 'Ensembles'], ['a photo of a matching hoodie and sweatpants set', 'Ensembles'],
+  ['a photo of a bag', 'Accessoires'], ['a photo of a wristwatch', 'Accessoires'], ['a photo of jewelry', 'Accessoires'], ['a photo of a cap or a hat', 'Accessoires'],
+  ['a photo of a beanie or a scarf', 'Accessoires'], ['a photo of a belt', 'Accessoires'], ['a photo of sunglasses', 'Accessoires'], ['a photo of a wallet', 'Accessoires'],
+  ['a photo of socks', 'Accessoires'], ['a photo of a water bottle', 'Accessoires'], ['a photo of gloves', 'Accessoires'],
+  ['a photo of headphones or earbuds', 'Électronique'], ['a photo of an electronic device', 'Électronique'],
+];
+const SITE_CAT = { Vestes: 'Hauts', Sweats: 'Hauts' };
+
+/**
+ * Tenue complète, haut ou bas ? per = une entrée par photo du post (toutes les photos) : { description: probabilité }.
+ * Chaque photo est classée haut (veste, sweat, t-shirt…), bas (pantalon, short…) ou ensemble si le modèle est net.
+ * Ensemble : au moins une photo d'ensemble, ou des hauts ET des bas ; Bas : au moins deux photos de bas et aucun haut ;
+ * Hauts : au moins deux photos de haut et aucun bas. Sinon null (le mot du titre décide).
+ */
+export function guessOutfit(per) {
+  if (!per?.length) return null;
+  let tops = 0, bottoms = 0, sets = 0;
+  for (const r of per) {
+    const g = { top: 0, bottom: 0, set: 0 };
+    for (const [label, type] of CAT_LABELS) {
+      const k = ['Vestes', 'Sweats', 'Hauts'].includes(type) ? 'top' : type === 'Bas' ? 'bottom' : type === 'Ensembles' ? 'set' : null;
+      if (k) g[k] += r[label] || 0;
+    }
+    if (g.set >= 0.5) sets++;
+    else if (g.top >= 0.5 && g.top >= 2 * g.bottom) tops++;
+    else if (g.bottom >= 0.5 && g.bottom >= 2 * g.top) bottoms++;
+  }
+  if (sets || (tops && bottoms)) return 'Ensembles';
+  if (bottoms >= 2 && !tops) return 'Bas';
+  if (tops >= 2 && !bottoms) return 'Hauts';
+  return null;
+}
+const TRUSTED = new Set(['Chaussures', 'Hauts', 'Accessoires', 'Électronique']);
+
+/**
+ * per = une entrée par photo (photos 1 à 4) : { description: probabilité }.
+ * Renvoie { type, share, margin } (type précis : Chaussures, Vestes, Sweats, Hauts, Accessoires, Électronique)
+ * ou null si le modèle hésite (moins de 50 %, ou moins de 15 points d'avance sur la 2e catégorie).
+ */
+export function guessCategory(per, { min = 0.5, margin = 0.15 } = {}) {
+  if (!per?.length) return null;
+  const site = {}, fine = {};
+  for (const r of per) for (const [label, type] of CAT_LABELS) {
+    const v = (r[label] || 0) / per.length;
+    site[SITE_CAT[type] || type] = (site[SITE_CAT[type] || type] || 0) + v;
+    fine[type] = (fine[type] || 0) + v;
+  }
+  const [first, second = [null, 0]] = Object.entries(site).sort((x, y) => y[1] - x[1]);
+  if (first[1] < min || first[1] - second[1] < margin || !TRUSTED.has(first[0])) return null;
+  const type = Object.entries(fine).filter(([t]) => (SITE_CAT[t] || t) === first[0]).sort((x, y) => y[1] - x[1])[0][0];
+  return { type, share: Math.round(first[1] * 100) / 100, margin: Math.round((first[1] - second[1]) * 100) / 100 };
+}
