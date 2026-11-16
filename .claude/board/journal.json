@@ -18,5 +18,11 @@
   {"date": "2026-11-16", "agent": "cmo", "objet": "Board n° 2 : premier chantier du site, avec les chiffres du tracker (deux tours)", "verdict": "", "minutes": 1},
   {"date": "2026-11-16", "agent": "avocat-du-diable", "objet": "Board n° 2 : premier chantier du site, avec les chiffres du tracker (deux tours)", "verdict": "", "minutes": 1},
   {"date": "2026-11-16", "agent": "cto", "objet": "Board n° 2 : premier chantier du site, avec les chiffres du tracker (deux tours)", "verdict": "", "minutes": 1},
-  {"date": "2026-11-16", "agent": "hocs", "objet": "Nouvel accueil : Top du moment et dernières arrivées sous la carte", "verdict": "GO"}
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Nouvel accueil : Top du moment et dernières arrivées sous la carte", "verdict": "GO"},
+  {"date": "2026-11-16", "agent": "moneymaker", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "stratege", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "cmo", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "avocat-du-diable", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
+  {"date": "2026-11-16", "agent": "cto", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1}
 ]
