@@ -1,9 +1,144 @@
 {
- "updatedAt": "2026-11-16T09:41:08.255Z",
+ "updatedAt": "2026-11-16T17:04:35.336Z",
  "channel": "lovegobuy_france",
  "historyComplete": true,
- "sweptAt": "2026-11-16T09:41:08.228Z",
+ "sweptAt": "2026-11-16T17:03:09.054Z",
  "articles": [
+  {
+   "id": 5792,
+   "title": "Pull Saint-Laurent Script",
+   "brand": null,
+   "category": "Hauts",
+   "type": "Sweats",
+   "weight": {
+    "min": 728,
+    "max": null
+   },
+   "extra": null,
+   "description": "Pull Saint-Laurent Script : un sweat sélectionné sur le canal. Les 6 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 728 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7903755630&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7903755630",
+   "date": "2026-11-16T15:53:52+00:00",
+   "views": "50",
+   "telegram": "https://t.me/lovegobuy_france/5792",
+   "photos": [
+    "images/5792/1.jpg",
+    "images/5792/2.jpg",
+    "images/5792/3.jpg",
+    "images/5792/4.jpg",
+    "images/5792/5.jpg",
+    "images/5792/6.jpg"
+   ],
+   "cover": "images/5792/cover.webp",
+   "coverSm": "images/5792/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 2,
+   "sidePick": null,
+   "coverFor": "wear:a sweater",
+   "coverTries": 0,
+   "coverTriedAt": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-16T17:04:35.173Z"
+  },
+  {
+   "id": 5783,
+   "title": "Veste Arc'teryx Covert Hoody",
+   "brand": "Arc'teryx",
+   "category": "Hauts",
+   "type": "Vestes",
+   "weight": {
+    "min": 846,
+    "max": null
+   },
+   "extra": null,
+   "description": "Veste Arc'teryx Covert Hoody : une veste sélectionnée sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 846 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7903725688&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7903725688",
+   "date": "2026-11-16T15:53:49+00:00",
+   "views": "51",
+   "telegram": "https://t.me/lovegobuy_france/5783",
+   "photos": [
+    "images/5783/1.jpg",
+    "images/5783/2.jpg",
+    "images/5783/3.jpg",
+    "images/5783/4.jpg",
+    "images/5783/5.jpg",
+    "images/5783/6.jpg",
+    "images/5783/7.jpg",
+    "images/5783/8.jpg",
+    "images/5783/9.jpg"
+   ],
+   "cover": "images/5783/cover.webp",
+   "coverSm": "images/5783/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 2,
+   "sidePick": null,
+   "coverFor": "wear:a jacket",
+   "coverTries": 0,
+   "coverTriedAt": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-16T17:04:35.255Z"
+  },
+  {
+   "id": 5774,
+   "title": "Veste Nike Brazil Anthem Jacket",
+   "brand": "Nike",
+   "category": "Hauts",
+   "type": "Vestes",
+   "weight": {
+    "min": 346,
+    "max": null
+   },
+   "extra": null,
+   "description": "Veste Nike Brazil Anthem Jacket : une veste sélectionnée sur le canal. Les 9 photos sont les photos exactes de cet article, prises par l'équipe Vytoxx : étiquettes et détails compris. Poids affiché : 346 g. Il permet d'estimer le prix de la livraison. Ce prix de livraison peut être diminué grâce aux 500 € de coupons offerts à l'inscription sur LoveGoBuy. Le prix, les tailles, les coloris et la disponibilité sont affichés directement sur la page LoveGoBuy.",
+   "link": "https://www.lovegobuy.com/product?shop_type=weidian&id=7903631586&invite_code=V4LTTW",
+   "shop": "weidian",
+   "productId": "7903631586",
+   "date": "2026-11-16T15:53:42+00:00",
+   "views": "52",
+   "telegram": "https://t.me/lovegobuy_france/5774",
+   "photos": [
+    "images/5774/1.jpg",
+    "images/5774/2.jpg",
+    "images/5774/3.jpg",
+    "images/5774/4.jpg",
+    "images/5774/5.jpg",
+    "images/5774/6.jpg",
+    "images/5774/7.jpg",
+    "images/5774/8.jpg",
+    "images/5774/9.jpg"
+   ],
+   "cover": "images/5774/cover.webp",
+   "coverSm": "images/5774/cover-sm.webp",
+   "coverFrom": 1,
+   "front": 1,
+   "coverRev": 5,
+   "rescueRev": 1,
+   "coverPick": null,
+   "kindPick": null,
+   "cropPick": null,
+   "sideRev": 2,
+   "sidePick": null,
+   "coverFor": "wear:a jacket",
+   "coverTries": 0,
+   "coverTriedAt": null,
+   "photoRev": 2,
+   "addedAt": "2026-11-16T17:04:35.324Z"
+  },
   {
    "id": 5765,
    "title": "Doudoune Parajumpers Pjs",
@@ -20,7 +155,7 @@
    "shop": "weidian",
    "productId": "7835099424",
    "date": "2026-11-14T10:44:48+00:00",
-   "views": "584",
+   "views": "637",
    "telegram": "https://t.me/lovegobuy_france/5765",
    "photos": [
     "images/5765/1.jpg",
@@ -66,7 +201,7 @@
    "shop": "weidian",
    "productId": "7898076013",
    "date": "2026-11-14T10:44:41+00:00",
-   "views": "547",
+   "views": "596",
    "telegram": "https://t.me/lovegobuy_france/5760",
    "photos": [
     "images/5760/1.jpg",
@@ -109,7 +244,7 @@
    "shop": "weidian",
    "productId": "7900982902",
    "date": "2026-11-14T10:44:38+00:00",
-   "views": "493",
+   "views": "539",
    "telegram": "https://t.me/lovegobuy_france/5753",
    "photos": [
     "images/5753/1.jpg",
@@ -153,7 +288,7 @@
    "shop": "weidian",
    "productId": "7899660700",
    "date": "2026-11-12T08:19:52+00:00",
-   "views": "777",
+   "views": "810",
    "telegram": "https://t.me/lovegobuy_france/5746",
    "photos": [
     "images/5746/1.jpg",
@@ -195,7 +330,7 @@
    "shop": "weidian",
    "productId": "7898214460",
    "date": "2026-11-12T08:19:46+00:00",
-   "views": "775",
+   "views": "810",
    "telegram": "https://t.me/lovegobuy_france/5740",
    "photos": [
     "images/5740/1.jpg",
@@ -238,7 +373,7 @@
    "shop": "weidian",
    "productId": "7899820972",
    "date": "2026-11-12T08:19:40+00:00",
-   "views": "672",
+   "views": "706",
    "telegram": "https://t.me/lovegobuy_france/5732",
    "photos": [
     "images/5732/1.jpg",
@@ -279,7 +414,7 @@
    "shop": "weidian",
    "productId": "7804436165",
    "date": "2026-11-10T16:54:03+00:00",
-   "views": "891",
+   "views": "922",
    "telegram": "https://t.me/lovegobuy_france/5724",
    "photos": [
     "images/5724/1.jpg",
@@ -322,7 +457,7 @@
    "shop": "weidian",
    "productId": "7898220462",
    "date": "2026-11-10T16:53:50+00:00",
-   "views": "860",
+   "views": "887",
    "telegram": "https://t.me/lovegobuy_france/5718",
    "photos": [
     "images/5718/1.jpg",
@@ -363,7 +498,7 @@
    "shop": "weidian",
    "productId": "7898224494",
    "date": "2026-11-10T16:53:42+00:00",
-   "views": "749",
+   "views": "775",
    "telegram": "https://t.me/lovegobuy_france/5710",
    "photos": [
     "images/5710/1.jpg",
@@ -406,7 +541,7 @@
    "shop": "weidian",
    "productId": "7895246067",
    "date": "2026-11-10T16:53:36+00:00",
-   "views": "727",
+   "views": "753",
    "telegram": "https://t.me/lovegobuy_france/5705",
    "photos": [
     "images/5705/1.jpg",
@@ -446,7 +581,7 @@
    "shop": "weidian",
    "productId": "7895188429",
    "date": "2026-11-10T16:53:33+00:00",
-   "views": "774",
+   "views": "798",
    "telegram": "https://t.me/lovegobuy_france/5696",
    "photos": [
     "images/5696/1.jpg",
@@ -490,7 +625,7 @@
    "shop": "weidian",
    "productId": "7894053149",
    "date": "2026-11-09T15:53:31+00:00",
-   "views": "918",
+   "views": "947",
    "telegram": "https://t.me/lovegobuy_france/5688",
    "photos": [
     "images/5688/1.jpg",
@@ -540,7 +675,7 @@
    "shop": "weidian",
    "productId": "7893981535",
    "date": "2026-11-09T15:53:21+00:00",
-   "views": "892",
+   "views": "923",
    "telegram": "https://t.me/lovegobuy_france/5679",
    "photos": [
     "images/5679/1.jpg",
@@ -586,7 +721,7 @@
    "shop": "weidian",
    "productId": "7897095198",
    "date": "2026-11-09T15:53:12+00:00",
-   "views": "913",
+   "views": "937",
    "telegram": "https://t.me/lovegobuy_france/5671",
    "photos": [
     "images/5671/1.jpg",
@@ -631,7 +766,7 @@
    "shop": "weidian",
    "productId": "7853826318",
    "date": "2026-11-07T18:22:28+00:00",
-   "views": "1.07K",
+   "views": "1.09K",
    "telegram": "https://t.me/lovegobuy_france/5638",
    "photos": [
     "images/5638/1.jpg",
@@ -674,7 +809,7 @@
    "shop": "weidian",
    "productId": "7892399983",
    "date": "2026-11-06T20:07:07+00:00",
-   "views": "1.1K",
+   "views": "1.12K",
    "telegram": "https://t.me/lovegobuy_france/5624",
    "photos": [
     "images/5624/1.jpg",
@@ -715,7 +850,7 @@
    "shop": "weidian",
    "productId": "7823989426",
    "date": "2026-11-06T20:07:02+00:00",
-   "views": "944",
+   "views": "960",
    "telegram": "https://t.me/lovegobuy_france/5616",
    "photos": [
     "images/5616/1.jpg",
@@ -758,7 +893,7 @@
    "shop": "weidian",
    "productId": "7892340285",
    "date": "2026-11-06T20:06:57+00:00",
-   "views": "997",
+   "views": "1.02K",
    "telegram": "https://t.me/lovegobuy_france/5608",
    "photos": [
     "images/5608/1.jpg",
@@ -801,7 +936,7 @@
    "shop": "weidian",
    "productId": "7893771468",
    "date": "2026-11-05T15:06:15+00:00",
-   "views": "1.13K",
+   "views": "1.14K",
    "telegram": "https://t.me/lovegobuy_france/5600",
    "photos": [
     "images/5600/1.jpg",
@@ -844,7 +979,7 @@
    "shop": "weidian",
    "productId": "7893894604",
    "date": "2026-11-05T14:41:42+00:00",
-   "views": "1.07K",
+   "views": "1.08K",
    "telegram": "https://t.me/lovegobuy_france/5594",
    "photos": [
     "images/5594/1.jpg",
@@ -890,7 +1025,7 @@
    "shop": "weidian",
    "productId": "7893800886",
    "date": "2026-11-05T14:41:39+00:00",
-   "views": "1.07K",
+   "views": "1.08K",
    "telegram": "https://t.me/lovegobuy_france/5585",
    "photos": [
     "images/5585/1.jpg",
@@ -934,7 +1069,7 @@
    "shop": "weidian",
    "productId": "7889773971",
    "date": "2026-11-04T10:14:13+00:00",
-   "views": "1.27K",
+   "views": "1.28K",
    "telegram": "https://t.me/lovegobuy_france/5570",
    "photos": [
     "images/5570/1.jpg",
@@ -1069,7 +1204,7 @@
    "shop": "weidian",
    "productId": "7886818003",
    "date": "2026-11-02T07:41:58+00:00",
-   "views": "1.3K",
+   "views": "1.31K",
    "telegram": "https://t.me/lovegobuy_france/5545",
    "photos": [
     "images/5545/1.jpg",
@@ -1113,7 +1248,7 @@
    "shop": "weidian",
    "productId": "7889858094",
    "date": "2026-11-02T07:41:50+00:00",
-   "views": "1.26K",
+   "views": "1.28K",
    "telegram": "https://t.me/lovegobuy_france/5538",
    "photos": [
     "images/5538/1.jpg",
@@ -1153,7 +1288,7 @@
    "shop": "weidian",
    "productId": "7886875901",
    "date": "2026-11-02T07:41:44+00:00",
-   "views": "1.16K",
+   "views": "1.18K",
    "telegram": "https://t.me/lovegobuy_france/5532",
    "photos": [
     "images/5532/1.jpg",
@@ -1192,7 +1327,7 @@
    "shop": "weidian",
    "productId": "7889868086",
    "date": "2026-11-02T07:41:40+00:00",
-   "views": "1.25K",
+   "views": "1.27K",
    "telegram": "https://t.me/lovegobuy_france/5526",
    "photos": [
     "images/5526/1.jpg",
@@ -1230,7 +1365,7 @@
    "shop": "weidian",
    "productId": "7888472404",
    "date": "2026-10-30T09:44:51+00:00",
-   "views": "1.75K",
+   "views": "1.76K",
    "telegram": "https://t.me/lovegobuy_france/5510",
    "photos": [
     "images/5510/1.jpg",
@@ -1272,7 +1407,7 @@
    "shop": "weidian",
    "productId": "7888541940",
    "date": "2026-10-30T09:42:31+00:00",
-   "views": "1.44K",
+   "views": "1.45K",
    "telegram": "https://t.me/lovegobuy_france/5502",
    "photos": [
     "images/5502/1.jpg",
@@ -1313,7 +1448,7 @@
    "shop": "weidian",
    "productId": "7888478042",
    "date": "2026-10-30T09:42:25+00:00",
-   "views": "1.33K",
+   "views": "1.34K",
    "telegram": "https://t.me/lovegobuy_france/5496",
    "photos": [
     "images/5496/1.jpg",
@@ -1352,7 +1487,7 @@
    "shop": "weidian",
    "productId": "7881190429",
    "date": "2026-10-29T15:36:02+00:00",
-   "views": "1.32K",
+   "views": "1.34K",
    "telegram": "https://t.me/lovegobuy_france/5484",
    "photos": [
     "images/5484/1.jpg",
@@ -1396,7 +1531,7 @@
    "shop": "weidian",
    "productId": "7881162669",
    "date": "2026-10-29T15:35:58+00:00",
-   "views": "1.26K",
+   "views": "1.27K",
    "telegram": "https://t.me/lovegobuy_france/5475",
    "photos": [
     "images/5475/1.jpg",
@@ -1442,7 +1577,7 @@
    "shop": "weidian",
    "productId": "7884228082",
    "date": "2026-10-29T15:35:50+00:00",
-   "views": "1.34K",
+   "views": "1.35K",
    "telegram": "https://t.me/lovegobuy_france/5467",
    "photos": [
     "images/5467/1.jpg",
@@ -1486,7 +1621,7 @@
    "shop": "weidian",
    "productId": "7880297647",
    "date": "2026-10-26T16:53:45+00:00",
-   "views": "1.43K",
+   "views": "1.44K",
    "telegram": "https://t.me/lovegobuy_france/5452",
    "photos": [
     "images/5452/1.jpg",
@@ -1525,7 +1660,7 @@
    "shop": "weidian",
    "productId": "7880177385",
    "date": "2026-10-26T16:53:40+00:00",
-   "views": "1.39K",
+   "views": "1.4K",
    "telegram": "https://t.me/lovegobuy_france/5445",
    "photos": [
     "images/5445/1.jpg",
@@ -1565,7 +1700,7 @@
    "shop": "weidian",
    "productId": "7883242742",
    "date": "2026-10-26T16:53:35+00:00",
-   "views": "1.39K",
+   "views": "1.4K",
    "telegram": "https://t.me/lovegobuy_france/5439",
    "photos": [
     "images/5439/1.jpg",
@@ -1604,7 +1739,7 @@
    "shop": "weidian",
    "productId": "7821172371",
    "date": "2026-10-25T09:14:36+00:00",
-   "views": "1.58K",
+   "views": "1.59K",
    "telegram": "https://t.me/lovegobuy_france/5427",
    "photos": [
     "images/5427/1.jpg",
@@ -1646,7 +1781,7 @@
    "shop": "weidian",
    "productId": "7882813930",
    "date": "2026-10-25T09:14:25+00:00",
-   "views": "1.46K",
+   "views": "1.47K",
    "telegram": "https://t.me/lovegobuy_france/5418",
    "photos": [
     "images/5418/1.jpg",
@@ -1730,7 +1865,7 @@
    "shop": "weidian",
    "productId": "7881923624",
    "date": "2026-10-23T18:30:42+00:00",
-   "views": "1.52K",
+   "views": "1.53K",
    "telegram": "https://t.me/lovegobuy_france/5397",
    "photos": [
     "images/5397/1.jpg",
@@ -1814,7 +1949,7 @@
    "shop": "weidian",
    "productId": "7878809217",
    "date": "2026-10-23T18:30:29+00:00",
-   "views": "1.44K",
+   "views": "1.45K",
    "telegram": "https://t.me/lovegobuy_france/5382",
    "photos": [
     "images/5382/1.jpg",
@@ -1895,7 +2030,7 @@
    "shop": "weidian",
    "productId": "7881035790",
    "date": "2026-10-22T16:01:56+00:00",
-   "views": "1.41K",
+   "views": "1.42K",
    "telegram": "https://t.me/lovegobuy_france/5358",
    "photos": [
     "images/5358/1.jpg",
@@ -1934,7 +2069,7 @@
    "shop": "weidian",
    "productId": "7880978460",
    "date": "2026-10-22T16:01:51+00:00",
-   "views": "1.33K",
+   "views": "1.34K",
    "telegram": "https://t.me/lovegobuy_france/5350",
    "photos": [
     "images/5350/1.jpg",
@@ -1975,7 +2110,7 @@
    "shop": "weidian",
    "productId": "7877136623",
    "date": "2026-10-22T16:01:45+00:00",
-   "views": "1.43K",
+   "views": "1.44K",
    "telegram": "https://t.me/lovegobuy_france/5345",
    "photos": [
     "images/5345/1.jpg",
@@ -2054,7 +2189,7 @@
    "shop": "weidian",
    "productId": "7853844989",
    "date": "2026-10-21T12:05:41+00:00",
-   "views": "1.37K",
+   "views": "1.38K",
    "telegram": "https://t.me/lovegobuy_france/5326",
    "photos": [
     "images/5326/1.jpg",
@@ -2135,7 +2270,7 @@
    "shop": "weidian",
    "productId": "7880245910",
    "date": "2026-10-21T12:05:31+00:00",
-   "views": "1.41K",
+   "views": "1.42K",
    "telegram": "https://t.me/lovegobuy_france/5311",
    "photos": [
     "images/5311/1.jpg",
@@ -2295,7 +2430,7 @@
    "shop": "weidian",
    "productId": "7858652050",
    "date": "2026-10-20T08:16:12+00:00",
-   "views": "1.25K",
+   "views": "1.26K",
    "telegram": "https://t.me/lovegobuy_france/5283",
    "photos": [
     "images/5283/1.jpg",
@@ -2336,7 +2471,7 @@
    "shop": "weidian",
    "productId": "7878771106",
    "date": "2026-10-19T09:38:01+00:00",
-   "views": "1.34K",
+   "views": "1.35K",
    "telegram": "https://t.me/lovegobuy_france/5275",
    "photos": [
     "images/5275/1.jpg",
@@ -2377,7 +2512,7 @@
    "shop": "weidian",
    "productId": "7878782542",
    "date": "2026-10-19T09:37:55+00:00",
-   "views": "1.25K",
+   "views": "1.26K",
    "telegram": "https://t.me/lovegobuy_france/5266",
    "photos": [
     "images/5266/1.jpg",
@@ -2981,7 +3116,7 @@
    "shop": "weidian",
    "productId": "7869362821",
    "date": "2026-10-08T20:13:07+00:00",
-   "views": "1.86K",
+   "views": "1.87K",
    "telegram": "https://t.me/lovegobuy_france/5119",
    "photos": [
     "images/5119/1.jpg",
@@ -3061,7 +3196,7 @@
    "shop": "weidian",
    "productId": "7871891470",
    "date": "2026-10-07T16:29:44+00:00",
-   "views": "1.73K",
+   "views": "1.74K",
    "telegram": "https://t.me/lovegobuy_france/5105",
    "photos": [
     "images/5105/1.jpg",
@@ -3268,7 +3403,7 @@
    "shop": "weidian",
    "productId": "7871072108",
    "date": "2026-10-05T12:05:19+00:00",
-   "views": "1.65K",
+   "views": "1.66K",
    "telegram": "https://t.me/lovegobuy_france/5062",
    "photos": [
     "images/5062/1.jpg",
@@ -3309,7 +3444,7 @@
    "shop": "weidian",
    "productId": "7870977480",
    "date": "2026-10-05T12:05:02+00:00",
-   "views": "1.57K",
+   "views": "1.58K",
    "telegram": "https://t.me/lovegobuy_france/5055",
    "photos": [
     "images/5055/1.jpg",
@@ -3479,7 +3614,7 @@
    "shop": "weidian",
    "productId": "7870044888",
    "date": "2026-10-03T11:06:13+00:00",
-   "views": "1.53K",
+   "views": "1.54K",
    "telegram": "https://t.me/lovegobuy_france/5020",
    "photos": [
     "images/5020/1.jpg",
@@ -3603,7 +3738,7 @@
    "shop": "weidian",
    "productId": "7866687277",
    "date": "2026-10-02T11:07:33+00:00",
-   "views": "1.53K",
+   "views": "1.54K",
    "telegram": "https://t.me/lovegobuy_france/5002",
    "photos": [
     "images/5002/1.jpg",
@@ -3729,7 +3864,7 @@
    "shop": "weidian",
    "productId": "7867787448",
    "date": "2026-10-01T09:46:20+00:00",
-   "views": "1.5K",
+   "views": "1.51K",
    "telegram": "https://t.me/lovegobuy_france/4973",
    "photos": [
     "images/4973/1.jpg",
@@ -4347,7 +4482,7 @@
    "shop": "weidian",
    "productId": "7857275699",
    "date": "2026-09-21T09:27:25+00:00",
-   "views": "1.32K",
+   "views": "1.33K",
    "telegram": "https://t.me/lovegobuy_france/4818",
    "photos": [
     "images/4818/1.jpg",
@@ -5432,7 +5567,7 @@
    "shop": "weidian",
    "productId": "7851904242",
    "date": "2026-09-09T13:16:03+00:00",
-   "views": "1.24K",
+   "views": "1.25K",
    "telegram": "https://t.me/lovegobuy_france/4581",
    "photos": [
     "images/4581/1.jpg",
@@ -5808,7 +5943,7 @@
    "shop": "weidian",
    "productId": "7849519884",
    "date": "2026-09-05T14:04:42+00:00",
-   "views": "1.38K",
+   "views": "1.39K",
    "telegram": "https://t.me/lovegobuy_france/4515",
    "photos": [
     "images/4515/1.jpg",
@@ -6603,7 +6738,7 @@
    "shop": "weidian",
    "productId": "7842891612",
    "date": "2026-08-27T14:43:56+00:00",
-   "views": "1.64K",
+   "views": "1.65K",
    "telegram": "https://t.me/lovegobuy_france/4380",
    "photos": [
     "images/4380/1.jpg",
@@ -6641,7 +6776,7 @@
    "shop": "weidian",
    "productId": "7842814158",
    "date": "2026-08-27T14:43:51+00:00",
-   "views": "1.5K",
+   "views": "1.51K",
    "telegram": "https://t.me/lovegobuy_france/4374",
    "photos": [
     "images/4374/1.jpg",
@@ -6882,7 +7017,7 @@
    "shop": "weidian",
    "productId": "7839392150",
    "date": "2026-08-24T13:03:02+00:00",
-   "views": "1.63K",
+   "views": "1.64K",
    "telegram": "https://t.me/lovegobuy_france/4330",
    "photos": [
     "images/4330/1.jpg",
@@ -8111,7 +8246,7 @@
    "shop": "weidian",
    "productId": "7823086173",
    "date": "2026-08-11T13:58:27+00:00",
-   "views": "1.39K",
+   "views": "1.4K",
    "telegram": "https://t.me/lovegobuy_france/4087",
    "photos": [
     "images/4087/1.jpg",
@@ -8188,7 +8323,7 @@
    "shop": "weidian",
    "productId": "7822042189",
    "date": "2026-08-10T19:20:40+00:00",
-   "views": "1.34K",
+   "views": "1.35K",
    "telegram": "https://t.me/lovegobuy_france/4075",
    "photos": [
     "images/4075/1.jpg",
@@ -8264,7 +8399,7 @@
    "shop": "weidian",
    "productId": "7814614284",
    "date": "2026-08-10T19:20:32+00:00",
-   "views": "1.39K",
+   "views": "1.4K",
    "telegram": "https://t.me/lovegobuy_france/4062",
    "photos": [
     "images/4062/1.jpg",
@@ -9560,7 +9695,7 @@
    "shop": "weidian",
    "productId": "7808582035",
    "date": "2026-07-21T13:43:57+00:00",
-   "views": "1.44K",
+   "views": "1.45K",
    "telegram": "https://t.me/lovegobuy_france/3734",
    "photos": [
     "images/3734/1.jpg",
@@ -9893,7 +10028,7 @@
    "shop": "weidian",
    "productId": "7808683819",
    "date": "2026-07-18T12:43:54+00:00",
-   "views": "1.25K",
+   "views": "1.26K",
    "telegram": "https://t.me/lovegobuy_france/3676",
    "photos": [
     "images/3676/1.jpg",
@@ -10350,7 +10485,7 @@
    "shop": "weidian",
    "productId": "7809445860",
    "date": "2026-07-14T09:56:08+00:00",
-   "views": "1.34K",
+   "views": "1.35K",
    "telegram": "https://t.me/lovegobuy_france/3586",
    "photos": [
     "images/3586/1.jpg",
@@ -11166,7 +11301,7 @@
    "shop": "weidian",
    "productId": "7796666719",
    "date": "2026-07-06T07:57:10+00:00",
-   "views": "1.57K",
+   "views": "1.58K",
    "telegram": "https://t.me/lovegobuy_france/3406",
    "photos": [
     "images/3406/1.jpg",
@@ -11206,7 +11341,7 @@
    "shop": "weidian",
    "productId": "7802617884",
    "date": "2026-07-06T07:57:05+00:00",
-   "views": "1.7K",
+   "views": "1.71K",
    "telegram": "https://t.me/lovegobuy_france/3400",
    "photos": [
     "images/3400/1.jpg",
@@ -11326,7 +11461,7 @@
    "shop": "weidian",
    "productId": "7803170878",
    "date": "2026-07-05T08:03:22+00:00",
-   "views": "1.71K",
+   "views": "1.72K",
    "telegram": "https://t.me/lovegobuy_france/3384",
    "photos": [
     "images/3384/1.jpg",
@@ -11365,7 +11500,7 @@
    "shop": "weidian",
    "productId": "7799542809",
    "date": "2026-07-05T08:03:17+00:00",
-   "views": "1.8K",
+   "views": "1.81K",
    "telegram": "https://t.me/lovegobuy_france/3378",
    "photos": [
     "images/3378/1.jpg",
@@ -11404,7 +11539,7 @@
    "shop": "weidian",
    "productId": "7803455196",
    "date": "2026-07-04T17:25:06+00:00",
-   "views": "2.05K",
+   "views": "2.06K",
    "telegram": "https://t.me/lovegobuy_france/3374",
    "photos": [
     "images/3374/1.jpg",
@@ -11478,7 +11613,7 @@
    "shop": "weidian",
    "productId": "7800432395",
    "date": "2026-07-04T17:25:00+00:00",
-   "views": "2.04K",
+   "views": "2.05K",
    "telegram": "https://t.me/lovegobuy_france/3366",
    "photos": [
     "images/3366/1.jpg",
@@ -11724,7 +11859,7 @@
    "shop": "weidian",
    "productId": "7798296664",
    "date": "2026-06-26T11:43:07+00:00",
-   "views": "3K",
+   "views": "3.01K",
    "telegram": "https://t.me/lovegobuy_france/3264",
    "photos": [
     "images/3264/1.jpg",
