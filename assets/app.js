@@ -455,6 +455,16 @@
     const byId = new Map(arts.map((a) => [a.id, a]));
     const ranking = top.ids.map((id) => byId.get(id)).filter(Boolean).slice(0, 5);
 
+    // Aide pour commander : à côté de la carte sur ordinateur (help-side), sous les articles sur téléphone (help-below)
+    const helpHtml = (cls) => `<div class="help ${cls}">
+            <span class="help-title">Aide pour commander</span>
+            <div class="help-row">
+              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>9 étapes illustrées</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#ecran"><span class="help-ic ic-navy">${icon.phone}</span><b>Le site sur ton écran</b><small>iPhone et Android</small><span class="help-go">${icon.right}</span></a>
+              <a class="help-tile lg" href="#aide"><span class="help-ic ic-terra">${icon.chat}</span><b>Chat bot</b><small>Pose ta question</small><span class="help-go">${icon.right}</span></a>
+            </div>
+          </div>`;
+
     view.innerHTML = `
       <section class="hero">
         <div class="hero-glow" aria-hidden="true"></div>
@@ -472,27 +482,12 @@
               <img src="assets/img/panda-hero.webp?v=2" alt="" fetchpriority="high">
             </div>
           </div>
-          <div class="help">
-            <span class="help-title">Aide pour commander</span>
-            <div class="help-row">
-              <a class="help-tile lg" href="#tuto"><span class="help-ic ic-gold">${icon.play}</span><b>Tuto pour commander</b><small>9 étapes illustrées</small><span class="help-go">${icon.right}</span></a>
-              <a class="help-tile lg" href="#ecran"><span class="help-ic ic-navy">${icon.phone}</span><b>Le site sur ton écran</b><small>iPhone et Android</small><span class="help-go">${icon.right}</span></a>
-              <a class="help-tile lg" href="#aide"><span class="help-ic ic-terra">${icon.chat}</span><b>Chat bot</b><small>Pose ta question</small><span class="help-go">${icon.right}</span></a>
-            </div>
-          </div>
+          ${helpHtml('help-side')}
         </div>
       </section>
 
-      ${catList.length ? `<section class="wrap block reveal">
-        <div class="block-head"><h2>Catégories</h2><a class="more-link" href="#catalogue">Voir tous les articles ${icon.right}</a></div>
-        <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}${c === 'Chaussures' ? ' cat-shoes' : ''}" data-c="${esc(c)}">
-          <span class="cat-pic">${v.pics.map((src, k) => img(src, '', `p${k}`)).join('')}</span>
-          <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
-        </button>`).join('')}</div>
-      </section>` : ''}
-
-      <section class="wrap block duo reveal">
-        <aside class="panel top-col">
+      <section class="wrap block duo home-first${ranking.length ? '' : ' solo'}">
+        ${ranking.length ? `<aside class="panel top-col">
           <div class="block-head"><h2>Top du moment</h2></div>
           <div class="top-panel">
           <p class="top-note">Les articles les plus cliqués sur le site ces ${C.days || 30} derniers jours.</p>
@@ -502,12 +497,9 @@
             <span class="top-b"><span class="top-title">${esc(a.title)}</span><span class="top-meta">${top.counts[a.id].toLocaleString('fr-FR')} clic${top.counts[a.id] > 1 ? 's' : ''}</span></span>
             ${priceOf(a) ? `<span class="top-price">${esc(eur(priceOf(a).eur))}</span>` : ''}
           </a></li>`).join('')}</ol>
-          <a class="more-link solo" href="#catalogue" id="see-top">Voir le classement complet ${icon.right}</a>` : `<div class="top-empty">
-            <span class="top-empty-n">1</span>
-            <p>Le classement se remplit avec les clics sur les articles du site. Il est mis à jour toutes les 15 minutes : les premiers articles cliqués apparaîtront ici.</p>
-          </div>`}
+          <a class="more-link solo" href="#catalogue" id="see-top">Voir le classement complet ${icon.right}</a>` : ''}
           </div>
-        </aside>
+        </aside>` : ''}
         <div class="panel">
           <div class="block-head"><h2>Dernières arrivées</h2><a class="more-link" href="#catalogue">Tout voir ${icon.right}</a></div>
           ${latest.length ? `<div class="arrivals">${latest.map((a) => `<a class="arrival" href="#article-${a.id}">
@@ -519,7 +511,17 @@
             </span>
           </a>`).join('')}</div>` : '<p class="muted">Les articles arrivent à la prochaine lecture du canal.</p>'}
         </div>
-      </section>`;
+      </section>
+
+      <section class="wrap help-wrap">${helpHtml('help-below')}</section>
+
+      ${catList.length ? `<section class="wrap block reveal home-last">
+        <div class="block-head"><h2>Catégories</h2><a class="more-link" href="#catalogue">Voir tous les articles ${icon.right}</a></div>
+        <div class="cats">${catList.map(([c, v], k) => `<button type="button" class="cat-tile ${tileSpan(k, catList.length)}${c === 'Chaussures' ? ' cat-shoes' : ''}" data-c="${esc(c)}">
+          <span class="cat-pic">${v.pics.map((src, k) => img(src, '', `p${k}`)).join('')}</span>
+          <span class="cat-foot"><span class="cat-name">${esc(c)}<small>${v.n} article${v.n > 1 ? 's' : ''}</small></span><span class="cat-go">${icon.right}</span></span>
+        </button>`).join('')}</div>
+      </section>` : ''}`;
 
     reveal();
     view.querySelector('#see-top')?.addEventListener('click', () => { state.sort = 'top'; state.cat = 'Tous'; state.q = ''; state.brand = ''; catScroll = 0; });

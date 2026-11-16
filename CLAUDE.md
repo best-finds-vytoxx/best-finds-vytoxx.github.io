@@ -73,8 +73,14 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   réaffiché dès qu'il revient (rien n'est marqué si le relevé échoue pour la majorité des produits).
   Le prix n'est affiché que si `pid` = lien actuel de l'article. Le site LoveGoBuy bloque les robots : ne pas l'interroger.
 - Site : `index.html` + `assets/app.js` (routage par #, accueil à chaque arrivée) + `assets/style.css` + `assets/config.js`.
-  Accueil : carte « liquid glass » (classe `.lg`) avec le panda détouré `assets/img/panda-hero.webp` sur la lumière floutée
-  de la bannière (`hero-glow.webp`), puis les 3 aides pour commander. Couleurs d’identité : `--sun --terra --linen --navy --lgb`.
+  Accueil (refait le 16/11/2026, décision du board) : carte « liquid glass » (classe `.lg`) avec le panda détouré
+  `assets/img/panda-hero.webp` sur la lumière floutée de la bannière (`hero-glow.webp`), plus petite sur téléphone ; juste
+  dessous le Top du moment et les dernières arrivées (articles et prix dès le premier écran ; Top vide → dernières arrivées
+  seules), puis l'aide pour commander (à côté de la carte sur ordinateur : `help-side` / `help-below`), puis les catégories.
+  Essai en cours, NE RIEN CHANGER D'AUTRE sur l'accueil, le pop-up ou la fiche avant la lecture (à partir du 30/11/2026,
+  14 jours pleins) : avant, du 1er au 16/11, 30 % des visiteurs ouvraient une fiche (`uo` 405 / `v` 1 370) et il y avait
+  environ 8 clics d'inscription par jour (`p` 126 en 16 jours). Réussi si `uo`/`v` ≥ 36 % sans que `p` passe sous 6 par jour
+  en moyenne ; sinon revenir à l'ancien ordre. Regarder jour par jour si une vidéo TikTok (`rtt`) a gonflé les chiffres. Couleurs d’identité : `--sun --terra --linen --navy --lgb`.
   Liquid glass sur tout le site : variables `--gl-*` et bloc « LIQUID GLASS SUR TOUT LE SITE » en fin de style.css ;
   la lumière floutée reste derrière chaque page (`html::before`). Pas d’italique, pas de police de code.
 - Conventions du canal : vêtements photo 1 = face, photo 2 = dos ; chaussures récentes photo 1 = talons, photo 2 = face ;

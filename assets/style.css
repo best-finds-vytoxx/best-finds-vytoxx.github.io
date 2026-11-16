@@ -1357,3 +1357,29 @@ body::before { background: var(--gl-bar); -webkit-backdrop-filter: blur(18px); b
 
 /* photo recadrée au plus près de la chaussure par app.js : affichée entière */
 .cat-shoes .cat-pic img.fit { object-fit: contain; }
+
+/* ===== ACCUEIL : DES ARTICLES ET DES PRIX DÈS LE PREMIER ÉCRAN (16/11/2026) =====
+   Carte panda plus petite sur téléphone, Top du moment et dernières arrivées juste dessous ; l'aide pour commander
+   reste à côté de la carte sur ordinateur (help-side) et passe sous les articles sur téléphone (help-below). */
+.help-below { display: none; }
+.help-wrap { padding-top: 0; padding-bottom: 0; }
+.duo.home-first { padding-top: 14px; padding-bottom: 20px; }
+.duo.solo { grid-template-columns: minmax(0, 1fr); }
+.home-last { padding-bottom: 72px; }
+@media (max-width: 860px) {
+  .help-side { display: none; }
+  .help-below { display: grid; }
+  .help-wrap { padding-top: 6px; padding-bottom: 4px; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 10px 0 0; }
+  .hero-card { padding: 14px 0 0 16px; border-radius: 24px; }
+  .hero-title { font-size: 28px; }
+  .hero-txt { gap: 6px; padding-bottom: 14px; }
+  .hero-lead { font-size: 13px; line-height: 1.35; }
+  .hero-note { display: none; }
+  .hero-warn { margin-top: 2px; padding: 6px 10px; font-size: 12.5px; line-height: 1.3; }
+  .hero-pic { width: 92px; }
+  .hero-pic img { max-height: 168px; margin-top: 0; }
+  .duo.home-first { padding-top: 10px; gap: 22px; }
+}
