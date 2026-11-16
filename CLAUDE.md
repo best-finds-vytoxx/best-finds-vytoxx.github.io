@@ -13,9 +13,11 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   GO ou NO-GO. NO-GO → corriger puis le reconvoquer. Ne jamais annoncer un travail terminé sans son GO ; s'il n'a pas pu
   vérifier un point, le dire à Vytoxx. Inutile pour une simple question sans changement.
 - Board d'agents (skill `board`, `.claude/skills/board/SKILL.md`) : pour une grosse décision, quand Vytoxx écrit `/board`,
-  « réunis le board » ou « fous tous les agents dessus ». Six agents dans `.claude/agents/` (`moneymaker`, `hocs`, `stratege`,
-  `cmo`, `avocat-du-diable`, `cto`) répondent seuls à la même fiche, débattent, puis une direction est rendue. Cher en
-  tokens : pas pour les petites corrections. Aucun travail lancé à la suite sans le oui de Vytoxx.
+  « réunis le board » ou « fous tous les agents dessus ». Onze agents dans `.claude/agents/` (`moneymaker`, `hocs`, `stratege`,
+  `cmo`, `avocat-du-diable`, `cto`, et depuis le 16/11/2026 `analyste`, `visiteur`, `gardien-plateformes`, `testeur`, `directeur-artistique`) répondent seuls à la même fiche, débattent, puis une direction est rendue. Cher en
+  tokens (onze agents, deux tours : plus de vingt appels) : pas pour les petites corrections. L'Analyste se convoque aussi seul
+  (lecture d'un essai). Le Testeur a deux sous-agents hors board, `testeur-ordi` et `testeur-telephone` : après tout
+  changement visible du site, les convoquer ensemble sur le site en ligne, puis donner leurs rapports au Testeur (avant le HOCS). Aucun travail lancé à la suite sans le oui de Vytoxx.
   Carte des agents (page privée, Artifact, style de la vidéo TikTok ; le prénom du rond central se passe en 2e argument, jamais écrit dans le dépôt) : https://claude.ai/artifact/H2K5M3xkFUK1215Lhwt9XD, fabriquée par
   `node .claude/board/carte.mjs <sortie.html> <prénom>` à partir des fiches. Après tout changement d'agent ou du skill : la refaire
   et la republier à la même adresse (outil Artifact, paramètre `url`). Nouvel agent : l'ajouter dans `AGENTS` de carte.mjs.

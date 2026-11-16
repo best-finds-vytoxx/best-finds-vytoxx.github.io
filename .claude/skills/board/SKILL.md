@@ -1,11 +1,11 @@
 ---
 name: board
-description: "Réunit le board d'agents de Vytoxx (Moneymaker, HOCS, Stratège long terme, CMO, Avocat du diable, CTO) pour une grosse décision. Chacun répond seul à la même fiche, puis ils débattent, puis une direction claire est rendue. À utiliser quand Vytoxx écrit /board, « réunis le board », « convoque le board », « fous tous les agents dessus », ou demande l'avis de tous les agents sur une décision importante (nouvelle offre, nouveau produit, nouveau canal, gros changement du site). Pas pour une petite correction."
+description: "Réunit le board d'agents de Vytoxx (Moneymaker, HOCS, Stratège long terme, CMO, Avocat du diable, CTO, Analyste, Visiteur, Gardien des plateformes, Testeur, Directeur artistique) pour une grosse décision. Chacun répond seul à la même fiche, puis ils débattent, puis une direction claire est rendue. À utiliser quand Vytoxx écrit /board, « réunis le board », « convoque le board », « fous tous les agents dessus », ou demande l'avis de tous les agents sur une décision importante (nouvelle offre, nouveau produit, nouveau canal, gros changement du site). Pas pour une petite correction."
 ---
 
 # Le board
 
-Un board coûte cher en tokens (six agents, deux tours au moins). Il sert aux grosses décisions,
+Un board coûte cher en tokens (onze agents, deux tours au moins). Il sert aux grosses décisions,
 pas aux corrections du quotidien. Si le sujet est petit, dis-le à Vytoxx en une phrase et propose de le traiter
 directement ; s'il veut le board malgré tout, réunis-le.
 
@@ -19,6 +19,14 @@ Les membres (fichiers dans `.claude/agents/`) :
 | `cmo` | l'acquisition : faire venir et revenir du monde |
 | `avocat-du-diable` | contredit tout, cherche ce qui va rater |
 | `cto` | la technique (site, code, agents, données) : faisable, combien de temps, ce que ça casse |
+| `analyste` | les chiffres du tracker : ce qu'ils disent vraiment, avant/après, hasard ou non |
+| `visiteur` | le public : un jeune venu de TikTok ou Telegram sur son téléphone, qui veut un prix et un lien |
+| `gardien-plateformes` | les règles de TikTok, Telegram, LoveGoBuy et GitHub : ce qui peut faire couper un compte ou un lien |
+| `testeur` | ce que le site fait vraiment chez le visiteur, sur téléphone et sur ordinateur |
+| `directeur-artistique` | les graphiques et le rendu visuel : identité, photos, images de partage, lisibilité |
+
+Le Testeur a deux sous-agents, `testeur-ordi` et `testeur-telephone`. Ils ne siègent pas au board : on les
+convoque ensemble après un changement visible du site, et le Testeur rassemble leurs deux rapports.
 
 ## Déroulement
 
@@ -39,14 +47,14 @@ N'invente aucun chiffre dans la fiche.
 
 ### 2. Premier tour : chacun de son côté
 
-Lance les six agents en même temps (un seul message, six appels à l'outil Agent, `subagent_type` = le nom de l'agent),
+Lance les onze agents en même temps (un seul message, onze appels à l'outil Agent, `subagent_type` = le nom de l'agent),
 chacun avec la fiche et la phrase « Board, premier tour : réponds seul, selon ta fiche de réponse. »
 Aucun ne voit l'avis des autres : c'est voulu, sinon ils se copient.
 
 ### 3. Deuxième tour : la discussion
 
-Rassemble les six réponses telles quelles, avec le nom de chaque agent, sans les résumer ni les adoucir.
-Relance les six agents en même temps, chacun avec la fiche + les six réponses + la phrase « Board, deuxième tour :
+Rassemble les onze réponses telles quelles, avec le nom de chaque agent, sans les résumer ni les adoucir.
+Relance les onze agents en même temps, chacun avec la fiche + les onze réponses + la phrase « Board, deuxième tour :
 voici les fiches des autres. Dis ce que tu maintiens, ce que tu changes, et quelle objection est la plus solide. »
 
 S'il reste un vrai blocage entre deux agents sur le point qui décide de tout, fais un troisième tour avec ces deux-là

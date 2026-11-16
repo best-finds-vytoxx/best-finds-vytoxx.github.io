@@ -14,11 +14,21 @@ const MOI = process.argv[3] || 'Vytoxx'; // prénom du rond central : en argumen
 // Agents : angle en degrés autour du rond central (0 = à droite, 90 = en bas).
 const AGENTS = [
   { id: 'cmo', nom: 'CMO', deg: -90 },
-  { id: 'avocat-du-diable', nom: 'Avocat du diable', deg: -32 },
-  { id: 'cto', nom: 'CTO', deg: 22 },
-  { id: 'hocs', nom: 'HOCS', deg: 78 },
-  { id: 'stratege', nom: 'Strategic foresight', deg: 134 },
-  { id: 'moneymaker', nom: 'Moneymaker', deg: 190 },
+  { id: 'avocat-du-diable', nom: 'Avocat du diable', deg: -57 },
+  { id: 'cto', nom: 'CTO', deg: -24 },
+  { id: 'gardien-plateformes', nom: 'Gardien des plateformes', deg: 8 },
+  { id: 'directeur-artistique', nom: 'Directeur artistique', deg: 41 },
+  { id: 'testeur', nom: 'Testeur', deg: 74 },
+  { id: 'hocs', nom: 'HOCS', deg: 106 },
+  { id: 'visiteur', nom: 'Visiteur', deg: 139 },
+  { id: 'analyste', nom: 'Analyste', deg: 172 },
+  { id: 'stratege', nom: 'Strategic foresight', deg: 204 },
+  { id: 'moneymaker', nom: 'Moneymaker', deg: 237 },
+];
+// Sous-agents (hors board), rattachés à leur chef.
+const SOUS = [
+  { id: 'testeur-telephone', nom: 'Téléphone', chef: 'testeur' },
+  { id: 'testeur-ordi', nom: 'Ordi', chef: 'testeur' },
 ];
 // Routines du robot du site (toutes les 15 minutes), rattachées au CTO.
 const ROUTINES = [
@@ -98,7 +108,7 @@ for (const a of AGENTS) {
       ['Outils', f.meta.tools],
       ['Skills', 'aucune préchargée'],
     ],
-    avec: [...ids.filter((b) => b !== a.id), 'board', ...(a.id === 'cto' ? ROUTINES.map((r) => r.id) : []), ...(a.id === 'hocs' ? ['livraison'] : [])],
+    avec: [...ids.filter((b) => b !== a.id), 'board', ...(a.id === 'cto' ? ROUTINES.map((r) => r.id) : []), ...(a.id === 'hocs' ? ['livraison'] : []), ...SOUS.filter((x) => x.chef === a.id).map((x) => x.id)],
     fichier: `.claude/agents/${a.id}.md`,
     html: rendre(f.corps),
   };
@@ -106,7 +116,16 @@ for (const a of AGENTS) {
 // Journal des passages (`.claude/board/journal.json`, une ligne ajoutée après chaque convocation d'un agent).
 let journal = [];
 try { journal = JSON.parse(readFileSync(join(root, 'board/journal.json'), 'utf8')); } catch { journal = []; }
-for (const a of AGENTS) data[a.id].passages = journal.filter((j) => j.agent === a.id).slice(-8).reverse();
+for (const x of SOUS) {
+  const f = lire(`agents/${x.id}.md`);
+  data[x.id] = {
+    type: 'Sous-agent', nom: 'Testeur ' + x.nom.toLowerCase(), resume: f.meta.description,
+    rows: [['Place', 'Sous-agent du Testeur, hors board'], ['Outils', f.meta.tools]],
+    avec: [x.chef, ...SOUS.filter((y) => y.chef === x.chef && y.id !== x.id).map((y) => y.id)],
+    fichier: `.claude/agents/${x.id}.md`, html: rendre(f.corps),
+  };
+}
+for (const a of [...AGENTS, ...SOUS]) data[a.id].passages = journal.filter((j) => j.agent === a.id).slice(-8).reverse();
 const skill = lire('skills/board/SKILL.md');
 data.board = {
   type: 'Skill', nom: 'Board', resume: skill.meta.description,
@@ -115,7 +134,7 @@ data.board = {
 };
 data.moi = {
   type: 'Toi', nom: MOI,
-  resume: 'Tu poses la question et tu décides. Pour une grosse décision, écris /board suivi de ta question : les six agents répondent chacun de leur côté à la même fiche, lisent les avis des autres, débattent, puis Claude te rend une direction. Aucun travail ne démarre sans ton oui.',
+  resume: 'Tu poses la question et tu décides. Pour une grosse décision, écris /board suivi de ta question : les onze agents du board répondent chacun de leur côté à la même fiche, lisent les avis des autres, débattent, puis Claude te rend une direction. Aucun travail ne démarre sans ton oui.',
   rows: [['Place', 'Au centre : tout part de toi et te revient']],
   avec: [...ids, 'board'], fichier: '', html: '',
 };
@@ -134,27 +153,36 @@ for (const r of ROUTINES) {
 }
 
 // ----- Le dessin -----
-const cx = 450, cy = 400, RA = 168;
+const cx = 450, cy = 400, RA = 205;
 const pol = (deg, r, ox = cx, oy = cy) => [Math.round(ox + r * Math.cos(deg * Math.PI / 180)), Math.round(oy + r * Math.sin(deg * Math.PI / 180))];
 const pos = { moi: [cx, cy] };
 for (const a of AGENTS) pos[a.id] = pol(a.deg, RA);
-pos.board = pol(-127, 250);
-pos.livraison = pol(104, 300);
+pos.board = pol(-122, 300);
+pos.livraison = pol(116, 335);
 const fan = {};
-ROUTINES.forEach((r, n) => { fan[r.id] = 35 + n * 12; pos[r.id] = pol(fan[r.id], 165, ...pos.cto); });
+SOUS.forEach((x, n) => { const d = AGENTS.find((a) => a.id === x.chef).deg; fan[x.id] = d - 16 + n * 32; pos[x.id] = pol(fan[x.id], 112, ...pos[x.chef]); });
+ROUTINES.forEach((r, n) => { fan[r.id] = -40 + n * 12; pos[r.id] = pol(fan[r.id], 185, ...pos.cto); });
 
 const edge = (a, b, cls) => `<line class="e ${cls}" data-a="${a}" data-b="${b}" x1="${pos[a][0]}" y1="${pos[a][1]}" x2="${pos[b][0]}" y2="${pos[b][1]}"/>`;
 let svg = '';
 for (const a of AGENTS) svg += edge('board', a.id, 'dash');
 for (const r of ROUTINES) svg += edge('cto', r.id, 'thin');
+for (const x of SOUS) svg += edge(x.chef, x.id, 'ray');
 svg += edge('hocs', 'livraison', 'dash');
 for (const a of AGENTS) svg += edge('moi', a.id, 'ray');
 
 const g = (id, nom, inner) => `<g class="n" data-id="${id}" tabindex="0" role="button" aria-label="${esc(nom)}">${inner}</g>`;
-const sous = (x, y, nom) => {
+// Nom de l'agent : vers l'extérieur du cercle (à droite pour les agents de droite, à gauche pour ceux de gauche,
+// au-dessus ou au-dessous sinon), pour que dix noms ne se chevauchent pas. Le CTO garde son nom dessous (routines à droite).
+const sous = (x, y, nom, deg = 90, id = '') => {
   const mots = nom.split(' ');
   const lignes = mots.length > 1 && nom.length > 11 ? [mots.slice(0, Math.ceil(mots.length / 2)).join(' '), mots.slice(Math.ceil(mots.length / 2)).join(' ')] : [nom];
-  return `<text class="lab" x="${x}" y="${y + 30}">` + lignes.map((t) => `<tspan x="${x}" dy="1.15em">${esc(t)}</tspan>`).join('') + '</text>';
+  const c = Math.cos(deg * Math.PI / 180), sn = Math.sin(deg * Math.PI / 180);
+  let ax = x, anchor = 'middle', y0 = y + 30;
+  if (id !== 'cto' && c > 0.25) { ax = x + 33; anchor = 'start'; y0 = y - 6 - (lignes.length - 1) * 8; }
+  else if (id !== 'cto' && c < -0.25) { ax = x - 33; anchor = 'end'; y0 = y - 6 - (lignes.length - 1) * 8; }
+  else if (sn < 0 && id !== 'cto') { y0 = y - 42 - lignes.length * 19; }
+  return `<text class="lab" x="${ax}" y="${y0}" style="text-anchor:${anchor}">` + lignes.map((t) => `<tspan x="${ax}" dy="1.15em">${esc(t)}</tspan>`).join('') + '</text>';
 };
 for (const r of ROUTINES) {
   const [x, y] = pos[r.id];
@@ -169,9 +197,13 @@ for (const r of ROUTINES) {
   const [x, y] = pos.board;
   svg += g('board', 'Board', `<circle class="c ghost" cx="${x}" cy="${y}" r="34"/><text class="gh" x="${x}" y="${y + 5}">Board</text>`);
 }
+for (const x of SOUS) {
+  const [px, py] = pos[x.id];
+  svg += g(x.id, 'Testeur ' + x.nom, `<circle class="hit" cx="${px}" cy="${py}" r="19"/><circle class="c sub" cx="${px}" cy="${py}" r="17"/><text class="let sub" x="${px}" y="${py + 5}">A</text>${sous(px, py - 2, x.nom, fan[x.id], x.id).replace('class="lab"', 'class="lab subl"')}`);
+}
 for (const a of AGENTS) {
   const [x, y] = pos[a.id];
-  svg += g(a.id, a.nom, `<circle class="c" cx="${x}" cy="${y}" r="25"/><text class="let" x="${x}" y="${y + 6}">A</text>${sous(x, y, a.nom)}`);
+  svg += g(a.id, a.nom, `<circle class="c" cx="${x}" cy="${y}" r="25"/><text class="let" x="${x}" y="${y + 6}">A</text>${sous(x, y, a.nom, a.deg, a.id)}`);
 }
 svg += g('moi', MOI, `<circle class="c hub" cx="${cx}" cy="${cy}" r="62"/><text class="hubt" x="${cx}" y="${cy + 8}">${esc(MOI.toUpperCase())}</text>`);
 
@@ -193,7 +225,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--f); font-siz
 .cols { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; align-items: start; }
 .map { min-width: 0; position: relative; display: flex; flex-direction: column; gap: 8px; }
 .stage { position: relative; height: min(76vh, 720px); min-height: 380px; }
-@media (max-width: 860px) { .cols { grid-template-columns: minmax(0, 1fr); } .stage { height: auto; min-height: 0; aspect-ratio: 748 / 760; } }
+@media (max-width: 860px) { .cols { grid-template-columns: minmax(0, 1fr); } .stage { height: auto; min-height: 0; display: flex; flex-direction: column; } .stage svg { height: auto; aspect-ratio: var(--ratio, 1); } .tools { position: static; order: -1; align-self: flex-end; margin-bottom: 6px; } }
 svg { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
 svg.drag { cursor: grabbing; }
 svg text { font-family: var(--f); text-anchor: middle; fill: var(--ink); pointer-events: none; }
@@ -205,6 +237,9 @@ svg text { font-family: var(--f); text-anchor: middle; fill: var(--ink); pointer
 .n { cursor: pointer; outline: none; }
 .c { fill: var(--bg); stroke: var(--red); stroke-width: 2; }
 .c.small { stroke: var(--line); stroke-width: 1.5; }
+.c.sub { stroke: var(--red); stroke-width: 1.5; }
+.let.sub { font-size: 13px; }
+.lab.subl { font-size: 12.5px; font-weight: 600; }
 .c.ghost { stroke: var(--line); stroke-width: 1.5; }
 .c.hub { fill: var(--red); stroke: var(--red); }
 .let { font-weight: 700; font-size: 17px; }
@@ -258,7 +293,7 @@ table { border-collapse: collapse; font-size: 13px; }
 th, td { text-align: left; padding: 5px 12px 5px 0; border-bottom: 1px solid var(--faint); vertical-align: top; }
 th { color: var(--soft); font-weight: 600; }
 /* Téléphone : textes de la carte plus gros (au moins 11 px réels à 390 px de large). À garder en dernier. */
-@media (max-width: 860px) { svg .lab { font-size: 24px; } svg .lab.light { font-size: 23px; } svg .rot { font-size: 23px; } svg .gh { font-size: 20px; } svg .let { font-size: 21px; } svg .let.small { font-size: 18px; } svg .hubt { font-size: 26px; } }
+@media (max-width: 860px) { svg .lab { font-size: 31px; } svg .lab.light { font-size: 29px; } svg .rot { font-size: 29px; } svg .gh { font-size: 26px; } svg .let { font-size: 25px; } svg .let.small { font-size: 23px; } svg .let.sub { font-size: 22px; } svg .lab.subl { font-size: 26px; } svg .hubt { font-size: 32px; } .stage { display: flex; flex-direction: column; } .stage svg { height: auto; aspect-ratio: var(--ratio, 1); } .tools { position: static; order: -1; align-self: flex-end; margin-bottom: 6px; } }
 </style>
 <div class="wrap">
   <div class="cols">
@@ -268,7 +303,7 @@ th { color: var(--soft); font-weight: 600; }
         <div class="tools"><button type="button" id="zin" aria-label="Zoomer">+</button><button type="button" id="zout" aria-label="Dézoomer">−</button><button type="button" id="zre">Recentrer</button></div>
       </div>
       <ul class="legend">
-        <li><b class="a">A</b>agent</li><li><b>R</b>routine du robot</li>
+        <li><b class="a">A</b>agent (petit rond : sous-agent)</li><li><b>R</b>routine du robot</li>
         <li><i></i>il travaille pour</li><li class="d"><i></i>il est convoqué par</li>
       </ul>
     </div>
@@ -295,11 +330,32 @@ function show(id) {
     + (d.html ? '<p class="sec">Le fichier, rendu lisible</p><div class="file">' + d.html + '</div>' : '');
 }
 // Déplacement et zoom de la carte.
-const FULL = { x: 208, y: 148, w: 712, h: 722 }, PHONE = { x: 200, y: 148, w: 748, h: 760 };
+// Cadre de départ : tout le dessin, mesuré à l'ouverture et une fois les polices chargées (il suit le nombre d'agents)
+const measure = () => {
+  // 1) le dessin tel que SVG le voit ; 2) chaque texte et rond tel qu'il est vraiment affiché (textes inclinés compris)
+  const b = svg.getBBox(); let x0 = b.x, y0 = b.y, x1 = b.x + b.width, y1 = b.y + b.height;
+  svg.setAttribute('viewBox', [x0, y0, b.width, b.height].join(' '));
+  const m = svg.getScreenCTM();
+  if (m) {
+    const inv = m.inverse(), pt = svg.createSVGPoint();
+    svg.querySelectorAll('text, circle').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      for (const [cx, cy] of [[r.left, r.top], [r.right, r.bottom]]) {
+        pt.x = cx; pt.y = cy; const q = pt.matrixTransform(inv);
+        x0 = Math.min(x0, q.x); y0 = Math.min(y0, q.y); x1 = Math.max(x1, q.x); y1 = Math.max(y1, q.y);
+      }
+    });
+  }
+  const k = { x: x0 - 16, y: y0 - 16, w: x1 - x0 + 32, h: y1 - y0 + 32 };
+  svg.parentElement.style.setProperty('--ratio', k.w / k.h);
+  return k;
+};
 const petit = window.matchMedia('(max-width: 860px)');
 let v;
 const apply = () => svg.setAttribute('viewBox', [v.x, v.y, v.w, v.h].join(' '));
-const reset = () => { v = { ...(petit.matches ? PHONE : FULL) }; apply(); };
+const reset = () => { v = measure(); apply(); };
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => reset());
+if (petit.addEventListener) petit.addEventListener('change', () => reset());
 const scale = () => Math.max(v.w / svg.clientWidth, v.h / svg.clientHeight);
 function zoom(f, px, py) {
   const w = Math.min(1500, Math.max(220, v.w * f)); f = w / v.w;
