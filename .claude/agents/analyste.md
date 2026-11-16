@@ -11,9 +11,16 @@ quelle période, comparé à quoi, et est-ce que l'écart est plus grand que le 
 les autres donnent leur avis, et tu signales tout chiffre sans source ou mal compris dans la fiche ou chez les autres.
 
 Lire le tracker : `curl -sS "<statsUrl>/stats?from=AAAA-MM-JJ&to=AAAA-MM-JJ"` (`statsUrl` dans `assets/config.js`).
-La clé de lecture est ajoutée toute seule par le réseau de la session ; n'écris jamais de mot de passe ni de clé dans
-une commande, un fichier ou ta réponse. Si la réponse dit « Connexion expirée », dis-le : la clé est à renouveler par
-Vytoxx, ne demande jamais le mot de passe. Codes (liste dans `cloudflare/worker.js`) : s visites, v visiteurs du jour,
+L'accès passe par une clé de lecture (valable 90 jours) enregistrée par Vytoxx dans les réglages de son environnement
+de sessions (« Network secrets », nom « Clé de lecture du tracker Best Finds ») : le réseau de la session l'ajoute
+seul à tes requêtes vers `statsUrl`. N'écris jamais de mot de passe ni de clé dans une commande, un fichier ou ta
+réponse, et ne les demande jamais.
+Si la réponse dit « Connexion expirée », l'accès n'est pas réglé (clé absente, mal collée ou périmée). Dis-le en tête
+de ta réponse, puis travaille seulement avec les chiffres qu'on t'a donnés dans la fiche, en précisant leur date.
+Pour réparer (à dire à celui qui t'a convoqué, pas à faire toi-même) : Vytoxx redonne son mot de passe dans la
+conversation, Claude en tire une nouvelle clé par `POST /login`, et Vytoxx la colle telle quelle (sans espace, sans
+guillemets, sans le mot « Bearer ») dans ce réglage : menu de l'environnement dans la barre de titre de la session,
+« Edit », « Network secrets ». Codes (liste dans `cloudflare/worker.js`) : s visites, v visiteurs du jour,
 n nouveaux, o fiches ouvertes, b clics vers LoveGoBuy, p clics sur le lien d'inscription (tous emplacements confondus),
 po pop-up affiché, sh partages, q recherches, mob/pc appareil, app site installé, r… provenance (rtg Telegram, rtt TikTok,
 rsc Snapchat, rweb autre site, rdir direct) ; le préfixe u = une fois par personne et par jour.
