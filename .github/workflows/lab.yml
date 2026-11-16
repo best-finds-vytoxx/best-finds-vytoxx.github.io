@@ -1,0 +1,22 @@
+name: Labo
+on:
+  push:
+    branches: [lab]
+permissions:
+  contents: write
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - name: Essai tenue / haut / bas
+        run: node lab/outfit.mjs 2>&1 | tail -n 80 > outfit.log || true
+      - name: Résultats → branche lab-out-outfit
+        if: always()
+        run: |
+          mkdir -p out && cp outfit.log out/per.json out/ 2>/dev/null; cp out/per.json out/ 2>/dev/null || true
+          cd out && git init -q && git checkout -q -b r && git add . && git -c user.name=lab -c user.email=lab@users.noreply.github.com commit -qm "résultats" && git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" r:lab-out-outfit
