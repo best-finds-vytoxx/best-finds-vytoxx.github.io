@@ -1,0 +1,37 @@
+passage: 221 (schedule)
+résultat: success
+date: 2026-11-17T18:40:58Z
+commit: e117d4aaea6d991c41fe248de96877df8325bfcb
+
+291 articles lus sur 85 page(s) ; 290 déjà sur le site
+Choix des couvertures pour 1 article(s) (groupe 1/1)…
+Détourage, essai 1 : 1 article(s)…
+Loading weights:   0%|          | 0/978 [00:00<?, ?it/s]Loading weights:  70%|███████   | 687/978 [00:00<00:00, 6860.83it/s]Loading weights: 100%|██████████| 978/978 [00:00<00:00, 6829.20it/s]
++ 5798 Enceinte JBL Go5 (8 photos, détourée depuis la photo 6)
+Site mis à jour : 291 articles.
+Prix : 60 produit(s) vérifié(s) sur Weidian, 60 lu(s), 1 nouveau(x) ; taux 0.1467 € pour 1 CNY
+Contrôle qualité : 276 articles, 0 point(s) que le robot corrige seul, 2 à voir
+  ! 5746 Bague Hermès Kelly Ring : détourage impossible, photo d’origine affichée
+  ! 4842 Bracelet Vintage Alhambra 5 motifs TOP : détourage impossible, photo d’origine affichée
+From https://github.com/best-finds-vytoxx/best-finds-vytoxx.github.io
+ * [new branch]      claude/determined-gates-2rjh7l -> origin/claude/determined-gates-2rjh7l
+ * [new branch]      lab            -> origin/lab
+ * [new branch]      lab-out        -> origin/lab-out
+ * [new branch]      lab-out-0      -> origin/lab-out-0
+ * [new branch]      lab-out-1      -> origin/lab-out-1
+ * [new branch]      lab-out-2      -> origin/lab-out-2
+ * [new branch]      lab-out-3      -> origin/lab-out-3
+ * [new branch]      lab-out-4      -> origin/lab-out-4
+ * [new branch]      lab-out-5      -> origin/lab-out-5
+ * [new branch]      lab-out-6      -> origin/lab-out-6
+ * [new branch]      lab-out-7      -> origin/lab-out-7
+ * [new branch]      lab-out-8      -> origin/lab-out-8
+ * [new branch]      lab-out-9      -> origin/lab-out-9
+ * [new branch]      lab-out-outfit -> origin/lab-out-outfit
+ * [new branch]      refonte        -> origin/refonte
+ * [new branch]      robot-status   -> origin/robot-status
+ * [new branch]      stats          -> origin/stats
+ * [new branch]      test-push      -> origin/test-push
+Current branch main is up to date.
+To https://github.com/best-finds-vytoxx/best-finds-vytoxx.github.io
+   e117d4a..4c41007  main -> main
