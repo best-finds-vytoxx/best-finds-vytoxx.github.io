@@ -36,7 +36,12 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
 
 ## Fonctionnement
 
-- `.github/workflows/update.yml` : toutes les 15 min → tests → `scripts/scrape.mjs` → `scripts/prices.mjs` → `scripts/clicks.mjs` → commit → déploiement Pages.
+- `.github/workflows/update.yml` : réglé toutes les 15 min, mais GitHub ne le lance en réalité que toutes les 5 à 9 h
+  environ (constaté en novembre 2026) → tests → `scripts/scrape.mjs` → `scripts/prices.mjs` → `scripts/clicks.mjs` → commit → déploiement Pages.
+  `.npmrc` : `onnxruntime-node-install-cuda=skip` obligatoire (sinon `npm ci` tente de télécharger la version CUDA
+  d'ONNX Runtime 1.19.2, introuvable depuis le 17/11/2026 : le robot a été en panne 5 jours). Le compte rendu de chaque
+  passage (branche `robot-status`, `status.txt`) est écrit même si le passage s'arrête tôt : le lire en premier si le site
+  ne se met plus à jour.
   Posts supprimés du canal, retirés du site avec leurs photos sans intervention : à chaque passage pour les posts récents
   (article connu entre le plus petit et le plus grand numéro lus, absent des pages ; rien si plus de la moitié manque),
   et toutes les 2 h (`SWEEP_HOURS`, date `sweptAt`) par une relecture complète du canal (seulement si elle est complète

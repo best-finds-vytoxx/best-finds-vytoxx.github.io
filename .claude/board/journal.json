@@ -26,5 +26,6 @@
   {"date": "2026-11-16", "agent": "avocat-du-diable", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
   {"date": "2026-11-16", "agent": "cto", "objet": "Board n° 3 : quels agents ajouter (deux tours)", "verdict": "", "minutes": 1},
   {"date": "2026-11-16", "agent": "hocs", "objet": "Nouveaux agents du board (onze membres, testeurs, directeur artistique)", "verdict": "NO-GO", "minutes": 3},
-  {"date": "2026-11-16", "agent": "hocs", "objet": "Recontrôle des fiches Analyste et Visiteur", "verdict": "GO"}
+  {"date": "2026-11-16", "agent": "hocs", "objet": "Recontrôle des fiches Analyste et Visiteur", "verdict": "GO"},
+  {"date": "2026-11-22", "agent": "hocs", "objet": "Réparation du robot (installation et compte rendu)", "verdict": "GO", "minutes": 2}
 ]
