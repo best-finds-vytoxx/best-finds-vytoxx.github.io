@@ -94,7 +94,7 @@ jobs:
         if: always()
         run: |
           mkdir -p /tmp/status && cd /tmp/status && git init -q && git checkout -q -b robot-status
-          { echo "passage: ${{ github.run_number }} (${{ github.event_name }})"; echo "résultat: ${{ job.status }}"; echo "date: $(date -u +%FT%TZ)"; echo "commit: ${{ github.sha }}"; echo; tail -n 300 "$GITHUB_WORKSPACE/scrape.log" 2>/dev/null; } > status.txt
+          { echo "passage: ${{ github.run_number }} (${{ github.event_name }})"; echo "résultat: ${{ job.status }}"; echo "date: $(date -u +%FT%TZ)"; echo "commit: ${{ github.sha }}"; echo; tail -n 300 "$GITHUB_WORKSPACE/scrape.log" 2>/dev/null || echo "(pas de journal : le passage s'est arrêté avant la lecture du canal)"; } > status.txt
           git add status.txt && git -c user.name=finds-bot -c user.email=finds-bot@users.noreply.github.com commit -qm "compte rendu ${{ github.run_number }}"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" robot-status || true
 
