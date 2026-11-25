@@ -39,7 +39,7 @@ async function tryCut(job, n) {
     // chaussures et accessoires : boîte, carton et étiquettes posés à côté sont retirés (sauf si la boîte est le produit)
     // seconde méthode de détourage (vêtements blancs ou gris sur la table) : réservée aux vêtements,
     // elle ne sait pas séparer un petit objet de sa boîte
-    let buf = await readFile(input.path);
+    let buf = await readFile(input.path), plain = null;
     // recadrage choisi à la main (data/overrides.json, « crop » : [gauche, haut, droite, bas] en fractions de la photo),
     // appliqué à la photo imposée : isole le produit quand il est entouré de sa boîte et de ses papiers
     if (job.crop && n === job.forced) {
@@ -57,13 +57,22 @@ async function tryCut(job, n) {
         src = sharp(await sharp(full).composite(rects).png().toBuffer());
       }
       buf = await src.extract({ left: Math.round(x0 * W), top: Math.round(y0 * H), width: Math.round((x1 - x0) * W), height: Math.round((y1 - y0) * H) }).png().toBuffer();
+      plain = buf; // le recadrage seul, sans bord ajouté
       // bord de fond ajouté autour du recadrage : un produit qui touche le bord de la photo n'est pas coupé au détourage
       const { data: px } = await sharp(buf).extract({ left: 0, top: 0, width: 4, height: 4 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
       const pad = Math.round(Math.max(W, H) * 0.05);
       buf = await sharp(buf).extend({ top: pad, bottom: pad, left: pad, right: pad, background: { r: px[0], g: px[1], b: px[2] } }).png().toBuffer();
     }
     const manual = !!(job.crop && n === job.forced);
-    const out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear', prompt: manual ? '__full__' : job.prompt || null });
+    let out = await cutout(buf, { dropPackaging: job.kind !== 'wear' && !job.box, rescue: job.kind === 'wear', prompt: manual ? '__full__' : job.prompt || null });
+    // recadrage à la main qui ne laisse voir que le produit (un foulard à plat qui remplit le cadre) : il n'y a plus de fond
+    // à retirer, le détourage échoue ; le recadrage lui-même sert alors de couverture, centré sur la toile
+    if (!out && manual && plain) {
+      const fitted = await sharp(plain).resize({ width: Math.round(900 * 0.86), height: Math.round(1200 * 0.86), fit: 'inside', kernel: 'lanczos3' }).png().toBuffer();
+      out = await sharp({ create: { width: 900, height: 1200, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+        .composite([{ input: fitted, gravity: 'center' }]).webp({ quality: 92, alphaQuality: 100, smartSubsample: true, effort: 5 }).toBuffer();
+      console.log(`  ${job.id} : photo ${n} recadrée à la main, utilisée telle quelle (rien à détourer)`);
+    }
     if (!out) { console.log(`  ${job.id} : détourage de la photo ${n} jugé raté`); return null; }
     const sh = await shape(out);
     if (process.env.DEBUG_CUT) console.log(`  ${job.id} photo ${n} : largeur/hauteur ${sh.ratio.toFixed(2)}, remplissage ${sh.fill.toFixed(2)}`);

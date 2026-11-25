@@ -64,6 +64,8 @@ c'est Claude qui enregistre et pousse chaque changement, puis vérifie le site e
   `watermark.mjs` repère la vignette panda « VYTOXX ». Chaque couverture a une miniature `cover-sm.webp` (480 px).
 - Revue visuelle des couvertures : planche de toutes les `cover.webp`, puis `cover` dans `data/overrides.json`
   pour les mauvaises vues (talons, emballage, détail).
+- Recadrage à la main (`cover` + `crop`) qui ne laisse voir que le produit (foulard à plat) : le détourage n'a plus de fond
+  à retirer et échoue ; `cutout-worker.mjs` prend alors le recadrage tel quel comme couverture (carte Vytoxx et règle exclues par le cadre).
 - Catégorie « Accessoires » affichée « Autres » sur le site (MERGE dans app.js). Crampons = Chaussures.
 - `data/overrides.json` : `{ "id": { "cover": n°photo, "category": "Bas", "kind": "wear|shoe|acc", "crop": [g,h,d,b], "hide": true } }`
   (`hide` retire l’article du site : lien mort, article plus disponible).
