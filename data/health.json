@@ -1,12 +1,20 @@
 {
- "checkedAt": "2026-11-23T11:23:55.291Z",
+ "checkedAt": "2026-11-27T22:54:50.284Z",
  "ok": false,
  "counts": {
-  "articles": 286,
+  "articles": 288,
   "auto": 0,
-  "voir": 2
+  "voir": 3
  },
  "issues": [
+  {
+   "id": 5825,
+   "title": "Foulard Kujten Bandana Paisley cachemire",
+   "type": "prix",
+   "text": "prix pas encore relevé",
+   "level": "voir",
+   "since": "2026-11-27T22:54:50.267Z"
+  },
   {
    "id": 5746,
    "title": "Bague Hermès Kelly Ring",
